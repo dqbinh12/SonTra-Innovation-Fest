@@ -140,40 +140,84 @@ client, not a default. The tokens are ready if they want it.
 
 ## Hero media
 
-`Home Page → heroMedia` accepts an image or a video and renders as a full-bleed
-background behind the hero text, per the Content Structure tab.
+Two CMS fields on **Home Page**, both non-localized:
 
-The scrim over it is **load-bearing, not decoration**. Hero copy is
-`muted-foreground` (#526785), which needs a light ground to clear WCAG AA —
-unprotected it measured 1.99:1 over the artwork's darker regions. The gradient
-runs top-to-bottom below `xl` and left-to-right above it, because a horizontal
-fade only works once the text occupies the left third of the viewport; at tablet
-widths the text spans most of the width and a horizontal scrim cannot cover it.
+| Field | Used | Notes |
+| ----- | ---- | ----- |
+| `heroMedia` | 640px and up | The wide / desktop artwork |
+| `heroMediaMobile` | below 640px | Portrait crop for phones. Optional — falls back to `heroMedia` |
 
-With the current artwork, measured worst-case contrast per breakpoint:
+Both accept an image or a video, per the Content Structure tab
+("Hero banner … background image/video").
 
-| Width | Headline | Subtitle | Date line |
-| ----- | -------- | -------- | --------- |
-| 360px | 15.89 | 5.47 | 5.27 |
-| 640px | 15.77 | 4.77 | 5.22 |
-| 768px | 15.77 | 4.77 | 5.22 |
-| 1024px | 15.37 | 4.77 | 5.32 |
-| 1280px | 15.64 | 5.08 | 5.61 |
-| 1440px | 15.62 | 5.09 | 5.61 |
-| 1920px | 15.52 | 5.11 | 5.57 |
+Images are art-directed through a single `<picture>` with two `<source>`
+elements, built from `getImageProps()`. The browser downloads **only** the
+source it picks — verified: at 375px only the phone file is fetched, at 1440px
+only the wide one. Rendering two `<Image>` components and hiding one with CSS
+would make phones pay for the desktop artwork.
 
-**A replacement hero image must be re-measured.** A darker photo will fail the
-subtitle, and the failure is invisible in a screenshot review — it looks
-"a bit low contrast" rather than broken. Either raise the scrim opacity in
+Video cannot participate in `<picture>`, so if either field holds a video both
+layers render and one is hidden by breakpoint. That is the one case where a
+browser may touch both sources.
+
+### Crop
+
+| Viewport | object-position |
+| -------- | --------------- |
+| < 640px, with a mobile asset | `center` |
+| < 640px, falling back to the wide asset | `left` |
+| 640–1279px | `left` |
+| 1280px and up | `right` |
+
+The fallback uses `left` deliberately: on the supplied artwork that lands the
+text over pale sky rather than tree shadow, needing a 0.66 scrim instead of
+0.88 — the difference between a visible photo and a white smear. It also means
+the phone fallback is nearly all pale sky, which is the argument for supplying
+a real portrait crop.
+
+### The scrim is load-bearing
+
+Hero copy is `muted-foreground` (#526785). Unprotected it measured **1.99:1**
+over the artwork's darker regions, well under WCAG AA.
+
+- Below `xl`: vertical, white at 0% → 93% at 65% → 70% at the bottom.
+- `xl` and up: horizontal, white at 0% → 92% at 50% → transparent.
+
+A horizontal fade only works once the text occupies the left third. At 768px
+the text spans most of the viewport, and the horizontal gradient measured
+1.99:1 there — which is why the switch is at `xl`, not `sm`.
+
+Measured worst-case contrast, fresh load at each width:
+
+| Width | Asset | Headline | Subtitle | Date |
+| ----- | ----- | -------- | -------- | ---- |
+| 360px | portrait | 15.83 | 5.31 | 5.05 |
+| 360px | wide (fallback) | 16.05 | 5.64 | 5.57 |
+| 430px | portrait | 15.74 | 5.17 | 5.05 |
+| 640px | wide | 15.99 | 5.32 | 5.54 |
+| 1280px | wide | 15.63 | 5.12 | 5.60 |
+| 1920px | wide | 15.51 | 5.15 | 5.56 |
+
+**Re-measure after changing either asset.** A darker photo fails silently — it
+looks slightly low-contrast in review rather than broken. The method: draw the
+image into a canvas with the element's real `object-position`, composite the
+gradient alpha, and sample only the glyph boxes from
+`Range.getClientRects()` — measuring the `<p>` bounding box overstates the
+problem, because those blocks span the full container even where there is no
+text.
+
+If a new asset fails, raise the scrim stops in
 `apps/web/src/components/hero-media.tsx` or darken the hero text.
 
-Two notes on the asset itself:
+### Asset notes
 
-- It is a 630KB PNG of a photograph. next/image re-encodes on serve, so
-  visitors are fine, but JPEG or WebP would be a fraction of the size in the
-  media library. Worth asking for on future uploads.
-- Its own left third fades to near-white, which is why the text sits left. If a
-  future image lacks that fade, the scrim carries the whole load.
+- Supply the phone crop in portrait, roughly 4:5 or 9:16. It is used below
+  640px only.
+- The current wide file is a 630KB PNG of a photograph. next/image re-encodes
+  on serve, so visitors are fine, but JPEG or WebP would be a fraction of the
+  size in the media library.
+- `heroMedia` and `heroMediaMobile` are non-localized, so they are shared
+  across EN and VI — but publishing is per locale. See docs/cms-schema.md.
 
 ## Event facts
 

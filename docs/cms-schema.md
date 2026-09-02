@@ -99,6 +99,12 @@ confirmed row on the workbook's CMS tab ("Sponsors | Name, logo, tier, link").
 It is recorded but no longer drives the page, which now shows one flat logo
 wall ordered by the `order` field. Say the word if that field should go too.
 
+## Hero media: two fields
+
+Home Page has `heroMedia` (wide / desktop) and `heroMediaMobile` (portrait crop
+for phones, optional). Both are non-localized and both accept an image or a
+video. See [brand.md](brand.md) for the breakpoint, crop and contrast rules.
+
 ## Publishing: do it per locale
 
 A field marked non-localized (`i18n.localized: false`) — the logo, hero media,

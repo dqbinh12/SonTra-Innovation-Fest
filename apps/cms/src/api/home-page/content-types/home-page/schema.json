@@ -5,7 +5,7 @@
     "singularName": "home-page",
     "pluralName": "home-pages",
     "displayName": "Home Page",
-    "description": "Hero, stats and about teaser for the homepage."
+    "description": "Hero, stats and about teaser for the homepage. heroMedia is the wide / desktop background; heroMediaMobile is the portrait crop used on phones (optional \u2014 falls back to heroMedia)."
   },
   "options": {
     "draftAndPublish": true
@@ -66,6 +66,19 @@
       }
     },
     "heroMedia": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "videos"
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
+    },
+    "heroMediaMobile": {
       "type": "media",
       "multiple": false,
       "allowedTypes": [

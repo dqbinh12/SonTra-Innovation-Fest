@@ -85,7 +85,10 @@ export interface HomePage extends StrapiEntry {
   venue: string | null;
   ctaLabel: string | null;
   ctaHref: string | null;
+  /** Wide / desktop hero background. */
   heroMedia: StrapiMedia | null;
+  /** Portrait crop for phones. Falls back to `heroMedia` when unset. */
+  heroMediaMobile: StrapiMedia | null;
   stats: Stat[];
   aboutTeaser: string | null;
   seo: Seo | null;

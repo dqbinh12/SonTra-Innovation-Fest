@@ -19,6 +19,7 @@ export default async function Home({ params }: Props) {
       // Components are not populated by default — stats and seo need naming.
       query: {
         'populate[heroMedia]': 'true',
+        'populate[heroMediaMobile]': 'true',
         'populate[stats]': 'true',
         'populate[seo][populate]': 'ogImage',
       },
@@ -51,7 +52,9 @@ export default async function Home({ params }: Props) {
   return (
     <>
       <section className="border-border relative isolate overflow-hidden border-b py-20 sm:py-28 lg:py-36">
-        {home?.heroMedia && <HeroMedia media={home.heroMedia} />}
+        {(home?.heroMedia || home?.heroMediaMobile) && (
+          <HeroMedia desktop={home.heroMedia} mobile={home.heroMediaMobile} />
+        )}
         <Container>
           <h1 className="max-w-3xl text-4xl font-bold tracking-tight text-balance sm:text-5xl lg:text-6xl">
             {home?.heroTitle ?? t('title')}
