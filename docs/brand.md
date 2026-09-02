@@ -59,6 +59,40 @@ Every foreground/background pair in both themes meets WCAG AA (4.5:1). The
 weakest is white on `#006BE1` at 5.01:1, so **do not lighten the primary blue**
 without re-checking.
 
+### Browser chrome colour
+
+Set in the `viewport` export of `apps/web/src/app/[locale]/layout.tsx`:
+
+| Meta | Value | Effect |
+| ---- | ----- | ------ |
+| `theme-color` | `#001F4B` | Status bar on Android Chrome, surround on iOS Safari |
+| `color-scheme` | `light` | Stops mobile auto-dark modes inverting form controls |
+
+Brand navy rather than the header's white, so the site reads as SIF the moment
+it opens on a phone. That does mean a hard edge between the navy chrome and the
+white header — switch `themeColor` to `'#ffffff'` if a seamless join is
+preferred. It is a one-line change.
+
+It is a **single value, not a light/dark pair**. The site renders light-only, so
+a `prefers-color-scheme: dark` variant would tint the browser chrome for a page
+that never goes dark. If dark mode is ever switched on (see below), add the pair
+at the same time.
+
+### App icons
+
+`favicon.ico`, `icon.png` (512px) and `apple-icon.png` (180px) are the node-graph
+mark from the logo, cropped square on the brand cyan, and live under
+`apps/web/src/app/`. They replace the default Next.js triangle that shipped with
+the scaffold.
+
+Two notes for whoever regenerates them:
+
+- They are **derived from the supplied PNG**, not from a master asset. Once a
+  proper SVG logo arrives (see Logo above), regenerate them from it.
+- Next's ICO decoder requires the PNGs embedded in a `.ico` to be **RGBA**. An
+  RGB `.ico` throws `The PNG is not in RGBA format!` and returns a 500 on every
+  page, not just a broken icon.
+
 ## Typography
 
 The guidelines specify **FS Magistral** (primary) and **SVN-Gilroy**

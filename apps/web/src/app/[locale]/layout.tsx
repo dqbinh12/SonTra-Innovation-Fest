@@ -1,4 +1,4 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import type { ReactNode } from 'react';
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider, hasLocale } from 'next-intl';
@@ -10,6 +10,24 @@ import { strapiFetchOptional } from '@/lib/strapi';
 import { SiteHeader } from '@/components/layout/site-header';
 import { SiteFooter } from '@/components/layout/site-footer';
 import '../globals.css';
+
+/**
+ * Browser chrome on mobile — the status bar on Android Chrome, the surround on
+ * iOS Safari. Brand navy rather than the header's white, so the site reads as
+ * SIF from the moment it opens. Swap to '#ffffff' if a seamless edge with the
+ * header is preferred.
+ *
+ * One value, not a light/dark pair: the site renders light-only (the dark
+ * tokens in globals.css exist but nothing activates them), so a dark variant
+ * would tint the browser chrome for a page that never goes dark.
+ *
+ * `colorScheme: 'light'` says the same thing to the browser, and stops mobile
+ * auto-dark modes from inverting the contact and sponsor form controls.
+ */
+export const viewport: Viewport = {
+  themeColor: '#001F4B',
+  colorScheme: 'light',
+};
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
