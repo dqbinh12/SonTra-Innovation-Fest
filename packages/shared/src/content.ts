@@ -1,10 +1,10 @@
 /**
- * Shapes returned by the Strapi REST API, mirroring the content types listed in
- * the "CMS (Strapi)" tab of the project workbook.
+ * Shapes returned by the Strapi REST API. These mirror the schemas under
+ * apps/cms/src/api — keep them in step when a schema changes.
  *
- * These are hand-written for the frontend to consume. Once the Strapi schemas
- * are built, `pnpm --filter @sif/cms strapi ts:generate-types` produces the
- * authoritative server-side types under apps/cms/types/generated.
+ * `pnpm --filter @sif/cms strapi ts:generate-types` produces the authoritative
+ * server-side types under apps/cms/types/generated; these are the trimmed
+ * versions the frontend actually consumes.
  */
 
 export interface StrapiMedia {
@@ -15,6 +15,13 @@ export interface StrapiMedia {
   height: number | null;
   mime: string;
 }
+
+/**
+ * Strapi's `blocks` rich-text value. The concrete node shape belongs to
+ * @strapi/blocks-react-renderer, which only the frontend depends on — this
+ * package stays renderer-agnostic, so the render site casts.
+ */
+export type RichText = unknown[];
 
 export interface StrapiEntry {
   id: number;
@@ -37,17 +44,46 @@ export interface StrapiResponse<T> {
   };
 }
 
-/** Single type — global settings, one entry. */
+// ----------------------------------------------------------------- components
+
+export interface Seo {
+  metaTitle: string | null;
+  metaDescription: string | null;
+  ogImage: StrapiMedia | null;
+}
+
+export interface SocialLink {
+  platform: string;
+  url: string;
+}
+
+export interface Stat {
+  label: string;
+  value: string;
+}
+
+export interface SponsorTier {
+  name: string;
+  benefits: RichText | null;
+  order: number;
+}
+
+export interface AttendBenefit {
+  title: string;
+  description: string | null;
+}
+
+// --------------------------------------------------------------- single types
+
 export interface SiteSettings extends StrapiEntry {
   siteName: string;
   logo: StrapiMedia | null;
   contactEmail: string | null;
   contactPhone: string | null;
-  socialLinks: { platform: string; url: string }[];
+  socialLinks: SocialLink[];
   footerText: string | null;
 }
 
-/** Single type. */
 export interface HomePage extends StrapiEntry {
   heroTitle: string;
   heroSubtitle: string | null;
@@ -56,14 +92,53 @@ export interface HomePage extends StrapiEntry {
   ctaLabel: string | null;
   ctaHref: string | null;
   heroMedia: StrapiMedia | null;
-  stats: { label: string; value: string }[];
+  stats: Stat[];
   aboutTeaser: string | null;
+  seo: Seo | null;
 }
 
-/** Collection type — sortable by date/time. */
+export interface AttendPage extends StrapiEntry {
+  heroTitle: string;
+  heroBody: string | null;
+  audience: RichText | null;
+  benefits: AttendBenefit[];
+  entryInfo: RichText | null;
+  seo: Seo | null;
+}
+
+export interface SponsorsPage extends StrapiEntry {
+  title: string | null;
+  intro: string | null;
+  tiers: SponsorTier[];
+  applicationIntro: string | null;
+  seo: Seo | null;
+}
+
+export interface LocationPage extends StrapiEntry {
+  address: string;
+  mapLatitude: number | null;
+  mapLongitude: number | null;
+  directions: RichText | null;
+  parkingNotes: RichText | null;
+  images: StrapiMedia[];
+  seo: Seo | null;
+}
+
+export interface AboutPage extends StrapiEntry {
+  story: RichText;
+  mission: string | null;
+  organizerName: string | null;
+  organizerLogo: StrapiMedia | null;
+  seo: Seo | null;
+}
+
+// ----------------------------------------------------------- collection types
+
 export interface Session extends StrapiEntry {
   title: string;
+  /** ISO date, e.g. "2026-10-02". */
   day: string;
+  /** 24h time, e.g. "09:30:00.000". */
   startTime: string;
   endTime: string | null;
   speaker: string | null;
@@ -72,7 +147,6 @@ export interface Session extends StrapiEntry {
   description: string | null;
 }
 
-/** Collection type. */
 export interface Exhibitor extends StrapiEntry {
   companyName: string;
   logo: StrapiMedia | null;
@@ -82,52 +156,40 @@ export interface Exhibitor extends StrapiEntry {
   website: string | null;
 }
 
-/** Collection type. */
+export const sponsorTiers = ['platinum', 'gold', 'silver', 'bronze', 'partner'] as const;
+
+export type SponsorTierName = (typeof sponsorTiers)[number];
+
 export interface Sponsor extends StrapiEntry {
   name: string;
   logo: StrapiMedia | null;
-  tier: string;
+  tier: SponsorTierName;
   link: string | null;
+  order: number;
 }
 
-/** Collection type — News / Articles. */
 export interface Article extends StrapiEntry {
   title: string;
   slug: string;
   coverImage: StrapiMedia | null;
   date: string;
   excerpt: string | null;
-  body: string;
+  body: RichText;
   category: string | null;
+  seo: Seo | null;
 }
 
-/** Single type. */
-export interface LocationPage extends StrapiEntry {
-  address: string;
-  mapLatitude: number | null;
-  mapLongitude: number | null;
-  directions: string | null;
-  parkingNotes: string | null;
-  images: StrapiMedia[];
-}
+// ------------------------------------------------- form submissions (write-only)
 
-/** Single type. */
-export interface AboutPage extends StrapiEntry {
-  story: string;
-  mission: string | null;
-  organizerName: string | null;
-  organizerLogo: StrapiMedia | null;
-}
+export type SubmissionStatus = 'new' | 'in_progress' | 'closed';
 
-/** Collection type — populated by public form submissions, client views only. */
 export interface ContactSubmission extends StrapiEntry {
   name: string;
   email: string;
   message: string;
-  status: 'new' | 'in_progress' | 'closed';
+  status: SubmissionStatus;
 }
 
-/** Collection type — populated by public form submissions, client views only. */
 export interface SponsorApplication extends StrapiEntry {
   company: string;
   contactName: string;
@@ -135,5 +197,5 @@ export interface SponsorApplication extends StrapiEntry {
   phone: string | null;
   packageInterest: string | null;
   message: string | null;
-  status: 'new' | 'in_progress' | 'closed';
+  status: SubmissionStatus;
 }

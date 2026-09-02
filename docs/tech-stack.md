@@ -60,6 +60,18 @@ produces authoritative server-side types. The hand-written interfaces in
 `packages/shared/src/content.ts` are what the frontend consumes and must be kept
 in step with the schemas.
 
+## Rich text
+
+Long-form fields (article body, about story, attend copy, tier benefits) use
+Strapi's `blocks` type rather than markdown, so the client edits in a normal
+editor. `apps/web/src/components/rich-text.tsx` renders them.
+
+That component is a client component by necessity: `BlocksRenderer` is one, and
+the per-block render functions cannot be passed across the server/client
+boundary as props. It pulls `mediaUrl` from `@/lib/media` rather than
+`@/lib/strapi` so the fetch client — which reads the server-only API token —
+stays out of the browser bundle.
+
 ## Deployment
 
 Docker Compose on the client's own server: `web` (Next.js standalone), `cms`
@@ -89,11 +101,8 @@ workbook's Change Log.
 
 ## Next steps
 
-1. Create the Strapi content types from the CMS tab — 5 single types
-   (Site Settings, Home Page, Location, About Us) and 6 collection types
-   (Sessions, Exhibitors, Sponsors, News, Contact Submissions, Sponsor
-   Applications). Enable i18n on every one with visitor-facing text.
-2. Set public read permissions for the visitor-facing types, and public create
-   (only) for the two form-submission types.
-3. Fill in the page bodies marked `TODO(phase-2)` in `apps/web/src/app/[locale]`.
-4. Build the contact and sponsor-application forms.
+1. Fill in the page bodies marked `TODO(phase-2)` in `apps/web/src/app/[locale]`
+   — Attend, Agenda, Exhibition, Sponsors, Location, About, Contact.
+2. Build the contact and sponsor-application forms against the two submission
+   content types, and decide on spam protection (see docs/cms-schema.md).
+3. Create the Editor role for the client team in the Strapi admin.

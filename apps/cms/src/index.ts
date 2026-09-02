@@ -1,20 +1,17 @@
-// import type { Core } from '@strapi/strapi';
+import type { Core } from '@strapi/strapi';
+import { ensureLocales } from './bootstrap/locales';
+import { grantPublicPermissions } from './bootstrap/public-permissions';
 
 export default {
-  /**
-   * An asynchronous register function that runs before
-   * your application is initialized.
-   *
-   * This gives you an opportunity to extend code.
-   */
   register(/* { strapi }: { strapi: Core.Strapi } */) {},
 
   /**
-   * An asynchronous bootstrap function that runs before
-   * your application gets started.
-   *
-   * This gives you an opportunity to set up your data model,
-   * run jobs, or perform some special logic.
+   * Makes a fresh database usable without any manual admin clicking: the
+   * Vietnamese locale exists and the public role can read content and accept
+   * form submissions. Both steps are idempotent.
    */
-  bootstrap(/* { strapi }: { strapi: Core.Strapi } */) {},
+  async bootstrap({ strapi }: { strapi: Core.Strapi }) {
+    await ensureLocales(strapi);
+    await grantPublicPermissions(strapi);
+  },
 };

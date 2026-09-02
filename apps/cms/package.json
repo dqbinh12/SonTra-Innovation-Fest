@@ -14,7 +14,8 @@
     "typecheck": "tsc --noEmit",
     "clean": "rm -rf dist build .strapi .cache .turbo node_modules",
     "upgrade": "npx @strapi/upgrade latest",
-    "upgrade:dry": "npx @strapi/upgrade latest --dry"
+    "upgrade:dry": "npx @strapi/upgrade latest --dry",
+    "seed": "strapi ts:generate-types --silent && tsx scripts/seed.ts"
   },
   "dependencies": {
     "@strapi/database": "5.52.2",
@@ -32,6 +33,7 @@
     "@types/node": "^22",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "tsx": "^4.23.13",
     "typescript": "^5"
   },
   "engines": {

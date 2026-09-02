@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_sponsors_tiers",
+  "info": {
+    "displayName": "Sponsor Tier",
+    "icon": "medium"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "benefits": {
+      "type": "blocks"
+    },
+    "order": {
+      "type": "integer",
+      "default": 0
+    }
+  }
+}

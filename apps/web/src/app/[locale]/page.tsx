@@ -14,7 +14,12 @@ export default async function Home({ params }: Props) {
   const [home, latestNews] = await Promise.all([
     strapiFetchOptional<HomePage>('home-page', {
       locale: locale as Locale,
-      query: { 'populate[heroMedia]': 'true' },
+      // Components are not populated by default — stats and seo need naming.
+      query: {
+        'populate[heroMedia]': 'true',
+        'populate[stats]': 'true',
+        'populate[seo][populate]': 'ogImage',
+      },
       tags: ['home-page'],
     }),
     strapiFetch<Article[]>('articles', {

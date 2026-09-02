@@ -1,4 +1,4 @@
-import type { Locale, StrapiMedia, StrapiResponse } from '@sif/shared';
+import type { Locale, StrapiResponse } from '@sif/shared';
 
 const STRAPI_URL = process.env.STRAPI_URL ?? process.env.NEXT_PUBLIC_STRAPI_URL ?? 'http://localhost:1337';
 const STRAPI_API_TOKEN = process.env.STRAPI_API_TOKEN;
@@ -101,10 +101,4 @@ export async function strapiSubmit<T>(path: string, payload: Record<string, unkn
   }
 
   return response.json() as Promise<T>;
-}
-
-/** Turn a Strapi media URL into an absolute one (uploads are relative in local storage). */
-export function mediaUrl(media: StrapiMedia | null | undefined): string | null {
-  if (!media?.url) return null;
-  return media.url.startsWith('http') ? media.url : `${STRAPI_URL}${media.url}`;
 }

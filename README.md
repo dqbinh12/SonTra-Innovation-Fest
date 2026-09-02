@@ -70,13 +70,23 @@ pnpm dev:cms
 
 ## Connecting the frontend to the CMS
 
-1. In Strapi admin, go to **Settings → API Tokens** and create a read-only
-   token. Put it in `apps/web/.env.local` as `STRAPI_API_TOKEN`.
-2. Under **Settings → Webhooks**, add a webhook pointing at
+The public role is configured automatically on boot (see
+[docs/cms-schema.md](docs/cms-schema.md)), so reads work with no token. To fill
+the CMS with placeholder content for development:
+
+```bash
+pnpm --filter @sif/cms seed
+```
+
+Then:
+
+1. Under **Settings → Webhooks**, add a webhook pointing at
    `http://localhost:3000/api/revalidate` with the header
    `x-revalidate-secret` set to the same value as `REVALIDATE_SECRET` in
    `apps/web/.env.local`. Publishing content then refreshes the static pages
    without a rebuild.
+2. For production, create a read-only token under **Settings → API Tokens** and
+   set it as `STRAPI_API_TOKEN`.
 
 ## Commands
 
@@ -87,6 +97,7 @@ pnpm dev:cms
 | `pnpm typecheck` | TypeScript across the workspace            |
 | `pnpm lint`      | ESLint on the frontend                     |
 | `pnpm format`    | Prettier across the repo                   |
+| `pnpm --filter @sif/cms seed` | Placeholder EN/VI content in the CMS |
 
 Add shadcn/ui components from `apps/web`:
 
@@ -97,6 +108,10 @@ pnpm --filter @sif/web dlx shadcn@latest add button card
 ## Status
 
 Phase 1 (scope) is captured. The frontend has all 9 routes in both locales with
-the shared header, footer and language switcher working; page bodies are stubs
-marked `TODO(phase-2)`. The Strapi content types from the workbook's CMS tab
-still need to be created — see [docs/tech-stack.md](docs/tech-stack.md).
+the shared header, footer and language switcher working. The CMS schema is
+built — 12 content types, EN/VI, with public permissions and the Vietnamese
+locale configured on boot; see [docs/cms-schema.md](docs/cms-schema.md).
+
+Home and News read real CMS content. The remaining 7 page bodies are stubs
+marked `TODO(phase-2)`, and the contact and sponsor-application forms are not
+built yet.

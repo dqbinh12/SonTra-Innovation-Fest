@@ -74,7 +74,7 @@ export default async function LocaleLayout({
   // Global settings come from the CMS; fall back to messages until it is filled.
   const settings = await strapiFetchOptional<SiteSettings>('site-setting', {
     locale,
-    query: { 'populate[logo]': 'true' },
+    query: { 'populate[logo]': 'true', 'populate[socialLinks]': 'true' },
     tags: ['site-setting'],
   });
   const siteName = settings?.siteName ?? t('name');

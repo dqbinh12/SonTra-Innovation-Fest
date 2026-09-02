@@ -3,15 +3,21 @@ import { notFound } from 'next/navigation';
 import { getFormatter, getTranslations, setRequestLocale } from 'next-intl/server';
 import type { Article, Locale } from '@sif/shared';
 import { strapiFetch } from '@/lib/strapi';
+import { mediaUrl } from '@/lib/media';
 import { Link } from '@/i18n/navigation';
 import { Container } from '@/components/layout/container';
+import { RichText } from '@/components/rich-text';
 
 type Props = { params: Promise<{ locale: string; slug: string }> };
 
 async function getArticle(locale: string, slug: string): Promise<Article | null> {
   const { data } = await strapiFetch<Article[]>('articles', {
     locale: locale as Locale,
-    query: { 'filters[slug][$eq]': slug, 'populate[coverImage]': 'true' },
+    query: {
+      'filters[slug][$eq]': slug,
+      'populate[coverImage]': 'true',
+      'populate[seo][populate]': 'ogImage',
+    },
     tags: ['articles', `article:${slug}`],
   }).catch(() => ({ data: [] as Article[], meta: {} }));
 
@@ -23,14 +29,19 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const article = await getArticle(locale, slug);
   if (!article) return {};
 
+  const title = article.seo?.metaTitle ?? article.title;
+  const description = article.seo?.metaDescription ?? article.excerpt ?? undefined;
+  const image = mediaUrl(article.seo?.ogImage ?? article.coverImage);
+
   return {
-    title: article.title,
-    description: article.excerpt ?? undefined,
+    title,
+    description,
     openGraph: {
       type: 'article',
-      title: article.title,
-      description: article.excerpt ?? undefined,
+      title,
+      description,
       publishedTime: article.date,
+      images: image ? [image] : undefined,
     },
   };
 }
@@ -60,8 +71,9 @@ export default async function ArticlePage({ params }: Props) {
         <h1 className="mt-2 text-3xl font-bold tracking-tight text-balance sm:text-4xl">
           {article.title}
         </h1>
-        {/* TODO(phase-2): render the rich-text body through a Strapi blocks renderer. */}
-        <div className="mt-8 whitespace-pre-wrap">{article.body}</div>
+        <div className="mt-8">
+          <RichText content={article.body} />
+        </div>
       </article>
     </Container>
   );

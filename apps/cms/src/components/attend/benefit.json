@@ -1,0 +1,17 @@
+{
+  "collectionName": "components_attend_benefits",
+  "info": {
+    "displayName": "Benefit",
+    "icon": "check"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    }
+  }
+}

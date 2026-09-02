@@ -1,0 +1,45 @@
+{
+  "kind": "collectionType",
+  "collectionName": "sponsor_applications",
+  "info": {
+    "singularName": "sponsor-application",
+    "pluralName": "sponsor-applications",
+    "displayName": "Sponsor / Exhibitor Application",
+    "description": "Submitted through the Become a Sponsor form. View and manage only."
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "attributes": {
+    "company": {
+      "type": "string",
+      "required": true
+    },
+    "contactName": {
+      "type": "string",
+      "required": true
+    },
+    "email": {
+      "type": "email",
+      "required": true
+    },
+    "phone": {
+      "type": "string"
+    },
+    "packageInterest": {
+      "type": "string"
+    },
+    "message": {
+      "type": "text"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "new",
+        "in_progress",
+        "closed"
+      ],
+      "default": "new"
+    }
+  }
+}
