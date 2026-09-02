@@ -138,6 +138,43 @@ A complete dark palette is defined but **not activated** — nothing sets the
 layouts throughout, so switching to a dark ground is a design decision for the
 client, not a default. The tokens are ready if they want it.
 
+## Hero media
+
+`Home Page → heroMedia` accepts an image or a video and renders as a full-bleed
+background behind the hero text, per the Content Structure tab.
+
+The scrim over it is **load-bearing, not decoration**. Hero copy is
+`muted-foreground` (#526785), which needs a light ground to clear WCAG AA —
+unprotected it measured 1.99:1 over the artwork's darker regions. The gradient
+runs top-to-bottom below `xl` and left-to-right above it, because a horizontal
+fade only works once the text occupies the left third of the viewport; at tablet
+widths the text spans most of the width and a horizontal scrim cannot cover it.
+
+With the current artwork, measured worst-case contrast per breakpoint:
+
+| Width | Headline | Subtitle | Date line |
+| ----- | -------- | -------- | --------- |
+| 360px | 15.89 | 5.47 | 5.27 |
+| 640px | 15.77 | 4.77 | 5.22 |
+| 768px | 15.77 | 4.77 | 5.22 |
+| 1024px | 15.37 | 4.77 | 5.32 |
+| 1280px | 15.64 | 5.08 | 5.61 |
+| 1440px | 15.62 | 5.09 | 5.61 |
+| 1920px | 15.52 | 5.11 | 5.57 |
+
+**A replacement hero image must be re-measured.** A darker photo will fail the
+subtitle, and the failure is invisible in a screenshot review — it looks
+"a bit low contrast" rather than broken. Either raise the scrim opacity in
+`apps/web/src/components/hero-media.tsx` or darken the hero text.
+
+Two notes on the asset itself:
+
+- It is a 630KB PNG of a photograph. next/image re-encodes on serve, so
+  visitors are fine, but JPEG or WebP would be a fraction of the size in the
+  media library. Worth asking for on future uploads.
+- Its own left third fades to near-white, which is why the text sits left. If a
+  future image lacks that fade, the scrim carries the whole load.
+
 ## Event facts
 
 Taken from the guidelines and now seeded as CMS content:

@@ -4,6 +4,7 @@ import { strapiFetch, strapiFetchOptional } from '@/lib/strapi';
 import { Link } from '@/i18n/navigation';
 import { Container } from '@/components/layout/container';
 import { StrapiImage } from '@/components/strapi-image';
+import { HeroMedia } from '@/components/hero-media';
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -49,13 +50,16 @@ export default async function Home({ params }: Props) {
 
   return (
     <>
-      <section className="border-border border-b py-20 sm:py-28">
+      <section className="border-border relative isolate overflow-hidden border-b py-20 sm:py-28 lg:py-36">
+        {home?.heroMedia && <HeroMedia media={home.heroMedia} />}
         <Container>
           <h1 className="max-w-3xl text-4xl font-bold tracking-tight text-balance sm:text-5xl lg:text-6xl">
             {home?.heroTitle ?? t('title')}
           </h1>
+          {/* max-w-xl, not 2xl: keeps the subtitle inside the dense part of the
+              hero scrim so it clears WCAG AA over the image. */}
           {home?.heroSubtitle && (
-            <p className="text-muted-foreground mt-6 max-w-2xl text-lg">{home.heroSubtitle}</p>
+            <p className="text-muted-foreground mt-6 max-w-xl text-lg">{home.heroSubtitle}</p>
           )}
           <p className="text-muted-foreground mt-4 text-sm font-medium">
             {[home?.eventDate, home?.venue].filter(Boolean).join(' · ')}

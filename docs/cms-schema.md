@@ -99,6 +99,27 @@ confirmed row on the workbook's CMS tab ("Sponsors | Name, logo, tier, link").
 It is recorded but no longer drives the page, which now shows one flat logo
 wall ordered by the `order` field. Say the word if that field should go too.
 
+## Publishing: do it per locale
+
+A field marked non-localized (`i18n.localized: false`) — the logo, hero media,
+floor plan, agenda PDF, session day and time, exhibitor booth numbers — is
+shared across EN and VI. Strapi syncs a change into **every locale's draft**
+immediately.
+
+It does **not** publish them. Publish acts on the locale you are looking at.
+
+So attaching a hero image while viewing English and pressing Publish leaves the
+Vietnamese *published* entry without it, and `/vi` keeps serving the old version
+even though the admin panel shows the image on both. This is normal Strapi
+behaviour, not a bug, and it bites hardest on exactly the fields an editor
+assumes are shared.
+
+**Rule: after editing any content type with draft & publish enabled, publish
+both EN and VI.** Use the locale switcher at the top of the edit screen.
+
+The single types without draft & publish — Site Settings — are unaffected; a
+save there is immediately live in both locales.
+
 ## Still to decide
 
 - **Form spam.** The forms carry a honeypot field (`website_url`) that drops
