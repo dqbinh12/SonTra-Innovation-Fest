@@ -105,6 +105,23 @@ Home Page has `heroMedia` (wide / desktop) and `heroMediaMobile` (portrait crop
 for phones, optional). Both are non-localized and both accept an image or a
 video. See [brand.md](brand.md) for the breakpoint, crop and contrast rules.
 
+## Where each media field appears
+
+Uploading a file is only half of it — a field also has to be rendered. These
+are the media fields and where they show up:
+
+| Field | Rendered in |
+| ----- | ----------- |
+| Site Settings → `logo` | Header and footer, every page |
+| Home Page → `heroMedia` | Hero background, 640px and up |
+| Home Page → `heroMediaMobile` | Hero background, below 640px |
+| Article → `coverImage` | News list cards, article page, homepage news block, and the social preview |
+| Exhibition Page → `floorPlan` | Exhibition page |
+| Agenda Page → `agendaPdf` | Download link on the Agenda page |
+| Location Page → `images` | Gallery on the Location page |
+| About Page → `organizerLogo` | Organizer block on the About page |
+| `seo.ogImage` (most pages) | Social preview only — never on the page itself |
+
 ## Publishing: do it per locale
 
 A field marked non-localized (`i18n.localized: false`) — the logo, hero media,

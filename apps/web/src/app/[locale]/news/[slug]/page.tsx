@@ -7,6 +7,7 @@ import { mediaUrl } from '@/lib/media';
 import { Link } from '@/i18n/navigation';
 import { Container } from '@/components/layout/container';
 import { RichText } from '@/components/rich-text';
+import { StrapiImage } from '@/components/strapi-image';
 
 type Props = { params: Promise<{ locale: string; slug: string }> };
 
@@ -71,6 +72,18 @@ export default async function ArticlePage({ params }: Props) {
         <h1 className="mt-2 text-3xl font-bold tracking-tight text-balance sm:text-4xl">
           {article.title}
         </h1>
+        {article.coverImage && (
+          <div className="bg-muted relative mt-8 aspect-video overflow-hidden rounded-lg">
+            <StrapiImage
+              media={article.coverImage}
+              fill
+              priority
+              sizes="(min-width: 768px) 768px, 100vw"
+              className="object-cover"
+            />
+          </div>
+        )}
+
         <div className="mt-8">
           <RichText content={article.body} />
         </div>

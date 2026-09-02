@@ -5,6 +5,7 @@ import { strapiFetch } from '@/lib/strapi';
 import { Link } from '@/i18n/navigation';
 import { Container } from '@/components/layout/container';
 import { PageHeader } from '@/components/layout/page-header';
+import { StrapiImage } from '@/components/strapi-image';
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -39,7 +40,22 @@ export default async function NewsPage({ params }: Props) {
           <ul className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
             {articles.map((article) => (
               <li key={article.documentId}>
-                <Link href={{ pathname: '/news/[slug]', params: { slug: article.slug } }}>
+                <Link
+                  href={{ pathname: '/news/[slug]', params: { slug: article.slug } }}
+                  className="block"
+                >
+                  {article.coverImage && (
+                    // Fixed ratio so a mixed set of uploads still forms an even
+                    // grid. bg-muted holds the space while the image decodes.
+                    <div className="bg-muted relative mb-4 aspect-video overflow-hidden rounded-lg">
+                      <StrapiImage
+                        media={article.coverImage}
+                        fill
+                        sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                        className="object-cover"
+                      />
+                    </div>
+                  )}
                   <time dateTime={article.date} className="text-muted-foreground text-xs">
                     {format.dateTime(new Date(article.date), { dateStyle: 'long' })}
                   </time>

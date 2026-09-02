@@ -139,7 +139,20 @@ export default async function Home({ params }: Props) {
             <ul className="mt-8 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
               {latestNews.map((article) => (
                 <li key={article.documentId}>
-                  <Link href={{ pathname: '/news/[slug]', params: { slug: article.slug } }}>
+                  <Link
+                    href={{ pathname: '/news/[slug]', params: { slug: article.slug } }}
+                    className="block"
+                  >
+                    {article.coverImage && (
+                      <div className="bg-muted relative mb-4 aspect-video overflow-hidden rounded-lg">
+                        <StrapiImage
+                          media={article.coverImage}
+                          fill
+                          sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                          className="object-cover"
+                        />
+                      </div>
+                    )}
                     <h3 className="font-semibold">{article.title}</h3>
                     {article.excerpt && (
                       <p className="text-muted-foreground mt-2 text-sm">{article.excerpt}</p>
