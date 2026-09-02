@@ -3,9 +3,11 @@
 import { useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Menu, X } from 'lucide-react';
+import type { StrapiMedia } from '@sif/shared';
 import { Link, usePathname } from '@/i18n/navigation';
 import { Container } from './container';
 import { LanguageSwitcher } from './language-switcher';
+import { StrapiImage } from '@/components/strapi-image';
 import { cn } from '@/lib/utils';
 
 /** Primary nav — the 8 non-home pages from the "Sitemap & Pages" tab. */
@@ -20,16 +22,39 @@ const navItems = [
   { key: 'contact', href: '/contact' },
 ] as const;
 
-export function SiteHeader({ siteName }: { siteName: string }) {
+export function SiteHeader({
+  siteName,
+  logo,
+}: {
+  siteName: string;
+  logo?: StrapiMedia | null;
+}) {
   const t = useTranslations('nav');
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
 
   return (
     <header className="border-border bg-background/90 sticky top-0 z-50 border-b backdrop-blur">
-      <Container className="flex h-16 items-center justify-between gap-4">
-        <Link href="/" className="text-lg font-bold tracking-tight" onClick={() => setOpen(false)}>
-          {siteName}
+      <Container className="flex h-20 items-center justify-between gap-4">
+        <Link
+          href="/"
+          className="flex shrink-0 items-center"
+          aria-label={siteName}
+          onClick={() => setOpen(false)}
+        >
+          {logo ? (
+            // Height-constrained so any aspect ratio fits the bar. The current
+            // asset is a three-line stacked lockup, which needs the extra
+            // height to stay legible — see docs/brand.md.
+            <StrapiImage
+              media={logo}
+              priority
+              sizes="(min-width: 640px) 320px, 200px"
+              className="h-12 w-auto max-w-[12rem] object-contain sm:max-w-[18rem]"
+            />
+          ) : (
+            <span className="text-lg font-bold tracking-tight">{siteName}</span>
+          )}
         </Link>
 
         <nav className="hidden items-center gap-1 lg:flex" aria-label={t('menu')}>

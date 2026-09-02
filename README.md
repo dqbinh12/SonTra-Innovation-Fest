@@ -82,15 +82,19 @@ the CMS with placeholder content for development:
 pnpm --filter @sif/cms seed
 ```
 
-Then:
+Publishing in Strapi refreshes the site automatically — the CMS registers its
+own revalidation webhook on boot. That needs two matching values:
 
-1. Under **Settings → Webhooks**, add a webhook pointing at
-   `http://localhost:3000/api/revalidate` with the header
-   `x-revalidate-secret` set to the same value as `REVALIDATE_SECRET` in
-   `apps/web/.env.local`. Publishing content then refreshes the static pages
-   without a rebuild.
-2. For production, create a read-only token under **Settings → API Tokens** and
-   set it as `STRAPI_API_TOKEN`.
+| Variable | Where |
+| -------- | ----- |
+| `SITE_URL` | `apps/cms/.env` — where the public site lives |
+| `REVALIDATE_SECRET` | `apps/cms/.env` **and** `apps/web/.env.local`, identical |
+
+If either is missing the CMS logs a warning at startup and content changes take
+up to an hour to appear. Nothing has to be typed into the admin panel.
+
+For production, also create a read-only token under **Settings → API Tokens**
+and set it as `STRAPI_API_TOKEN`.
 
 ## Commands
 

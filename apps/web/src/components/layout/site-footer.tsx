@@ -1,6 +1,8 @@
 import { useTranslations } from 'next-intl';
+import type { StrapiMedia } from '@sif/shared';
 import { Link } from '@/i18n/navigation';
 import { Container } from './container';
+import { StrapiImage } from '@/components/strapi-image';
 
 const quickLinks = [
   { key: 'agenda', href: '/agenda' },
@@ -13,6 +15,7 @@ const quickLinks = [
 
 interface SiteFooterProps {
   siteName: string;
+  logo?: StrapiMedia | null;
   contactEmail?: string | null;
   contactPhone?: string | null;
   socialLinks?: { platform: string; url: string }[];
@@ -21,6 +24,7 @@ interface SiteFooterProps {
 
 export function SiteFooter({
   siteName,
+  logo,
   contactEmail,
   contactPhone,
   socialLinks = [],
@@ -32,7 +36,15 @@ export function SiteFooter({
     <footer className="border-border bg-secondary/40 mt-24 border-t">
       <Container className="grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-4">
         <div className="lg:col-span-2">
-          <p className="text-lg font-bold tracking-tight">{siteName}</p>
+          {logo ? (
+            <StrapiImage
+              media={logo}
+              sizes="240px"
+              className="h-12 w-auto max-w-[15rem] object-contain"
+            />
+          ) : (
+            <p className="text-lg font-bold tracking-tight">{siteName}</p>
+          )}
           <p className="text-muted-foreground mt-2 max-w-sm text-sm">
             {footerText ?? t('site.tagline')}
           </p>

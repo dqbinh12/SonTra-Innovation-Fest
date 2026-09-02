@@ -47,11 +47,12 @@ The first build takes several minutes (Strapi compiles its admin panel).
    only, no schema access (Scope tab, CMS section).
 3. **Settings → API Tokens** → create a read-only token. Put it in `infra/.env`
    as `STRAPI_API_TOKEN` and restart the `web` service.
-4. **Settings → Webhooks** → add one pointing at
-   `https://<domain>/api/revalidate`, method POST, header
-   `x-revalidate-secret` = the `REVALIDATE_SECRET` from `infra/.env`. Enable it
-   for entry publish/unpublish/update/delete events. Without this, published
-   content takes up to an hour to appear.
+4. The revalidation webhook registers itself on boot from `SITE_URL` and
+   `REVALIDATE_SECRET` in `infra/.env` — check the startup log for
+   `[bootstrap] registered revalidation webhook`. If it warns instead, those
+   two variables are missing and published content will take up to an hour to
+   appear. Rotating the secret is safe: the next boot repairs the stored
+   webhook to match.
 
 ## Redeploying
 
@@ -79,3 +80,8 @@ Media needs a separate copy of the `cms-uploads` volume.
 - Forward `X-Forwarded-Proto` so Strapi generates `https://` media URLs.
 - The `NEXT_PUBLIC_*` variables are baked in at image build time, so changing
   the domain means rebuilding the `web` image, not just restarting it.
+- `NEXT_PUBLIC_STRAPI_URL` must be a URL a **browser** can reach, on a public
+  address. Next 16 refuses to optimize images from hosts that resolve to a
+  private IP, so pointing it at an internal hostname or LAN address makes every
+  CMS image 400. The internal address belongs in `STRAPI_URL`, which is
+  server-side only and already set to `http://cms:1337` by compose.

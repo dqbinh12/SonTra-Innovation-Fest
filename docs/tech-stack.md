@@ -72,6 +72,36 @@ boundary as props. It pulls `mediaUrl` from `@/lib/media` rather than
 `@/lib/strapi` so the fetch client — which reads the server-only API token —
 stays out of the browser bundle.
 
+## Revalidation on publish
+
+`apps/cms/src/bootstrap/revalidation-webhook.ts` registers the Strapi webhook on
+every boot, so no environment needs anyone to retype a URL and secret in the
+admin panel. It is idempotent: it creates the webhook when absent, repairs it
+when the URL, secret or event list has drifted, and leaves it alone otherwise.
+
+Two things that are easy to get wrong here:
+
+- The provider that loads webhooks into the live runner has already executed by
+  the time app bootstrap runs, so a newly created webhook must also be pushed
+  into `webhookRunner` by hand. Without that it only starts firing after a
+  restart.
+- The route calls `revalidateTag(tag, { expire: 0 })`, not the `'max'` profile
+  Next recommends. `'max'` is stale-while-revalidate: the first request after a
+  publish still gets the old page. For an editor who publishes and reloads,
+  that looks like the CMS being ignored. `expire: 0` costs one blocking request
+  per publish and removes the confusion.
+
+## Images
+
+Media comes from Strapi through `next/image`, with `remotePatterns` derived from
+`NEXT_PUBLIC_STRAPI_URL`.
+
+Next 16 added SSRF protection that refuses to optimize images whose hostname
+resolves to a private IP. In development Strapi is on localhost, which trips it,
+so `dangerouslyAllowLocalIP` is enabled **for development only**. The same block
+applies in production if `NEXT_PUBLIC_STRAPI_URL` is ever set to an internal
+hostname — it must be the public, browser-reachable URL.
+
 ## Deployment
 
 Docker Compose on the client's own server: `web` (Next.js standalone), `cms`

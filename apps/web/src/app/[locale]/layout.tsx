@@ -80,12 +80,13 @@ export default async function LocaleLayout({
           >
             {t('name')}
           </a>
-          <SiteHeader siteName={siteName} />
+          <SiteHeader siteName={siteName} logo={settings?.logo} />
           <main id="main" className="flex-1">
             {children}
           </main>
           <SiteFooter
             siteName={siteName}
+            logo={settings?.logo}
             contactEmail={settings?.contactEmail}
             contactPhone={settings?.contactPhone}
             socialLinks={settings?.socialLinks ?? []}

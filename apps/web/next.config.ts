@@ -14,6 +14,15 @@ const nextConfig: NextConfig = {
   outputFileTracingRoot: fileURLToPath(new URL('../../', import.meta.url)),
   transpilePackages: ['@sif/shared'],
   images: {
+    // Next 16 refuses to optimize images whose host resolves to a private IP,
+    // as SSRF protection. In development Strapi is on localhost, which trips
+    // it — so allow it in dev only. In production NEXT_PUBLIC_STRAPI_URL is the
+    // public CMS domain and this stays off.
+    //
+    // Deploying with a private NEXT_PUBLIC_STRAPI_URL (an internal hostname or
+    // LAN address) would hit the same block. That variable must be the URL a
+    // browser can reach; the server-side STRAPI_URL is the internal one.
+    dangerouslyAllowLocalIP: process.env.NODE_ENV === 'development',
     remotePatterns: [
       {
         protocol: strapiUrl.protocol.replace(':', '') as 'http' | 'https',

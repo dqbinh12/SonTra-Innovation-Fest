@@ -1,9 +1,31 @@
 # Brand
 
 Source: `SIF Brand Guidelines.pdf` (7 pages), supplied 2 September 2026.
-This closes Decision Log #3 for colour and type. The **logo file is still
-outstanding** — the guidelines show it as vector artwork inside the PDF, not as
-a usable asset. Ask for SVG (and a PNG fallback) in light and dark versions.
+This closes Decision Log #3 for colour and type. See **Logo** below for what is
+still needed there.
+
+## Logo
+
+`son-tra-innovation-2026.png` is uploaded to Site Settings and renders in the
+header and footer of both locales. Two problems with the asset itself:
+
+1. **It has no transparency.** It is white artwork on a solid `#4EE2FF` cyan
+   rectangle, fully opaque. On the white header it reads as a cyan box rather
+   than a logo, and it cannot sit on any other background.
+2. **It is a three-line stacked lockup** at 2240×852 (2.63:1). "SON TRA /
+   INNOVATION / 2026" stacked means each line gets a third of the height. The
+   header bar was raised to 5rem and the logo to 3rem to keep it legible; any
+   smaller and the wordmark turns to mush.
+
+**Ask the client for:**
+
+- A **transparent** PNG or, better, **SVG** — no baked-in background.
+- A **horizontal lockup** for the header (mark beside the words, roughly 4:1 or
+  wider). The stacked version is a poster logo, not a navigation logo.
+- A light-background and a dark-background version, if the marks differ.
+
+Dropping better files into Site Settings needs no code change — the header
+sizes to whatever is uploaded.
 
 ## Colour
 
