@@ -1,0 +1,125 @@
+{
+  "site": {
+    "name": "Son Tra Innovation Fest",
+    "shortName": "SIF",
+    "tagline": "Da Nang's innovation and technology showcase",
+    "description": "Son Tra Innovation Fest brings together innovators, exhibitors and speakers in Da Nang. Free entry."
+  },
+  "nav": {
+    "home": "Home",
+    "attend": "Attend",
+    "agenda": "Agenda",
+    "exhibition": "Exhibition",
+    "sponsors": "Sponsors",
+    "location": "Location",
+    "news": "News",
+    "about": "About Us",
+    "contact": "Contact Us",
+    "menu": "Menu",
+    "close": "Close",
+    "skipToContent": "Skip to content"
+  },
+  "language": {
+    "label": "Language",
+    "switchTo": "Switch to {language}"
+  },
+  "home": {
+    "title": "Home",
+    "heroCta": "Plan your visit",
+    "highlightsTitle": "The festival at a glance",
+    "aboutTeaserTitle": "About the festival",
+    "aboutTeaserCta": "Read more",
+    "sponsorsTitle": "Our sponsors",
+    "latestNewsTitle": "Latest news",
+    "latestNewsCta": "All news"
+  },
+  "attend": {
+    "title": "Why Attend?",
+    "audienceTitle": "Who should come",
+    "benefitsTitle": "What you get",
+    "entryTitle": "Entry information",
+    "entryFree": "Entry is free. No registration or ticket required."
+  },
+  "agenda": {
+    "title": "Agenda",
+    "day": "Day",
+    "time": "Time",
+    "session": "Session",
+    "speaker": "Speaker",
+    "track": "Track",
+    "location": "Location",
+    "downloadPdf": "Download the agenda (PDF)",
+    "empty": "The schedule will be published soon."
+  },
+  "exhibition": {
+    "title": "Exhibition",
+    "floorPlanTitle": "Floor plan",
+    "exhibitorsTitle": "Exhibitors",
+    "booth": "Booth",
+    "category": "Category",
+    "empty": "The exhibitor list will be published soon."
+  },
+  "sponsors": {
+    "title": "Sponsors",
+    "tiersTitle": "Sponsor tiers",
+    "becomeTitle": "Become a sponsor or exhibitor",
+    "becomeIntro": "Tell us about your company and we will get back to you.",
+    "empty": "Sponsors will be announced soon."
+  },
+  "location": {
+    "title": "Location",
+    "address": "Address",
+    "directions": "Getting there",
+    "parking": "Parking and transport",
+    "openInMaps": "Open in Maps"
+  },
+  "news": {
+    "title": "News",
+    "readMore": "Read more",
+    "backToNews": "Back to news",
+    "publishedOn": "Published on {date}",
+    "empty": "No articles have been published yet."
+  },
+  "about": {
+    "title": "About Us",
+    "missionTitle": "Our mission",
+    "organizerTitle": "The organizer"
+  },
+  "contact": {
+    "title": "Contact Us",
+    "formTitle": "Send us a message",
+    "infoTitle": "Contact details",
+    "email": "Email",
+    "phone": "Phone",
+    "social": "Follow us"
+  },
+  "form": {
+    "name": "Full name",
+    "email": "Email address",
+    "phone": "Phone number",
+    "company": "Company",
+    "contactName": "Contact person",
+    "packageInterest": "Package of interest",
+    "message": "Message",
+    "submit": "Send",
+    "submitting": "Sending…",
+    "success": "Thank you. We have received your message.",
+    "error": "Something went wrong. Please try again or email us directly.",
+    "required": "This field is required.",
+    "invalidEmail": "Please enter a valid email address."
+  },
+  "footer": {
+    "quickLinks": "Quick links",
+    "contact": "Contact",
+    "follow": "Follow us",
+    "rights": "All rights reserved."
+  },
+  "error": {
+    "notFoundTitle": "Page not found",
+    "notFoundBody": "The page you are looking for does not exist or has moved.",
+    "genericTitle": "Something went wrong",
+    "genericBody": "Please try again in a moment.",
+    "retry": "Try again",
+    "backHome": "Back to home"
+  }
+}

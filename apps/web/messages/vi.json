@@ -1,0 +1,125 @@
+{
+  "site": {
+    "name": "Son Tra Innovation Fest",
+    "shortName": "SIF",
+    "tagline": "Sự kiện đổi mới sáng tạo và công nghệ của Đà Nẵng",
+    "description": "Son Tra Innovation Fest quy tụ các nhà đổi mới sáng tạo, đơn vị triển lãm và diễn giả tại Đà Nẵng. Vào cửa miễn phí."
+  },
+  "nav": {
+    "home": "Trang chủ",
+    "attend": "Tham dự",
+    "agenda": "Chương trình",
+    "exhibition": "Khu trưng bày",
+    "sponsors": "Nhà tài trợ",
+    "location": "Địa điểm",
+    "news": "Tin tức",
+    "about": "Về chúng tôi",
+    "contact": "Liên hệ",
+    "menu": "Menu",
+    "close": "Đóng",
+    "skipToContent": "Đến nội dung chính"
+  },
+  "language": {
+    "label": "Ngôn ngữ",
+    "switchTo": "Chuyển sang {language}"
+  },
+  "home": {
+    "title": "Trang chủ",
+    "heroCta": "Lên kế hoạch tham dự",
+    "highlightsTitle": "Tổng quan sự kiện",
+    "aboutTeaserTitle": "Về sự kiện",
+    "aboutTeaserCta": "Tìm hiểu thêm",
+    "sponsorsTitle": "Nhà tài trợ",
+    "latestNewsTitle": "Tin mới nhất",
+    "latestNewsCta": "Tất cả tin tức"
+  },
+  "attend": {
+    "title": "Vì sao nên tham dự?",
+    "audienceTitle": "Dành cho ai",
+    "benefitsTitle": "Bạn nhận được gì",
+    "entryTitle": "Thông tin vào cửa",
+    "entryFree": "Vào cửa miễn phí. Không cần đăng ký hay vé."
+  },
+  "agenda": {
+    "title": "Chương trình",
+    "day": "Ngày",
+    "time": "Thời gian",
+    "session": "Phiên",
+    "speaker": "Diễn giả",
+    "track": "Chuyên đề",
+    "location": "Địa điểm",
+    "downloadPdf": "Tải chương trình (PDF)",
+    "empty": "Lịch trình sẽ được công bố sớm."
+  },
+  "exhibition": {
+    "title": "Khu trưng bày",
+    "floorPlanTitle": "Sơ đồ mặt bằng",
+    "exhibitorsTitle": "Đơn vị triển lãm",
+    "booth": "Gian hàng",
+    "category": "Lĩnh vực",
+    "empty": "Danh sách đơn vị triển lãm sẽ được công bố sớm."
+  },
+  "sponsors": {
+    "title": "Nhà tài trợ",
+    "tiersTitle": "Các hạng tài trợ",
+    "becomeTitle": "Trở thành nhà tài trợ hoặc nhà triển lãm",
+    "becomeIntro": "Hãy cho chúng tôi biết về doanh nghiệp của bạn, chúng tôi sẽ liên hệ lại.",
+    "empty": "Danh sách nhà tài trợ sẽ được công bố sớm."
+  },
+  "location": {
+    "title": "Địa điểm",
+    "address": "Địa chỉ",
+    "directions": "Hướng dẫn di chuyển",
+    "parking": "Bãi đỗ xe và phương tiện",
+    "openInMaps": "Mở trong Maps"
+  },
+  "news": {
+    "title": "Tin tức",
+    "readMore": "Xem thêm",
+    "backToNews": "Quay lại tin tức",
+    "publishedOn": "Đăng ngày {date}",
+    "empty": "Chưa có bài viết nào được đăng."
+  },
+  "about": {
+    "title": "Về chúng tôi",
+    "missionTitle": "Sứ mệnh",
+    "organizerTitle": "Đơn vị tổ chức"
+  },
+  "contact": {
+    "title": "Liên hệ",
+    "formTitle": "Gửi tin nhắn cho chúng tôi",
+    "infoTitle": "Thông tin liên hệ",
+    "email": "Email",
+    "phone": "Điện thoại",
+    "social": "Theo dõi chúng tôi"
+  },
+  "form": {
+    "name": "Họ và tên",
+    "email": "Địa chỉ email",
+    "phone": "Số điện thoại",
+    "company": "Công ty",
+    "contactName": "Người liên hệ",
+    "packageInterest": "Gói quan tâm",
+    "message": "Nội dung",
+    "submit": "Gửi",
+    "submitting": "Đang gửi…",
+    "success": "Cảm ơn bạn. Chúng tôi đã nhận được tin nhắn.",
+    "error": "Đã có lỗi xảy ra. Vui lòng thử lại hoặc gửi email trực tiếp cho chúng tôi.",
+    "required": "Vui lòng điền trường này.",
+    "invalidEmail": "Vui lòng nhập địa chỉ email hợp lệ."
+  },
+  "footer": {
+    "quickLinks": "Liên kết nhanh",
+    "contact": "Liên hệ",
+    "follow": "Theo dõi chúng tôi",
+    "rights": "Bảo lưu mọi quyền."
+  },
+  "error": {
+    "notFoundTitle": "Không tìm thấy trang",
+    "notFoundBody": "Trang bạn tìm không tồn tại hoặc đã được chuyển.",
+    "genericTitle": "Đã có lỗi xảy ra",
+    "genericBody": "Vui lòng thử lại sau giây lát.",
+    "retry": "Thử lại",
+    "backHome": "Về trang chủ"
+  }
+}

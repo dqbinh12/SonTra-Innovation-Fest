@@ -1,0 +1,16 @@
+**/node_modules
+**/.next
+**/.turbo
+**/dist
+**/build
+**/.strapi
+**/.cache
+**/.tmp
+**/*.db
+**/*.sqlite
+.git
+.github
+docs
+*.xlsx
+**/.env
+**/.env.local
