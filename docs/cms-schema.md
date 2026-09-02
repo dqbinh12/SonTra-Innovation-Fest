@@ -1,6 +1,6 @@
 # CMS schema
 
-Twelve content types under `apps/cms/src/api`, plus five components under
+Fourteen content types under `apps/cms/src/api`, plus five components under
 `apps/cms/src/components`. Everything visitor-facing is localised (EN + VI) and
 draft/publish enabled.
 
@@ -12,6 +12,8 @@ draft/publish enabled.
 | Home Page | `/api/home-page` | Hero, stats, about teaser |
 | Attend Page | `/api/attend-page` | Why-attend hero, audience, benefits, entry info |
 | Sponsors Page | `/api/sponsors-page` | Tier descriptions, application intro |
+| Agenda Page | `/api/agenda-page` | Intro copy and the downloadable agenda PDF |
+| Exhibition Page | `/api/exhibition-page` | Floor plan graphic and intro copy |
 | Location | `/api/location-page` | Address, map coordinates, directions, parking |
 | About Us | `/api/about-page` | Story, mission, organizer |
 
@@ -37,13 +39,21 @@ type, and granting one has it pruned and re-created on every boot.
 Components are **not** populated by default. A query that needs one has to name
 it: `?populate[stats]=true`, `?populate[seo][populate]=ogImage`.
 
-## Two types beyond the workbook
+## Four types beyond the workbook
 
-The workbook's CMS tab lists 10 content types, but its Content Structure tab
-marks the Attend page and the Sponsors tier section as CMS-managed, and Scope
-item 1.0 requires every info page to be editable in Strapi. **Attend Page** and
-**Sponsors Page** close that gap. Worth confirming with the client so the CMS
-tab and the Content Structure tab agree.
+The workbook's CMS tab lists 10 content types. Its Content Structure tab asks
+for more, and Scope item 1.0 requires every info page to be editable in Strapi:
+
+| Added | Because the Content Structure tab lists |
+| ----- | --------------------------------------- |
+| Attend Page | "Why Attend hero", "Audience / benefits", "Free entry info" |
+| Sponsors Page | "Sponsor tiers — tier name, benefits, logos per tier" |
+| Agenda Page | "Download agenda (optional) — PDF agenda file", CMS-managed media |
+| Exhibition Page | "Floor plan / layout image", CMS-managed media |
+
+Without these, four pages would have no editable copy and the agenda PDF and
+floor plan would have nowhere to live. Worth confirming with the client so the
+CMS tab and the Content Structure tab agree.
 
 ## What is localised, and what is not
 
@@ -80,9 +90,11 @@ so it will never overwrite real content.
 
 ## Still to decide
 
-- **Form spam.** The two submission endpoints accept unauthenticated POSTs with
-  no rate limiting or captcha. Fine for a staging site, not for a public one.
-  Needs a decision before go-live.
+- **Form spam.** The forms carry a honeypot field (`website_url`) that drops
+  naive bot submissions while reporting success, so the bot has nothing to tune
+  against. That is a speed bump, not protection: the endpoints still accept
+  unauthenticated POSTs with no rate limiting. A real answer — rate limiting at
+  the proxy, or a captcha — is still needed before go-live.
 - **Email notifications.** Decision Log #8 is open. If forms need to notify
   someone, Strapi's email plugin needs an SMTP provider configured; the default
   `sendmail` provider will not work in a container.

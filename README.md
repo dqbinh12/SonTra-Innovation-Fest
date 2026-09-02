@@ -107,11 +107,13 @@ pnpm --filter @sif/web dlx shadcn@latest add button card
 
 ## Status
 
-Phase 1 (scope) is captured. The frontend has all 9 routes in both locales with
-the shared header, footer and language switcher working. The CMS schema is
-built — 12 content types, EN/VI, with public permissions and the Vietnamese
-locale configured on boot; see [docs/cms-schema.md](docs/cms-schema.md).
+Phase 2 is functionally complete. All 9 pages render CMS content in EN and VI,
+the Contact and Sponsor/Exhibitor forms write to Strapi, and every page carries
+its own title, meta description and social preview.
 
-Home and News read real CMS content. The remaining 7 page bodies are stubs
-marked `TODO(phase-2)`, and the contact and sponsor-application forms are not
-built yet.
+The CMS has 14 content types with public permissions and the Vietnamese locale
+configured on boot — see [docs/cms-schema.md](docs/cms-schema.md).
+
+Outstanding before go-live: brand assets (Decision Log #3 — the palette is a
+placeholder), form spam protection beyond the honeypot, email notifications on
+submission (Decision Log #8), and the client team's Editor role.

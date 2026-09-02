@@ -200,6 +200,34 @@ async function seed(strapi: Core.Strapi) {
 
   await seedSingle(
     strapi,
+    'api::agenda-page.agenda-page',
+    {
+      title: 'Agenda',
+      intro: 'Two days of talks, panels and demos. The full schedule is below.',
+    },
+    {
+      title: 'Chương trình',
+      intro: 'Hai ngày toạ đàm, thảo luận và trình diễn. Lịch trình đầy đủ bên dưới.',
+    },
+  );
+
+  await seedSingle(
+    strapi,
+    'api::exhibition-page.exhibition-page',
+    {
+      title: 'Exhibition',
+      intro: 'Over 60 companies and research teams across two halls.',
+      floorPlanCaption: 'Floor plan to be published closer to the event.',
+    },
+    {
+      title: 'Khu trưng bày',
+      intro: 'Hơn 60 doanh nghiệp và nhóm nghiên cứu tại hai hội trường.',
+      floorPlanCaption: 'Sơ đồ mặt bằng sẽ được công bố gần ngày diễn ra sự kiện.',
+    },
+  );
+
+  await seedSingle(
+    strapi,
     'api::location-page.location-page',
     {
       address: 'Son Tra, Da Nang, Vietnam',

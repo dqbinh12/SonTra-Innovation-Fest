@@ -99,10 +99,25 @@ Per the Scope tab: no login/registration, no ticketing, no advanced analytics,
 no drag-and-drop page builder. Requests for any of these go through the
 workbook's Change Log.
 
+## Forms
+
+Contact and Sponsor/Exhibitor applications post through React server actions in
+`apps/web/src/lib/actions.ts`, validated with zod and written to the two
+submission content types.
+
+Two details worth knowing before editing that file:
+
+- A `'use server'` module may only export **async functions**. The shared
+  `FormState` type and `initialFormState` constant live in
+  `apps/web/src/lib/form-state.ts` for that reason — exporting the constant
+  from the actions module is a runtime error, not a lint warning.
+- The actions return error *keys*, not sentences. A server action does not know
+  the request locale, so the form components translate them through the
+  `form.*` messages.
+
 ## Next steps
 
-1. Fill in the page bodies marked `TODO(phase-2)` in `apps/web/src/app/[locale]`
-   — Attend, Agenda, Exhibition, Sponsors, Location, About, Contact.
-2. Build the contact and sponsor-application forms against the two submission
-   content types, and decide on spam protection (see docs/cms-schema.md).
-3. Create the Editor role for the client team in the Strapi admin.
+1. Decide on form spam protection and email notifications (Decision Log #8).
+2. Create the Editor role for the client team in the Strapi admin.
+3. Replace the placeholder palette once brand assets arrive (Decision Log #3).
+4. Client enters real content — Phase 3.

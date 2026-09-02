@@ -1,8 +1,9 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import type { Article, HomePage, Locale } from '@sif/shared';
+import type { Article, HomePage, Locale, Sponsor } from '@sif/shared';
 import { strapiFetch, strapiFetchOptional } from '@/lib/strapi';
 import { Link } from '@/i18n/navigation';
 import { Container } from '@/components/layout/container';
+import { StrapiImage } from '@/components/strapi-image';
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -11,7 +12,7 @@ export default async function Home({ params }: Props) {
   setRequestLocale(locale);
   const t = await getTranslations('home');
 
-  const [home, latestNews] = await Promise.all([
+  const [home, latestNews, sponsors] = await Promise.all([
     strapiFetchOptional<HomePage>('home-page', {
       locale: locale as Locale,
       // Components are not populated by default — stats and seo need naming.
@@ -33,6 +34,17 @@ export default async function Home({ params }: Props) {
     })
       .then((res) => res.data)
       .catch(() => [] as Article[]),
+    strapiFetch<Sponsor[]>('sponsors', {
+      locale: locale as Locale,
+      query: {
+        'sort[0]': 'order:asc',
+        'pagination[pageSize]': 24,
+        'populate[logo]': 'true',
+      },
+      tags: ['sponsors'],
+    })
+      .then((res) => res.data)
+      .catch(() => [] as Sponsor[]),
   ]);
 
   return (
@@ -69,6 +81,41 @@ export default async function Home({ params }: Props) {
                 </div>
               ))}
             </dl>
+          </Container>
+        </section>
+      )}
+
+      {home?.aboutTeaser && (
+        <section className="py-16">
+          <Container>
+            <h2 className="text-2xl font-bold tracking-tight">{t('aboutTeaserTitle')}</h2>
+            <p className="text-muted-foreground mt-4 max-w-2xl text-lg">{home.aboutTeaser}</p>
+            <Link href="/about" className="text-primary mt-6 inline-flex text-sm font-medium">
+              {t('aboutTeaserCta')}
+            </Link>
+          </Container>
+        </section>
+      )}
+
+      {sponsors.length > 0 && (
+        <section className="py-16">
+          <Container>
+            <h2 className="text-2xl font-bold tracking-tight">{t('sponsorsTitle')}</h2>
+            <ul className="mt-8 flex flex-wrap items-center gap-10">
+              {sponsors.map((sponsor) => (
+                <li key={sponsor.documentId}>
+                  {sponsor.logo ? (
+                    <StrapiImage
+                      media={sponsor.logo}
+                      className="max-h-12 w-auto object-contain"
+                      sizes="200px"
+                    />
+                  ) : (
+                    <span className="text-muted-foreground font-medium">{sponsor.name}</span>
+                  )}
+                </li>
+              ))}
+            </ul>
           </Container>
         </section>
       )}

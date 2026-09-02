@@ -114,6 +114,21 @@ export interface SponsorsPage extends StrapiEntry {
   seo: Seo | null;
 }
 
+export interface AgendaPage extends StrapiEntry {
+  title: string | null;
+  intro: string | null;
+  agendaPdf: StrapiMedia | null;
+  seo: Seo | null;
+}
+
+export interface ExhibitionPage extends StrapiEntry {
+  title: string | null;
+  intro: string | null;
+  floorPlan: StrapiMedia | null;
+  floorPlanCaption: string | null;
+  seo: Seo | null;
+}
+
 export interface LocationPage extends StrapiEntry {
   address: string;
   mapLatitude: number | null;

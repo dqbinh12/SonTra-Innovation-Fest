@@ -10,6 +10,8 @@ const READABLE_SINGLE = [
   'home-page',
   'attend-page',
   'sponsors-page',
+  'agenda-page',
+  'exhibition-page',
   'location-page',
   'about-page',
 ] as const;
