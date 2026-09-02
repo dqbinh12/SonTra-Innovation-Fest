@@ -95,18 +95,33 @@ Two notes for whoever regenerates them:
 
 ## Typography
 
-The guidelines specify **FS Magistral** (primary) and **SVN-Gilroy**
-(secondary). Two problems, neither solvable in code:
+Page 6 of the guidelines specifies two families and their weights:
+
+| Role | Family | Weights |
+| ---- | ------ | ------- |
+| Primary / display | FS Magistral | Light 300, Book 400, Medium 500, Bold 700, Extra Bold 800 |
+| Secondary / body | SVN-Gilroy | Regular 400, Medium 500, Semi Bold 600, Bold 700 |
+
+`apps/web/src/lib/fonts.ts` carries a commented `localFont` block for each,
+already listing exactly these weights and file names.
+
+Two problems, neither solvable in code:
 
 1. **Both are commercial.** Neither is on Google Fonts, and neither can be
    committed to this repo without a web licence. The client has to supply
    `.woff2` files along with proof the licence covers web embedding.
-2. **FS Magistral's Vietnamese coverage is unverified.** SVN-Gilroy is the
+2. **FS Magistral's Vietnamese coverage looks doubtful.** SVN-Gilroy is the
    Vietnamese cut of Gilroy and is safe. FS Magistral is a Fontsmith Latin
-   family; if it lacks `ế ữ ợ ằ` and friends the browser will silently
-   substitute mid-word on `/vi` pages. The Design tab makes full Vietnamese
-   coverage a hard requirement, so this must be checked on real text before
-   launch — not assumed.
+   family, and the specimen on page 6 of the guidelines shows only basic Latin
+   — `Aa`–`Zz`, digits and punctuation, **not one diacritic**. If it lacks
+   `ế ữ ợ ằ` and friends, the browser silently substitutes mid-word, and only
+   on `/vi` pages. The Design tab makes full Vietnamese coverage a hard
+   requirement, so this must be tested on real Vietnamese text before launch.
+
+   If it does fall short, the fix is to keep FS Magistral on Latin-only
+   headings with a Vietnamese fallback behind it, or use SVN-Gilroy for both
+   roles. Worth raising with whoever owns the brand before the licence is
+   bought.
 
 Until the files arrive, both roles fall back to **Be Vietnam Pro**, which is
 open-licensed and covers Vietnamese completely.
