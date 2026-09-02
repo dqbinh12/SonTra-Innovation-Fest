@@ -42,12 +42,12 @@ launch, since changing it later means redirect rules for indexed URLs.
 UI strings live in `apps/web/messages/{en,vi}.json`. Content strings live in
 Strapi, which handles locale variants per entry via its built-in i18n.
 
-## Typography
+## Typography and colour
 
-Be Vietnam Pro, loaded with both the `latin` and `vietnamese` subsets. The
-Design tab requires full Vietnamese diacritic coverage; many popular display
-fonts silently fall back on characters like `ế` and `ữ`, which looks broken
-only on Vietnamese pages.
+Both now come from the brand guidelines — see [brand.md](brand.md). The short
+version: the palette is applied and contrast-checked, but the two brand
+typefaces are commercial and not yet supplied, so the site falls back to Be
+Vietnam Pro (which covers Vietnamese completely) until the files arrive.
 
 ## Monorepo
 
@@ -82,11 +82,11 @@ Caddy in front for TLS and routing. See `infra/docker-compose.yml`.
 
 | # | Question | Blocks |
 | - | -------- | ------ |
-| 3 | Brand colours, logo, fonts | Real design. The palette in `globals.css` is a placeholder. |
+| 3 | Logo file and licensed webfonts | Colour is done; see [brand.md](brand.md). |
 | 6 | Server specs, OS, existing setup | Confirming Docker Compose is deployable there at all. |
 | 7 | Who configures DNS | Go-live. |
 | 8 | Email notifications on form submission | Whether the contact and sponsor forms need an SMTP provider. |
-| 11 | Go-live date | Everything. The event is 2–3 October — roughly a month out. |
+| 11 | Go-live date | Everything. The event is 2–4 October — roughly a month out. |
 
 Question 6 is the sharpest: "hosting already covered by client" is in the
 budget note, but with no specs we cannot confirm the server can run three
@@ -119,5 +119,5 @@ Two details worth knowing before editing that file:
 
 1. Decide on form spam protection and email notifications (Decision Log #8).
 2. Create the Editor role for the client team in the Strapi admin.
-3. Replace the placeholder palette once brand assets arrive (Decision Log #3).
+3. Swap in the licensed webfonts and the logo when they arrive (brand.md).
 4. Client enters real content — Phase 3.

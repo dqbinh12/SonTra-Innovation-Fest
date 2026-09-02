@@ -32,16 +32,6 @@
         }
       }
     },
-    "tiers": {
-      "type": "component",
-      "repeatable": true,
-      "component": "sponsors.tier",
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      }
-    },
     "applicationIntro": {
       "type": "text",
       "pluginOptions": {

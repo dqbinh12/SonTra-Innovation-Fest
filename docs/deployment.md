@@ -10,8 +10,8 @@ Target: the client's own server, three containers behind a reverse proxy.
 
 | Host | Serves |
 | ---- | ------ |
-| `sontrainnovationfest.vn` | Next.js frontend (port 3000) |
-| `cms.sontrainnovationfest.vn` | Strapi admin + API (port 1337) |
+| `www.innovationfest.vn` | Next.js frontend (port 3000) |
+| `cms.innovationfest.vn` | Strapi admin + API (port 1337) |
 
 Both containers bind to `127.0.0.1`, so only the reverse proxy can reach them.
 

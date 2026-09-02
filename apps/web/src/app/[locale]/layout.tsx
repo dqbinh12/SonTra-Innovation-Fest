@@ -3,22 +3,13 @@ import type { ReactNode } from 'react';
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider, hasLocale } from 'next-intl';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { Be_Vietnam_Pro } from 'next/font/google';
 import type { SiteSettings } from '@sif/shared';
 import { routing } from '@/i18n/routing';
+import { fontVariables } from '@/lib/fonts';
 import { strapiFetchOptional } from '@/lib/strapi';
 import { SiteHeader } from '@/components/layout/site-header';
 import { SiteFooter } from '@/components/layout/site-footer';
 import '../globals.css';
-
-// Be Vietnam Pro ships the complete Vietnamese diacritic set — a hard
-// requirement from the Design tab of the project workbook.
-const beVietnamPro = Be_Vietnam_Pro({
-  subsets: ['latin', 'vietnamese'],
-  weight: ['400', '500', '600', '700'],
-  display: 'swap',
-  variable: '--font-be-vietnam-pro',
-});
 
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
@@ -80,7 +71,7 @@ export default async function LocaleLayout({
   const siteName = settings?.siteName ?? t('name');
 
   return (
-    <html lang={locale} className={beVietnamPro.variable} suppressHydrationWarning>
+    <html lang={locale} className={fontVariables} suppressHydrationWarning>
       <body className="flex min-h-screen flex-col">
         <NextIntlClientProvider>
           <a

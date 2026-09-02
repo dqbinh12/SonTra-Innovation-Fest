@@ -2,8 +2,8 @@
   "site": {
     "name": "Son Tra Innovation Fest",
     "shortName": "SIF",
-    "tagline": "Da Nang's innovation and technology showcase",
-    "description": "Son Tra Innovation Fest brings together innovators, exhibitors and speakers in Da Nang. Free entry."
+    "tagline": "Innovate Today, Shape Tomorrow",
+    "description": "Son Tra Innovation Fest 2026 — three days of technology, FinTech and sustainable living in Da Nang, 2–4 October. Free entry."
   },
   "nav": {
     "home": "Home",
@@ -38,7 +38,8 @@
     "audienceTitle": "Who should come",
     "benefitsTitle": "What you get",
     "entryTitle": "Entry information",
-    "entryFree": "Entry is free. No registration or ticket required."
+    "entryFree": "Entry is free. No registration or ticket required.",
+    "hours": "Opening hours"
   },
   "agenda": {
     "title": "Agenda",
@@ -61,7 +62,6 @@
   },
   "sponsors": {
     "title": "Sponsors",
-    "tiersTitle": "Sponsor tiers",
     "becomeTitle": "Become a sponsor or exhibitor",
     "becomeIntro": "Tell us about your company and we will get back to you.",
     "empty": "Sponsors will be announced soon."
@@ -71,7 +71,8 @@
     "address": "Address",
     "directions": "Getting there",
     "parking": "Parking and transport",
-    "openInMaps": "Open in Maps"
+    "openInMaps": "Open in Maps",
+    "hours": "Opening hours"
   },
   "news": {
     "title": "News",

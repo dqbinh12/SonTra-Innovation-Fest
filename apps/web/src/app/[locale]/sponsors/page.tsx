@@ -5,7 +5,6 @@ import { strapiFetch, strapiFetchOptional } from '@/lib/strapi';
 import { seoMetadata } from '@/lib/metadata';
 import { PageHeader } from '@/components/layout/page-header';
 import { Section, EmptyState } from '@/components/layout/section';
-import { RichText } from '@/components/rich-text';
 import { StrapiImage } from '@/components/strapi-image';
 import { SponsorForm } from '@/components/forms/sponsor-form';
 
@@ -14,7 +13,7 @@ type Props = { params: Promise<{ locale: string }> };
 function getSponsorsPage(locale: string) {
   return strapiFetchOptional<SponsorsPage>('sponsors-page', {
     locale: locale as Locale,
-    query: { 'populate[tiers]': 'true', 'populate[seo][populate]': 'ogImage' },
+    query: { 'populate[seo][populate]': 'ogImage' },
     tags: ['sponsors-page'],
   });
 }
@@ -50,8 +49,6 @@ export default async function Sponsors({ params }: Props) {
       .then((res) => res.data)
       .catch(() => [] as Sponsor[]),
   ]);
-
-  const tiers = [...(page?.tiers ?? [])].sort((a, b) => a.order - b.order);
 
   return (
     <>
@@ -94,22 +91,6 @@ export default async function Sponsors({ params }: Props) {
         )}
       </Section>
 
-      {tiers.length > 0 && (
-        <Section title={t('tiersTitle')}>
-          <ul className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-            {tiers.map((tier) => (
-              <li key={tier.name} className="border-border rounded-lg border p-6">
-                <h3 className="text-lg font-semibold">{tier.name}</h3>
-                {tier.benefits && (
-                  <div className="text-muted-foreground mt-3 text-sm">
-                    <RichText content={tier.benefits} />
-                  </div>
-                )}
-              </li>
-            ))}
-          </ul>
-        </Section>
-      )}
 
       <Section title={t('becomeTitle')}>
         <p className="text-muted-foreground max-w-xl">

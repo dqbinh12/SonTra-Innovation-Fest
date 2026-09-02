@@ -1,6 +1,7 @@
 # Son Tra Innovation Fest
 
-Website and CMS for the Son Tra Innovation Fest (SIF), Da Nang — **2–3 October**.
+Website and CMS for the Son Tra Innovation Fest (SIF), Da Nang — **2–4 October 2026**,
+9:00–22:00 daily at 171–173 Trần Hưng Đạo.
 
 The full scope, sitemap, content structure and decision log live in
 `Son Tra Innovation Fest.xlsx`. That workbook is the source of truth for *what*
@@ -17,6 +18,9 @@ gets built; this repo is *how*.
 | Database  | SQLite in dev, PostgreSQL 17 in production |
 | Monorepo  | pnpm workspaces + Turborepo                |
 | Deploy    | Docker Compose on the client's own server  |
+
+Brand colour, type and event facts come from `SIF Brand Guidelines.pdf` — see
+[docs/brand.md](docs/brand.md), which also lists what still needs confirming.
 
 See [docs/tech-stack.md](docs/tech-stack.md) for why, including the one change
 from the original proposal: **Strapi cannot use MongoDB** — support was dropped
@@ -114,6 +118,7 @@ its own title, meta description and social preview.
 The CMS has 14 content types with public permissions and the Vietnamese locale
 configured on boot — see [docs/cms-schema.md](docs/cms-schema.md).
 
-Outstanding before go-live: brand assets (Decision Log #3 — the palette is a
-placeholder), form spam protection beyond the honeypot, email notifications on
-submission (Decision Log #8), and the client team's Editor role.
+Outstanding before go-live: the logo file and licensed webfonts (see
+[docs/brand.md](docs/brand.md)), form spam protection beyond the honeypot,
+email notifications on submission (Decision Log #8), and the client team's
+Editor role.

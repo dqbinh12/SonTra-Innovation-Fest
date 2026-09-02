@@ -2,8 +2,8 @@
   "site": {
     "name": "Son Tra Innovation Fest",
     "shortName": "SIF",
-    "tagline": "Sự kiện đổi mới sáng tạo và công nghệ của Đà Nẵng",
-    "description": "Son Tra Innovation Fest quy tụ các nhà đổi mới sáng tạo, đơn vị triển lãm và diễn giả tại Đà Nẵng. Vào cửa miễn phí."
+    "tagline": "Innovate Today, Shape Tomorrow",
+    "description": "Son Tra Innovation Fest 2026 — ba ngày công nghệ, công nghệ tài chính và lối sống bền vững tại Đà Nẵng, ngày 2–4 tháng 10. Vào cửa miễn phí."
   },
   "nav": {
     "home": "Trang chủ",
@@ -38,7 +38,8 @@
     "audienceTitle": "Dành cho ai",
     "benefitsTitle": "Bạn nhận được gì",
     "entryTitle": "Thông tin vào cửa",
-    "entryFree": "Vào cửa miễn phí. Không cần đăng ký hay vé."
+    "entryFree": "Vào cửa miễn phí. Không cần đăng ký hay vé.",
+    "hours": "Giờ mở cửa"
   },
   "agenda": {
     "title": "Chương trình",
@@ -61,7 +62,6 @@
   },
   "sponsors": {
     "title": "Nhà tài trợ",
-    "tiersTitle": "Các hạng tài trợ",
     "becomeTitle": "Trở thành nhà tài trợ hoặc nhà triển lãm",
     "becomeIntro": "Hãy cho chúng tôi biết về doanh nghiệp của bạn, chúng tôi sẽ liên hệ lại.",
     "empty": "Danh sách nhà tài trợ sẽ được công bố sớm."
@@ -71,7 +71,8 @@
     "address": "Địa chỉ",
     "directions": "Hướng dẫn di chuyển",
     "parking": "Bãi đỗ xe và phương tiện",
-    "openInMaps": "Mở trong Maps"
+    "openInMaps": "Mở trong Maps",
+    "hours": "Giờ mở cửa"
   },
   "news": {
     "title": "Tin tức",

@@ -62,12 +62,6 @@ export interface Stat {
   value: string;
 }
 
-export interface SponsorTier {
-  name: string;
-  benefits: RichText | null;
-  order: number;
-}
-
 export interface AttendBenefit {
   title: string;
   description: string | null;
@@ -109,7 +103,6 @@ export interface AttendPage extends StrapiEntry {
 export interface SponsorsPage extends StrapiEntry {
   title: string | null;
   intro: string | null;
-  tiers: SponsorTier[];
   applicationIntro: string | null;
   seo: Seo | null;
 }

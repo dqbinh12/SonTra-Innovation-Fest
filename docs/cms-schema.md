@@ -1,6 +1,6 @@
 # CMS schema
 
-Fourteen content types under `apps/cms/src/api`, plus five components under
+Fourteen content types under `apps/cms/src/api`, plus four components under
 `apps/cms/src/components`. Everything visitor-facing is localised (EN + VI) and
 draft/publish enabled.
 
@@ -34,7 +34,7 @@ type, and granting one has it pruned and re-created on every boot.
 ## Components
 
 `shared.seo` (metaTitle, metaDescription, ogImage), `shared.social-link`,
-`shared.stat`, `sponsors.tier`, `attend.benefit`.
+`shared.stat`, `attend.benefit`.
 
 Components are **not** populated by default. A query that needs one has to name
 it: `?populate[stats]=true`, `?populate[seo][populate]=ogImage`.
@@ -47,7 +47,7 @@ for more, and Scope item 1.0 requires every info page to be editable in Strapi:
 | Added | Because the Content Structure tab lists |
 | ----- | --------------------------------------- |
 | Attend Page | "Why Attend hero", "Audience / benefits", "Free entry info" |
-| Sponsors Page | "Sponsor tiers — tier name, benefits, logos per tier" |
+| Sponsors Page | Intro copy and the application form section |
 | Agenda Page | "Download agenda (optional) — PDF agenda file", CMS-managed media |
 | Exhibition Page | "Floor plan / layout image", CMS-managed media |
 
@@ -87,6 +87,17 @@ Fills every content type with EN and VI placeholder content — the Phase 2
 deliverable calls for an MVP with sample content before the client enters the
 real thing in Phase 3. Idempotent: it skips any type that already has an entry,
 so it will never overwrite real content.
+
+## Sponsor tiers, removed
+
+The "Sponsor tiers" section (tier name, benefits, logos per tier) was dropped at
+the client's request. Gone: the `sponsors.tier` component, the `tiers` field on
+Sponsors Page, and the tier cards on the page.
+
+The `tier` field on the **Sponsor collection** is kept — it is a separate,
+confirmed row on the workbook's CMS tab ("Sponsors | Name, logo, tier, link").
+It is recorded but no longer drives the page, which now shows one flat logo
+wall ordered by the `order` field. Say the word if that field should go too.
 
 ## Still to decide
 
