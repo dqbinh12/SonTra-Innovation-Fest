@@ -9,13 +9,24 @@ still needed there.
 `son-tra-innovation-2026.png` is uploaded to Site Settings and renders in the
 header and footer of both locales. Two problems with the asset itself:
 
-1. **It has no transparency.** It is white artwork on a solid `#4EE2FF` cyan
-   rectangle, fully opaque. On the white header it reads as a cyan box rather
-   than a logo, and it cannot sit on any other background.
-2. **It is a three-line stacked lockup** at 2240×852 (2.63:1). "SON TRA /
-   INNOVATION / 2026" stacked means each line gets a third of the height. The
-   header bar was raised to 5rem and the logo to 3rem to keep it legible; any
-   smaller and the wordmark turns to mush.
+The current file is `Logo_Blue…png`, 360×254 — a **stacked lockup at 1.42:1**,
+which is the constraint that drives the header size. A stacked mark gives each
+of its three lines only a third of the height, so it needs real height to stay
+legible: at 48px tall it rendered just 68px wide and the wordmark was mush.
+
+The header bar is therefore `h-20` on phones and `h-28` (112px) from `sm` up,
+with the logo at 64px and 80px. **A horizontal lockup would read at roughly
+half that height**, letting the header shrink back to a more usual 80px — worth
+asking for.
+
+Two further notes:
+
+1. The file is only 360×254. That is enough for the current render (80px tall,
+   160px on a 2× display) but leaves no room to grow. Ask for a larger export,
+   or an SVG.
+2. An earlier version was white artwork on an opaque `#4EE2FF` rectangle with
+   no transparency, which read as a cyan box on the white header. The blue
+   version replaces it. Keep transparency in any future export.
 
 **Ask the client for:**
 

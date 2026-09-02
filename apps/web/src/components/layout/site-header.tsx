@@ -35,7 +35,7 @@ export function SiteHeader({
 
   return (
     <header className="border-border bg-background/90 sticky top-0 z-50 border-b backdrop-blur">
-      <Container className="flex h-20 items-center justify-between gap-4">
+      <Container className="flex h-20 items-center justify-between gap-4 sm:h-28">
         <Link
           href="/"
           className="flex shrink-0 items-center"
@@ -49,8 +49,8 @@ export function SiteHeader({
             <StrapiImage
               media={logo}
               priority
-              sizes="(min-width: 640px) 320px, 200px"
-              className="h-12 w-auto max-w-[12rem] object-contain sm:max-w-[18rem]"
+              sizes="(min-width: 640px) 360px, 240px"
+              className="h-16 w-auto max-w-[11rem] object-contain sm:h-20 sm:max-w-[20rem]"
             />
           ) : (
             <span className="text-lg font-bold tracking-tight">{siteName}</span>

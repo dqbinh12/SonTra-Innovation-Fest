@@ -39,8 +39,8 @@ export function SiteFooter({
           {logo ? (
             <StrapiImage
               media={logo}
-              sizes="240px"
-              className="h-12 w-auto max-w-[15rem] object-contain"
+              sizes="280px"
+              className="h-16 w-auto max-w-[17rem] object-contain"
             />
           ) : (
             <p className="text-lg font-bold tracking-tight">{siteName}</p>
