@@ -26,7 +26,7 @@ RUN pnpm --filter @sif/web build
 FROM base AS runner
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
-ENV PORT=3000
+ENV PORT=7000
 RUN addgroup -g 1001 -S nodejs && adduser -S nextjs -u 1001
 
 COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/standalone ./
@@ -34,5 +34,5 @@ COPY --from=builder --chown=nextjs:nodejs /app/apps/web/.next/static ./apps/web/
 COPY --from=builder --chown=nextjs:nodejs /app/apps/web/public ./apps/web/public
 
 USER nextjs
-EXPOSE 3000
+EXPOSE 7000
 CMD ["node", "apps/web/server.js"]

@@ -1,80 +1,84 @@
 # Production / staging stack for the client's own server.
 # Run from the monorepo root:
 #   docker compose -f infra/docker-compose.yml --env-file infra/.env up -d --build
-#
-# Local development does NOT need this — use `pnpm dev` with SQLite instead.
 
 services:
-  db:
-    image: postgres:17-alpine
-    restart: unless-stopped
-    environment:
-      POSTGRES_DB: ${DATABASE_NAME:-sif}
-      POSTGRES_USER: ${DATABASE_USERNAME:-sif}
-      POSTGRES_PASSWORD: ${DATABASE_PASSWORD:?DATABASE_PASSWORD is required}
-    volumes:
-      - db-data:/var/lib/postgresql/data
-    healthcheck:
-      test: ['CMD-SHELL', 'pg_isready -U ${DATABASE_USERNAME:-sif} -d ${DATABASE_NAME:-sif}']
-      interval: 10s
-      timeout: 5s
-      retries: 5
-
-  cms:
+  fis-cms:
     build:
       context: ..
       dockerfile: apps/cms/Dockerfile
     restart: unless-stopped
-    depends_on:
-      db:
-        condition: service_healthy
+
     environment:
       HOST: 0.0.0.0
       PORT: 1337
       NODE_ENV: production
-      DATABASE_CLIENT: postgres
-      DATABASE_HOST: db
-      DATABASE_PORT: 5432
-      DATABASE_NAME: ${DATABASE_NAME:-sif}
-      DATABASE_USERNAME: ${DATABASE_USERNAME:-sif}
-      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
-      DATABASE_SSL: 'false'
+
+      # SQLite
+      DATABASE_CLIENT: sqlite
+      DATABASE_FILENAME: .tmp/data.db
+
+      # Strapi secrets
       APP_KEYS: ${APP_KEYS:?APP_KEYS is required}
       API_TOKEN_SALT: ${API_TOKEN_SALT:?API_TOKEN_SALT is required}
       ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET:?ADMIN_JWT_SECRET is required}
       TRANSFER_TOKEN_SALT: ${TRANSFER_TOKEN_SALT:?TRANSFER_TOKEN_SALT is required}
       JWT_SECRET: ${JWT_SECRET:?JWT_SECRET is required}
       ENCRYPTION_KEY: ${ENCRYPTION_KEY:?ENCRYPTION_KEY is required}
+
       SITE_URL: ${NEXT_PUBLIC_SITE_URL}
       REVALIDATE_SECRET: ${REVALIDATE_SECRET}
+
     volumes:
-      # Uploaded media lives on the host so a rebuild never loses it.
+      # SQLite database — bind mount so the .db file is visible on the host
+      # (backup / swap it directly). Must exist and be owned by uid 1001
+      # before `up`; a bind mount does not inherit ownership from the image.
+      - ../apps/cms/.tmp:/app/apps/cms/.tmp
+
+      # Uploaded media — persists across container rebuilds/restarts.
       - cms-uploads:/app/apps/cms/public/uploads
+
     ports:
       - '127.0.0.1:1337:1337'
+    
+    networks:
+      - gateway
 
-  web:
+
+  fis-web:
     build:
       context: ..
       dockerfile: apps/web/Dockerfile
       args:
         NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL}
         NEXT_PUBLIC_STRAPI_URL: ${NEXT_PUBLIC_STRAPI_URL}
+
     restart: unless-stopped
+
     depends_on:
-      - cms
+      - fis-cms
+
     environment:
       NODE_ENV: production
-      PORT: 3000
+      PORT: 7000
+
       NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL}
       NEXT_PUBLIC_STRAPI_URL: ${NEXT_PUBLIC_STRAPI_URL}
+
       # Server-side calls stay on the compose network.
-      STRAPI_URL: http://cms:1337
+      STRAPI_URL: http://fis-cms:1337
       STRAPI_API_TOKEN: ${STRAPI_API_TOKEN}
       REVALIDATE_SECRET: ${REVALIDATE_SECRET}
+
     ports:
-      - '127.0.0.1:3000:3000'
+      - '127.0.0.1:7000:7000'
+    
+    networks:
+      - gateway
 
 volumes:
-  db-data:
   cms-uploads:
+    
+networks:
+  gateway:
+    external: true
