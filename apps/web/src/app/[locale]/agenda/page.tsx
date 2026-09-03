@@ -26,7 +26,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     getAgendaPage(locale),
   ]);
 
-  return seoMetadata(page?.seo, { title: page?.title ?? t('title'), description: page?.intro });
+  return seoMetadata(page?.seo, {
+    title: page?.title ?? t('title'),
+    description: page?.intro,
+    locale,
+    href: '/agenda',
+  });
 }
 
 export default async function Agenda({ params }: Props) {

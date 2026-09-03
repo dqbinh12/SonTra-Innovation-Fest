@@ -24,7 +24,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     getExhibitionPage(locale),
   ]);
 
-  return seoMetadata(page?.seo, { title: page?.title ?? t('title'), description: page?.intro });
+  return seoMetadata(page?.seo, {
+    title: page?.title ?? t('title'),
+    description: page?.intro,
+    locale,
+    href: '/exhibition',
+  });
 }
 
 export default async function Exhibition({ params }: Props) {

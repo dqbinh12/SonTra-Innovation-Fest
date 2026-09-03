@@ -30,6 +30,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return seoMetadata(page?.seo, {
     title: page?.heroTitle ?? t('title'),
     description: page?.heroBody,
+    locale,
+    href: '/attend',
   });
 }
 

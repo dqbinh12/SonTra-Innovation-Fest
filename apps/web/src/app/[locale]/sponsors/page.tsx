@@ -25,7 +25,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     getSponsorsPage(locale),
   ]);
 
-  return seoMetadata(page?.seo, { title: page?.title ?? t('title'), description: page?.intro });
+  return seoMetadata(page?.seo, {
+    title: page?.title ?? t('title'),
+    description: page?.intro,
+    locale,
+    href: '/sponsors',
+  });
 }
 
 export default async function Sponsors({ params }: Props) {

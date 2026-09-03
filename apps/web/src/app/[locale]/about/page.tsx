@@ -25,7 +25,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     getAboutPage(locale),
   ]);
 
-  return seoMetadata(page?.seo, { title: t('title'), description: page?.mission });
+  return seoMetadata(page?.seo, {
+    title: t('title'),
+    description: page?.mission,
+    locale,
+    href: '/about',
+  });
 }
 
 export default async function About({ params }: Props) {

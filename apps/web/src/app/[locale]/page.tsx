@@ -39,9 +39,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     getHomePage(locale),
   ]);
 
-  const meta = seoMetadata(page?.seo, {
+  const meta = await seoMetadata(page?.seo, {
     title: tSite('name'),
     description: tSite('description'),
+    locale,
+    href: '/',
   });
 
   return { ...meta, title: { absolute: meta.title as string } };

@@ -27,7 +27,12 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     getLocationPage(locale),
   ]);
 
-  return seoMetadata(page?.seo, { title: t('title'), description: page?.address });
+  return seoMetadata(page?.seo, {
+    title: t('title'),
+    description: page?.address,
+    locale,
+    href: '/location',
+  });
 }
 
 export default async function Location({ params }: Props) {

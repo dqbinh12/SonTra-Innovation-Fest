@@ -4,7 +4,7 @@ import { getFormatter, getTranslations, setRequestLocale } from 'next-intl/serve
 import type { Article, Locale } from '@sif/shared';
 import { strapiFetch } from '@/lib/strapi';
 import { mediaUrl } from '@/lib/media';
-import { Link } from '@/i18n/navigation';
+import { Link, getPathname } from '@/i18n/navigation';
 import { Container } from '@/components/layout/container';
 import { RichText } from '@/components/rich-text';
 import { StrapiImage } from '@/components/strapi-image';
@@ -30,6 +30,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const article = await getArticle(locale, slug);
   if (!article) return {};
 
+  const tSite = await getTranslations({ locale, namespace: 'site' });
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? 'http://localhost:3000';
+  const url =
+    siteUrl +
+    getPathname({
+      href: { pathname: '/news/[slug]', params: { slug } },
+      locale: locale as 'en' | 'vi',
+    });
+
   const title = article.seo?.metaTitle ?? article.title;
   const description = article.seo?.metaDescription ?? article.excerpt ?? undefined;
   const image = mediaUrl(article.seo?.ogImage ?? article.coverImage);
@@ -37,10 +46,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title,
     description,
+    alternates: { canonical: url },
     openGraph: {
       type: 'article',
       title,
       description,
+      url,
+      siteName: tSite('name'),
+      locale: locale === 'vi' ? 'vi_VN' : 'en_US',
       publishedTime: article.date,
       images: image ? [image] : undefined,
     },
