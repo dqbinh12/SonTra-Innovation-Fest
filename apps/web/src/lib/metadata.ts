@@ -18,7 +18,16 @@ export function seoMetadata(
   return {
     title,
     description,
+    // Page-level `openGraph` / `twitter` replace the layout's objects rather
+    // than merging into them, so the fields the layout sets are repeated here.
     openGraph: {
+      type: 'website',
+      title,
+      description,
+      images: image ? [image] : undefined,
+    },
+    twitter: {
+      card: 'summary_large_image',
       title,
       description,
       images: image ? [image] : undefined,

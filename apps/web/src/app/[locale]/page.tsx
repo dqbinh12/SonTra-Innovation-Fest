@@ -1,6 +1,8 @@
+import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import type { Article, HomePage, Locale, Sponsor } from '@sif/shared';
 import { strapiFetch, strapiFetchOptional } from '@/lib/strapi';
+import { seoMetadata } from '@/lib/metadata';
 import { Link } from '@/i18n/navigation';
 import { Container } from '@/components/layout/container';
 import { StrapiImage } from '@/components/strapi-image';
@@ -8,23 +10,50 @@ import { HeroMedia } from '@/components/hero-media';
 
 type Props = { params: Promise<{ locale: string }> };
 
+function getHomePage(locale: string) {
+  return strapiFetchOptional<HomePage>('home-page', {
+    locale: locale as Locale,
+    // Components are not populated by default — stats and seo need naming.
+    query: {
+      'populate[heroMedia]': 'true',
+      'populate[heroMediaMobile]': 'true',
+      'populate[stats]': 'true',
+      'populate[seo][populate]': 'ogImage',
+    },
+    tags: ['home-page'],
+  });
+}
+
+/**
+ * The homepage carries the CMS `seo` component like every other page — without
+ * this the uploaded ogImage never reaches the document head, and the page falls
+ * back to the layout defaults (which have no image at all).
+ *
+ * The title is marked absolute so the homepage keeps the bare site name rather
+ * than picking up the layout's `%s — SIF` template.
+ */
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params;
+  const [tSite, page] = await Promise.all([
+    getTranslations({ locale, namespace: 'site' }),
+    getHomePage(locale),
+  ]);
+
+  const meta = seoMetadata(page?.seo, {
+    title: tSite('name'),
+    description: tSite('description'),
+  });
+
+  return { ...meta, title: { absolute: meta.title as string } };
+}
+
 export default async function Home({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations('home');
 
   const [home, latestNews, sponsors] = await Promise.all([
-    strapiFetchOptional<HomePage>('home-page', {
-      locale: locale as Locale,
-      // Components are not populated by default — stats and seo need naming.
-      query: {
-        'populate[heroMedia]': 'true',
-        'populate[heroMediaMobile]': 'true',
-        'populate[stats]': 'true',
-        'populate[seo][populate]': 'ogImage',
-      },
-      tags: ['home-page'],
-    }),
+    getHomePage(locale),
     strapiFetch<Article[]>('articles', {
       locale: locale as Locale,
       query: {
