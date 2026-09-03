@@ -1,0 +1,34 @@
+{
+  "collectionName": "components_attend_audience_segments",
+  "info": {
+    "displayName": "Audience Segment",
+    "description": "One visitor type on the Attend page (solo, school group, company, press).",
+    "icon": "user"
+  },
+  "options": {},
+  "attributes": {
+    "key": {
+      "type": "enumeration",
+      "enum": ["solo", "school", "company", "press"],
+      "required": true,
+      "description": "Drives the icon and the built-in fallback copy."
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "highlights": {
+      "type": "text",
+      "description": "One bullet per line."
+    },
+    "ctaLabel": {
+      "type": "string"
+    },
+    "ctaHref": {
+      "type": "string"
+    }
+  }
+}

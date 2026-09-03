@@ -47,11 +47,44 @@
   },
   "attend": {
     "title": "Why Attend?",
-    "audienceTitle": "Who should come",
+    "heroBadge": "Free entry · No ticket needed",
+    "audienceTitle": "Which visitor are you?",
+    "audienceLead": "Four kinds of people show up to Son Tra Innovation Fest. Pick the one closest to you to see what to prepare and where to start.",
     "benefitsTitle": "What you get",
     "entryTitle": "Entry information",
     "entryFree": "Entry is free. No registration or ticket required.",
-    "hours": "Opening hours"
+    "hours": "Opening hours",
+    "highlightsLabel": "Good to know",
+    "segments": {
+      "solo": {
+        "title": "Visiting on your own",
+        "description": "You come when it suits you, set your own route and stop wherever it gets interesting.",
+        "highlights": "Walk in freely — no registration needed\nA suggested 60-minute route for first-timers\nHands-on zones open all day\nTalks and demos need no seat booking",
+        "ctaLabel": "See the agenda"
+      },
+      "school": {
+        "title": "Coming with a school group",
+        "description": "A class, club or student delegation arriving together, needing a time slot and a guide.",
+        "highlights": "Groups of 15+ should register for a time slot\nVolunteer guides walk your group through the route\nMeeting point, bag drop and assembly area for groups\nActivity sheets for students",
+        "ctaLabel": "Register a group"
+      },
+      "company": {
+        "title": "Attending as a company",
+        "description": "Businesses looking for partners, talent and technology they can put to work.",
+        "highlights": "Meet the startups and research teams exhibiting\nAfternoon business matchmaking session\nBook a booth for the next edition\nPartnership and sponsorship packages",
+        "ctaLabel": "Talk partnerships"
+      },
+      "press": {
+        "title": "Press and media",
+        "description": "Reporters and content creators covering the festival.",
+        "highlights": "Apply for a press pass before the event date\nPress kit with logos and high-resolution images\nDedicated interview and photo area\nA direct contact on the organising team",
+        "ctaLabel": "Apply for press"
+      }
+    },
+    "ctaTitle": "Still have a question?",
+    "ctaBody": "Message the organising team — we reply during office hours.",
+    "ctaPrimary": "Contact the team",
+    "ctaSecondary": "See the venue"
   },
   "agenda": {
     "title": "Agenda",

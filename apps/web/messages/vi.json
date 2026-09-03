@@ -47,11 +47,44 @@
   },
   "attend": {
     "title": "Vì sao nên tham dự?",
-    "audienceTitle": "Dành cho ai",
+    "heroBadge": "Vào cửa miễn phí · Không cần vé",
+    "audienceTitle": "Bạn đến với tư cách nào?",
+    "audienceLead": "Bốn kiểu khách quen thuộc của Son Tra Innovation Fest. Chọn nhóm gần bạn nhất để biết nên chuẩn bị gì và bắt đầu từ đâu.",
     "benefitsTitle": "Bạn nhận được gì",
     "entryTitle": "Thông tin vào cửa",
     "entryFree": "Vào cửa miễn phí. Không cần đăng ký hay vé.",
-    "hours": "Giờ mở cửa"
+    "hours": "Giờ mở cửa",
+    "highlightsLabel": "Điểm cần biết",
+    "segments": {
+      "solo": {
+        "title": "Khách đi 1 mình",
+        "description": "Bạn tự đến, tự chọn lịch trình và dừng lại ở bất cứ gian nào thấy thú vị.",
+        "highlights": "Vào cửa tự do, không cần đăng ký trước\nGợi ý tuyến tham quan 60 phút cho lần đầu\nKhu trải nghiệm mở suốt ngày sự kiện\nToạ đàm và demo không cần giữ chỗ",
+        "ctaLabel": "Xem chương trình"
+      },
+      "school": {
+        "title": "Khách đi với đoàn trường",
+        "description": "Lớp học, câu lạc bộ hay đoàn trường đi theo nhóm, cần khung giờ và người dẫn.",
+        "highlights": "Đoàn từ 15 người nên đăng ký để được xếp khung giờ\nCó tình nguyện viên dẫn đoàn theo tuyến\nKhu tập kết, gửi đồ và điểm hẹn cho đoàn\nPhiếu hoạt động cho học sinh, sinh viên",
+        "ctaLabel": "Đăng ký đoàn"
+      },
+      "company": {
+        "title": "Công ty tham dự",
+        "description": "Doanh nghiệp tìm đối tác, nhân sự và công nghệ có thể ứng dụng ngay.",
+        "highlights": "Gặp trực tiếp startup và nhóm nghiên cứu đang trưng bày\nPhiên kết nối doanh nghiệp vào buổi chiều\nCơ hội đặt gian trưng bày cho kỳ tới\nCác gói đồng hành và tài trợ",
+        "ctaLabel": "Liên hệ hợp tác"
+      },
+      "press": {
+        "title": "Báo chí truyền thông",
+        "description": "Phóng viên và nhà sáng tạo nội dung đưa tin về sự kiện.",
+        "highlights": "Đăng ký thẻ tác nghiệp trước ngày diễn ra\nBộ tài liệu báo chí, logo và hình ảnh độ phân giải cao\nKhu vực phỏng vấn và chụp hình riêng\nĐầu mối liên hệ trực tiếp với ban tổ chức",
+        "ctaLabel": "Đăng ký báo chí"
+      }
+    },
+    "ctaTitle": "Còn câu hỏi nào chưa có lời đáp?",
+    "ctaBody": "Nhắn cho ban tổ chức — chúng tôi trả lời trong giờ hành chính.",
+    "ctaPrimary": "Liên hệ ban tổ chức",
+    "ctaSecondary": "Xem địa điểm"
   },
   "agenda": {
     "title": "Chương trình",

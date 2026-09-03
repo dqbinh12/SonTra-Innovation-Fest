@@ -41,6 +41,16 @@
         }
       }
     },
+    "audienceSegments": {
+      "type": "component",
+      "repeatable": true,
+      "component": "attend.audience-segment",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
     "benefits": {
       "type": "component",
       "repeatable": true,

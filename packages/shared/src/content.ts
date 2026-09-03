@@ -67,6 +67,19 @@ export interface AttendBenefit {
   description: string | null;
 }
 
+/** The four visitor types on the Attend page. Drives icon + fallback copy. */
+export type AudienceSegmentKey = 'solo' | 'school' | 'company' | 'press';
+
+export interface AttendAudienceSegment {
+  key: AudienceSegmentKey;
+  title: string;
+  description: string | null;
+  /** One bullet per line. */
+  highlights: string | null;
+  ctaLabel: string | null;
+  ctaHref: string | null;
+}
+
 // --------------------------------------------------------------- single types
 
 export interface SiteSettings extends StrapiEntry {
@@ -98,6 +111,7 @@ export interface AttendPage extends StrapiEntry {
   heroTitle: string;
   heroBody: string | null;
   audience: RichText | null;
+  audienceSegments: AttendAudienceSegment[];
   benefits: AttendBenefit[];
   entryInfo: RichText | null;
   seo: Seo | null;
