@@ -188,26 +188,34 @@ a real portrait crop.
 
 ### The scrim is load-bearing
 
-Hero copy is `muted-foreground` (#526785). Unprotected it measured **1.99:1**
-over the artwork's darker regions, well under WCAG AA.
+The hero is a **navy band in both themes** and its copy is **white**, so the
+scrim is mixed from `--color-brand-navy`, not `--background` — a light-mode
+scrim would put white text on a white wash.
 
-- Below `xl`: vertical, white at 0% → 93% at 65% → 70% at the bottom.
-- `xl` and up: horizontal, white at 0% → 92% at 50% → transparent.
+- Below `xl`: vertical, navy at 95% → 78% at 60% → 45% at the bottom.
+- `xl` and up: horizontal, navy at 92% → 70% at 50% → 15% at the right.
+
+These are lighter than the stops that protected the previous dark-grey
+(#526785) copy, which measured **1.99:1** unprotected. White needs far less
+cover, and at the old 0.92/0.93 the artwork rendered as a navy smear rather
+than a photograph.
 
 A horizontal fade only works once the text occupies the left third. At 768px
 the text spans most of the viewport, and the horizontal gradient measured
 1.99:1 there — which is why the switch is at `xl`, not `sm`.
 
-Measured worst-case contrast, fresh load at each width:
+Measured worst-case contrast, fresh load at each width. The headline is a
+gradient (`.gradient-text-hero`, white → cyan → mint); it is measured against
+**brand cyan**, its dimmest stop, and judged as large text (3:1).
 
-| Width | Asset | Headline | Subtitle | Date |
-| ----- | ----- | -------- | -------- | ---- |
-| 360px | portrait | 15.83 | 5.31 | 5.05 |
-| 360px | wide (fallback) | 16.05 | 5.64 | 5.57 |
-| 430px | portrait | 15.74 | 5.17 | 5.05 |
-| 640px | wide | 15.99 | 5.32 | 5.54 |
-| 1280px | wide | 15.63 | 5.12 | 5.60 |
-| 1920px | wide | 15.51 | 5.15 | 5.56 |
+| Width | Asset | Mode | Headline | Subtitle | Date pill |
+| ----- | ----- | ---- | -------- | -------- | --------- |
+| 390px | portrait | vertical | 6.59 | 7.22 | 12.19 |
+| 768px | wide | vertical | 5.95 | 6.36 | 11.35 |
+| 1280px | wide | horizontal | 4.12 | 6.80 | 8.52 |
+
+The rest of the homepage was audited the same way — every section's worst-case
+text clears its threshold, the lowest being 5.01:1 against a 4.5 requirement.
 
 **Re-measure after changing either asset.** A darker photo fails silently — it
 looks slightly low-contrast in review rather than broken. The method: draw the
@@ -218,7 +226,11 @@ problem, because those blocks span the full container even where there is no
 text.
 
 If a new asset fails, raise the scrim stops in
-`apps/web/src/components/hero-media.tsx` or darken the hero text.
+`apps/web/src/components/hero-media.tsx` or drop the hero text to plain white.
+
+Note the site renders **light-only** — the `.dark` tokens in `globals.css`
+exist but nothing activates them (see the comment in `[locale]/layout.tsx`), so
+there is no second theme to measure here.
 
 ### Asset notes
 

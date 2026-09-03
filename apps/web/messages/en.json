@@ -26,12 +26,24 @@
   "home": {
     "title": "Home",
     "heroCta": "Plan your visit",
+    "heroCtaSecondary": "See the agenda",
     "highlightsTitle": "The festival at a glance",
     "aboutTeaserTitle": "About the festival",
     "aboutTeaserCta": "Read more",
+    "exploreTitle": "Explore the festival",
+    "exploreSubtitle": "Three days, one waterfront. Here is where to start.",
+    "exploreAgenda": "Talks, panels and workshops across all three days.",
+    "exploreExhibition": "Meet the startups, labs and makers on the show floor.",
+    "exploreLocation": "Getting there, parking and opening hours.",
+    "exploreSponsors": "The partners making the festival possible.",
     "sponsorsTitle": "Our sponsors",
+    "sponsorsCta": "Become a sponsor",
     "latestNewsTitle": "Latest news",
-    "latestNewsCta": "All news"
+    "latestNewsCta": "All news",
+    "ctaTitle": "Free to attend. No ticket required.",
+    "ctaBody": "Plan your days, pick your sessions and bring a friend.",
+    "ctaPrimary": "Plan your visit",
+    "ctaSecondary": "Get in touch"
   },
   "attend": {
     "title": "Why Attend?",

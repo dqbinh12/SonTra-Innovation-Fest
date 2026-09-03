@@ -26,12 +26,24 @@
   "home": {
     "title": "Trang chủ",
     "heroCta": "Lên kế hoạch tham dự",
+    "heroCtaSecondary": "Xem chương trình",
     "highlightsTitle": "Tổng quan sự kiện",
     "aboutTeaserTitle": "Về sự kiện",
     "aboutTeaserCta": "Tìm hiểu thêm",
+    "exploreTitle": "Khám phá sự kiện",
+    "exploreSubtitle": "Ba ngày, một bờ sông. Bắt đầu từ đây.",
+    "exploreAgenda": "Các buổi trò chuyện, tọa đàm và workshop trong cả ba ngày.",
+    "exploreExhibition": "Gặp gỡ startup, phòng lab và nhà sáng tạo tại khu trưng bày.",
+    "exploreLocation": "Đường đi, chỗ đỗ xe và giờ mở cửa.",
+    "exploreSponsors": "Những đối tác đồng hành cùng sự kiện.",
     "sponsorsTitle": "Nhà tài trợ",
+    "sponsorsCta": "Trở thành nhà tài trợ",
     "latestNewsTitle": "Tin mới nhất",
-    "latestNewsCta": "Tất cả tin tức"
+    "latestNewsCta": "Tất cả tin tức",
+    "ctaTitle": "Vào cửa tự do. Không cần vé.",
+    "ctaBody": "Lên lịch cho ngày của bạn, chọn phiên yêu thích và rủ thêm bạn bè.",
+    "ctaPrimary": "Lên kế hoạch tham dự",
+    "ctaSecondary": "Liên hệ với chúng tôi"
   },
   "attend": {
     "title": "Vì sao nên tham dự?",

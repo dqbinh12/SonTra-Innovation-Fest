@@ -25,12 +25,19 @@ const isVideo = (media: StrapiMedia) => Boolean(media.mime?.startsWith('video/')
  * the source it picks. Rendering two <Image> elements and hiding one with CSS
  * would make phones pay for the desktop artwork too.
  *
- * The scrim over the image is load-bearing, not decoration. Hero copy is
- * `muted-foreground` (#526785); unprotected it measured 1.99:1 against the
- * artwork's darker regions, well under WCAG AA. The gradient runs top-to-bottom
- * below `xl` and left-to-right above it, because a horizontal fade only works
- * once the text occupies the left third — at tablet widths the text spans most
- * of the viewport and a horizontal scrim cannot cover it.
+ * The scrim over the image is load-bearing, not decoration. The hero is a dark
+ * navy band in both themes and its copy is white, so the scrim is built from
+ * `--color-brand-navy` rather than `--background` — a light-mode scrim would
+ * put white text on a white wash. The gradient runs top-to-bottom below `xl`
+ * and left-to-right above it, because a horizontal fade only works once the
+ * text occupies the left third — at tablet widths the text spans most of the
+ * viewport and a horizontal scrim cannot cover it.
+ *
+ * The stops are lighter than the ones that protected the old dark-grey hero
+ * copy: white text needs far less cover than #526785 did, and at the old 0.92
+ * the artwork was a navy smear. Re-measured worst-case with the method in
+ * docs/brand.md — headline 6.59 / 5.95 / 4.12 and subtitle 7.22 / 6.36 / 6.80
+ * at 390 / 768 / 1280. Re-measure after changing either asset.
  *
  * Any new artwork must be re-measured; docs/brand.md records the method and the
  * current numbers.
@@ -50,7 +57,7 @@ export function HeroMedia({ desktop, mobile }: HeroMediaProps) {
 
       <div
         aria-hidden="true"
-        className="from-background via-background/93 to-background/70 via-65% xl:via-background/92 xl:via-50% absolute inset-0 bg-gradient-to-b xl:bg-gradient-to-r xl:to-transparent"
+        className="from-brand-navy/95 via-brand-navy/78 to-brand-navy/45 via-60% xl:from-brand-navy/92 xl:via-brand-navy/70 xl:via-50% xl:to-brand-navy/15 absolute inset-0 bg-gradient-to-b xl:bg-gradient-to-r"
       />
     </div>
   );
