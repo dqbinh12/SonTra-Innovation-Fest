@@ -38,7 +38,9 @@ services:
       - ../apps/cms/.tmp:/app/apps/cms/.tmp
 
       # Uploaded media — persists across container rebuilds/restarts.
-      - cms-uploads:/app/apps/cms/public/uploads
+      # Must mount the entire `public` folder, not just `public/uploads`, 
+      # so Strapi data transfer can rename it to `.backup` without mount boundary errors.
+      - cms-uploads:/app/apps/cms/public
 
     ports:
       - '127.0.0.1:1337:1337'
