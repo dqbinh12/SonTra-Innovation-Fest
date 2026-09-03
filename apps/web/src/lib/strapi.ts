@@ -78,7 +78,9 @@ export async function strapiFetchOptional<T>(
     const { data } = await strapiFetch<T>(path, options);
     return data ?? null;
   } catch (error) {
-    if (error instanceof StrapiError && error.status >= 500) throw error;
+    if (error instanceof StrapiError && error.status >= 500 && !process.env.IS_BUILD) {
+      throw error;
+    }
     console.warn(`[strapi] optional fetch failed for "${path}":`, error);
     return null;
   }

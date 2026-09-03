@@ -17,6 +17,7 @@ ARG NEXT_PUBLIC_STRAPI_URL
 ENV NEXT_PUBLIC_SITE_URL=$NEXT_PUBLIC_SITE_URL
 ENV NEXT_PUBLIC_STRAPI_URL=$NEXT_PUBLIC_STRAPI_URL
 ENV NEXT_TELEMETRY_DISABLED=1
+ENV IS_BUILD=true
 COPY --from=deps /app/node_modules ./node_modules
 COPY --from=deps /app/apps/web/node_modules ./apps/web/node_modules
 COPY . .
