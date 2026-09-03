@@ -73,11 +73,43 @@ docker compose -f infra/docker-compose.yml exec -T db pg_dump -U sif sif | gzip 
 
 Media needs a separate copy of the `cms-uploads` volume.
 
+## Data transfer
+
+`strapi transfer` moves the database and uploads between instances over the
+admin websocket. It is enabled on this CMS (`server.transfer.remote.enabled`,
+overridable with `TRANSFER_REMOTE_ENABLED`) and needs two things on the
+receiving instance:
+
+1. A `TRANSFER_TOKEN_SALT` — already required by compose.
+2. A transfer token from the admin panel: **Settings > Transfer Tokens > Create**.
+   Copy it once; it is not shown again.
+
+Push a local database to the server:
+
+```bash
+pnpm --filter @sif/cms strapi transfer --to https://cms.example.com/admin --to-token <token>
+```
+
+Pull the server's data down instead with `--from` / `--from-token`.
+
+A `Data transfer is not enabled on the remote host` error is the client
+reporting a 404 on the websocket route. Either the remote instance has transfer
+disabled (redeploy it after this change), or the reverse proxy is not upgrading
+the connection — see below.
+
 ## Reverse proxy notes
 
 - Strapi's admin uploads need a body-size limit above the default 1 MB.
   For nginx: `client_max_body_size 50M;` on the CMS host.
 - Forward `X-Forwarded-Proto` so Strapi generates `https://` media URLs.
+- Pass websocket upgrades through to the CMS, or `strapi transfer` fails with
+  a 404. For nginx on the CMS host:
+
+  ```nginx
+  proxy_http_version 1.1;
+  proxy_set_header Upgrade $http_upgrade;
+  proxy_set_header Connection "upgrade";
+  ```
 - The `NEXT_PUBLIC_*` variables are baked in at image build time, so changing
   the domain means rebuilding the `web` image, not just restarting it.
 - `NEXT_PUBLIC_STRAPI_URL` must be a URL a **browser** can reach, on a public

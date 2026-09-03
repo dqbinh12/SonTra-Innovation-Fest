@@ -23,6 +23,8 @@ services:
       API_TOKEN_SALT: ${API_TOKEN_SALT:?API_TOKEN_SALT is required}
       ADMIN_JWT_SECRET: ${ADMIN_JWT_SECRET:?ADMIN_JWT_SECRET is required}
       TRANSFER_TOKEN_SALT: ${TRANSFER_TOKEN_SALT:?TRANSFER_TOKEN_SALT is required}
+      # Set to false to close the `strapi transfer` websocket on this instance.
+      TRANSFER_REMOTE_ENABLED: ${TRANSFER_REMOTE_ENABLED:-true}
       JWT_SECRET: ${JWT_SECRET:?JWT_SECRET is required}
       ENCRYPTION_KEY: ${ENCRYPTION_KEY:?ENCRYPTION_KEY is required}
 
