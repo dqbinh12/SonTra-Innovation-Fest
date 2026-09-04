@@ -136,6 +136,10 @@ export interface HomePage extends StrapiEntry {
 export interface AttendPage extends StrapiEntry {
   heroTitle: string;
   heroBody: string | null;
+  /** Wide / desktop hero background. */
+  heroMedia: StrapiMedia | null;
+  /** Portrait crop for phones. Falls back to `heroMedia` when unset. */
+  heroMediaMobile: StrapiMedia | null;
   audience: RichText | null;
   audienceSegments: AttendAudienceSegment[];
   benefits: AttendBenefit[];

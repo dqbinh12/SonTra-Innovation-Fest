@@ -9,6 +9,16 @@ const strapiUrl = new URL(process.env.NEXT_PUBLIC_STRAPI_URL ?? 'http://localhos
 const nextConfig: NextConfig = {
   // Self-hosted via Docker — see infra/docker-compose.yml.
   output: 'standalone',
+  // `next dev` blocks cross-origin requests to /_next/* (chunks, HMR socket).
+  // Tunnelling the dev server (serveo, ngrok, Cloudflare) serves the app from a
+  // host that isn't localhost, so lazy route chunks 404 and client navigation —
+  // e.g. the language switcher — silently dies. Dev-only; ignored by `next build`.
+  allowedDevOrigins: [
+    '*.serveousercontent.com',
+    '*.serveo.net',
+    '*.ngrok-free.app',
+    '*.trycloudflare.com',
+  ],
   // fileURLToPath, not URL.pathname — the repo path contains a space, which
   // percent-encodes into a path Next cannot resolve.
   outputFileTracingRoot: fileURLToPath(new URL('../../', import.meta.url)),

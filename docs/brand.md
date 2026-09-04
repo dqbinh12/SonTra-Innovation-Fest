@@ -151,7 +151,8 @@ client, not a default. The tokens are ready if they want it.
 
 ## Hero media
 
-Two CMS fields on **Home Page**, both non-localized:
+Two CMS fields on **Home Page** and, with the same names and behaviour, on
+**Attend Page** — all non-localized:
 
 | Field | Used | Notes |
 | ----- | ---- | ----- |
@@ -234,8 +235,10 @@ there is no second theme to measure here.
 
 ### Asset notes
 
-- Supply the phone crop in portrait, roughly 4:5 or 9:16. It is used below
-  640px only.
+- Supply the phone crop in portrait. Roughly 4:5 or 9:16 for the homepage; the
+  Attend hero is a shorter band, so 2:3 crops least there. Used below 640px only.
+- The Attend hero also carries a row of `glass-invert` jump links at the foot of
+  the band, where the scrim is thinnest — measure those as well as the headline.
 - The current wide file is a 630KB PNG of a photograph. next/image re-encodes
   on serve, so visitors are fine, but JPEG or WebP would be a fraction of the
   size in the media library.

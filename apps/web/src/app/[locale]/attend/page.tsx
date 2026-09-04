@@ -8,6 +8,7 @@ import { Link } from '@/i18n/navigation';
 import { Container } from '@/components/layout/container';
 import { Section } from '@/components/layout/section';
 import { TechBackdrop, SectionGlow } from '@/components/home/tech-backdrop';
+import { HeroMedia } from '@/components/hero-media';
 import { ScrollReveal } from '@/components/home/scroll-reveal';
 import { AUDIENCE_KEYS, AudienceCard, isAudienceKey } from '@/components/attend/audience-card';
 import { RichText } from '@/components/rich-text';
@@ -18,6 +19,8 @@ function getAttendPage(locale: string) {
   return strapiFetchOptional<AttendPage>('attend-page', {
     locale: locale as Locale,
     query: {
+      'populate[heroMedia]': 'true',
+      'populate[heroMediaMobile]': 'true',
       'populate[benefits]': 'true',
       'populate[audienceSegments]': 'true',
       'populate[seo][populate]': 'ogImage',
@@ -74,6 +77,11 @@ export default async function Attend({ params }: Props) {
     <>
       {/* ─── Hero ──────────────────────────────────────────────────────── */}
       <section className="bg-brand-navy relative isolate overflow-hidden py-20 text-white sm:py-28">
+        {/* CMS artwork or video — sits at -z-10 with its own navy scrim. */}
+        {(page?.heroMedia || page?.heroMediaMobile) && (
+          <HeroMedia desktop={page.heroMedia} mobile={page.heroMediaMobile} />
+        )}
+        {/* Animated backdrop — sits at -z-20, so the media simply covers it. */}
         <TechBackdrop />
 
         <Container className="relative">

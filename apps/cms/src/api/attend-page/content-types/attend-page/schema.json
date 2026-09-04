@@ -5,7 +5,7 @@
     "singularName": "attend-page",
     "pluralName": "attend-pages",
     "displayName": "Attend Page",
-    "description": "Why Attend hero, audience, benefits and free-entry info."
+    "description": "Why Attend hero, audience, benefits and free-entry info. heroMedia is the wide / desktop hero background; heroMediaMobile is the portrait crop used on phones (optional \u2014 falls back to heroMedia)."
   },
   "options": {
     "draftAndPublish": true
@@ -30,6 +30,32 @@
       "pluginOptions": {
         "i18n": {
           "localized": true
+        }
+      }
+    },
+    "heroMedia": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "videos"
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
+    },
+    "heroMediaMobile": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images",
+        "videos"
+      ],
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
         }
       }
     },
