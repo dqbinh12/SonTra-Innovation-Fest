@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_shared_countdowns",
+  "info": {
+    "displayName": "Countdown",
+    "description": "The welcome countdown popup on the homepage and the Agenda page. Shared across EN and VI — the date is one moment in time, and the unit labels come from the site's own translations.",
+    "icon": "clock"
+  },
+  "options": {},
+  "attributes": {
+    "enabled": {
+      "type": "boolean",
+      "default": true,
+      "required": true,
+      "description": "Turn the countdown off everywhere without losing the date."
+    },
+    "targetDate": {
+      "type": "datetime",
+      "description": "The moment the countdown runs to — normally the opening of the festival. Entered in your own timezone and stored as UTC."
+    },
+    "label": {
+      "type": "string",
+      "description": "Optional heading inside the popup, e.g. \"Khai mạc còn\". Leave blank to use the built-in EN/VI copy."
+    }
+  }
+}

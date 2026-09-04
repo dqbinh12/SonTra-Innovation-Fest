@@ -1,28 +1,30 @@
 import type { Organization, OrganizationRole } from '@sif/shared';
 import { StrapiImage } from '@/components/strapi-image';
 import { ScrollReveal } from '@/components/home/scroll-reveal';
+import { SectionGlow } from '@/components/home/tech-backdrop';
 import { cn } from '@/lib/utils';
 
 /**
  * Tile size per role. The organizer is the headline logo, the co-organizers
  * flank it, and the coordinating entities close the block one step smaller —
- * the same hierarchy as the printed key visual.
+ * the same hierarchy as the printed key visual, at a height that does not
+ * push the rest of the page below the fold.
  */
 const ROLES: Record<OrganizationRole, { tile: string; logo: string; sizes: string }> = {
   organizer: {
-    tile: 'w-full max-w-xs sm:w-72 lg:w-80 h-44 sm:h-48 lg:h-56',
-    logo: 'max-h-28 sm:max-h-32 lg:max-h-40',
-    sizes: '(min-width: 1024px) 320px, (min-width: 640px) 288px, 80vw',
+    tile: 'h-28 w-56 sm:h-32 sm:w-64',
+    logo: 'max-h-16 sm:max-h-20',
+    sizes: '256px',
   },
   'co-organizer': {
-    tile: 'w-full max-w-[15rem] sm:w-56 lg:w-64 h-36 sm:h-40 lg:h-44',
-    logo: 'max-h-20 sm:max-h-24 lg:max-h-28',
-    sizes: '(min-width: 1024px) 256px, (min-width: 640px) 224px, 70vw',
+    tile: 'h-24 w-48 sm:h-28 sm:w-56',
+    logo: 'max-h-12 sm:max-h-16',
+    sizes: '224px',
   },
   coordinator: {
-    tile: 'w-full max-w-[13rem] sm:w-48 lg:w-56 h-32 sm:h-36',
-    logo: 'max-h-16 sm:max-h-20 lg:max-h-24',
-    sizes: '(min-width: 1024px) 224px, (min-width: 640px) 192px, 60vw',
+    tile: 'h-20 w-44 sm:h-24 sm:w-52',
+    logo: 'max-h-10 sm:max-h-14',
+    sizes: '208px',
   },
 };
 
@@ -32,23 +34,34 @@ export function isOrganizationRole(value: unknown): value is OrganizationRole {
   return typeof value === 'string' && value in ROLES;
 }
 
+/** Small caps label above a logo or a row of logos. */
+function RoleLabel({ children, strong = false }: { children: string; strong?: boolean }) {
+  return (
+    <span
+      className={cn(
+        'block text-center text-[0.65rem] font-semibold tracking-[0.2em] uppercase sm:text-xs',
+        strong ? 'gradient-text' : 'text-muted-foreground',
+      )}
+    >
+      {children}
+    </span>
+  );
+}
+
 function OrganizationTile({
   organization,
   label,
-  className,
 }: {
   organization: Organization;
   /** Omitted when the row already carries one shared label. */
   label?: string;
-  className?: string;
 }) {
   const { tile, logo, sizes } = ROLES[organization.role];
-  const isOrganizer = organization.role === 'organizer';
 
   const plate = (
     <span
       className={cn(
-        'lift flex items-center justify-center rounded-2xl bg-white/92 p-5 shadow-[0_20px_50px_-24px_rgba(2,8,40,0.9)] ring-1 ring-white/25 backdrop-blur-sm sm:p-6',
+        'glass lift flex items-center justify-center rounded-xl px-5 py-3 dark:bg-white/90',
         tile,
       )}
     >
@@ -59,7 +72,7 @@ function OrganizationTile({
           className={cn('w-auto object-contain', logo)}
         />
       ) : (
-        <span className="text-brand-navy text-center text-base font-semibold text-balance">
+        <span className="text-center text-sm font-semibold text-balance dark:text-[#001f4b]">
           {organization.name}
         </span>
       )}
@@ -67,52 +80,36 @@ function OrganizationTile({
   );
 
   return (
-    <figure className={cn('flex flex-col items-center', className)}>
-      {/* The role sits above its own logo, the way the key visual labels it. */}
-      {label && (
-        <figcaption
-          className={cn(
-            'text-center text-xs font-semibold tracking-[0.22em] uppercase sm:text-sm',
-            isOrganizer ? 'text-white' : 'text-white/65',
-          )}
+    <figure className="flex flex-col items-center gap-2">
+      {label && <RoleLabel strong={organization.role === 'organizer'}>{label}</RoleLabel>}
+
+      {organization.link ? (
+        <a
+          href={organization.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label={organization.name}
+          className="block"
         >
-          {label}
-        </figcaption>
+          {plate}
+        </a>
+      ) : (
+        plate
       )}
 
-      <div className={cn(label && 'mt-3 sm:mt-4')}>
-        {organization.link ? (
-          <a
-            href={organization.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={organization.name}
-            className="block"
-          >
-            {plate}
-          </a>
-        ) : (
-          plate
-        )}
-      </div>
-
-      {organization.logo && (
-        <p className="mt-3 max-w-[15rem] text-center text-sm text-white/70 text-balance">
-          {organization.name}
-        </p>
-      )}
+      {/* The logo carries the name visually; keep it for screen readers and
+          for anyone hovering, without spending a line of height on it. */}
+      {organization.logo && <figcaption className="sr-only">{organization.name}</figcaption>}
     </figure>
   );
 }
 
 /**
- * The organizations behind the festival, on a navy panel that echoes the
- * festival key visual: the organizer centred between its two co-organizers,
- * with the coordinating entities on the row below.
+ * The organizations behind the festival: the organizer centred between its two
+ * co-organizers, with the coordinating entities on the row below.
  *
  * The arrangement is composed rather than a plain grid, but nothing here
- * assumes the 1 / 2 / 2 split — an extra logo in the CMS simply wraps into
- * its own row.
+ * assumes the 1 / 2 / 2 split — an extra logo in the CMS simply wraps.
  */
 export function Organizations({
   organizations,
@@ -141,21 +138,22 @@ export function Organizations({
   ];
 
   return (
-    <div className="bg-brand-navy relative isolate overflow-hidden rounded-3xl px-6 py-12 sm:px-10 sm:py-16">
-      {/* Decoration only — the same grid + glow vocabulary as the hero. */}
-      <div aria-hidden="true" className="absolute inset-0 -z-10">
-        <div className="bg-tech-grid absolute inset-0 opacity-40" />
-        <div className="bg-brand-blue/25 absolute -top-24 left-1/2 size-96 -translate-x-1/2 rounded-full blur-3xl" />
-        <div className="bg-brand-violet/20 absolute -right-20 -bottom-24 size-80 rounded-full blur-3xl" />
-      </div>
+    <div className="relative isolate overflow-hidden rounded-3xl px-4 py-8 sm:px-8 sm:py-10">
+      {/* A tinted band rather than a solid block: the logos stay the only
+          thing with weight, and the panel does not read as a second hero. */}
+      <SectionGlow className="rounded-3xl" />
+      <div
+        aria-hidden="true"
+        className="ring-border/60 absolute inset-0 -z-10 rounded-3xl ring-1 ring-inset"
+      />
 
-      <ul className="flex flex-wrap items-end justify-center gap-8 sm:gap-10 lg:gap-12">
+      <ul className="flex flex-wrap items-end justify-center gap-x-8 gap-y-6 sm:gap-x-10">
         {topRow.map((organization, i) => (
           <li
             key={`${organization.role}-${i}`}
             className={cn(organization.role === 'organizer' && 'order-first sm:order-none')}
           >
-            <ScrollReveal delay={i * 90}>
+            <ScrollReveal delay={i * 80}>
               <OrganizationTile organization={organization} label={labels[organization.role]} />
             </ScrollReveal>
           </li>
@@ -163,28 +161,21 @@ export function Organizations({
       </ul>
 
       {coordinators.length > 0 && (
-        <>
-          <div
-            aria-hidden="true"
-            className="mx-auto mt-12 h-px w-full max-w-md bg-gradient-to-r from-transparent via-white/25 to-transparent sm:mt-14"
-          />
-
+        <div className="mt-8 sm:mt-10">
           {/* One label for the pair — repeating it over each logo reads as two
               separate roles rather than one group. */}
-          <p className="mt-10 text-center text-xs font-semibold tracking-[0.22em] text-white/65 uppercase sm:text-sm">
-            {labels.coordinator}
-          </p>
+          <RoleLabel>{labels.coordinator}</RoleLabel>
 
-          <ul className="mt-6 flex flex-wrap items-end justify-center gap-8 sm:gap-10">
+          <ul className="mt-3 flex flex-wrap items-end justify-center gap-x-8 gap-y-6 sm:gap-x-10">
             {coordinators.map((organization, i) => (
               <li key={`coordinator-${i}`}>
-                <ScrollReveal delay={i * 90}>
+                <ScrollReveal delay={i * 80}>
                   <OrganizationTile organization={organization} />
                 </ScrollReveal>
               </li>
             ))}
           </ul>
-        </>
+        </div>
       )}
     </div>
   );

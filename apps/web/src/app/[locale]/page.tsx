@@ -12,6 +12,7 @@ import { AnimatedCounter } from '@/components/home/animated-counter';
 import { ScrollReveal } from '@/components/home/scroll-reveal';
 import { NewsCard } from '@/components/home/news-card';
 import { SponsorMarquee } from '@/components/home/sponsor-marquee';
+import { EventCountdown } from '@/components/countdown/event-countdown';
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -139,6 +140,17 @@ export default async function Home({ params }: Props) {
               {t('heroCtaSecondary')}
             </Link>
           </div>
+
+          {/*
+            Top-right of the hero on desktop; below the buttons on narrow
+            screens, where an overlay would land on the headline. Set once in
+            Site Settings — renders nothing until a date is there.
+          */}
+          <EventCountdown
+            locale={locale}
+            variant="hero"
+            className="mt-12 lg:absolute lg:top-0 lg:right-0 lg:mt-0"
+          />
         </Container>
 
         {/* Fade into the page ground so the seam is a gradient, not a line. */}

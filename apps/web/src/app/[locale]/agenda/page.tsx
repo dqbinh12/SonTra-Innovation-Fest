@@ -8,6 +8,7 @@ import { mediaUrl } from '@/lib/media';
 import { formatTime } from '@/lib/format';
 import { PageHeader } from '@/components/layout/page-header';
 import { Section, EmptyState } from '@/components/layout/section';
+import { EventCountdown } from '@/components/countdown/event-countdown';
 
 type Props = { params: Promise<{ locale: string }> };
 
@@ -64,7 +65,12 @@ export default async function Agenda({ params }: Props) {
 
   return (
     <>
-      <PageHeader title={page?.title ?? t('title')} lead={page?.intro} />
+      <PageHeader
+        title={page?.title ?? t('title')}
+        lead={page?.intro}
+        // The same card as the homepage hero — one date, set in Site Settings.
+        aside={<EventCountdown locale={locale} variant="panel" />}
+      />
 
       <Section>
         {days.size === 0 ? (

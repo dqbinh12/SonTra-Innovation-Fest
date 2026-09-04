@@ -8,7 +8,7 @@ draft/publish enabled.
 
 | Type | API path | Covers |
 | ---- | -------- | ------ |
-| Site Settings | `/api/site-setting` | Logo, contact info, social links, footer text |
+| Site Settings | `/api/site-setting` | Logo, contact info, social links, footer text, countdown |
 | Home Page | `/api/home-page` | Hero, stats, about teaser |
 | Attend Page | `/api/attend-page` | Why-attend hero, audience, benefits, entry info |
 | Sponsors Page | `/api/sponsors-page` | Tier descriptions, application intro |
@@ -34,10 +34,36 @@ type, and granting one has it pruned and re-created on every boot.
 ## Components
 
 `shared.seo` (metaTitle, metaDescription, ogImage), `shared.social-link`,
-`shared.stat`, `attend.benefit`.
+`shared.stat`, `shared.organization`, `shared.countdown`, `attend.benefit`.
 
 Components are **not** populated by default. A query that needs one has to name
 it: `?populate[stats]=true`, `?populate[seo][populate]=ogImage`.
+
+## The countdown
+
+`shared.countdown` lives on **Site Settings**, once, and drives the small
+countdown card in the top-right of the homepage hero *and* the one beside the
+Agenda page title — there is no second place to keep in step. Fields:
+`enabled`, `targetDate`, and an optional `label`.
+
+It is deliberately **not localised**: the opening is a single moment in time,
+and the unit labels (Days/Ngày…) ship with the site's own translations in
+`apps/web/messages`. Leave `label` blank unless you want one shared wording in
+both languages — whatever you type there shows on `/en` and `/vi` alike.
+
+How the card behaves:
+
+- It is simply part of the page: always visible, with no dismiss button and
+  nothing stored about the visitor.
+- It disappears on its own once `targetDate` has passed, rather than sitting at
+  zero, and never appears when `enabled` is off or `targetDate` is empty.
+  Clearing `enabled` is the way to take it down without losing the date.
+- On phones it sits below the hero buttons (and below the Agenda title) instead
+  of overlapping them.
+
+The pages are statically rendered, so the digits are seeded server-side at
+build / revalidate time and corrected in the browser as it hydrates — a stale
+cache never shows a stale count.
 
 ## Four types beyond the workbook
 

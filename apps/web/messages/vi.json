@@ -45,6 +45,13 @@
     "ctaPrimary": "Lên kế hoạch tham dự",
     "ctaSecondary": "Liên hệ với chúng tôi"
   },
+  "countdown": {
+    "label": "Đếm ngược đến ngày khai mạc",
+    "days": "Ngày",
+    "hours": "Giờ",
+    "minutes": "Phút",
+    "ariaLabel": "Còn {days} ngày, {hours} giờ và {minutes} phút nữa lễ hội khai mạc."
+  },
   "attend": {
     "title": "Vì sao nên tham dự?",
     "heroBadge": "Vào cửa miễn phí · Không cần vé",
@@ -130,6 +137,9 @@
     "title": "Về chúng tôi",
     "missionTitle": "Sứ mệnh",
     "organizerTitle": "Các đơn vị đồng hành",
+    "ctaTitle": "Bạn muốn đồng hành cùng lễ hội?",
+    "ctaBody": "Hợp tác, báo chí hay bất kỳ câu hỏi nào về lễ hội — ban tổ chức đều đọc mọi tin nhắn.",
+    "ctaPrimary": "Liên hệ với chúng tôi",
     "roles": {
       "organizer": "Đơn vị tổ chức",
       "co-organizer": "Đơn vị đồng tổ chức",

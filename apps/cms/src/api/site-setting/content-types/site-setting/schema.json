@@ -70,6 +70,16 @@
           "localized": true
         }
       }
+    },
+    "countdown": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.countdown",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
     }
   }
 }

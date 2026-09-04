@@ -89,6 +89,9 @@ async function seed(strapi: Core.Strapi) {
         { platform: 'LinkedIn', url: 'https://linkedin.com/' },
       ],
       footerText: 'Innovate Today, Shape Tomorrow.',
+      // Non-localized, so it only needs setting on the EN side. 09:00 ICT on
+      // the opening day of the seeded agenda.
+      countdown: { enabled: true, targetDate: '2026-10-02T02:00:00.000Z' },
     },
     {
       siteName: 'Son Tra Innovation Fest',

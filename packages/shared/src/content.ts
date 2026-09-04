@@ -90,6 +90,21 @@ export interface Organization {
   link: string | null;
 }
 
+/**
+ * The live countdown on the homepage hero and the Agenda page. Non-localized:
+ * the opening is one moment in time, and the unit labels ship with the UI
+ * translations rather than the CMS.
+ */
+export interface Countdown {
+  enabled: boolean;
+  /** ISO datetime, UTC. Null while the date is still to be decided. */
+  targetDate: string | null;
+  /** Optional heading override; falls back to the `countdown` messages. */
+  label: string | null;
+  /** Optional post-event message; falls back to the `countdown` messages. */
+  completedMessage: string | null;
+}
+
 // --------------------------------------------------------------- single types
 
 export interface SiteSettings extends StrapiEntry {
@@ -99,6 +114,7 @@ export interface SiteSettings extends StrapiEntry {
   contactPhone: string | null;
   socialLinks: SocialLink[];
   footerText: string | null;
+  countdown: Countdown | null;
 }
 
 export interface HomePage extends StrapiEntry {

@@ -45,6 +45,13 @@
     "ctaPrimary": "Plan your visit",
     "ctaSecondary": "Get in touch"
   },
+  "countdown": {
+    "label": "Counting down to the festival",
+    "days": "Days",
+    "hours": "Hours",
+    "minutes": "Minutes",
+    "ariaLabel": "{days} days, {hours} hours and {minutes} minutes until the festival opens."
+  },
   "attend": {
     "title": "Why Attend?",
     "heroBadge": "Free entry · No ticket needed",
@@ -130,6 +137,9 @@
     "title": "About Us",
     "missionTitle": "Our mission",
     "organizerTitle": "Who is behind the festival",
+    "ctaTitle": "Want to be part of it?",
+    "ctaBody": "Partnership, press or a question about the festival — the organizing team reads every message.",
+    "ctaPrimary": "Contact us",
     "roles": {
       "organizer": "Organizer",
       "co-organizer": "Co-organizer",
