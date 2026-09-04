@@ -129,7 +129,12 @@
   "about": {
     "title": "About Us",
     "missionTitle": "Our mission",
-    "organizerTitle": "The organizer"
+    "organizerTitle": "Who is behind the festival",
+    "roles": {
+      "organizer": "Organizer",
+      "co-organizer": "Co-organizer",
+      "coordinator": "Coordinating entity"
+    }
   },
   "contact": {
     "title": "Contact Us",

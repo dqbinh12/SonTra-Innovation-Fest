@@ -1,0 +1,31 @@
+{
+  "collectionName": "components_shared_organizations",
+  "info": {
+    "displayName": "Organization",
+    "description": "One organization behind the festival, grouped by the role it plays.",
+    "icon": "briefcase"
+  },
+  "options": {},
+  "attributes": {
+    "role": {
+      "type": "enumeration",
+      "enum": ["organizer", "co-organizer", "coordinator"],
+      "default": "co-organizer",
+      "required": true,
+      "description": "Drives which group the logo appears in on the About page."
+    },
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "logo": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"]
+    },
+    "link": {
+      "type": "string",
+      "description": "Optional website, opened in a new tab."
+    }
+  }
+}

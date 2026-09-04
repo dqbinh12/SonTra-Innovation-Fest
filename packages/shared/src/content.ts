@@ -80,6 +80,16 @@ export interface AttendAudienceSegment {
   ctaHref: string | null;
 }
 
+/** The role an organization plays in the festival, from the About page. */
+export type OrganizationRole = 'organizer' | 'co-organizer' | 'coordinator';
+
+export interface Organization {
+  role: OrganizationRole;
+  name: string;
+  logo: StrapiMedia | null;
+  link: string | null;
+}
+
 // --------------------------------------------------------------- single types
 
 export interface SiteSettings extends StrapiEntry {
@@ -152,8 +162,7 @@ export interface LocationPage extends StrapiEntry {
 export interface AboutPage extends StrapiEntry {
   story: RichText;
   mission: string | null;
-  organizerName: string | null;
-  organizerLogo: StrapiMedia | null;
+  organizations: Organization[];
   seo: Seo | null;
 }
 

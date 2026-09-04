@@ -195,8 +195,7 @@ async function seed(strapi: Core.Strapi) {
     {
       title: 'Nhà tài trợ',
       intro: 'Son Tra Innovation Fest được tổ chức nhờ sự đồng hành của các đối tác.',
-      applicationIntro:
-        'Hãy cho chúng tôi biết về doanh nghiệp của bạn, chúng tôi sẽ liên hệ lại.',
+      applicationIntro: 'Hãy cho chúng tôi biết về doanh nghiệp của bạn, chúng tôi sẽ liên hệ lại.',
     },
   );
 
@@ -263,7 +262,17 @@ async function seed(strapi: Core.Strapi) {
         'Beyond the visitor experience, the festival contributes to local economic growth through tourism revenue, and serves as a platform to promote the Da Nang International Financial Center (DIFC) to domestic and international audiences.',
       ),
       mission: 'Innovate Today, Shape Tomorrow.',
-      organizerName: 'DN365',
+      // Not localised: the same organisations, under their official names.
+      organizations: [
+        { role: 'organizer', name: 'Phường Sơn Trà — Cộng đồng hạnh phúc' },
+        {
+          role: 'co-organizer',
+          name: 'Trung tâm Hỗ trợ Khởi nghiệp Đổi mới Sáng tạo Đà Nẵng (DISSC)',
+        },
+        { role: 'co-organizer', name: 'Đà Nẵng 365' },
+        { role: 'coordinator', name: 'Hội Doanh nghiệp phường Sơn Trà' },
+        { role: 'coordinator', name: 'JCI Vietnam' },
+      ],
     },
     {
       story: paragraphs(
@@ -273,7 +282,6 @@ async function seed(strapi: Core.Strapi) {
         'Bên cạnh trải nghiệm cho khách tham quan, lễ hội góp phần thúc đẩy tăng trưởng kinh tế địa phương thông qua doanh thu du lịch, đồng thời là nền tảng quảng bá Trung tâm Tài chính Quốc tế Đà Nẵng (DIFC) tới công chúng trong nước và quốc tế.',
       ),
       mission: 'Innovate Today, Shape Tomorrow.',
-      organizerName: 'DN365',
     },
   );
 
@@ -300,7 +308,11 @@ async function seed(strapi: Core.Strapi) {
         track: 'Product',
         location: 'Hall B',
       },
-      vi: { title: 'Xây dựng sản phẩm cho thị trường Việt Nam', track: 'Sản phẩm', location: 'Hội trường B' },
+      vi: {
+        title: 'Xây dựng sản phẩm cho thị trường Việt Nam',
+        track: 'Sản phẩm',
+        location: 'Hội trường B',
+      },
     },
     {
       en: {

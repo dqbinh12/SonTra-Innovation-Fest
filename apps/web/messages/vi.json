@@ -129,7 +129,12 @@
   "about": {
     "title": "Về chúng tôi",
     "missionTitle": "Sứ mệnh",
-    "organizerTitle": "Đơn vị tổ chức"
+    "organizerTitle": "Các đơn vị đồng hành",
+    "roles": {
+      "organizer": "Đơn vị tổ chức",
+      "co-organizer": "Đơn vị đồng tổ chức",
+      "coordinator": "Đơn vị điều phối"
+    }
   },
   "contact": {
     "title": "Liên hệ",
