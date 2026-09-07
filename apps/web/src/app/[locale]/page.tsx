@@ -7,6 +7,7 @@ import { seoMetadata } from '@/lib/metadata';
 import { Link } from '@/i18n/navigation';
 import { Container } from '@/components/layout/container';
 import { HeroMedia } from '@/components/hero-media';
+import { HeroTitle } from '@/components/home/hero-title';
 import { TechBackdrop, SectionGlow } from '@/components/home/tech-backdrop';
 import { AnimatedCounter } from '@/components/home/animated-counter';
 import { ScrollReveal } from '@/components/home/scroll-reveal';
@@ -104,61 +105,89 @@ export default async function Home({ params }: Props) {
   return (
     <>
       {/* ─── Hero ──────────────────────────────────────────────────────── */}
-      <section className="bg-brand-navy relative isolate overflow-hidden py-28 text-white sm:py-36 lg:py-44">
-        {/* CMS artwork — sits at -z-10 with its own navy scrim. */}
+      {/*
+        A full-viewport video stage with the copy centred on it — the format
+        the reference event sites use, and the one that lets the footage read
+        as the subject rather than as wallpaper behind a left-aligned column.
+
+        `min-h-svh`, not `min-h-screen`: on mobile Safari `100vh` is the
+        *largest* viewport, so the CTA row would sit under the browser chrome
+        on first paint. `svh` is what is actually visible.
+
+        The heavier bottom padding below `sm` is not decorative: the countdown
+        is a fixed corner widget, and on a phone it is wide enough to cover the
+        secondary CTA. The padding lifts the centred copy clear of it. Adjust
+        it alongside the widget's size, not on its own.
+      */}
+      <section className="bg-brand-navy relative isolate flex min-h-svh items-center overflow-hidden pt-32 pb-52 text-white sm:py-36">
+        {/* Hero artwork from the CMS — image or video, at -z-10 with its own
+            navy scrim. `centre`, not the default edge scrim: the copy on this
+            page is centred on the stage, and an edge scrim leaves the middle of
+            the frame open. Nothing renders until heroMedia is uploaded, and
+            <TechBackdrop> below shows through. */}
         {(home?.heroMedia || home?.heroMediaMobile) && (
-          <HeroMedia desktop={home.heroMedia} mobile={home.heroMediaMobile} />
+          <HeroMedia desktop={home.heroMedia} mobile={home.heroMediaMobile} scrim="centre" />
         )}
         {/* Animated backdrop — sits at -z-20, so artwork simply covers it. */}
         <TechBackdrop />
 
-        <Container className="relative">
-          {(home?.eventDate || home?.venue) && (
-            <p className="glass-invert mb-8 inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium text-white">
-              <span className="bg-brand-mint inline-block size-2 animate-pulse rounded-full" />
-              {[home.eventDate, home.venue].filter(Boolean).join(' · ')}
-            </p>
-          )}
+        <Container className="relative w-full">
+          <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
+            {(home?.eventDate || home?.venue) && (
+              <p className="glass-invert mb-10 inline-flex items-center gap-2 rounded-full px-5 py-2 text-xs font-semibold tracking-[0.12em] text-white uppercase sm:text-sm">
+                <span className="bg-brand-mint inline-block size-2 animate-pulse rounded-full" />
+                {[home.eventDate, home.venue].filter(Boolean).join(' · ')}
+              </p>
+            )}
 
-          <h1 className="max-w-4xl text-4xl font-bold tracking-tight text-balance sm:text-5xl lg:text-7xl">
-            {/* Cyan/mint/white only — see `.gradient-text-hero` in globals.css. */}
-            <span className="gradient-text-hero">{home?.heroTitle ?? t('title')}</span>
-          </h1>
+            {/*
+              One fluid size rather than four breakpoint steps — a display line
+              on a full-bleed stage should scale with the stage, and `clamp`
+              keeps it from wrapping into four lines on a phone or stopping
+              short of the video on a 27" screen. `leading-[1.02]` because
+              default leading opens a visible gap between lines this large.
+            */}
+            <h1 className="text-[clamp(2.5rem,6.4vw,5.75rem)] leading-[1.02] font-bold tracking-tight text-balance">
+              {/* Typed on load, with the full accent palette drifting through
+                  it — see hero-title.tsx and `.gradient-text-aurora`. */}
+              <HeroTitle text={home?.heroTitle ?? t('title')} />
+            </h1>
 
-          {/* max-w-xl, not 2xl: keeps the subtitle inside the dense part of the
-              hero scrim so it clears WCAG AA over the image. */}
-          {home?.heroSubtitle && (
-            <p className="mt-6 max-w-xl text-lg text-white/85">{home.heroSubtitle}</p>
-          )}
+            {home?.heroSubtitle && (
+              <p className="mt-8 max-w-2xl text-lg leading-relaxed text-balance text-white sm:text-xl">
+                {home.heroSubtitle}
+              </p>
+            )}
 
-          <div className="mt-10 flex flex-wrap items-center gap-4">
-            <HeroCta href={home?.ctaHref} label={home?.ctaLabel ?? t('heroCta')} />
-            <Link
-              href="/agenda"
-              className="glass-invert inline-flex items-center gap-2 rounded-lg px-6 py-4 text-sm font-semibold tracking-wide text-white uppercase transition-colors hover:bg-white/15"
-            >
-              {t('heroCtaSecondary')}
-            </Link>
+            <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+              <HeroCta href={home?.ctaHref} label={home?.ctaLabel ?? t('heroCta')} />
+              <Link
+                href="/agenda"
+                className="glass-invert inline-flex items-center gap-2 rounded-full px-8 py-4 text-sm font-semibold tracking-wide text-white uppercase transition-colors hover:bg-white/15"
+              >
+                {t('heroCtaSecondary')}
+              </Link>
+            </div>
           </div>
-
-          {/*
-            Top-right of the hero on desktop; below the buttons on narrow
-            screens, where an overlay would land on the headline. Set once in
-            Site Settings — renders nothing until a date is there.
-          */}
-          <EventCountdown
-            locale={locale}
-            variant="hero"
-            className="mt-12 lg:absolute lg:top-0 lg:right-0 lg:mt-0"
-          />
         </Container>
 
-        {/* Fade into the page ground so the seam is a gradient, not a line. */}
+        {/* Fade into the page ground so the seam is a gradient, not a line.
+            On the section rather than inside <HeroMedia>, so it is there even
+            before any artwork is uploaded. */}
         <div
           aria-hidden="true"
-          className="from-background absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t to-transparent"
+          className="from-background absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t to-transparent"
         />
       </section>
+
+      {/* The countdown, as a corner widget pinned for the whole page. Rendered
+          once and outside the hero — it positions itself. */}
+      <EventCountdown
+        locale={locale}
+        variant="hero"
+        floating
+        action={<RegisterButton label={t('heroCta')} />}
+      />
 
       {/* ─── Stats ─────────────────────────────────────────────────────── */}
       {home?.stats && home.stats.length > 0 && (
@@ -385,6 +414,22 @@ export default async function Home({ params }: Props) {
 }
 
 /**
+ * The pill with the travelling gradient border — see `.btn-conic` in
+ * globals.css for how the spinning layer is built.
+ *
+ * Always points at /attend rather than honouring the CMS `ctaHref`: this one
+ * sits inside the countdown, where the only sensible destination is the page
+ * that tells you how to turn up.
+ */
+function RegisterButton({ label }: { label: string }) {
+  return (
+    <Link href="/attend" className="btn-conic w-full">
+      <span className="btn-conic__label px-5 py-2.5 text-sm font-semibold text-white">{label}</span>
+    </Link>
+  );
+}
+
+/**
  * The hero button, honouring the CMS `ctaHref`.
  *
  * `Link` from `@/i18n/navigation` only accepts the typed pathnames in
@@ -395,7 +440,7 @@ export default async function Home({ params }: Props) {
  */
 function HeroCta({ href, label }: { href?: string | null; label: string }) {
   const className =
-    'btn-glow bg-primary text-primary-foreground inline-flex rounded-lg px-8 py-4 text-sm font-semibold tracking-wide uppercase';
+    'btn-glow bg-primary text-primary-foreground inline-flex rounded-full px-8 py-4 text-sm font-semibold tracking-wide uppercase';
   const target = href?.trim();
 
   if (target && /^https?:\/\//i.test(target)) {

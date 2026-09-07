@@ -175,6 +175,55 @@
   }
 }
 
+/*
+ * Countdown motion — see components/countdown/countdown-card.tsx.
+ *
+ * `tick-in` runs on any digit that actually changed, keyed off its value so
+ * React remounts the element and the animation restarts. That keying is the
+ * React equivalent of the remove-class / force-reflow / add-class dance a
+ * plain-DOM implementation needs to replay an animation on the same node.
+ *
+ * A digit that simply swaps reads as a glitch at this size; one that drops
+ * into place reads as a clock. It starts at 0.35 rather than 0 so the tile
+ * never looks empty mid-tick — a full fade from transparent flickers.
+ */
+@keyframes tick-in {
+  from {
+    opacity: 0.35;
+    transform: translateY(-0.3em);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* A light travelling along the top edge of the countdown panel. Slow enough
+   to register as ambient rather than as something demanding attention. */
+@keyframes sheen-slide {
+  from {
+    background-position: 0% 0;
+  }
+  to {
+    background-position: -200% 0;
+  }
+}
+
+/* Caret on the typed hero line — see components/home/hero-title.tsx. */
+@keyframes caret {
+  0%,
+  45% {
+    opacity: 1;
+  }
+  50%,
+  95% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 @keyframes marquee {
   from {
     transform: translateX(0);
@@ -184,12 +233,30 @@
   }
 }
 
+/* The headline gradient drifts across the text rather than sitting still —
+   the sweep is what makes a multi-colour heading read as one object instead of
+   four coloured words. Paired with `background-size: 220%` below. */
+@keyframes aurora-pan {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
 /* ------------------------------------------------------- animation utilities */
 
 @theme {
   --animate-float-slow: float-slow 8s ease-in-out infinite;
   --animate-orbit: orbit 30s linear infinite;
   --animate-marquee: marquee 40s linear infinite;
+  --animate-caret: caret 1.1s steps(1, end) infinite;
+  --animate-tick-in: tick-in 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+  --animate-sheen: sheen-slide 6s linear infinite;
 }
 
 /*
@@ -291,12 +358,86 @@
   -webkit-text-fill-color: transparent;
 }
 
+/*
+ * The full-bleed hero headline — the light end of the accent palette in one
+ * moving sweep.
+ *
+ * The stops are chosen against the *video*, not against the navy ground, and
+ * that changes the answer. Measured at the brightest pixel under the headline
+ * across the whole loop, behind the scrim: white 8.1:1, green 6.5:1, mint
+ * 6.1:1, cyan 5.2:1 — every stop clears AA for large text several times over,
+ * which is what lets the gradient move without the headline dipping out of
+ * contrast partway through the cycle.
+ *
+ * Brand violet is absent, and so is brand blue. Both survive on flat navy
+ * (4.5:1 and 2.1:1), but on the lit frames of the video violet falls to
+ * 1.35:1 — it is invisible for a third of the loop. Violet stays in
+ * `.gradient-text` where the ground is white and it measures fine. Any new
+ * stop has to be re-measured against the footage, not the brand colour.
+ *
+ * `background-size: 220%` gives `aurora-pan` room to travel; without it the
+ * gradient is pinned to the text box and the animation does nothing.
+ */
+.gradient-text-aurora {
+  color: var(--color-brand-cyan);
+  background: linear-gradient(
+    100deg,
+    #ffffff 0%,
+    var(--color-brand-cyan) 20%,
+    var(--color-brand-mint) 40%,
+    var(--color-brand-green) 60%,
+    #ffffff 80%,
+    var(--color-brand-cyan) 100%
+  );
+  background-size: 220% 100%;
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: aurora-pan 14s ease-in-out infinite;
+}
+
 @media (forced-colors: active) {
   .gradient-text,
-  .gradient-text-hero {
+  .gradient-text-hero,
+  .gradient-text-aurora {
     -webkit-text-fill-color: currentColor;
     background: none;
   }
+}
+
+/*
+ * Hero scrim for the full-bleed video.
+ *
+ * Built for centred copy, which needs the opposite of a normal vignette: the
+ * middle of the frame — the brightest part of most footage, and where the
+ * headline sits — has to come down, while the edges stay open so the video
+ * still reads as video. Three layers: a radial that darkens the centre, a
+ * bottom ramp under the CTA row, and a flat floor for frames that blow out
+ * entirely.
+ *
+ * The strength is set by measurement, not taste. Sampled at the brightest
+ * pixel under the copy across the whole loop, the three layers composite to
+ * an effective 0.78 navy over the footage, putting the headline stops at
+ * 5.2–8.1:1 and the solid-white subtitle at 8.1:1. The earlier, thinner
+ * version measured 3.2:1 and 4.1:1 — the subtitle was below AA. If the video
+ * is replaced, re-measure: a brighter clip needs a heavier scrim, not a
+ * bigger typeface.
+ */
+.hero-scrim {
+  background:
+    radial-gradient(
+      ellipse 85% 70% at 50% 48%,
+      color-mix(in oklab, var(--color-brand-navy) 72%, transparent) 0%,
+      color-mix(in oklab, var(--color-brand-navy) 52%, transparent) 55%,
+      transparent 100%
+    ),
+    linear-gradient(
+      to top,
+      color-mix(in oklab, var(--color-brand-navy) 88%, transparent) 0%,
+      color-mix(in oklab, var(--color-brand-navy) 40%, transparent) 30%,
+      transparent 62%
+    ),
+    color-mix(in oklab, var(--color-brand-navy) 18%, transparent);
 }
 
 /* -------------------------------------------------------- glow button hover */
@@ -327,6 +468,67 @@
   background-size: 200% 100%;
   animation: shimmer 2.5s ease-in-out infinite;
   pointer-events: none;
+}
+
+/* ------------------------------------------------- conic-bordered CTA button */
+
+/*
+ * A pill whose border is a rotating conic gradient: a bright arc travels
+ * around the edge while the fill stays put.
+ *
+ * The mechanics are the standard ones for this effect — an oversized square
+ * pseudo-element carrying the conic gradient, spun by `orbit`, with the label
+ * layer painted on top so only the 2px of padding shows through as a border.
+ * `inset: -150%` (not 0) is load-bearing: a conic gradient on a wide, short
+ * box would sweep visibly faster along the top edge than the sides, and only
+ * a square much larger than the button keeps the arc moving at one speed.
+ *
+ * `isolation: isolate` keeps the stacking context local, so the spinning layer
+ * cannot rise above anything else on the page.
+ */
+.btn-conic {
+  position: relative;
+  display: inline-flex;
+  isolation: isolate;
+  overflow: hidden;
+  padding: 2px;
+  border-radius: 999px;
+  background: color-mix(in oklab, white 14%, transparent);
+}
+
+.btn-conic::before {
+  content: '';
+  position: absolute;
+  inset: -150%;
+  z-index: 0;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg,
+    var(--color-brand-cyan) 45deg,
+    var(--color-brand-mint) 85deg,
+    transparent 150deg,
+    transparent 360deg
+  );
+  animation: orbit 3s linear infinite;
+}
+
+.btn-conic__label {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  border-radius: 999px;
+  background: linear-gradient(
+    100deg,
+    var(--color-brand-blue),
+    color-mix(in oklab, var(--color-brand-blue) 70%, var(--color-brand-violet))
+  );
+  box-shadow: inset 0 -7px 24px color-mix(in oklab, white 28%, transparent);
+}
+
+.btn-conic:hover .btn-conic__label {
+  filter: brightness(1.08);
 }
 
 /* ----------------------------------------- aurora / tech-grid (TechBackdrop) */
@@ -392,7 +594,12 @@
     transform: none;
   }
   .animate-float-slow,
-  .animate-orbit {
+  .animate-orbit,
+  .animate-caret,
+  .animate-tick-in,
+  .animate-sheen,
+  .gradient-text-aurora,
+  .btn-conic::before {
     animation: none !important;
   }
 }

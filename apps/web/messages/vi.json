@@ -50,7 +50,10 @@
     "days": "Ngày",
     "hours": "Giờ",
     "minutes": "Phút",
-    "ariaLabel": "Còn {days} ngày, {hours} giờ và {minutes} phút nữa lễ hội khai mạc."
+    "seconds": "Giây",
+    "ariaLabel": "Còn {days} ngày, {hours} giờ và {minutes} phút nữa lễ hội khai mạc.",
+    "collapse": "Thu gọn đếm ngược",
+    "expand": "Mở rộng đếm ngược"
   },
   "attend": {
     "title": "Vì sao nên tham dự?",

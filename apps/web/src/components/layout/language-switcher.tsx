@@ -10,7 +10,14 @@ import { cn } from '@/lib/utils';
  * Keeps the visitor on the same page when switching language — next-intl maps
  * the internal pathname to the localised one (e.g. /en/agenda <-> /vi/chuong-trinh).
  */
-export function LanguageSwitcher({ className }: { className?: string }) {
+export function LanguageSwitcher({
+  className,
+  /** Render for a dark ground — the transparent hero header. */
+  onDark = false,
+}: {
+  className?: string;
+  onDark?: boolean;
+}) {
   const t = useTranslations('language');
   const active = useLocale() as Locale;
   const pathname = usePathname();
@@ -24,7 +31,17 @@ export function LanguageSwitcher({ className }: { className?: string }) {
   }
 
   return (
-    <div className={cn('flex items-center gap-1', className)} role="group" aria-label={t('label')}>
+    /* A segmented pill rather than two loose buttons: on the transparent hero
+       header the loose version read as two more nav links. */
+    <div
+      className={cn(
+        'flex items-center rounded-full p-0.5',
+        onDark ? 'border border-white/20 bg-white/5' : 'bg-secondary',
+        className,
+      )}
+      role="group"
+      aria-label={t('label')}
+    >
       {locales.map((locale) => (
         <button
           key={locale}
@@ -33,10 +50,14 @@ export function LanguageSwitcher({ className }: { className?: string }) {
           aria-current={locale === active ? 'true' : undefined}
           aria-label={t('switchTo', { language: localeNames[locale] })}
           className={cn(
-            'rounded-md px-2 py-1 text-sm font-medium transition-colors',
+            'rounded-full px-3 py-1 text-xs font-semibold tracking-wide transition-colors',
             locale === active
-              ? 'bg-secondary text-secondary-foreground'
-              : 'text-muted-foreground hover:text-foreground',
+              ? onDark
+                ? 'bg-white text-brand-navy'
+                : 'bg-background text-foreground shadow-sm'
+              : onDark
+                ? 'text-white/65 hover:text-white'
+                : 'text-muted-foreground hover:text-foreground',
           )}
         >
           {locale.toUpperCase()}

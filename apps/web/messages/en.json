@@ -50,7 +50,10 @@
     "days": "Days",
     "hours": "Hours",
     "minutes": "Minutes",
-    "ariaLabel": "{days} days, {hours} hours and {minutes} minutes until the festival opens."
+    "seconds": "Seconds",
+    "ariaLabel": "{days} days, {hours} hours and {minutes} minutes until the festival opens.",
+    "collapse": "Collapse the countdown",
+    "expand": "Expand the countdown"
   },
   "attend": {
     "title": "Why Attend?",
