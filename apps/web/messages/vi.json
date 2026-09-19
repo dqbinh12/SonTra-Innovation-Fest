@@ -13,6 +13,7 @@
     "sponsors": "Nhà tài trợ",
     "location": "Địa điểm",
     "news": "Tin tức",
+    "media": "Báo chí",
     "about": "Về chúng tôi",
     "contact": "Liên hệ",
     "menu": "Menu",
@@ -123,11 +124,35 @@
   },
   "location": {
     "title": "Địa điểm",
+    "eyebrow": "Địa điểm & di chuyển",
+    "lead": "Lễ hội trải dọc tuyến phố ven sông Trần Hưng Đạo — sân khấu, khu công nghệ và khu ẩm thực chỉ cách nhau vài phút đi bộ.",
     "address": "Địa chỉ",
+    "addressFallback": "Đường Trần Hưng Đạo, Quận Sơn Trà, Đà Nẵng, Việt Nam",
+    "copyAddress": "Sao chép địa chỉ",
+    "addressCopied": "Đã sao chép địa chỉ",
     "directions": "Hướng dẫn di chuyển",
+    "directionsLead": "Chọn phương án phù hợp với bạn — địa điểm nằm phía bờ sông của đường Trần Hưng Đạo, có cổng ở cả hai đầu khu vực.",
+    "directionsDetail": "Chỉ dẫn đường đi",
+    "routeLink": "Xem lộ trình",
     "parking": "Bãi đỗ xe và phương tiện",
     "openInMaps": "Mở trong Maps",
-    "hours": "Giờ mở cửa"
+    "getDirections": "Chỉ đường",
+    "hours": "Giờ mở cửa",
+    "map": {
+      "coordinates": "Toạ độ",
+      "frameTitle": "Bản đồ địa điểm tổ chức",
+      "labels": {
+        "map": "Bản đồ",
+        "plan": "Sơ đồ mặt bằng"
+      }
+    },
+    "plan": {
+      "caption": "Toàn cảnh khu vực lễ hội từ trên cao — mọi phân khu, cổng ra vào, tiện ích và cách chúng kết nối với nhau.",
+      "open": "Xem kích thước đầy đủ"
+    },
+    "lightbox": {
+      "close": "Đóng"
+    }
   },
   "news": {
     "title": "Tin tức",
@@ -135,6 +160,66 @@
     "backToNews": "Quay lại tin tức",
     "publishedOn": "Đăng ngày {date}",
     "empty": "Chưa có bài viết nào được đăng."
+  },
+  "media": {
+    "title": "Trung tâm Báo chí",
+    "eyebrow": "Dành cho báo chí",
+    "lead": "Mọi thông tin báo chí cần để đưa tin về Son Tra Innovation Fest: đăng ký tác nghiệp họp báo, thông cáo, bộ nhận diện và ảnh sự kiện được dùng miễn phí.",
+    "tabsLabel": "Các mục của Trung tâm Báo chí",
+    "tabs": {
+      "pressConference": "Họp báo",
+      "pressReleases": "Bộ thông cáo báo chí",
+      "mediaKit": "Bộ tài liệu truyền thông",
+      "photos": "Ảnh sự kiện"
+    },
+    "pressConference": {
+      "title": "Họp báo",
+      "lead": "Buổi họp báo khai mạc cùng ban tổ chức, tiếp nối là phần hỏi đáp và các khung phỏng vấn riêng.",
+      "when": "Thời gian",
+      "where": "Địa điểm",
+      "register": "Đăng ký tác nghiệp",
+      "scheduleTitle": "Kịch bản chương trình",
+      "accreditationTitle": "Đăng ký tác nghiệp",
+      "empty": "Thông tin họp báo sẽ được công bố gần ngày diễn ra sự kiện."
+    },
+    "pressReleases": {
+      "title": "Bộ thông cáo báo chí",
+      "lead": "Các thông cáo chính thức, sẵn sàng để trích dẫn. Mỗi thông cáo đều có bản PDF.",
+      "download": "Tải PDF",
+      "read": "Đọc thông cáo",
+      "empty": "Chưa có thông cáo báo chí nào được công bố."
+    },
+    "mediaKit": {
+      "title": "Bộ tài liệu truyền thông",
+      "lead": "Logo, cẩm nang thương hiệu, tài liệu thông tin và hình ảnh chủ đạo — những tư liệu dùng khi viết về sự kiện.",
+      "download": "Tải về",
+      "open": "Mở liên kết",
+      "usageTitle": "Quy định sử dụng",
+      "empty": "Bộ tài liệu truyền thông sẽ sớm được đăng tải.",
+      "categories": {
+        "logo": "Bộ logo",
+        "guidelines": "Cẩm nang thương hiệu",
+        "fact-sheet": "Tài liệu thông tin",
+        "key-visual": "Hình ảnh chủ đạo",
+        "video": "Video / B-roll",
+        "other": "Tư liệu"
+      }
+    },
+    "photos": {
+      "title": "Ảnh sự kiện",
+      "lead": "Ảnh độ phân giải cao từ sự kiện, lưu trên Google Drive và được dùng miễn phí cho mục đích đưa tin khi ghi rõ nguồn.",
+      "openDrive": "Mở kho ảnh trên Drive",
+      "openAlbum": "Mở trên Drive",
+      "driveNote": "Các thư mục được mở bằng Google Drive. Nếu không mở được, vui lòng gửi yêu cầu truy cập.",
+      "albumsTitle": "Các bộ ảnh",
+      "photoCount": "{count, plural, other {# ảnh}}",
+      "empty": "Ảnh sẽ được đăng tải sau khi sự kiện diễn ra."
+    },
+    "contact": {
+      "title": "Liên hệ báo chí",
+      "lead": "Đề nghị phỏng vấn, xin phép ghi hình hay bất kỳ nội dung nào khác — hãy liên hệ bộ phận truyền thông.",
+      "cta": "Liên hệ bộ phận truyền thông"
+    }
   },
   "about": {
     "title": "Về chúng tôi",

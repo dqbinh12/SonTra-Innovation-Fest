@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_media_schedule_items",
+  "info": {
+    "displayName": "Schedule Item",
+    "description": "One line of the press conference run sheet.",
+    "icon": "clock"
+  },
+  "options": {},
+  "attributes": {
+    "time": {
+      "type": "string",
+      "description": "Free text so a range (\"09:00 – 09:20\") reads as one cell."
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    }
+  }
+}

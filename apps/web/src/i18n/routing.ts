@@ -15,6 +15,7 @@ export const pathnames = {
   '/location': { en: '/location', vi: '/dia-diem' },
   '/news': { en: '/news', vi: '/tin-tuc' },
   '/news/[slug]': { en: '/news/[slug]', vi: '/tin-tuc/[slug]' },
+  '/media': { en: '/media', vi: '/trung-tam-bao-chi' },
   '/about': { en: '/about', vi: '/ve-chung-toi' },
   '/contact': { en: '/contact', vi: '/lien-he' },
 } as const;

@@ -1,0 +1,36 @@
+{
+  "collectionName": "components_media_photo_albums",
+  "info": {
+    "displayName": "Photo Album",
+    "description": "One folder of event photos, hosted on Google Drive.",
+    "icon": "picture"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "date": {
+      "type": "date"
+    },
+    "description": {
+      "type": "text"
+    },
+    "driveUrl": {
+      "type": "string",
+      "required": true,
+      "description": "Link to the Drive folder. Set it to \"Anyone with the link\" first."
+    },
+    "coverImage": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["images"],
+      "description": "Optional thumbnail for the album card."
+    },
+    "photoCount": {
+      "type": "integer",
+      "description": "Optional — shown on the card, e.g. \"248 photos\"."
+    }
+  }
+}

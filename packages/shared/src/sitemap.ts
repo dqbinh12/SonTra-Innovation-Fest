@@ -1,7 +1,7 @@
 import type { Locale } from './locales';
 
 /**
- * The 9 confirmed pages — see the "Sitemap & Pages" tab of the project workbook.
+ * The 10 confirmed pages — see the "Sitemap & Pages" tab of the project workbook.
  * `key` is the i18n message key; `path` is the URL segment per locale.
  */
 export interface PageDefinition {
@@ -18,6 +18,7 @@ export const pages: PageDefinition[] = [
   { key: 'sponsors', path: { en: 'sponsors', vi: 'nha-tai-tro' }, inPrimaryNav: true },
   { key: 'location', path: { en: 'location', vi: 'dia-diem' }, inPrimaryNav: true },
   { key: 'news', path: { en: 'news', vi: 'tin-tuc' }, inPrimaryNav: true },
+  { key: 'media', path: { en: 'media', vi: 'trung-tam-bao-chi' }, inPrimaryNav: true },
   { key: 'about', path: { en: 'about', vi: 've-chung-toi' }, inPrimaryNav: true },
   { key: 'contact', path: { en: 'contact', vi: 'lien-he' }, inPrimaryNav: true },
 ];

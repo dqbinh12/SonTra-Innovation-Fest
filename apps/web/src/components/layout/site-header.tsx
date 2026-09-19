@@ -10,7 +10,7 @@ import { LanguageSwitcher } from './language-switcher';
 import { StrapiImage } from '@/components/strapi-image';
 import { cn } from '@/lib/utils';
 
-/** Primary nav — the 8 non-home pages from the "Sitemap & Pages" tab. */
+/** Primary nav — the 9 non-home pages from the "Sitemap & Pages" tab. */
 const navItems = [
   { key: 'attend', href: '/attend' },
   { key: 'agenda', href: '/agenda' },
@@ -18,6 +18,7 @@ const navItems = [
   { key: 'sponsors', href: '/sponsors' },
   { key: 'location', href: '/location' },
   { key: 'news', href: '/news' },
+  { key: 'media', href: '/media' },
   { key: 'about', href: '/about' },
   { key: 'contact', href: '/contact' },
 ] as const;
@@ -36,32 +37,42 @@ export function SiteHeader({ siteName, logo }: { siteName: string; logo?: Strapi
   const [condensed, setCondensed] = useState(false);
 
   /**
-   * The homepage hero is a full-viewport video, so the header floats over it
-   * rather than sitting on a white band above it — the pattern every large
-   * festival site uses for a video hero. Every other page keeps the solid
-   * sticky bar, which is what their light page grounds need.
+   * Immersive pages open on a full-bleed dark hero, so the header floats over
+   * it rather than sitting on a band above it — the pattern every large
+   * festival site uses for a video or artwork hero. Pages with a light ground
+   * keep the solid sticky bar, which is what that ground needs.
+   *
+   * A page listed here must leave room for the bar itself: the header is
+   * `fixed` on these routes and no longer occupies flow space, so its hero
+   * carries the top padding instead.
    */
-  const isHome = pathname === '/';
+  const immersive =
+    pathname === '/' ||
+    pathname === '/about' ||
+    pathname === '/media' ||
+    pathname === '/location';
   // Once the mobile sheet is open it needs an opaque ground of its own.
-  const transparent = isHome && !condensed && !open;
+  const transparent = immersive && !condensed && !open;
 
   useEffect(() => {
-    if (!isHome) return;
+    if (!immersive) return;
 
     const onScroll = () => setCondensed(window.scrollY > CONDENSE_AT);
     onScroll(); // A reload partway down the page must not start transparent.
     window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
-  }, [isHome]);
+  }, [immersive]);
 
   return (
     <header
       className={cn(
         'top-0 z-50 transition-colors duration-300',
-        // Fixed, not sticky, on the homepage: the hero is measured against the
-        // viewport and must start under the header, not below it.
-        isHome ? 'fixed inset-x-0' : 'border-border bg-background/90 sticky border-b backdrop-blur',
-        isHome &&
+        // Fixed, not sticky, on immersive pages: the hero is measured against
+        // the viewport and must start under the header, not below it.
+        immersive
+          ? 'fixed inset-x-0'
+          : 'border-border bg-background/90 sticky border-b backdrop-blur',
+        immersive &&
           !transparent &&
           'border-b border-white/10 bg-[color-mix(in_oklab,var(--color-brand-navy)_88%,transparent)] backdrop-blur-xl',
       )}
@@ -101,47 +112,60 @@ export function SiteHeader({ siteName, logo }: { siteName: string; logo?: Strapi
               sizes="(min-width: 640px) 208px, 144px"
               className={cn(
                 'h-11 w-auto max-w-[9rem] object-contain transition-all duration-300 sm:h-14 sm:max-w-[13rem]',
-                isHome && 'brightness-0 invert',
+                immersive && 'brightness-0 invert',
               )}
             />
           ) : (
-            <span className={cn('text-lg font-bold tracking-tight', isHome && 'text-white')}>
+            <span className={cn('text-lg font-bold tracking-tight', immersive && 'text-white')}>
               {siteName}
             </span>
           )}
         </Link>
 
-        <nav className="hidden items-center gap-1 lg:flex" aria-label={t('menu')}>
-          {navItems.map(({ key, href }) => {
-            // Read before the isHome branch below: inside it TS narrows
-            // `pathname` to '/', which can never equal a nav href.
-            const active = pathname === href;
+        <nav className="hidden items-center gap-1 xl:flex" aria-label={t('menu')}>
+          {/*
+            Attend is dropped here and only here. The filled pill to the right
+            of this nav goes to the same page, and with nine items the bar no
+            longer has the room to say it twice — in Vietnamese the duplicate
+            pushed the pill itself off the end of the container. The mobile
+            sheet still lists it, because down there the pill is hidden below
+            the `sm` breakpoint.
+          */}
+          {navItems
+            .filter(({ key }) => key !== 'attend')
+            .map(({ key, href }) => {
+              const active = pathname === href;
 
-            return (
-              <Link
-                key={key}
-                href={href}
-                aria-current={active ? 'page' : undefined}
-                className={cn(
-                  'rounded-md px-3 py-2 text-sm font-medium transition-colors',
-                  // No active state on the home branch: `isHome` means the
-                  // pathname is '/', and every nav href is a sub-page, so
-                  // `active` is false for all of them here.
-                  isHome
-                    ? 'text-white/75 hover:text-white'
-                    : active
-                      ? 'text-primary'
-                      : 'text-muted-foreground hover:text-foreground',
-                )}
-              >
-                {t(key)}
-              </Link>
-            );
-          })}
+              return (
+                <Link
+                  key={key}
+                  href={href}
+                  aria-current={active ? 'page' : undefined}
+                  className={cn(
+                    'rounded-md px-2.5 py-2 text-sm font-medium whitespace-nowrap transition-colors',
+                    // The dark branch needs its own active state now that an
+                    // immersive route can *be* a nav destination. It could not
+                    // before: the only immersive page was '/', which no nav item
+                    // links to, so `active` was false throughout this branch.
+                    // Cyan is the palette's on-navy action colour and measures
+                    // 10.4:1 there, so it is safe for text this size.
+                    immersive
+                      ? active
+                        ? 'text-brand-cyan'
+                        : 'text-white/75 hover:text-white'
+                      : active
+                        ? 'text-primary'
+                        : 'text-muted-foreground hover:text-foreground',
+                  )}
+                >
+                  {t(key)}
+                </Link>
+              );
+            })}
         </nav>
 
         <div className="flex items-center gap-2 sm:gap-3">
-          <LanguageSwitcher onDark={isHome} />
+          <LanguageSwitcher onDark={immersive} />
 
           {/*
             The one always-visible conversion target. Every comparable event
@@ -155,7 +179,7 @@ export function SiteHeader({ siteName, logo }: { siteName: string; logo?: Strapi
             className={cn(
               'bg-primary text-primary-foreground hidden shrink-0 rounded-full px-5 py-2.5 text-sm font-semibold transition-all sm:inline-flex',
               // A glow reads on the video; on a white page it just looks blurry.
-              isHome
+              immersive
                 ? 'hover:shadow-[0_0_24px_color-mix(in_oklab,var(--color-brand-cyan)_55%,transparent)]'
                 : 'hover:brightness-110',
             )}
@@ -165,8 +189,8 @@ export function SiteHeader({ siteName, logo }: { siteName: string; logo?: Strapi
           <button
             type="button"
             className={cn(
-              'rounded-md p-2 transition-colors lg:hidden',
-              isHome
+              'rounded-md p-2 transition-colors xl:hidden',
+              immersive
                 ? 'text-white/80 hover:text-white'
                 : 'text-muted-foreground hover:text-foreground',
             )}
@@ -184,8 +208,8 @@ export function SiteHeader({ siteName, logo }: { siteName: string; logo?: Strapi
         <nav
           id="mobile-nav"
           className={cn(
-            'border-t lg:hidden',
-            isHome
+            'border-t xl:hidden',
+            immersive
               ? 'border-white/10 bg-[color-mix(in_oklab,var(--color-brand-navy)_95%,transparent)] backdrop-blur-xl'
               : 'border-border',
           )}
@@ -203,7 +227,7 @@ export function SiteHeader({ siteName, logo }: { siteName: string; logo?: Strapi
                   aria-current={active ? 'page' : undefined}
                   className={cn(
                     'rounded-md px-3 py-3 text-base font-medium transition-colors',
-                    isHome
+                    immersive
                       ? 'text-white/80 hover:text-white'
                       : active
                         ? 'text-primary'

@@ -1,21 +1,25 @@
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { MapPin } from 'lucide-react';
 import type { LocationPage, Locale } from '@sif/shared';
 import { strapiFetchOptional } from '@/lib/strapi';
 import { seoMetadata } from '@/lib/metadata';
-import { mapsUrl } from '@/lib/format';
-import { PageHeader } from '@/components/layout/page-header';
-import { Section, EmptyState } from '@/components/layout/section';
-import { RichText } from '@/components/rich-text';
-import { StrapiImage } from '@/components/strapi-image';
+import { directionsUrl, mapEmbedUrl, mapsUrl } from '@/lib/format';
+import { LocationHero } from '@/components/location/location-hero';
+import { CopyAddress } from '@/components/location/copy-address';
+import { GettingHere } from '@/components/location/getting-here';
 
 type Props = { params: Promise<{ locale: string }> };
 
 function getLocationPage(locale: string) {
   return strapiFetchOptional<LocationPage>('location-page', {
+    // Explicit paths rather than `populate=*`: Strapi's wildcard stops at the
+    // first level, so the SEO image below would come back missing.
     locale: locale as Locale,
-    query: { 'populate[images]': 'true', 'populate[seo][populate]': 'ogImage' },
+    query: {
+      'populate[venueMap]': 'true',
+      'populate[transportOptions]': 'true',
+      'populate[seo][populate]': 'ogImage',
+    },
     tags: ['location-page'],
   });
 }
@@ -28,13 +32,25 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   ]);
 
   return seoMetadata(page?.seo, {
-    title: t('title'),
-    description: page?.address,
+    title: page?.heroTitle ?? t('title'),
+    description: page?.heroSubtitle ?? page?.address ?? t('lead'),
     locale,
     href: '/location',
   });
 }
 
+/**
+ * The Location page — three blocks, not five.
+ *
+ * The opening block answers the whole question on the first screen: address,
+ * actions, and the map with the site plan behind the same switch. What is left
+ * below it is detail a visitor goes looking for only after they have decided
+ * to come — how to travel and park, and what the ground looks like.
+ *
+ * Everything but the address is optional in the CMS and disappears cleanly
+ * when an editor has not filled it in; the address is required in the schema
+ * and still falls back to a translated string.
+ */
 export default async function Location({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
@@ -42,65 +58,35 @@ export default async function Location({ params }: Props) {
   const t = await getTranslations('location');
   const page = await getLocationPage(locale);
 
-  if (!page) {
-    return (
-      <>
-        <PageHeader title={t('title')} />
-        <Section>
-          <EmptyState>{t('address')}</EmptyState>
-        </Section>
-      </>
-    );
-  }
+  const address = page?.address?.trim() || t('addressFallback');
+  const latitude = page?.mapLatitude ?? null;
+  const longitude = page?.mapLongitude ?? null;
 
   return (
-    <>
-      <PageHeader title={t('title')} />
+    <div className="page-deep dark text-foreground">
+      <LocationHero
+        title={page?.heroTitle ?? t('title')}
+        lead={page?.heroSubtitle ?? t('lead')}
+        venueName={page?.venueName}
+        address={address}
+        openingHours={page?.openingHours}
+        latitude={latitude}
+        longitude={longitude}
+        embedSrc={mapEmbedUrl(latitude, longitude, address, locale)}
+        venueMap={page?.venueMap}
+        venueMapCaption={page?.venueMapCaption}
+        mapsHref={mapsUrl(latitude, longitude, address)}
+        directionsHref={directionsUrl(latitude, longitude, address)}
+        copyButton={
+          <CopyAddress value={address} label={t('copyAddress')} copiedLabel={t('addressCopied')} />
+        }
+      />
 
-      <Section title={t('address')}>
-        <address className="text-lg not-italic whitespace-pre-line">{page.address}</address>
-        <a
-          href={mapsUrl(page.mapLatitude, page.mapLongitude, page.address)}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="text-primary mt-4 inline-flex items-center gap-2 text-sm font-medium"
-        >
-          <MapPin className="size-4" />
-          {t('openInMaps')}
-        </a>
-      </Section>
-
-      {page.directions && (
-        <Section title={t('directions')}>
-          <div className="max-w-3xl">
-            <RichText content={page.directions} />
-          </div>
-        </Section>
-      )}
-
-      {page.parkingNotes && (
-        <Section title={t('parking')}>
-          <div className="max-w-3xl">
-            <RichText content={page.parkingNotes} />
-          </div>
-        </Section>
-      )}
-
-      {page.images.length > 0 && (
-        <Section>
-          <ul className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {page.images.map((image) => (
-              <li key={image.id}>
-                <StrapiImage
-                  media={image}
-                  className="rounded-lg"
-                  sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                />
-              </li>
-            ))}
-          </ul>
-        </Section>
-      )}
-    </>
+      <GettingHere
+        options={page?.transportOptions ?? []}
+        directions={page?.directions ?? null}
+        parkingNotes={page?.parkingNotes ?? null}
+      />
+    </div>
   );
 }

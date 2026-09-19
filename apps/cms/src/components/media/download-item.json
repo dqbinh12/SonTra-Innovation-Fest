@@ -1,0 +1,38 @@
+{
+  "collectionName": "components_media_download_items",
+  "info": {
+    "displayName": "Download Item",
+    "description": "One asset in the media kit — logo pack, brand guidelines, key visual, b-roll.",
+    "icon": "download"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "description": {
+      "type": "text"
+    },
+    "category": {
+      "type": "enumeration",
+      "enum": ["logo", "guidelines", "fact-sheet", "key-visual", "video", "other"],
+      "default": "other",
+      "required": true,
+      "description": "Drives the icon on the card."
+    },
+    "file": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["files", "images", "videos"]
+    },
+    "externalUrl": {
+      "type": "string",
+      "description": "Used when the asset is hosted elsewhere (Drive, Dropbox)."
+    },
+    "fileLabel": {
+      "type": "string",
+      "description": "Optional format/size hint, e.g. \"ZIP · 24 MB\"."
+    }
+  }
+}

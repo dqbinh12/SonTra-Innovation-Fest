@@ -1,0 +1,35 @@
+{
+  "collectionName": "components_media_press_releases",
+  "info": {
+    "displayName": "Press Release",
+    "description": "One press release in the release kit, with an optional PDF.",
+    "icon": "file"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "date": {
+      "type": "date",
+      "required": true
+    },
+    "summary": {
+      "type": "text"
+    },
+    "category": {
+      "type": "string",
+      "description": "Shown as a small label, e.g. \"Announcement\"."
+    },
+    "file": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["files", "images"]
+    },
+    "externalUrl": {
+      "type": "string",
+      "description": "Used when the release lives elsewhere and there is no file."
+    }
+  }
+}

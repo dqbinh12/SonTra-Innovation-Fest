@@ -5,7 +5,7 @@
     "singularName": "location-page",
     "pluralName": "location-pages",
     "displayName": "Location",
-    "description": "Venue address, map, directions and transport notes."
+    "description": "Venue address, map, site plan, directions and transport notes."
   },
   "options": {
     "draftAndPublish": true
@@ -16,9 +16,43 @@
     }
   },
   "attributes": {
+    "heroTitle": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "heroSubtitle": {
+      "type": "text",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "venueName": {
+      "type": "string",
+      "description": "The name of the site, shown above the address.",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
     "address": {
       "type": "text",
       "required": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "openingHours": {
+      "type": "text",
+      "description": "One line per day, e.g. \"Fri 2 Oct \u2014 09:00-21:00\".",
       "pluginOptions": {
         "i18n": {
           "localized": true
@@ -41,6 +75,37 @@
         }
       }
     },
+    "venueMap": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": [
+        "images"
+      ],
+      "description": "The bird's-eye site plan of the festival ground.",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
+    },
+    "venueMapCaption": {
+      "type": "text",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "transportOptions": {
+      "type": "component",
+      "repeatable": true,
+      "component": "location.transport-option",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
     "directions": {
       "type": "blocks",
       "pluginOptions": {
@@ -54,18 +119,6 @@
       "pluginOptions": {
         "i18n": {
           "localized": true
-        }
-      }
-    },
-    "images": {
-      "type": "media",
-      "multiple": true,
-      "allowedTypes": [
-        "images"
-      ],
-      "pluginOptions": {
-        "i18n": {
-          "localized": false
         }
       }
     },

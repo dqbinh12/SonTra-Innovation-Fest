@@ -1,0 +1,32 @@
+{
+  "collectionName": "components_location_transport_options",
+  "info": {
+    "displayName": "Transport Option",
+    "description": "One way of getting to the venue — car, bus, taxi, on foot.",
+    "icon": "bus"
+  },
+  "options": {},
+  "attributes": {
+    "mode": {
+      "type": "enumeration",
+      "enum": ["car", "motorbike", "bus", "taxi", "walk", "bike", "air"],
+      "required": true,
+      "description": "Drives the icon shown on the card."
+    },
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "detail": {
+      "type": "text"
+    },
+    "duration": {
+      "type": "string",
+      "description": "Shown as a small label, e.g. \"15 min from the city centre\"."
+    },
+    "url": {
+      "type": "string",
+      "description": "Optional route or timetable link."
+    }
+  }
+}

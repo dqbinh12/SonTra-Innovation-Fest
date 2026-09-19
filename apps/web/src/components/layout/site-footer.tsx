@@ -10,6 +10,7 @@ const quickLinks = [
   { key: 'sponsors', href: '/sponsors' },
   { key: 'location', href: '/location' },
   { key: 'news', href: '/news' },
+  { key: 'media', href: '/media' },
   { key: 'contact', href: '/contact' },
 ] as const;
 

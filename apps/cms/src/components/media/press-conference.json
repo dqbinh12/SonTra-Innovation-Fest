@@ -1,0 +1,46 @@
+{
+  "collectionName": "components_media_press_conferences",
+  "info": {
+    "displayName": "Press Conference",
+    "description": "The press conference tab: when, where, how to register, and the run sheet.",
+    "icon": "microphone"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "summary": {
+      "type": "text"
+    },
+    "startsAt": {
+      "type": "datetime",
+      "description": "Local time is rendered in Asia/Ho_Chi_Minh."
+    },
+    "endsAt": {
+      "type": "datetime"
+    },
+    "venue": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string"
+    },
+    "registrationUrl": {
+      "type": "string",
+      "description": "Accreditation form. Leave empty to hide the button."
+    },
+    "registrationLabel": {
+      "type": "string"
+    },
+    "accreditation": {
+      "type": "blocks",
+      "description": "Who may attend, what to bring, deadlines."
+    },
+    "schedule": {
+      "type": "component",
+      "repeatable": true,
+      "component": "media.schedule-item"
+    }
+  }
+}

@@ -603,3 +603,465 @@
     animation: none !important;
   }
 }
+
+/* ------------------------------------------------------------- cursor orb */
+
+/*
+ * Kept for /media only. /about carried this too and no longer does: a glow
+ * that tracks the pointer draws the eye to the cursor, which is the one thing
+ * on the page the reader is already looking at, and it competes with the
+ * content for attention rather than supporting it. Delete this section along
+ * with `components/pointer-spotlight.tsx` if /media drops it as well.
+ */
+
+/*
+ * The clipping frame for the orb.
+ *
+ * The orb is 640px across and parks itself half off-screen by design, so it
+ * needs an ancestor that actually clips it — without one it can widen the
+ * document and hand a phone a horizontal scrollbar. `overflow: hidden` here
+ * does that; note it would *not* clip the orb if the orb were `fixed`, which
+ * is why the orb is absolute and this frame is the fixed one.
+ *
+ * `z-index: 0` and first-child order put it above the page ground and below
+ * every section that follows it in the tree.
+ */
+.page-orb-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/*
+ * The cursor orb.
+ *
+ * Moved with `transform`, not by animating the centre of a radial gradient.
+ * Changing a gradient's centre repaints the layer it sits on, and this layer
+ * is the whole viewport — a full-screen repaint per pointer sample. A
+ * transform is handled by the compositor and touches no pixels.
+ */
+.page-backdrop__orb {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 40rem;
+  height: 40rem;
+  margin: -20rem 0 0 -20rem;
+  border-radius: 9999px;
+  opacity: var(--spot, 0);
+  transform: translate3d(var(--sx, 50vw), var(--sy, 25vh), 0);
+  transition: opacity 0.5s ease;
+  will-change: transform, opacity;
+  background: radial-gradient(
+    circle,
+    color-mix(in oklab, var(--accent) 26%, transparent) 0%,
+    color-mix(in oklab, var(--accent) 10%, transparent) 40%,
+    transparent 70%
+  );
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .page-backdrop__orb {
+    display: none;
+  }
+}
+
+/* ------------------------------------------------------------- page bands */
+
+/*
+ * The immersive ground.
+ *
+ * /about runs on the dark palette end to end rather than as light bands with
+ * colour dropped in. That is a deliberate departure from docs/brand.md, which
+ * records the site as light-only — but the dark tokens are defined there and
+ * described as "ready if they want it", and the homepage hero is already a
+ * navy band in both themes. This page opts into them for its own subtree by
+ * carrying the `.dark` class, so every existing component — `.glass`, the
+ * muted foregrounds, the borders — resolves against the dark palette with no
+ * per-component overrides. Nothing outside that subtree changes.
+ *
+ * The ground itself is three stacked washes rather than flat navy: colour is
+ * what the page was missing, and a single navy fill reads as a dead screen no
+ * matter what sits on top of it.
+ *
+ * Blue leads and the other two are deliberately weak. At their first strengths
+ * — violet 32%, teal 30% — the three overlapped into a grey-mauve across the
+ * middle of the page: mixing a warm and two cool hues at similar weight
+ * desaturates all three, and the result belongs to no brand colour. Blue stays
+ * dominant; the others tint the edges and nothing more.
+ */
+.page-deep {
+  position: relative;
+  isolation: isolate;
+  background:
+    radial-gradient(
+      ellipse 70% 50% at 15% 0%,
+      color-mix(in oklab, var(--color-brand-blue) 55%, transparent) 0%,
+      transparent 65%
+    ),
+    radial-gradient(
+      ellipse 60% 45% at 85% 20%,
+      color-mix(in oklab, var(--color-brand-violet) 20%, transparent) 0%,
+      transparent 60%
+    ),
+    radial-gradient(
+      ellipse 80% 50% at 50% 100%,
+      color-mix(in oklab, var(--color-brand-teal) 18%, transparent) 0%,
+      transparent 70%
+    ),
+    var(--color-brand-navy);
+}
+
+/*
+ * The dark ground has to resolve into a light footer: the site footer lives
+ * outside this subtree, carries a 96px top margin, and is styled for the light
+ * palette. Without this the page ends on a hard navy-to-white line.
+ *
+ * The stop is a literal `#ffffff` rather than `var(--background)` because
+ * inside `.dark` that token is navy — the value needed here is the one the
+ * *root* holds. docs/brand.md records the site as light-only, so the root
+ * background is white; if a site-wide dark theme is ever switched on, this is
+ * one of the places that has to change with it.
+ */
+.page-deep::after {
+  content: '';
+  position: absolute;
+  inset: auto 0 0 0;
+  z-index: -1;
+  height: 7rem;
+  background: linear-gradient(to top, #ffffff, transparent);
+  pointer-events: none;
+}
+
+/*
+ * A recessed band, for a section that needs to separate itself from the ground
+ * without a hard rule. Darker than what surrounds it, so the white logo plates
+ * inside it gain contrast rather than lose it.
+ */
+.band-inset {
+  position: relative;
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklab, #000 22%, transparent) 0%,
+    color-mix(in oklab, #000 30%, transparent) 50%,
+    color-mix(in oklab, #000 22%, transparent) 100%
+  );
+  border-block: 1px solid color-mix(in oklab, #ffffff 10%, transparent);
+}
+
+/*
+ * The plate a partner logo sits on.
+ *
+ * Solid white, and deliberately NOT `.glass`. The logos are supplied as
+ * artwork drawn for a white page — navy wordmarks, dark linework — so on a
+ * translucent dark plate they very nearly disappear. The component did carry
+ * `dark:bg-white/90` for this, but it never took effect: `.glass` is declared
+ * outside `@layer`, and an unlayered rule beats every Tailwind utility no
+ * matter how specific, so the dark glass background always won.
+ *
+ * White also does the section a favour on this ground: it is the one element
+ * on the page with real luminance, which is exactly the weight a partner logo
+ * should carry.
+ */
+.logo-plate {
+  background: #ffffff;
+  border: 1px solid color-mix(in oklab, var(--color-brand-navy) 10%, transparent);
+  box-shadow: 0 12px 32px -14px color-mix(in oklab, var(--color-brand-navy) 75%, transparent);
+}
+
+/*
+ * Light streaks — the one figurative element, echoing the ribbons in the
+ * homepage hero artwork. Thin, long, and rotated, so they read as motion
+ * rather than as blobs; a blurred circle is the shape this page already had
+ * too much of.
+ */
+.streak {
+  position: absolute;
+  z-index: -1;
+  height: 26rem;
+  width: 60rem;
+  border-radius: 9999px;
+  filter: blur(72px);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/*
+ * The grid motif — used on three bands, so it stays a signal instead of a
+ * texture. `currentColor` at low alpha lets one class serve a light band and
+ * a dark one without a second definition.
+ */
+.grid-motif {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(color-mix(in oklab, currentColor 10%, transparent) 1px, transparent 1px),
+    linear-gradient(90deg, color-mix(in oklab, currentColor 10%, transparent) 1px, transparent 1px);
+  background-size: 40px 40px;
+  -webkit-mask-image: radial-gradient(ellipse 75% 70% at 50% 30%, #000 0%, transparent 80%);
+  mask-image: radial-gradient(ellipse 75% 70% at 50% 30%, #000 0%, transparent 80%);
+  pointer-events: none;
+}
+
+/* ------------------------------------------- venue geography (Location hero) */
+
+/*
+ * The Location hero's ground: the Han River, both banks and the street the
+ * venue stands on, drawn from OpenStreetMap geometry. The data and its licence
+ * live in components/location/venue-geography.ts; these rules only paint it.
+ *
+ * This replaces the grid motif and the two blurred streaks the page used to
+ * open with. Those were abstract and could have sat behind any page on the
+ * site; the river is a fact about this one. The venue's real coordinate is in
+ * the artwork, so the marker is not placed by eye and cannot drift out of
+ * agreement with the map frame below it.
+ *
+ * Two nested masks, one per element, rather than one element with two mask
+ * layers and `mask-composite`. Nested masks multiply, which is the result
+ * wanted here, and they need no compositing support at all.
+ *
+ * The wrapper clears the bottom of the block: the artwork is clipped by the
+ * hero's `overflow-hidden`, and without a fade the street grid would stop on a
+ * hard horizontal line where the next section begins.
+ */
+.venue-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  mask-image: linear-gradient(to bottom, #000 0%, #000 72%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 72%, transparent 100%);
+}
+
+/*
+ * The copy clearing.
+ *
+ * The stops are measured, not eyeballed, and they are stated twice because the
+ * two layouts genuinely put the copy in different places. Above 1024px the copy
+ * band runs 15%-38% at 1440x900 and 18%-50% at 1024x800; below it, where the
+ * address drops under the headline, it runs 11%-38% at 390x844 and 12%-35% at
+ * 768x1024. A single set of stops cannot serve both, and the failure is not
+ * subtle: the desktop stops leave a phone's headline sitting on open linework.
+ *
+ * Read the stops as a contrast budget. What the gradient hides is contrast the
+ * copy does not have to win back, and the copy over this artwork is white.
+ */
+.venue-backdrop__svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+  mask-image: linear-gradient(
+    to bottom,
+    rgb(0 0 0 / 0.78) 0%,
+    rgb(0 0 0 / 0.78) 8%,
+    rgb(0 0 0 / 0.3) 17%,
+    rgb(0 0 0 / 0.3) 52%,
+    rgb(0 0 0 / 0.72) 66%,
+    #000 100%
+  );
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    rgb(0 0 0 / 0.78) 0%,
+    rgb(0 0 0 / 0.78) 8%,
+    rgb(0 0 0 / 0.3) 17%,
+    rgb(0 0 0 / 0.3) 52%,
+    rgb(0 0 0 / 0.72) 66%,
+    #000 100%
+  );
+  /*
+   * A drift, not a pan. The artwork moves about 1.5% of its own width over a
+   * minute and a half, which is slow enough to read as depth behind the copy
+   * rather than as something moving. `transform` only, so it stays on the
+   * compositor and never triggers layout.
+   */
+  animation: venue-drift 95s ease-in-out infinite alternate;
+}
+
+/*
+ * Stacked layout: the navigation is the only part of the block with nothing
+ * over it, so the open strip is the first few percent rather than the first
+ * eighth, and the band below it starts higher and ends sooner.
+ */
+@media (max-width: 1023px) {
+  .venue-backdrop__svg {
+    mask-image: linear-gradient(
+      to bottom,
+      rgb(0 0 0 / 0.72) 0%,
+      rgb(0 0 0 / 0.72) 3%,
+      rgb(0 0 0 / 0.26) 9%,
+      rgb(0 0 0 / 0.26) 40%,
+      rgb(0 0 0 / 0.78) 52%,
+      #000 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      rgb(0 0 0 / 0.72) 0%,
+      rgb(0 0 0 / 0.72) 3%,
+      rgb(0 0 0 / 0.26) 9%,
+      rgb(0 0 0 / 0.26) 40%,
+      rgb(0 0 0 / 0.78) 52%,
+      #000 100%
+    );
+  }
+}
+
+/*
+ * Phones crop deepest into the artwork, because `slice` magnifies until the
+ * drawing covers a narrow, very tall block. At that magnification the finest
+ * layer stops reading as street grain and starts reading as scratches, so it
+ * is dropped and the river, the arterials and Tran Hung Dao carry the drawing
+ * alone. This is art direction, not a performance cut: the same reason
+ * `HeroMedia` takes a portrait crop on a phone rather than the wide artwork.
+ */
+@media (max-width: 639px) {
+  .venue-backdrop__street--minor {
+    display: none;
+  }
+  .venue-backdrop__svg {
+    opacity: 0.85;
+  }
+}
+
+@keyframes venue-drift {
+  from {
+    transform: scale(1.02);
+  }
+  to {
+    transform: scale(1.07) translate3d(-0.9%, -0.6%, 0);
+  }
+}
+
+/*
+ * `non-scaling-stroke` on every layer, so one set of stroke widths is correct
+ * at every size.
+ *
+ * The artwork is drawn at `slice`, and how far it is magnified is decided by
+ * the block, not by the drawing: at 1440x900 the hero is 953px tall and the
+ * scale settles at 0.95, while at 390x844 it is 1445px tall and the scale
+ * settles at 1.45. Left to scale, the same declared width would render about
+ * half again as heavy on a phone as on a desktop, and tuning one breakpoint
+ * would mistune the other. Pinned to CSS pixels, a hairline is a hairline
+ * everywhere.
+ */
+.venue-backdrop__street {
+  fill: none;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.venue-backdrop__water {
+  fill: url(#venue-water);
+  stroke: color-mix(in oklab, var(--color-brand-cyan) 34%, transparent);
+  stroke-width: 1.1;
+  vector-effect: non-scaling-stroke;
+}
+
+/* The grain of the two banks. Faint enough to read as texture, not as data. */
+.venue-backdrop__street--minor {
+  stroke: color-mix(in oklab, white 15%, transparent);
+  stroke-width: 1;
+}
+
+.venue-backdrop__street--secondary {
+  stroke: color-mix(in oklab, white 24%, transparent);
+  stroke-width: 1;
+}
+
+/* Through-routes and the bridges, in the palette's on-navy action colour. */
+.venue-backdrop__street--major {
+  stroke: color-mix(in oklab, var(--color-brand-cyan) 40%, transparent);
+  stroke-width: 1.2;
+}
+
+/* Tran Hung Dao — the venue's own street. The one deliberately bright line. */
+.venue-backdrop__street--venue {
+  stroke: color-mix(in oklab, var(--color-brand-mint) 46%, transparent);
+  stroke-width: 1.4;
+}
+
+.venue-backdrop__venue-halo {
+  fill: color-mix(in oklab, var(--color-brand-mint) 20%, transparent);
+}
+
+.venue-backdrop__venue-ring {
+  fill: none;
+  stroke: var(--color-brand-mint);
+  stroke-width: 1.4;
+  vector-effect: non-scaling-stroke;
+}
+
+.venue-backdrop__venue-dot {
+  fill: var(--color-brand-mint);
+}
+
+/*
+ * The pulse leaves the ring and fades. `transform-box: fill-box` is required:
+ * without it the circle scales about the SVG origin at the top-left of the
+ * viewBox, and the ripple flies across the map instead of out from the venue.
+ */
+.venue-backdrop__venue-pulse {
+  fill: none;
+  stroke: var(--color-brand-mint);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: venue-pulse 4.2s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+@keyframes venue-pulse {
+  0% {
+    transform: scale(0.3);
+    opacity: 0.75;
+  }
+  70%,
+  100% {
+    transform: scale(1.9);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .venue-backdrop__svg {
+    animation: none;
+  }
+  .venue-backdrop__venue-pulse {
+    animation: none;
+    /* Held at the outer stop rather than hidden: the ring is still information,
+       and a ripple frozen mid-flight would read as a rendering bug. */
+    transform: scale(1.4);
+    opacity: 0.28;
+  }
+}
+
+/*
+ * A rule that grows on hover — the section-heading accent. Driven by
+ * `transform`, so the hover costs no layout.
+ */
+.rule-accent {
+  display: block;
+  height: 2px;
+  width: 3.5rem;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, var(--color-brand-cyan), var(--color-brand-violet));
+  transform-origin: left;
+  transition: transform 0.35s ease;
+}
+
+.group:hover .rule-accent {
+  transform: scaleX(1.6);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rule-accent {
+    transition: none;
+  }
+  .group:hover .rule-accent {
+    transform: none;
+  }
+}

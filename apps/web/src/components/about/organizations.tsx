@@ -1,7 +1,6 @@
 import type { Organization, OrganizationRole } from '@sif/shared';
 import { StrapiImage } from '@/components/strapi-image';
 import { ScrollReveal } from '@/components/home/scroll-reveal';
-import { SectionGlow } from '@/components/home/tech-backdrop';
 import { cn } from '@/lib/utils';
 
 /**
@@ -34,13 +33,27 @@ export function isOrganizationRole(value: unknown): value is OrganizationRole {
   return typeof value === 'string' && value in ROLES;
 }
 
-/** Small caps label above a logo or a row of logos. */
+/**
+ * Small caps label above a logo or a row of logos.
+ *
+ * Neither colour here is the one this component started with, and both were
+ * measured against the lightest point of the page ground, `rgb(0,73,158)`:
+ *
+ *  - the organizer label used `.gradient-text`, which sweeps through brand
+ *    blue. docs/brand.md records that blue at 2.1:1 on navy, and its fallback
+ *    colour measured 1.71:1 here — the middle of that sweep was invisible.
+ *    Cyan is the palette's on-dark action colour and measures 5.58:1.
+ *  - the rest used `--muted-foreground`, which is 3.65:1 on this ground. At
+ *    10.4px that is small text and needs 4.5:1, so it moves up to the plain
+ *    foreground at 7.32:1, with the weight difference carrying the hierarchy
+ *    instead of a contrast difference.
+ */
 function RoleLabel({ children, strong = false }: { children: string; strong?: boolean }) {
   return (
     <span
       className={cn(
-        'block text-center text-[0.65rem] font-semibold tracking-[0.2em] uppercase sm:text-xs',
-        strong ? 'gradient-text' : 'text-muted-foreground',
+        'block text-center text-[0.65rem] tracking-[0.2em] uppercase sm:text-xs',
+        strong ? 'text-brand-cyan font-bold' : 'text-foreground font-medium',
       )}
     >
       {children}
@@ -61,7 +74,7 @@ function OrganizationTile({
   const plate = (
     <span
       className={cn(
-        'glass lift flex items-center justify-center rounded-xl px-5 py-3 dark:bg-white/90',
+        'logo-plate lift flex items-center justify-center rounded-xl px-5 py-3',
         tile,
       )}
     >
@@ -72,7 +85,9 @@ function OrganizationTile({
           className={cn('w-auto object-contain', logo)}
         />
       ) : (
-        <span className="text-center text-sm font-semibold text-balance dark:text-[#001f4b]">
+        /* The plate is white in every theme, so the fallback name is navy in
+           every theme — it cannot inherit the page foreground here. */
+        <span className="text-center text-sm font-semibold text-balance text-[#001f4b]">
           {organization.name}
         </span>
       )}
@@ -138,14 +153,9 @@ export function Organizations({
   ];
 
   return (
-    <div className="relative isolate overflow-hidden rounded-3xl px-4 py-8 sm:px-8 sm:py-10">
-      {/* A tinted band rather than a solid block: the logos stay the only
-          thing with weight, and the panel does not read as a second hero. */}
-      <SectionGlow className="rounded-3xl" />
-      <div
-        aria-hidden="true"
-        className="ring-border/60 absolute inset-0 -z-10 rounded-3xl ring-1 ring-inset"
-      />
+    <div>
+      {/* No panel of its own any more: the band behind it is the grouping.
+          A tinted box on a tinted band is one container too many. */}
 
       <ul className="flex flex-wrap items-end justify-center gap-x-8 gap-y-6 sm:gap-x-10">
         {topRow.map((organization, i) => (

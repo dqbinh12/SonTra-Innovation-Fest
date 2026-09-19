@@ -13,6 +13,7 @@
     "sponsors": "Sponsors",
     "location": "Location",
     "news": "News",
+    "media": "Media",
     "about": "About Us",
     "contact": "Contact Us",
     "menu": "Menu",
@@ -123,11 +124,35 @@
   },
   "location": {
     "title": "Location",
+    "eyebrow": "Venue & access",
+    "lead": "The festival takes over the riverside promenade on Tran Hung Dao — stage, innovation zone and food street, all within a few minutes' walk.",
     "address": "Address",
-    "directions": "Getting there",
+    "addressFallback": "Tran Hung Dao Street, Son Tra District, Da Nang, Vietnam",
+    "copyAddress": "Copy address",
+    "addressCopied": "Address copied",
+    "directions": "Getting here",
+    "directionsLead": "Pick the way that suits you — the venue is on the river side of Tran Hung Dao Street, with gates at both ends of the site.",
+    "directionsDetail": "Route notes",
+    "routeLink": "View route",
     "parking": "Parking and transport",
     "openInMaps": "Open in Maps",
-    "hours": "Opening hours"
+    "getDirections": "Get directions",
+    "hours": "Opening hours",
+    "map": {
+      "coordinates": "Coordinates",
+      "frameTitle": "Map of the venue",
+      "labels": {
+        "map": "Map",
+        "plan": "Site plan"
+      }
+    },
+    "plan": {
+      "caption": "A bird's-eye view of the whole festival ground — every zone, gate and facility, and how they connect.",
+      "open": "View full size"
+    },
+    "lightbox": {
+      "close": "Close"
+    }
   },
   "news": {
     "title": "News",
@@ -135,6 +160,66 @@
     "backToNews": "Back to news",
     "publishedOn": "Published on {date}",
     "empty": "No articles have been published yet."
+  },
+  "media": {
+    "title": "Media Center",
+    "eyebrow": "Press room",
+    "lead": "Everything the press needs to cover Son Tra Innovation Fest: accreditation for the press conference, releases, brand assets and free-to-use event photography.",
+    "tabsLabel": "Media Center sections",
+    "tabs": {
+      "pressConference": "Press conference",
+      "pressReleases": "Press release KIT",
+      "mediaKit": "Media Kit",
+      "photos": "Event photos"
+    },
+    "pressConference": {
+      "title": "Press conference",
+      "lead": "The opening press briefing with the organizing board, followed by a Q&A and one-on-one interview slots.",
+      "when": "When",
+      "where": "Where",
+      "register": "Request accreditation",
+      "scheduleTitle": "Run sheet",
+      "accreditationTitle": "Accreditation",
+      "empty": "Details of the press conference will be published closer to the event."
+    },
+    "pressReleases": {
+      "title": "Press release KIT",
+      "lead": "Official statements, ready to quote. Each release is available as a PDF.",
+      "download": "Download PDF",
+      "read": "Read the release",
+      "empty": "No press releases have been published yet."
+    },
+    "mediaKit": {
+      "title": "Media Kit",
+      "lead": "Logos, brand guidelines, fact sheets and key visuals — the assets to use when you write about the festival.",
+      "download": "Download",
+      "open": "Open link",
+      "usageTitle": "Usage guidelines",
+      "empty": "The media kit will be available for download shortly.",
+      "categories": {
+        "logo": "Logo pack",
+        "guidelines": "Brand guidelines",
+        "fact-sheet": "Fact sheet",
+        "key-visual": "Key visual",
+        "video": "Video / B-roll",
+        "other": "Asset"
+      }
+    },
+    "photos": {
+      "title": "Event photos",
+      "lead": "High-resolution photography from the festival, hosted on Google Drive and free to use editorially with credit.",
+      "openDrive": "Open the photo drive",
+      "openAlbum": "Open in Drive",
+      "driveNote": "The folders open in Google Drive. Ask for access if a link does not open.",
+      "albumsTitle": "Albums",
+      "photoCount": "{count, plural, one {# photo} other {# photos}}",
+      "empty": "Photos will be published after the festival."
+    },
+    "contact": {
+      "title": "Press contact",
+      "lead": "Interview requests, filming permits and anything else — write to the press team.",
+      "cta": "Contact the press team"
+    }
   },
   "about": {
     "title": "About Us",

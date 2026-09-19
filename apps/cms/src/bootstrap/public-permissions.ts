@@ -14,6 +14,7 @@ const READABLE_SINGLE = [
   'exhibition-page',
   'location-page',
   'about-page',
+  'media-page',
 ] as const;
 
 /** Collection types the site reads: list and detail. */

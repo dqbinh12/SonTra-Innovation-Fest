@@ -11,6 +11,8 @@ export interface StrapiMedia {
   id: number;
   url: string;
   alternativeText: string | null;
+  /** Strapi's media caption. Shown under an image where the design has room. */
+  caption: string | null;
   width: number | null;
   height: number | null;
   mime: string;
@@ -105,6 +107,74 @@ export interface Countdown {
   completedMessage: string | null;
 }
 
+/** The categories a media-kit download can fall into; drives the card icon. */
+export const mediaKitCategories = [
+  'logo',
+  'guidelines',
+  'fact-sheet',
+  'key-visual',
+  'video',
+  'other',
+] as const;
+
+export type MediaKitCategory = (typeof mediaKitCategories)[number];
+
+/** One line of the press conference run sheet. */
+export interface PressScheduleItem {
+  /** Free text so a range ("09:00 - 09:20") stays one cell. */
+  time: string | null;
+  title: string;
+  description: string | null;
+}
+
+export interface PressConference {
+  title: string | null;
+  summary: string | null;
+  /** ISO datetime, UTC. Rendered in Asia/Ho_Chi_Minh. */
+  startsAt: string | null;
+  endsAt: string | null;
+  venue: string | null;
+  address: string | null;
+  registrationUrl: string | null;
+  registrationLabel: string | null;
+  accreditation: RichText | null;
+  schedule: PressScheduleItem[];
+}
+
+export interface PressRelease {
+  title: string;
+  /** ISO date, e.g. "2026-10-02". */
+  date: string;
+  summary: string | null;
+  category: string | null;
+  file: StrapiMedia | null;
+  externalUrl: string | null;
+}
+
+export interface MediaKitItem {
+  title: string;
+  description: string | null;
+  category: MediaKitCategory;
+  file: StrapiMedia | null;
+  externalUrl: string | null;
+  /** Optional format/size hint, e.g. "ZIP - 24 MB". */
+  fileLabel: string | null;
+}
+
+/**
+ * An album of event photography. The files themselves live on Google Drive,
+ * not in Strapi — a festival shoot is thousands of full-resolution frames, and
+ * the picture desks that use them already work out of a shared Drive folder.
+ */
+export interface PhotoAlbum {
+  title: string;
+  date: string | null;
+  description: string | null;
+  driveUrl: string;
+  coverImage: StrapiMedia | null;
+  photoCount: number | null;
+}
+
 // --------------------------------------------------------------- single types
 
 export interface SiteSettings extends StrapiEntry {
@@ -169,13 +239,35 @@ export interface ExhibitionPage extends StrapiEntry {
   seo: Seo | null;
 }
 
+/** How a visitor can reach the venue. Drives the icon on the transport card. */
+export type TransportMode = 'car' | 'motorbike' | 'bus' | 'taxi' | 'walk' | 'bike' | 'air';
+
+export interface TransportOption {
+  mode: TransportMode;
+  title: string;
+  detail: string | null;
+  /** Small label, e.g. "15 min from the city centre". */
+  duration: string | null;
+  /** Optional route or timetable link. */
+  url: string | null;
+}
+
 export interface LocationPage extends StrapiEntry {
+  heroTitle: string | null;
+  heroSubtitle: string | null;
+  /** The name of the site, shown above the address. */
+  venueName: string | null;
   address: string;
+  /** One line per day. */
+  openingHours: string | null;
   mapLatitude: number | null;
   mapLongitude: number | null;
+  /** Bird's-eye site plan of the festival ground. */
+  venueMap: StrapiMedia | null;
+  venueMapCaption: string | null;
+  transportOptions: TransportOption[];
   directions: RichText | null;
   parkingNotes: RichText | null;
-  images: StrapiMedia[];
   seo: Seo | null;
 }
 
@@ -183,6 +275,26 @@ export interface AboutPage extends StrapiEntry {
   story: RichText;
   mission: string | null;
   organizations: Organization[];
+  seo: Seo | null;
+}
+
+export interface MediaPage extends StrapiEntry {
+  heroTitle: string | null;
+  heroSubtitle: string | null;
+  pressContactName: string | null;
+  pressContactEmail: string | null;
+  pressContactPhone: string | null;
+  pressConference: PressConference | null;
+  pressReleasesIntro: string | null;
+  pressReleases: PressRelease[];
+  mediaKitIntro: string | null;
+  mediaKitItems: MediaKitItem[];
+  mediaKitUsage: RichText | null;
+  photosIntro: string | null;
+  photoCredit: string | null;
+  /** The main Drive folder holding everything. */
+  photoDriveUrl: string | null;
+  photoAlbums: PhotoAlbum[];
   seo: Seo | null;
 }
 

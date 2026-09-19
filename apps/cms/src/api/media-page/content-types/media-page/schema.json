@@ -1,0 +1,161 @@
+{
+  "kind": "singleType",
+  "collectionName": "media_pages",
+  "info": {
+    "singularName": "media-page",
+    "pluralName": "media-pages",
+    "displayName": "Media Center",
+    "description": "The press room: press conference, press releases, media kit and event photos."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "heroTitle": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "heroSubtitle": {
+      "type": "text",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "pressContactName": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "pressContactEmail": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
+    },
+    "pressContactPhone": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
+    },
+    "pressConference": {
+      "type": "component",
+      "repeatable": false,
+      "component": "media.press-conference",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "pressReleasesIntro": {
+      "type": "text",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "pressReleases": {
+      "type": "component",
+      "repeatable": true,
+      "component": "media.press-release",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "mediaKitIntro": {
+      "type": "text",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "mediaKitItems": {
+      "type": "component",
+      "repeatable": true,
+      "component": "media.download-item",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "mediaKitUsage": {
+      "type": "blocks",
+      "description": "Usage terms for the brand assets.",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "photosIntro": {
+      "type": "text",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "photoCredit": {
+      "type": "string",
+      "description": "Credit line shown under the galleries, e.g. \"Photo: Son Tra Innovation Fest\".",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "photoDriveUrl": {
+      "type": "string",
+      "description": "The main Google Drive folder with all event photography.",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
+    },
+    "photoAlbums": {
+      "type": "component",
+      "repeatable": true,
+      "component": "media.photo-album",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    }
+  }
+}
