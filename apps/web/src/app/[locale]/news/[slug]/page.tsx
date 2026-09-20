@@ -101,11 +101,11 @@ export default async function ArticlePage({ params }: Props) {
                 date: format.dateTime(new Date(article.date), { dateStyle: 'long' }),
               })}
             </time>
-            <h1 className="mt-5 text-4xl leading-[1.08] font-extrabold tracking-[-0.04em] text-balance sm:text-5xl lg:text-6xl">
+            <h1 className="mt-5 text-3xl leading-[1.12] font-bold tracking-tight text-balance sm:text-4xl lg:text-5xl">
               {article.title}
             </h1>
             {article.excerpt && (
-              <p className="mt-6 max-w-3xl text-lg leading-8 text-white/78 sm:text-xl">
+              <p className="mt-6 max-w-3xl text-base leading-relaxed text-white/80 sm:text-lg">
                 {article.excerpt}
               </p>
             )}
