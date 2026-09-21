@@ -7,7 +7,6 @@ import { Link, getPathname } from '@/i18n/navigation';
 import { Container } from '@/components/layout/container';
 import { NewsBackdrop } from '@/components/news/news-backdrop';
 import { NewsCard } from '@/components/news/news-card';
-import { NewsSpotlight } from '@/components/news/news-spotlight';
 import { NewsFilterBar } from '@/components/news/news-filter-bar';
 
 type Props = {
@@ -39,28 +38,39 @@ export default async function NewsPage({ params, searchParams }: Props) {
   const t = await getTranslations('news');
   const format = await getFormatter();
 
-  const response = await strapiFetch<Article[]>('articles', {
-    locale: locale as Locale,
-    query: {
-      'sort[0]': 'date:desc',
-      'sort[1]': 'slug:asc',
-      'populate[coverImage]': 'true',
-      'pagination[page]': page,
-      'pagination[pageSize]': 6,
-      ...(q
-        ? {
-            'filters[$or][0][title][$containsi]': q,
-            'filters[$or][1][excerpt][$containsi]': q,
-          }
-        : {}),
-      ...(categoryParam && categoryParam !== 'all'
-        ? {
-            'filters[category][$containsi]': categoryParam,
-          }
-        : {}),
-    },
-    tags: ['articles'],
-  }).catch(() => null);
+  const [response, categoriesResponse] = await Promise.all([
+    strapiFetch<Article[]>('articles', {
+      locale: locale as Locale,
+      query: {
+        'sort[0]': 'date:desc',
+        'sort[1]': 'slug:asc',
+        'populate[coverImage]': 'true',
+        'pagination[page]': page,
+        'pagination[pageSize]': 6,
+        ...(q
+          ? {
+              'filters[$or][0][title][$containsi]': q,
+              'filters[$or][1][excerpt][$containsi]': q,
+            }
+          : {}),
+        ...(categoryParam && categoryParam !== 'all'
+          ? {
+              'filters[category][$eqi]': categoryParam,
+            }
+          : {}),
+      },
+      tags: ['articles'],
+    }).catch(() => null),
+
+    strapiFetch<Array<{ category?: string | null }>>('articles', {
+      locale: locale as Locale,
+      query: {
+        'fields[0]': 'category',
+        'pagination[pageSize]': 100,
+      },
+      tags: ['articles'],
+    }).catch(() => null),
+  ]);
 
   const articles = response?.data ?? [];
   const pagination = response?.meta.pagination;
@@ -77,26 +87,22 @@ export default async function NewsPage({ params, searchParams }: Props) {
 
   const formatDate = (date: string) => format.dateTime(new Date(date), { dateStyle: 'long' });
 
-  // Standard category options per locale
-  const standardCategories =
-    locale === 'vi'
-      ? [
-          { key: 'all', label: t('categories.all') },
-          { key: 'Thông báo', label: t('categories.announcement') },
-          { key: 'Triển lãm', label: t('categories.exhibition') },
-          { key: 'Chương trình', label: t('categories.programme') },
-        ]
-      : [
-          { key: 'all', label: t('categories.all') },
-          { key: 'Announcement', label: t('categories.announcement') },
-          { key: 'Exhibition', label: t('categories.exhibition') },
-          { key: 'Programme', label: t('categories.programme') },
-        ];
+  // Extract unique categories dynamically from CMS articles
+  const dynamicCategories = Array.from(
+    new Set(
+      (categoriesResponse?.data ?? [])
+        .map((item) => item.category?.trim())
+        .filter((cat): cat is string => Boolean(cat))
+    )
+  );
 
-  // Whether we show the hero spotlight story
+  const categories = [
+    { key: 'all', label: t('categories.all') },
+    ...dynamicCategories.map((cat) => ({ key: cat, label: cat })),
+  ];
+
+  // Whether we are on default unfiltered view
   const isDefaultView = !q && (!categoryParam || categoryParam === 'all') && page === 1;
-  const spotlightArticle = isDefaultView && articles.length > 0 ? articles[0] : null;
-  const gridArticles = isDefaultView && articles.length > 0 ? articles.slice(1) : articles;
 
   return (
     <div className="page-deep dark min-h-full pb-20 text-foreground">
@@ -133,7 +139,7 @@ export default async function NewsPage({ params, searchParams }: Props) {
             <NewsFilterBar
               query={q}
               category={categoryParam}
-              categories={standardCategories}
+              categories={categories}
               newsPath={newsPath}
             />
           </div>
@@ -142,7 +148,10 @@ export default async function NewsPage({ params, searchParams }: Props) {
 
       {/* ─── Main Content Section ─────────────────────────────────────────── */}
       <Container className="py-6 sm:py-8">
-        <section aria-labelledby="news-browse">
+        <section
+          aria-labelledby={!isDefaultView ? 'news-browse' : undefined}
+          aria-label={isDefaultView ? t('title') : undefined}
+        >
           {/* Active Filter Summary when Searching or Categorized */}
           {!isDefaultView && (
             <div className="mb-8 flex flex-wrap items-center justify-between gap-4 border-b border-border/40 pb-4">
@@ -210,44 +219,17 @@ export default async function NewsPage({ params, searchParams }: Props) {
               )}
             </div>
           ) : (
-            <>
-              {/* Spotlight Featured Article (Page 1, Unfiltered only) */}
-              {spotlightArticle && (
-                <NewsSpotlight
-                  article={spotlightArticle}
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+              {articles.map((article) => (
+                <NewsCard
+                  key={article.documentId}
+                  article={article}
                   formatDate={formatDate}
                   readMoreLabel={t('readMore')}
-                  featuredLabel={t('featured')}
                   readingTimeLabel={(minutes) => t('readingTime', { minutes })}
                 />
-              )}
-
-              {/* Grid of Stories */}
-              {gridArticles.length > 0 && (
-                <div>
-                  {isDefaultView && (
-                    <div className="mb-6 flex items-center justify-between">
-                      <h2 className="text-xl font-bold tracking-tight text-white sm:text-2xl">
-                        {t('recentStories')}
-                      </h2>
-                      <span aria-hidden="true" className="rule-accent" />
-                    </div>
-                  )}
-
-                  <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
-                    {gridArticles.map((article) => (
-                      <NewsCard
-                        key={article.documentId}
-                        article={article}
-                        formatDate={formatDate}
-                        readMoreLabel={t('readMore')}
-                        readingTimeLabel={(minutes) => t('readingTime', { minutes })}
-                      />
-                    ))}
-                  </div>
-                </div>
-              )}
-            </>
+              ))}
+            </div>
           )}
 
           {/* Pagination Navigation */}
