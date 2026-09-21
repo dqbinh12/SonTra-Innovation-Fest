@@ -102,35 +102,37 @@ export function NewsFilterBar({ query, category, categories, newsPath }: NewsFil
       </form>
 
       {/* Category Pills Strip */}
-      <div
-        role="tablist"
-        aria-label={t('filterCategory')}
-        className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none text-xs sm:text-sm"
-      >
-        {categories.map((cat) => {
-          const isSelected =
-            (cat.key === 'all' && (!category || category === 'all')) ||
-            category.toLowerCase() === cat.key.toLowerCase();
+      {categories.length > 1 && (
+        <div
+          role="tablist"
+          aria-label={t('filterCategory')}
+          className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-none text-xs sm:text-sm"
+        >
+          {categories.map((cat) => {
+            const isSelected =
+              (cat.key === 'all' && (!category || category === 'all')) ||
+              category.toLowerCase() === cat.key.toLowerCase();
 
-          return (
-            <button
-              key={cat.key}
-              type="button"
-              role="tab"
-              aria-selected={isSelected}
-              disabled={isPending}
-              onClick={() => handleCategorySelect(cat.key)}
-              className={`shrink-0 rounded-full px-4 py-1.5 font-medium transition-all duration-200 cursor-pointer ${
-                isSelected
-                  ? 'bg-brand-cyan text-brand-navy font-bold shadow-[0_0_14px_rgba(78,226,255,0.45)]'
-                  : 'glass text-white/70 hover:text-white hover:bg-white/10'
-              }`}
-            >
-              {cat.label}
-            </button>
-          );
-        })}
-      </div>
+            return (
+              <button
+                key={cat.key}
+                type="button"
+                role="tab"
+                aria-selected={isSelected}
+                disabled={isPending}
+                onClick={() => handleCategorySelect(cat.key)}
+                className={`shrink-0 rounded-full px-4 py-1.5 font-medium transition-all duration-200 cursor-pointer ${
+                  isSelected
+                    ? 'bg-brand-cyan text-brand-navy font-bold shadow-[0_0_14px_rgba(78,226,255,0.45)]'
+                    : 'glass text-white/70 hover:text-white hover:bg-white/10'
+                }`}
+              >
+                {cat.label}
+              </button>
+            );
+          })}
+        </div>
+      )}
     </div>
   );
 }

@@ -70,7 +70,7 @@ export function NewsCard({ article, formatDate, readMoreLabel, readingTimeLabel 
           </h3>
 
           {article.excerpt && (
-            <p className="mt-2 text-xs leading-relaxed text-muted-foreground line-clamp-3 sm:text-sm">
+            <p className="mt-2 text-xs leading-relaxed text-muted-foreground sm:text-sm">
               {article.excerpt}
             </p>
           )}
