@@ -11,19 +11,19 @@ import { cn } from '@/lib/utils';
  */
 const ROLES: Record<OrganizationRole, { tile: string; logo: string; sizes: string }> = {
   organizer: {
-    tile: 'h-28 w-56 sm:h-32 sm:w-64',
-    logo: 'max-h-16 sm:max-h-20',
-    sizes: '256px',
-  },
-  'co-organizer': {
-    tile: 'h-24 w-48 sm:h-28 sm:w-56',
-    logo: 'max-h-12 sm:max-h-16',
+    tile: 'h-22 w-48 sm:h-24 sm:w-56',
+    logo: 'max-h-12 sm:max-h-14',
     sizes: '224px',
   },
+  'co-organizer': {
+    tile: 'h-18 w-40 sm:h-20 sm:w-48',
+    logo: 'max-h-9 sm:max-h-11',
+    sizes: '192px',
+  },
   coordinator: {
-    tile: 'h-20 w-44 sm:h-24 sm:w-52',
-    logo: 'max-h-10 sm:max-h-14',
-    sizes: '208px',
+    tile: 'h-16 w-36 sm:h-18 sm:w-44',
+    logo: 'max-h-8 sm:max-h-10',
+    sizes: '176px',
   },
 };
 
@@ -95,7 +95,7 @@ function OrganizationTile({
   );
 
   return (
-    <figure className="flex flex-col items-center gap-2">
+    <figure className="flex flex-col items-center gap-2.5 sm:gap-3">
       {label && <RoleLabel strong={organization.role === 'organizer'}>{label}</RoleLabel>}
 
       {organization.link ? (
@@ -157,7 +157,7 @@ export function Organizations({
       {/* No panel of its own any more: the band behind it is the grouping.
           A tinted box on a tinted band is one container too many. */}
 
-      <ul className="flex flex-wrap items-end justify-center gap-x-8 gap-y-6 sm:gap-x-10">
+      <ul className="flex flex-wrap items-end justify-center gap-x-6 gap-y-6 sm:gap-x-10 sm:gap-y-6 lg:gap-x-14">
         {topRow.map((organization, i) => (
           <li
             key={`${organization.role}-${i}`}
@@ -171,12 +171,12 @@ export function Organizations({
       </ul>
 
       {coordinators.length > 0 && (
-        <div className="mt-8 sm:mt-10">
+        <div className="mt-10 sm:mt-12 lg:mt-14">
           {/* One label for the pair — repeating it over each logo reads as two
               separate roles rather than one group. */}
           <RoleLabel>{labels.coordinator}</RoleLabel>
 
-          <ul className="mt-3 flex flex-wrap items-end justify-center gap-x-8 gap-y-6 sm:gap-x-10">
+          <ul className="mt-3.5 sm:mt-4 flex flex-wrap items-end justify-center gap-x-6 gap-y-4 sm:gap-x-8 sm:gap-y-5 lg:gap-x-10">
             {coordinators.map((organization, i) => (
               <li key={`coordinator-${i}`}>
                 <ScrollReveal delay={i * 80}>

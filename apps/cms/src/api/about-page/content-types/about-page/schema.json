@@ -33,6 +33,16 @@
         }
       }
     },
+    "overview": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.stat",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
     "organizations": {
       "type": "component",
       "repeatable": true,

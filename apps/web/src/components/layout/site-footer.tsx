@@ -1,6 +1,9 @@
+'use client';
+
 import { useTranslations } from 'next-intl';
 import type { StrapiMedia } from '@sif/shared';
-import { Link } from '@/i18n/navigation';
+import { Link, usePathname } from '@/i18n/navigation';
+import { cn } from '@/lib/utils';
 import { Container } from './container';
 import { StrapiImage } from '@/components/strapi-image';
 
@@ -32,9 +35,22 @@ export function SiteFooter({
   footerText,
 }: SiteFooterProps) {
   const t = useTranslations();
+  const pathname = usePathname();
+  const immersive =
+    pathname === '/' ||
+    pathname === '/about' ||
+    pathname === '/media' ||
+    pathname === '/location' ||
+    pathname === '/news' ||
+    pathname.startsWith('/news/');
 
   return (
-    <footer className="border-border bg-secondary/40 mt-24 border-t">
+    <footer
+      className={cn(
+        'border-t',
+        immersive ? 'dark border-white/10 bg-brand-navy text-foreground' : 'border-border bg-secondary/40 mt-24',
+      )}
+    >
       <Container className="grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-4">
         <div className="lg:col-span-2">
           {logo ? (

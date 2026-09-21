@@ -274,6 +274,7 @@ export interface LocationPage extends StrapiEntry {
 export interface AboutPage extends StrapiEntry {
   story: RichText;
   mission: string | null;
+  overview?: Stat[] | null;
   organizations: Organization[];
   seo: Seo | null;
 }
