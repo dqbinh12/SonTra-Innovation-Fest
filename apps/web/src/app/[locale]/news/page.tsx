@@ -57,8 +57,8 @@ export default async function NewsPage({ params, searchParams }: Props) {
   const formatDate = (date: string) => format.dateTime(new Date(date), { dateStyle: 'long' });
 
   return (
-    <div className="page-deep dark min-h-full pb-24 text-foreground">
-      <section className="relative overflow-hidden text-white pt-28 pb-14 sm:pt-36 sm:pb-20 lg:pt-40 lg:pb-24">
+    <div className="bg-brand-navy dark min-h-full pb-24 text-foreground">
+      <section className="relative overflow-hidden text-white pt-24 pb-12 sm:pt-32 sm:pb-16 lg:pt-36 lg:pb-20">
         <div aria-hidden="true" className="grid-motif text-white" />
         <div
           aria-hidden="true"
@@ -188,7 +188,7 @@ export default async function NewsPage({ params, searchParams }: Props) {
                       >
                         {formatDate(article.date)}
                       </time>
-                      <h3 className="mt-3 text-xl font-bold leading-snug tracking-tight transition-colors group-hover:text-primary sm:text-2xl">
+                      <h3 className="mt-3 text-lg font-bold leading-snug tracking-tight transition-colors group-hover:text-primary sm:text-xl">
                         {article.title}
                       </h3>
                       {article.excerpt && (
