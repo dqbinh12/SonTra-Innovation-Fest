@@ -174,7 +174,25 @@
     "pagination": "Các trang tin tức",
     "previous": "Trước",
     "next": "Tiếp",
-    "pageOf": "Trang {page} / {total}"
+    "pageOf": "Trang {page} / {total}",
+    "featured": "Câu chuyện nổi bật",
+    "recentStories": "Khám phá bài viết",
+    "readingTime": "{minutes} phút đọc",
+    "shareStory": "Chia sẻ bài viết",
+    "copyLink": "Sao chép liên kết",
+    "copied": "Đã sao chép!",
+    "relatedStories": "Bài viết khác từ SIF",
+    "resetFilters": "Đặt lại bộ lọc",
+    "pulseLabel": "Nhịp đập công nghệ SIF 2026",
+    "pulseDates": "Đà Nẵng • 02–04/10/2026",
+    "filterCategory": "Lọc theo chủ đề",
+    "filterResults": "Chủ đề “{category}”",
+    "categories": {
+      "all": "Tất cả bài viết",
+      "announcement": "Thông báo",
+      "exhibition": "Triển lãm",
+      "programme": "Chương trình"
+    }
   },
   "media": {
     "title": "Trung tâm Báo chí",
@@ -239,9 +257,24 @@
   "about": {
     "title": "Về chúng tôi",
     "missionTitle": "Sứ mệnh",
+    "overviewTitle": "Thông tin tổng quan",
+    "overviewDefaults": {
+      "dateLabel": "Thời gian",
+      "dateValue": "03–04 / 10 / 2026",
+      "venueLabel": "Địa điểm",
+      "venueValue": "Wyndham Danang Golden Bay",
+      "themeLabel": "Chủ đề chính",
+      "themeValue": "Công nghệ toàn cầu — Nhịp sống địa phương",
+      "attendanceLabel": "Quy mô khách",
+      "attendanceValue": "2.000+ Lượt khách tham dự",
+      "exhibitionLabel": "Triển lãm",
+      "exhibitionValue": "24 Gian hàng công nghệ",
+      "competitionsLabel": "Cuộc thi",
+      "competitionsValue": "02 Cuộc thi sáng tạo"
+    },
     "organizerTitle": "Các đơn vị đồng hành",
     "ctaTitle": "Bạn muốn đồng hành cùng lễ hội?",
-    "ctaBody": "Hợp tác, báo chí hay bất kỳ câu hỏi nào về lễ hội — ban tổ chức đều đọc mọi tin nhắn.",
+    "ctaBody": "Hợp tác, báo chí hay bất kỳ câu hỏi nào về lễ hội. Ban tổ chức đều đọc mọi tin nhắn.",
     "ctaPrimary": "Liên hệ với chúng tôi",
     "roles": {
       "organizer": "Đơn vị tổ chức",

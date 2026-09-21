@@ -60,10 +60,7 @@ export function NewsBackdrop() {
         />
 
         {/* Vertical/Diagonal Knowledge Cross-Lines */}
-        <path
-          d="M 340 -40 C 390 270, 680 490, 810 980"
-          className="news-backdrop__connection"
-        />
+        <path d="M 340 -40 C 390 270, 680 490, 810 980" className="news-backdrop__connection" />
         <path
           d="M 1120 -60 C 1070 230, 1320 640, 1430 1020"
           className="news-backdrop__connection news-backdrop__connection--violet"

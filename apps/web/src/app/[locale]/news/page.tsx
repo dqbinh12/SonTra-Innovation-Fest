@@ -1,16 +1,22 @@
 import type { Metadata } from 'next';
-import { ArrowLeft, ArrowRight, ArrowUpRight, Newspaper, Search } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Newspaper, RotateCcw } from 'lucide-react';
 import { getFormatter, getTranslations, setRequestLocale } from 'next-intl/server';
 import type { Article, Locale } from '@sif/shared';
 import { strapiFetch } from '@/lib/strapi';
 import { Link, getPathname } from '@/i18n/navigation';
 import { Container } from '@/components/layout/container';
-import { StrapiImage } from '@/components/strapi-image';
 import { NewsBackdrop } from '@/components/news/news-backdrop';
+import { NewsCard } from '@/components/news/news-card';
+import { NewsSpotlight } from '@/components/news/news-spotlight';
+import { NewsFilterBar } from '@/components/news/news-filter-bar';
 
 type Props = {
   params: Promise<{ locale: string }>;
-  searchParams: Promise<{ q?: string | string[]; page?: string | string[] }>;
+  searchParams: Promise<{
+    q?: string | string[];
+    page?: string | string[];
+    category?: string | string[];
+  }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -25,10 +31,14 @@ export default async function NewsPage({ params, searchParams }: Props) {
 
   const filters = await searchParams;
   const q = typeof filters.q === 'string' ? filters.q.trim().slice(0, 200) : '';
+  const categoryParam =
+    typeof filters.category === 'string' ? filters.category.trim().slice(0, 50) : '';
   const requestedPage = typeof filters.page === 'string' ? Number(filters.page) : 1;
   const page = Number.isSafeInteger(requestedPage) && requestedPage > 0 ? requestedPage : 1;
+
   const t = await getTranslations('news');
   const format = await getFormatter();
+
   const response = await strapiFetch<Article[]>('articles', {
     locale: locale as Locale,
     query: {
@@ -43,185 +53,213 @@ export default async function NewsPage({ params, searchParams }: Props) {
             'filters[$or][1][excerpt][$containsi]': q,
           }
         : {}),
+      ...(categoryParam && categoryParam !== 'all'
+        ? {
+            'filters[category][$containsi]': categoryParam,
+          }
+        : {}),
     },
     tags: ['articles'],
   }).catch(() => null);
 
   const articles = response?.data ?? [];
   const pagination = response?.meta.pagination;
-  const remaining = articles;
   const newsPath = getPathname({ locale: locale as Locale, href: '/news' });
+
   const pageHref = (target: number) => ({
     pathname: '/news' as const,
-    query: { ...(q ? { q } : {}), page: target },
+    query: {
+      ...(q ? { q } : {}),
+      ...(categoryParam && categoryParam !== 'all' ? { category: categoryParam } : {}),
+      page: target,
+    },
   });
+
   const formatDate = (date: string) => format.dateTime(new Date(date), { dateStyle: 'long' });
+
+  // Standard category options per locale
+  const standardCategories =
+    locale === 'vi'
+      ? [
+          { key: 'all', label: t('categories.all') },
+          { key: 'Thông báo', label: t('categories.announcement') },
+          { key: 'Triển lãm', label: t('categories.exhibition') },
+          { key: 'Chương trình', label: t('categories.programme') },
+        ]
+      : [
+          { key: 'all', label: t('categories.all') },
+          { key: 'Announcement', label: t('categories.announcement') },
+          { key: 'Exhibition', label: t('categories.exhibition') },
+          { key: 'Programme', label: t('categories.programme') },
+        ];
+
+  // Whether we show the hero spotlight story
+  const isDefaultView = !q && (!categoryParam || categoryParam === 'all') && page === 1;
+  const spotlightArticle = isDefaultView && articles.length > 0 ? articles[0] : null;
+  const gridArticles = isDefaultView && articles.length > 0 ? articles.slice(1) : articles;
 
   return (
     <div className="page-deep dark min-h-full pb-20 text-foreground">
       <NewsBackdrop />
 
-      <section className="relative overflow-hidden text-white pt-20 pb-8 sm:pt-24 sm:pb-10 lg:pt-28 lg:pb-12">
-        <Container className="relative grid gap-6 lg:grid-cols-[1fr_20rem] lg:items-end lg:gap-12">
+      {/* ─── Hero Section with Tech Pulse & Filter Dock ───────────────────── */}
+      <section className="relative overflow-hidden pt-24 pb-8 sm:pt-28 sm:pb-10 lg:pt-32 lg:pb-12 text-white">
+        <Container className="relative grid gap-8 lg:grid-cols-[1fr_24rem] lg:items-end lg:gap-12">
           <div>
-            <p className="glass-invert inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-semibold tracking-[0.16em] text-white uppercase">
-              <span aria-hidden="true" className="bg-brand-mint size-1.5 rounded-full" />
-              Son Tra Innovation Fest
-            </p>
-            <h1 className="gradient-text-aurora mt-4 max-w-3xl text-3xl font-bold tracking-tight text-balance sm:text-4xl lg:text-5xl">
+            {/* Live Dispatch Pulse Pill */}
+            <div className="glass-invert inline-flex items-center gap-2.5 rounded-full px-3.5 py-1.5 text-xs font-semibold tracking-wider text-brand-cyan uppercase">
+              <span
+                aria-hidden="true"
+                className="size-2 rounded-full bg-brand-mint animate-pulse"
+              />
+              <span>{t('pulseLabel')}</span>
+              <span aria-hidden="true" className="text-white/30">
+                •
+              </span>
+              <span className="text-white/70 font-normal">{t('pulseDates')}</span>
+            </div>
+
+            <h1 className="gradient-text-aurora mt-4 max-w-3xl text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
               {t('title')}
             </h1>
+
             <p className="mt-3 max-w-2xl text-sm leading-relaxed text-white/80 sm:text-base">
               {t('intro')}
             </p>
           </div>
 
-          <form action={newsPath} method="get" role="search" className="w-full">
-            <label htmlFor="news-search" className="sr-only">
-              {t('search')}
-            </label>
-            <div className="glass flex overflow-hidden rounded-xl focus-within:ring-1 focus-within:ring-brand-cyan/40">
-              <input
-                id="news-search"
-                name="q"
-                type="search"
-                maxLength={200}
-                defaultValue={q}
-                placeholder={t('search')}
-                className="min-w-0 flex-1 bg-transparent px-3.5 py-3 text-sm text-white outline-none placeholder:text-white/40"
-              />
-              <button
-                type="submit"
-                aria-label={t('search')}
-                className="btn-glow bg-brand-cyan text-brand-navy inline-flex w-12 shrink-0 items-center justify-center transition-transform hover:brightness-110 active:scale-[0.97]"
-              >
-                <Search aria-hidden="true" className="size-4" strokeWidth={2.5} />
-              </button>
-            </div>
-          </form>
+          {/* Interactive Search & Category Filter */}
+          <div className="w-full">
+            <NewsFilterBar
+              query={q}
+              category={categoryParam}
+              categories={standardCategories}
+              newsPath={newsPath}
+            />
+          </div>
         </Container>
       </section>
 
+      {/* ─── Main Content Section ─────────────────────────────────────────── */}
       <Container className="py-6 sm:py-8">
         <section aria-labelledby="news-browse">
-          <div className="mb-6 max-w-2xl">
-            <h2
-              id="news-browse"
-              className="text-xl font-bold tracking-tight sm:text-2xl"
-            >
-              {q ? t('searchResults') : t('allNews')}
-            </h2>
-            {q && (
-              <div className="mt-3 flex flex-wrap items-center gap-4 text-xs sm:text-sm text-muted-foreground">
-                <p>{t('resultsFor', { query: q })}</p>
-                <Link
-                  href="/news"
-                  className="text-brand-cyan font-semibold underline underline-offset-4"
+          {/* Active Filter Summary when Searching or Categorized */}
+          {!isDefaultView && (
+            <div className="mb-8 flex flex-wrap items-center justify-between gap-4 border-b border-border/40 pb-4">
+              <div>
+                <h2
+                  id="news-browse"
+                  className="text-xl font-bold tracking-tight sm:text-2xl text-white"
                 >
-                  {t('clearSearch')}
-                </Link>
+                  {q ? t('searchResults') : t('filterResults', { category: categoryParam })}
+                </h2>
+                {q && (
+                  <p className="mt-1 text-xs sm:text-sm text-muted-foreground">
+                    {t('resultsFor', { query: q })}
+                  </p>
+                )}
               </div>
-            )}
-            <span aria-hidden="true" className="rule-accent mt-4" />
-          </div>
 
+              <Link
+                href="/news"
+                className="inline-flex items-center gap-1.5 rounded-lg border border-brand-cyan/30 bg-brand-cyan/10 px-3.5 py-1.5 text-xs font-semibold text-brand-cyan transition-colors hover:bg-brand-cyan/20"
+              >
+                <RotateCcw className="size-3.5" />
+                {t('resetFilters')}
+              </Link>
+            </div>
+          )}
+
+          {/* Empty State */}
           {!response || articles.length === 0 ? (
-            <div className="glass flex flex-col items-center justify-center rounded-2xl px-6 py-16 text-center">
-              <Newspaper aria-hidden="true" className="text-white/20 mx-auto mb-4 size-10" />
-              <p className="text-muted-foreground text-sm">
+            <div className="glass flex flex-col items-center justify-center rounded-3xl border border-border/60 px-6 py-20 text-center backdrop-blur-xl">
+              <div className="relative mb-5 flex size-16 items-center justify-center rounded-2xl bg-brand-blue/20 border border-brand-cyan/30">
+                <div
+                  aria-hidden="true"
+                  className="size-20 rounded-full bg-brand-cyan/10 blur-xl absolute"
+                />
+                <Newspaper
+                  aria-hidden="true"
+                  className="size-8 text-brand-cyan"
+                  strokeWidth={1.5}
+                />
+              </div>
+
+              <h3 className="text-lg font-bold text-white mb-2">
                 {!response
                   ? t('unavailable')
-                  : q
+                  : q || categoryParam
                     ? t('noResults')
                     : page > 1
                       ? t('noPage')
                       : t('empty')}
+              </h3>
+
+              <p className="max-w-md text-xs sm:text-sm text-muted-foreground mb-6 leading-relaxed">
+                {t('moreSoon')}
               </p>
-              {page > 1 && (
+
+              {(q || categoryParam || page > 1) && (
                 <Link
                   href="/news"
-                  className="text-brand-cyan mt-4 inline-block text-sm font-semibold underline"
+                  className="btn-glow inline-flex items-center gap-2 rounded-full bg-brand-cyan px-6 py-2.5 text-xs sm:text-sm font-bold text-brand-navy hover:bg-white transition-all"
                 >
-                  {t('backToNews')}
+                  <RotateCcw className="size-4" />
+                  {t('resetFilters')}
                 </Link>
               )}
             </div>
-          ) : remaining.length > 0 ? (
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
-              {remaining.map((article) => (
-                <article key={article.documentId} className="flex h-full">
-                  <Link
-                    href={{ pathname: '/news/[slug]', params: { slug: article.slug } }}
-                    className="group glass lift flex h-full w-full flex-col overflow-hidden rounded-2xl"
-                  >
-                    <div className="bg-brand-navy relative aspect-[16/9] shrink-0 overflow-hidden">
-                      {article.coverImage ? (
-                        <StrapiImage
-                          media={article.coverImage}
-                          fill
-                          sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                          className="object-cover transition-transform duration-500 motion-safe:group-hover:scale-105"
-                        />
-                      ) : (
-                        <div className="flex h-full items-center justify-center">
-                          <Newspaper
-                            aria-hidden="true"
-                            className="text-white/10 size-10"
-                            strokeWidth={1.5}
-                          />
-                        </div>
-                      )}
-
-                      <div
-                        aria-hidden="true"
-                        className="pointer-events-none absolute inset-0 bg-gradient-to-t from-brand-navy/80 via-brand-navy/10 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
-                      />
-                    </div>
-
-                    <div className="flex flex-1 flex-col p-4 sm:p-5">
-                      <time
-                        dateTime={article.date}
-                        className="text-brand-cyan text-[0.6875rem] font-semibold tracking-widest uppercase"
-                      >
-                        {formatDate(article.date)}
-                      </time>
-                      <h3 className="mt-2 text-base font-bold leading-snug tracking-tight transition-colors group-hover:text-primary sm:text-lg">
-                        {article.title}
-                      </h3>
-                      {article.excerpt && (
-                        <p className="text-muted-foreground mt-2 text-xs sm:text-sm leading-relaxed">
-                          {article.excerpt}
-                        </p>
-                      )}
-
-                      <div className="mt-auto pt-4">
-                        <span className="text-brand-cyan inline-flex items-center gap-1.5 text-xs font-bold transition-colors group-hover:text-white">
-                          {t('readMore')}
-                          <ArrowUpRight
-                            aria-hidden="true"
-                            className="size-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5"
-                            strokeWidth={2.5}
-                          />
-                        </span>
-                      </div>
-                    </div>
-                  </Link>
-                </article>
-              ))}
-            </div>
           ) : (
-            <p className="text-muted-foreground">{t('moreSoon')}</p>
+            <>
+              {/* Spotlight Featured Article (Page 1, Unfiltered only) */}
+              {spotlightArticle && (
+                <NewsSpotlight
+                  article={spotlightArticle}
+                  formatDate={formatDate}
+                  readMoreLabel={t('readMore')}
+                  featuredLabel={t('featured')}
+                  readingTimeLabel={(minutes) => t('readingTime', { minutes })}
+                />
+              )}
+
+              {/* Grid of Stories */}
+              {gridArticles.length > 0 && (
+                <div>
+                  {isDefaultView && (
+                    <div className="mb-6 flex items-center justify-between">
+                      <h2 className="text-xl font-bold tracking-tight text-white sm:text-2xl">
+                        {t('recentStories')}
+                      </h2>
+                      <span aria-hidden="true" className="rule-accent" />
+                    </div>
+                  )}
+
+                  <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
+                    {gridArticles.map((article) => (
+                      <NewsCard
+                        key={article.documentId}
+                        article={article}
+                        formatDate={formatDate}
+                        readMoreLabel={t('readMore')}
+                        readingTimeLabel={(minutes) => t('readingTime', { minutes })}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )}
+            </>
           )}
 
+          {/* Pagination Navigation */}
           {pagination && pagination.pageCount > 1 && (
             <nav
               aria-label={t('pagination')}
-              className="mt-12 flex flex-wrap items-center justify-between gap-4 text-sm"
+              className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-border/40 pt-6 text-sm"
             >
               {page > 1 ? (
                 <Link
                   href={pageHref(page - 1)}
-                  className="glass lift inline-flex items-center gap-2 rounded-lg px-4 py-3 font-semibold"
+                  className="glass lift inline-flex items-center gap-2 rounded-xl border border-border/60 px-4 py-2.5 font-semibold text-white transition-colors hover:border-brand-cyan"
                 >
                   <ArrowLeft aria-hidden="true" className="size-4" />
                   {t('previous')}
@@ -229,13 +267,15 @@ export default async function NewsPage({ params, searchParams }: Props) {
               ) : (
                 <span />
               )}
-              <span className="text-muted-foreground">
+
+              <span className="font-mono text-xs text-muted-foreground">
                 {t('pageOf', { page, total: pagination.pageCount })}
               </span>
+
               {page < pagination.pageCount ? (
                 <Link
                   href={pageHref(page + 1)}
-                  className="glass lift inline-flex items-center gap-2 rounded-lg px-4 py-3 font-semibold"
+                  className="glass lift inline-flex items-center gap-2 rounded-xl border border-border/60 px-4 py-2.5 font-semibold text-white transition-colors hover:border-brand-cyan"
                 >
                   {t('next')}
                   <ArrowRight aria-hidden="true" className="size-4" />
