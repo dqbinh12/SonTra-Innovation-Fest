@@ -3,6 +3,7 @@
 import { BlocksRenderer, type BlocksContent } from '@strapi/blocks-react-renderer';
 import type { RichText as RichTextValue } from '@sif/shared';
 import { mediaUrl } from '@/lib/media';
+import { cn } from '@/lib/utils';
 
 /**
  * Renders a Strapi `blocks` field.
@@ -13,11 +14,17 @@ import { mediaUrl } from '@/lib/media';
  * @sif/shared types these as `unknown[]` so the shared package does not depend
  * on the renderer; the cast here is the single place that bridges the two.
  */
-export function RichText({ content }: { content: RichTextValue | null | undefined }) {
+export function RichText({
+  content,
+  className,
+}: {
+  content: RichTextValue | null | undefined;
+  className?: string;
+}) {
   if (!content || content.length === 0) return null;
 
   return (
-    <div className="space-y-4 leading-relaxed">
+    <div className={cn('space-y-4 leading-relaxed', className)}>
       <BlocksRenderer
         content={content as BlocksContent}
         blocks={{
@@ -63,7 +70,11 @@ export function RichText({ content }: { content: RichTextValue | null | undefine
               /* Editor-inserted images have no known dimensions at build time,
                  so next/image cannot size them without a layout shift. */
               // eslint-disable-next-line @next/next/no-img-element
-              <img src={src} alt={image.alternativeText ?? ''} className="h-auto w-full rounded-lg" />
+              <img
+                src={src}
+                alt={image.alternativeText ?? ''}
+                className="h-auto w-full rounded-lg"
+              />
             );
           },
         }}

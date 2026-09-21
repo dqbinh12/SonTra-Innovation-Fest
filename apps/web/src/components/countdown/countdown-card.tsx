@@ -72,25 +72,14 @@ export function CountdownCard({
     days: Math.floor(total / 86_400),
     hours: Math.floor((total % 86_400) / 3600),
     minutes: Math.floor((total % 3600) / 60),
-    seconds: total % 60,
   };
 
   const onHero = variant === 'hero';
 
-  /**
-   * The hero panel runs a seconds tile; the Agenda panel does not.
-   *
-   * Seconds were left off both to begin with — a digit flickering once a
-   * second beside body copy is a distraction, and it says nothing useful about
-   * an event weeks away. For the floating widget the trade flips: it is a
-   * small card sitting on its own over the page, and a clock whose digits
-   * never move reads as a static graphic rather than as a countdown.
-   */
   const units = [
     { key: 'days' as const, value: remaining.days, pad: false },
     { key: 'hours' as const, value: remaining.hours, pad: true },
     { key: 'minutes' as const, value: remaining.minutes, pad: true },
-    ...(onHero ? [{ key: 'seconds' as const, value: remaining.seconds, pad: true }] : []),
   ];
 
   return (
@@ -134,16 +123,15 @@ export function CountdownCard({
           // one digit to two and back, and on a flex row that resizes every
           // tile beside it.
           onHero
-            ? cn('grid grid-cols-4', compact ? 'gap-1.5' : 'gap-2.5')
+            ? cn('grid grid-cols-3', compact ? 'gap-1.5' : 'gap-2.5')
             : 'flex items-baseline gap-4',
         )}
         // `aria-live` stays off: a live region that updates on its own would
         // interrupt a screen reader. `role="timer"` lets one read it on demand.
         //
-        // The label stops at minutes even when a seconds tile is on screen —
-        // a value already stale by the time the sentence finishes helps nobody
-        // — and carries `suppressHydrationWarning` for the same reason the
-        // digits do: it is baked into the prerendered HTML at build time.
+        // The label stops at minutes and carries `suppressHydrationWarning` for
+        // the same reason the digits do: it is baked into the prerendered HTML
+        // at build time.
         role="timer"
         aria-live="off"
         suppressHydrationWarning

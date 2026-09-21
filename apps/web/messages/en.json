@@ -159,7 +159,22 @@
     "readMore": "Read more",
     "backToNews": "Back to news",
     "publishedOn": "Published on {date}",
-    "empty": "No articles have been published yet."
+    "empty": "No articles have been published yet.",
+    "intro": "Ideas, people and updates shaping Son Tra Innovation Fest.",
+    "latest": "Latest story",
+    "allNews": "Explore the news",
+    "search": "Search articles",
+    "searchResults": "Search results",
+    "resultsFor": "Results for “{query}”",
+    "clearSearch": "Clear search",
+    "noResults": "No matching articles. Try a different search.",
+    "unavailable": "News is temporarily unavailable. Please try again shortly.",
+    "noPage": "There are no articles on this page.",
+    "moreSoon": "More stories are on the way. Check back for the latest updates.",
+    "pagination": "News pages",
+    "previous": "Previous",
+    "next": "Next",
+    "pageOf": "Page {page} of {total}"
   },
   "media": {
     "title": "Media Center",

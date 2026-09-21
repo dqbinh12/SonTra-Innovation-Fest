@@ -159,7 +159,22 @@
     "readMore": "Xem thêm",
     "backToNews": "Quay lại tin tức",
     "publishedOn": "Đăng ngày {date}",
-    "empty": "Chưa có bài viết nào được đăng."
+    "empty": "Chưa có bài viết nào được đăng.",
+    "intro": "Ý tưởng, con người và những cập nhật mới từ Son Tra Innovation Fest.",
+    "latest": "Bài viết mới nhất",
+    "allNews": "Khám phá tin tức",
+    "search": "Tìm kiếm bài viết",
+    "searchResults": "Kết quả tìm kiếm",
+    "resultsFor": "Kết quả cho “{query}”",
+    "clearSearch": "Xóa tìm kiếm",
+    "noResults": "Không tìm thấy bài viết phù hợp. Hãy thử từ khóa khác.",
+    "unavailable": "Tin tức tạm thời không khả dụng. Vui lòng thử lại sau.",
+    "noPage": "Không có bài viết trên trang này.",
+    "moreSoon": "Những câu chuyện mới sẽ sớm được cập nhật. Hãy quay lại để đón đọc.",
+    "pagination": "Các trang tin tức",
+    "previous": "Trước",
+    "next": "Tiếp",
+    "pageOf": "Trang {page} / {total}"
   },
   "media": {
     "title": "Trung tâm Báo chí",

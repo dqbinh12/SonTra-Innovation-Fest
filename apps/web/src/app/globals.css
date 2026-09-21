@@ -715,15 +715,10 @@
 }
 
 /*
- * The dark ground has to resolve into a light footer: the site footer lives
- * outside this subtree, carries a 96px top margin, and is styled for the light
- * palette. Without this the page ends on a hard navy-to-white line.
- *
- * The stop is a literal `#ffffff` rather than `var(--background)` because
- * inside `.dark` that token is navy — the value needed here is the one the
- * *root* holds. docs/brand.md records the site as light-only, so the root
- * background is white; if a site-wide dark theme is ever switched on, this is
- * one of the places that has to change with it.
+ * The dark ground resolves seamlessly into the immersive dark footer:
+ * on immersive routes (/news, /about, /location), the footer carries
+ * `bg-brand-navy`. A smooth ramp to `var(--color-brand-navy)` eases the
+ * ambient gradient washes into the solid footer ground with no hard line.
  */
 .page-deep::after {
   content: '';
@@ -731,7 +726,7 @@
   inset: auto 0 0 0;
   z-index: -1;
   height: 7rem;
-  background: linear-gradient(to top, #ffffff, transparent);
+  background: linear-gradient(to top, var(--color-brand-navy), transparent);
   pointer-events: none;
 }
 
@@ -1065,3 +1060,207 @@
     transform: none;
   }
 }
+
+/* --------------------------------------------- neural network (News backdrop) */
+
+/*
+ * The News page's ground: an AI knowledge graph / neural synapse constellation.
+ * Sits in an absolute frame behind the page content with nested masks so copy
+ * contrast remains strictly compliant with WCAG AA (4.5:1).
+ */
+.news-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  mask-image: linear-gradient(to bottom, #000 0%, #000 82%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 82%, transparent 100%);
+}
+
+.news-backdrop__ambient-blue {
+  position: absolute;
+  top: -8rem;
+  left: 8%;
+  width: 46rem;
+  height: 34rem;
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle,
+    color-mix(in oklab, var(--color-brand-blue) 46%, transparent) 0%,
+    color-mix(in oklab, var(--color-brand-cyan) 16%, transparent) 45%,
+    transparent 70%
+  );
+  filter: blur(84px);
+}
+
+.news-backdrop__ambient-violet {
+  position: absolute;
+  top: 18rem;
+  right: -8rem;
+  width: 42rem;
+  height: 38rem;
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle,
+    color-mix(in oklab, var(--color-brand-violet) 26%, transparent) 0%,
+    color-mix(in oklab, var(--color-brand-purple) 14%, transparent) 45%,
+    transparent 70%
+  );
+  filter: blur(96px);
+}
+
+.news-backdrop__ambient-teal {
+  position: absolute;
+  top: 50rem;
+  left: 4%;
+  width: 40rem;
+  height: 32rem;
+  border-radius: 9999px;
+  background: radial-gradient(
+    circle,
+    color-mix(in oklab, var(--color-brand-teal) 22%, transparent) 0%,
+    color-mix(in oklab, var(--color-brand-mint) 10%, transparent) 50%,
+    transparent 72%
+  );
+  filter: blur(88px);
+}
+
+.news-backdrop__dot-grid {
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(
+    circle,
+    color-mix(in oklab, var(--color-brand-cyan) 18%, transparent) 1.2px,
+    transparent 1.2px
+  );
+  background-size: 42px 42px;
+  mask-image: radial-gradient(ellipse 85% 65% at 50% 25%, #000 25%, transparent 85%);
+  -webkit-mask-image: radial-gradient(ellipse 85% 65% at 50% 25%, #000 25%, transparent 85%);
+}
+
+.news-backdrop__svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.news-backdrop__stream {
+  fill: none;
+  stroke-linecap: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.news-backdrop__stream--primary {
+  stroke: url(#news-synapse-cyan-violet);
+  stroke-width: 1.8;
+  stroke-dasharray: 8 14;
+  animation: neural-dash 30s linear infinite;
+}
+
+.news-backdrop__stream--secondary {
+  stroke: url(#news-synapse-mint-cyan);
+  stroke-width: 1.4;
+  stroke-dasharray: 6 12;
+  animation: neural-dash 38s linear infinite;
+}
+
+.news-backdrop__connection {
+  fill: none;
+  stroke: color-mix(in oklab, var(--color-brand-cyan) 18%, transparent);
+  stroke-width: 1;
+  stroke-dasharray: 4 6;
+  vector-effect: non-scaling-stroke;
+}
+
+.news-backdrop__connection--violet {
+  stroke: color-mix(in oklab, var(--color-brand-violet) 18%, transparent);
+}
+
+.news-backdrop__bridge {
+  stroke: url(#news-bridge-line);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.news-backdrop__node {
+  transform-box: fill-box;
+}
+
+.news-backdrop__halo--cyan {
+  fill: color-mix(in oklab, var(--color-brand-cyan) 18%, transparent);
+}
+
+.news-backdrop__halo--mint {
+  fill: color-mix(in oklab, var(--color-brand-mint) 22%, transparent);
+}
+
+.news-backdrop__halo--violet {
+  fill: color-mix(in oklab, var(--color-brand-violet) 20%, transparent);
+}
+
+.news-backdrop__core--cyan {
+  fill: var(--color-brand-cyan);
+}
+
+.news-backdrop__core--mint {
+  fill: var(--color-brand-mint);
+}
+
+.news-backdrop__core--violet {
+  fill: var(--color-brand-violet);
+}
+
+.news-backdrop__pulse {
+  fill: none;
+  vector-effect: non-scaling-stroke;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: neural-pulse 3.8s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+.news-backdrop__pulse--cyan {
+  stroke: var(--color-brand-cyan);
+  stroke-width: 1;
+}
+
+.news-backdrop__pulse--mint {
+  stroke: var(--color-brand-mint);
+  stroke-width: 1.2;
+}
+
+.news-backdrop__pulse--violet {
+  stroke: var(--color-brand-violet);
+  stroke-width: 1;
+}
+
+@keyframes neural-dash {
+  to {
+    stroke-dashoffset: -200;
+  }
+}
+
+@keyframes neural-pulse {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.85;
+  }
+  75%,
+  100% {
+    transform: scale(2.2);
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .news-backdrop__stream--primary,
+  .news-backdrop__stream--secondary {
+    animation: none;
+  }
+  .news-backdrop__pulse {
+    animation: none;
+    transform: scale(1.4);
+    opacity: 0.25;
+  }
+}
+

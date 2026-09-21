@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>News Background AI Exploration</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --brand-navy: #001f4b;
+    --brand-blue: #006be1;
+    --brand-cyan: #4ee2ff;
+    --brand-teal: #0083a4;
+    --brand-mint: #00ffba;
+    --brand-violet: #c845ff;
+    --brand-purple: #7800bd;
+    --card-bg: rgba(20, 49, 89, 0.48);
+    --card-border: rgba(255, 255, 255, 0.12);
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    background-color: var(--brand-navy);
+    color: #ebedf1;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* ---------------- Interactive Switcher Floating Header ---------------- */
+  .control-dock {
+    position: fixed;
+    top: 18px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px;
+    background: rgba(0, 31, 75, 0.85);
+    border: 1px solid rgba(78, 226, 255, 0.35);
+    backdrop-filter: blur(20px);
+    border-radius: 9999px;
+    box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.6), 0 0 20px rgba(78, 226, 255, 0.2);
+    width: max-content;
+    max-width: 94vw;
+  }
+
+  .dock-label {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--brand-cyan);
+    padding: 0 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .dock-label .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: var(--brand-mint);
+    box-shadow: 0 0 8px var(--brand-mint);
+    animation: pulse-dot 2s infinite;
+  }
+
+  @keyframes pulse-dot {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.4); opacity: 0.5; }
+  }
+
+  .opt-btn {
+    appearance: none;
+    border: none;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.7);
+    padding: 8px 16px;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: inherit;
+    border-radius: 9999px;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .opt-btn:hover {
+    color: #fff;
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .opt-btn.active {
+    background: linear-gradient(135deg, var(--brand-cyan), var(--brand-blue));
+    color: #001f4b;
+    font-weight: 700;
+    box-shadow: 0 0 16px rgba(78, 226, 255, 0.4);
+  }
+
+  /* ---------------- Concept Explainer Drawer/Pill ---------------- */
+  .concept-pill {
+    margin: 90px auto 20px auto;
+    max-width: 860px;
+    padding: 14px 20px;
+    background: rgba(20, 49, 89, 0.5);
+    border: 1px solid rgba(78, 226, 255, 0.25);
+    border-radius: 16px;
+    backdrop-filter: blur(12px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    animation: fadeIn 0.4s ease;
+  }
+
+  .concept-info h4 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--brand-mint);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .concept-info p {
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.8);
+    margin-top: 4px;
+    line-height: 1.4;
+  }
+
+  .concept-badge {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    background: rgba(78, 226, 255, 0.15);
+    color: var(--brand-cyan);
+    border: 1px solid rgba(78, 226, 255, 0.3);
+    white-space: nowrap;
+  }
+
+  /* ---------------- Background Layers Container ---------------- */
+  #bg-canvas-container {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .theme-bg {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), visibility 0.7s;
+  }
+
+  .theme-bg.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  /* ---------------- BG 1: Neural Synapse & Knowledge Graph ---------------- */
+  .neural-bg {
+    background:
+      radial-gradient(ellipse 65% 55% at 20% 15%, rgba(0, 107, 225, 0.35) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 45% at 85% 30%, rgba(200, 69, 255, 0.22) 0%, transparent 65%),
+      radial-gradient(ellipse 70% 60% at 50% 90%, rgba(0, 131, 164, 0.25) 0%, transparent 75%),
+      var(--brand-navy);
+  }
+
+  .neural-grid {
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(circle, rgba(78, 226, 255, 0.18) 1.2px, transparent 1.2px);
+    background-size: 40px 40px;
+    mask-image: radial-gradient(ellipse 90% 70% at 50% 35%, #000 30%, transparent 85%);
+    -webkit-mask-image: radial-gradient(ellipse 90% 70% at 50% 35%, #000 30%, transparent 85%);
+  }
+
+  .neural-svg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+
+  @keyframes pulse-ring {
+    0% { transform: scale(0.8); opacity: 0.8; }
+    100% { transform: scale(2.2); opacity: 0; }
+  }
+
+  @keyframes dash-flow {
+    to { stroke-dashoffset: -100; }
+  }
+
+  .pulse-node {
+    transform-origin: center;
+    animation: pulse-ring 3s cubic-bezier(0.2, 0.8, 0.2, 1) infinite;
+  }
+
+  .flowing-stream {
+    stroke-dasharray: 6 10;
+    animation: dash-flow 25s linear infinite;
+  }
+
+  /* ---------------- BG 2: Quantum Horizon & Perspective Grid ---------------- */
+  .quantum-bg {
+    background:
+      radial-gradient(circle at 50% 18%, rgba(78, 226, 255, 0.28) 0%, transparent 55%),
+      radial-gradient(circle at 80% 45%, rgba(120, 0, 189, 0.3) 0%, transparent 50%),
+      var(--brand-navy);
+  }
+
+  .perspective-plane {
+    position: absolute;
+    bottom: -15%;
+    left: -20%;
+    right: -20%;
+    height: 70%;
+    background-image:
+      linear-gradient(rgba(78, 226, 255, 0.22) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(78, 226, 255, 0.22) 1px, transparent 1px);
+    background-size: 55px 55px;
+    transform: perspective(450px) rotateX(68deg);
+    transform-origin: bottom center;
+    mask-image: linear-gradient(to top, #000 20%, transparent 95%);
+    -webkit-mask-image: linear-gradient(to top, #000 20%, transparent 95%);
+    animation: grid-travel 18s linear infinite;
+  }
+
+  @keyframes grid-travel {
+    0% { background-position: 0 0; }
+    100% { background-position: 0 55px; }
+  }
+
+  .horizon-laser {
+    position: absolute;
+    top: 38%;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--brand-cyan) 25%, var(--brand-mint) 50%, var(--brand-violet) 75%, transparent);
+    opacity: 0.65;
+    filter: blur(1px);
+    box-shadow: 0 0 24px var(--brand-cyan);
+  }
+
+  /* ---------------- BG 3: Minimal Generative HUD + Aurora Flow ---------------- */
+  .aurora-bg {
+    background: var(--brand-navy);
+  }
+
+  .aurora-orb-1 {
+    position: absolute;
+    top: -10%;
+    left: 15%;
+    width: 55rem;
+    height: 38rem;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(0, 107, 225, 0.45), rgba(78, 226, 255, 0.15) 50%, transparent 70%);
+    filter: blur(80px);
+    animation: drift-1 18s ease-in-out infinite alternate;
+  }
+
+  .aurora-orb-2 {
+    position: absolute;
+    top: 25%;
+    right: -5%;
+    width: 48rem;
+    height: 42rem;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(200, 69, 255, 0.3), rgba(0, 255, 186, 0.12) 60%, transparent 70%);
+    filter: blur(90px);
+    animation: drift-2 22s ease-in-out infinite alternate;
+  }
+
+  @keyframes drift-1 {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(60px, 40px) scale(1.12); }
+  }
+
+  @keyframes drift-2 {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(-50px, -30px) scale(0.92); }
+  }
+
+  .hud-coordinates {
+    position: absolute;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: rgba(78, 226, 255, 0.35);
+    letter-spacing: 0.15em;
+    user-select: none;
+  }
+
+  .hud-top-right {
+    top: 100px;
+    right: 48px;
+    text-align: right;
+    border-right: 2px solid rgba(78, 226, 255, 0.4);
+    padding-right: 12px;
+  }
+
+  .hud-left-vertical {
+    top: 360px;
+    left: 32px;
+    border-left: 2px solid rgba(0, 255, 186, 0.4);
+    padding-left: 12px;
+  }
+
+  .hud-crosshair {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+  }
+
+  .hud-crosshair::before, .hud-crosshair::after {
+    content: '';
+    position: absolute;
+    background: rgba(78, 226, 255, 0.4);
+  }
+  .hud-crosshair::before { top: 6px; left: 0; right: 0; height: 1px; }
+  .hud-crosshair::after { left: 6px; top: 0; bottom: 0; width: 1px; }
+
+  /* ---------------- Foreground Content Layout ---------------- */
+  .page-content {
+    position: relative;
+    z-index: 10;
+    max-width: 1240px;
+    margin: 0 auto;
+    padding: 20px 24px 80px 24px;
+  }
+
+  /* Header Band */
+  .hero-section {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    align-items: flex-end;
+    gap: 32px;
+    padding: 30px 0 45px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  @media (max-width: 900px) {
+    .hero-section {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .badge-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(0, 31, 75, 0.6);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(14px);
+    padding: 6px 14px;
+    border-radius: 9999px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #fff;
+  }
+
+  .badge-tag span {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--brand-mint);
+  }
+
+  .hero-title {
+    margin-top: 14px;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    line-height: 1.15;
+    background: linear-gradient(100deg, #ffffff 0%, var(--brand-cyan) 35%, var(--brand-mint) 75%, #ffffff 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .hero-desc {
+    margin-top: 12px;
+    font-size: 15px;
+    color: rgba(255, 255, 255, 0.75);
+    max-width: 620px;
+    line-height: 1.6;
+  }
+
+  .search-box {
+    display: flex;
+    background: rgba(20, 49, 89, 0.55);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 14px;
+    overflow: hidden;
+    backdrop-filter: blur(16px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+
+  .search-box:focus-within {
+    border-color: var(--brand-cyan);
+    box-shadow: 0 0 20px rgba(78, 226, 255, 0.35);
+  }
+
+  .search-box input {
+    flex: 1;
+    background: transparent;
+    border: none;
+    outline: none;
+    padding: 14px 18px;
+    color: #fff;
+    font-size: 14px;
+  }
+
+  .search-box input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+  }
+
+  .search-btn {
+    background: var(--brand-cyan);
+    color: var(--brand-navy);
+    border: none;
+    padding: 0 22px;
+    font-weight: 700;
+    font-size: 13px;
+    cursor: pointer;
+    transition: filter 0.2s;
+  }
+
+  .search-btn:hover {
+    filter: brightness(1.15);
+  }
+
+  /* News Grid */
+  .section-headline {
+    margin: 36px 0 24px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .section-headline h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-headline h3::before {
+    content: '';
+    width: 4px;
+    height: 18px;
+    background: var(--brand-cyan);
+    border-radius: 2px;
+  }
+
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+  }
+
+  @media (max-width: 1024px) {
+    .cards-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 640px) {
+    .cards-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  .news-card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 20px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    backdrop-filter: blur(16px);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s, box-shadow 0.3s;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .news-card:hover {
+    transform: translateY(-6px);
+    border-color: rgba(78, 226, 255, 0.45);
+    box-shadow: 0 20px 40px -15px rgba(0, 107, 225, 0.5), 0 0 25px rgba(78, 226, 255, 0.15);
+  }
+
+  .card-media {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #091a33;
+  }
+
+  .card-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .news-card:hover .card-media img {
+    transform: scale(1.06);
+  }
+
+  .card-category {
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    padding: 4px 10px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: rgba(0, 31, 75, 0.85);
+    border: 1px solid rgba(78, 226, 255, 0.4);
+    color: var(--brand-cyan);
+    border-radius: 6px;
+    backdrop-filter: blur(10px);
+  }
+
+  .card-body {
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+  }
+
+  .card-meta {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--brand-cyan);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .card-title {
+    margin-top: 8px;
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.35;
+    color: #fff;
+    transition: color 0.2s;
+  }
+
+  .news-card:hover .card-title {
+    color: var(--brand-cyan);
+  }
+
+  .card-excerpt {
+    margin-top: 8px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.65);
+    line-height: 1.5;
+  }
+
+  .card-footer {
+    margin-top: auto;
+    padding-top: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+  }
+
+  .read-link {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--brand-cyan);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+
+  .ai-confidence-tag {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--brand-mint);
+    opacity: 0.8;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+</head>
+<body>
+
+<!-- Floating Switcher Header -->
+<div class="control-dock">
+  <div class="dock-label">
+    <span class="dot"></span>
+    AI Background Mode:
+  </div>
+  <button class="opt-btn active" onclick="switchTheme(1)">
+    ① Neural Synapses
+  </button>
+  <button class="opt-btn" onclick="switchTheme(2)">
+    ② Quantum 3D Matrix
+  </button>
+  <button class="opt-btn" onclick="switchTheme(3)">
+    ③ Minimal Aurora HUD
+  </button>
+</div>
+
+<!-- Backgrounds Layer (Single source of truth) -->
+<div id="bg-canvas-container">
+  <!-- THEME 1: Neural Synapse & Vector Constellation -->
+  <div id="theme-1" class="theme-bg neural-bg active">
+    <div class="neural-grid"></div>
+    <svg class="neural-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice">
+      <defs>
+        <linearGradient id="grad-synapse-1" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stop-color="#4ee2ff" stop-opacity="0.8"/>
+          <stop offset="50%" stop-color="#006be1" stop-opacity="0.4"/>
+          <stop offset="100%" stop-color="#c845ff" stop-opacity="0.6"/>
+        </linearGradient>
+        <linearGradient id="grad-synapse-2" x1="100%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="#00ffba" stop-opacity="0.7"/>
+          <stop offset="100%" stop-color="#4ee2ff" stop-opacity="0.2"/>
+        </linearGradient>
+      </defs>
+
+      <!-- Connecting Synaptic Axons -->
+      <path d="M-80,240 C280,120 480,360 880,190 S1280,410 1560,250" fill="none" stroke="url(#grad-synapse-1)" stroke-width="1.8" class="flowing-stream" opacity="0.65"/>
+      <path d="M-40,420 C320,520 620,240 1020,440 S1380,290 1540,540" fill="none" stroke="url(#grad-synapse-2)" stroke-width="1.4" class="flowing-stream" opacity="0.5"/>
+      <path d="M380,-60 C420,280 680,480 820,920" fill="none" stroke="rgba(78,226,255,0.25)" stroke-width="1" stroke-dasharray="3 5"/>
+      <path d="M1120,-80 C1080,240 1340,620 1420,980" fill="none" stroke="rgba(200,69,255,0.2)" stroke-width="1" stroke-dasharray="4 6"/>
+
+      <!-- Cross Synapse Bridges -->
+      <line x1="330" y1="210" x2="480" y2="380" stroke="rgba(0,255,186,0.3)" stroke-width="1"/>
+      <line x1="880" y1="190" x2="1020" y2="440" stroke="rgba(78,226,255,0.35)" stroke-width="1"/>
+      <line x1="1020" y1="440" x2="1280" y2="410" stroke="rgba(200,69,255,0.3)" stroke-width="1"/>
+
+      <!-- High-Confidence Data Hubs / AI Nodes -->
+      <!-- Node A -->
+      <g transform="translate(330, 210)">
+        <circle r="22" fill="none" stroke="#4ee2ff" stroke-width="0.75" class="pulse-node" opacity="0.7"/>
+        <circle r="9" fill="rgba(78, 226, 255, 0.25)"/>
+        <circle r="4" fill="#4ee2ff"/>
+      </g>
+
+      <!-- Node B (Core Hub) -->
+      <g transform="translate(880, 190)">
+        <circle r="36" fill="none" stroke="#00ffba" stroke-width="1" class="pulse-node" style="animation-delay: 1.2s;"/>
+        <circle r="14" fill="rgba(0, 255, 186, 0.2)"/>
+        <circle r="5" fill="#00ffba"/>
+      </g>
+
+      <!-- Node C -->
+      <g transform="translate(1020, 440)">
+        <circle r="26" fill="none" stroke="#c845ff" stroke-width="0.8" class="pulse-node" style="animation-delay: 0.6s;"/>
+        <circle r="10" fill="rgba(200, 69, 255, 0.2)"/>
+        <circle r="4" fill="#c845ff"/>
+      </g>
+
+      <!-- Secondary Data Sprites -->
+      <circle cx="480" cy="380" r="3" fill="#4ee2ff" opacity="0.8"/>
+      <circle cx="1280" cy="410" r="3" fill="#00ffba" opacity="0.8"/>
+      <circle cx="680" cy="270" r="2.5" fill="#ffffff" opacity="0.6"/>
+    </svg>
+  </div>
+
+  <!-- THEME 2: Quantum Horizon & Perspective Grid -->
+  <div id="theme-2" class="theme-bg quantum-bg">
+    <div class="horizon-laser"></div>
+    <div class="perspective-plane"></div>
+    <!-- Topographic Data Field in Header -->
+    <svg style="position:absolute; top:0; left:0; width:100%; height:55%; opacity:0.45;" viewBox="0 0 1440 500" preserveAspectRatio="none">
+      <path d="M0,180 Q360,110 720,190 T1440,160" fill="none" stroke="rgba(78,226,255,0.4)" stroke-width="1.2"/>
+      <path d="M0,230 Q360,160 720,240 T1440,210" fill="none" stroke="rgba(78,226,255,0.3)" stroke-width="1"/>
+      <path d="M0,280 Q360,210 720,290 T1440,260" fill="none" stroke="rgba(0,255,186,0.25)" stroke-width="1"/>
+      <path d="M0,330 Q360,260 720,340 T1440,310" fill="none" stroke="rgba(200,69,255,0.2)" stroke-width="1"/>
+    </svg>
+  </div>
+
+  <!-- THEME 3: Minimal Generative HUD + Aurora Flow -->
+  <div id="theme-3" class="theme-bg aurora-bg">
+    <div class="aurora-orb-1"></div>
+    <div class="aurora-orb-2"></div>
+
+    <!-- Micro HUD Coordinates -->
+    <div class="hud-coordinates hud-top-right">
+      <div>SYS.CORE // V3.8-SIF</div>
+      <div>LATENT SPACE: STABLE</div>
+      <div style="color:var(--brand-mint)">NEURAL DISPATCH: ONLINE</div>
+      <div style="margin-top:6px; font-size:9px; opacity:0.7;">COORD: 16.0678°N 108.2208°E</div>
+    </div>
+
+    <div class="hud-coordinates hud-left-vertical">
+      <div>DATA_BUS [01 // FEED]</div>
+      <div>SPECTRAL ANALYZER: 480HZ</div>
+      <div style="color:var(--brand-cyan)">INNOVATION INDEX: 98.4%</div>
+    </div>
+
+    <div class="hud-crosshair" style="top: 140px; left: 80px;"></div>
+    <div class="hud-crosshair" style="bottom: 120px; right: 100px;"></div>
+    <div class="hud-crosshair" style="top: 480px; right: 180px;"></div>
+
+    <!-- Fine Grid Backdrop -->
+    <div style="position: absolute; inset:0; background-image: linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px); background-size: 64px 64px; mask-image: radial-gradient(circle at 50% 30%, #000 30%, transparent 80%); -webkit-mask-image: radial-gradient(circle at 50% 30%, #000 30%, transparent 80%);"></div>
+  </div>
+</div>
+
+<!-- Main UI Page Content -->
+<div class="page-content">
+
+  <!-- Description Banner of Current Option -->
+  <div class="concept-pill" id="concept-banner">
+    <div class="concept-info">
+      <h4 id="concept-title">◆ OPTION 1: NEURAL SYNAPSE & VECTOR CONSTELLATION</h4>
+      <p id="concept-desc">
+        Mạng lưới đồ thị tri thức AI (Knowledge Graph / Neural Mesh). Các node dữ liệu phát xung radar nhịp thở, luồng dữ liệu chạy mượt mà theo đường vector SVG, gợi liên tưởng đến Deep Learning & Graph RAG.
+      </p>
+    </div>
+    <div class="concept-badge" id="concept-badge">Kỹ thuật: SVG Math + CSS Streams</div>
+  </div>
+
+  <!-- Hero Header -->
+  <header class="hero-section">
+    <div>
+      <div class="badge-tag">
+        <span></span>
+        Son Tra Innovation Fest 2026
+      </div>
+      <h1 class="hero-title">Tin tức & Sự kiện</h1>
+      <p class="hero-desc">
+        Cập nhật những chuyển động công nghệ mới nhất, các cuộc thi AI Hackathon, hội thảo khoa học và bước tiến đổi mới sáng tạo tại bán đảo Sơn Trà.
+      </p>
+    </div>
+
+    <div>
+      <form class="search-box" onsubmit="event.preventDefault();">
+        <input type="search" placeholder="Tìm kiếm bài viết, chủ đề AI..." value="AI Hackathon 2026">
+        <button type="submit" class="search-btn">Tìm kiếm</button>
+      </form>
+    </div>
+  </header>
+
+  <!-- News Content Section -->
+  <section>
+    <div class="section-headline">
+      <h3>Dòng chảy công nghệ mới nhất</h3>
+      <span style="font-family:'JetBrains Mono', monospace; font-size:12px; color:var(--brand-cyan);">TỔNG CỘNG: 12 BÀI VIẾT</span>
+    </div>
+
+    <div class="cards-grid">
+      <!-- Card 1 -->
+      <article class="news-card">
+        <div class="card-media">
+          <span class="card-category">AI Competition</span>
+          <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80" alt="Generative AI">
+        </div>
+        <div class="card-body">
+          <div class="card-meta">20 Tháng 9, 2026 • 5 phút đọc</div>
+          <h2 class="card-title">Khai mạc AI Grand Challenge 2026: Đột phá giải pháp thị giác máy tính cho đô thị thông minh</h2>
+          <p class="card-excerpt">
+            Hơn 120 đội ngũ kỹ sư và nhà nghiên cứu hội tụ tranh tài phát triển các mô hình Vision-Language phục vụ giám sát và bảo tồn sinh thái.
+          </p>
+          <div class="card-footer">
+            <span class="read-link">Đọc chi tiết →</span>
+            <span class="ai-confidence-tag">#TOP_STORY</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 2 -->
+      <article class="news-card">
+        <div class="card-media">
+          <span class="card-category">Keynote</span>
+          <img src="https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=800&q=80" alt="Robotics Matrix">
+        </div>
+        <div class="card-body">
+          <div class="card-meta">18 Tháng 9, 2026 • 4 phút đọc</div>
+          <h2 class="card-title">Hội thảo Quốc tế về Tương lai của Agentic AI và Hệ sinh thái Bán dẫn tại Đà Nẵng</h2>
+          <p class="card-excerpt">
+            Các chuyên gia đầu ngành chia sẻ chiến lược làm chủ hạ tầng bán dẫn, cụm tính toán AI tự hành và ứng dụng thực tiễn cho doanh nghiệp.
+          </p>
+          <div class="card-footer">
+            <span class="read-link">Đọc chi tiết →</span>
+            <span class="ai-confidence-tag">#KEYNOTE</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- Card 3 -->
+      <article class="news-card">
+        <div class="card-media">
+          <span class="card-category">Innovation</span>
+          <img src="https://images.unsplash.com/photo-1507413245164-6160d8298b31?auto=format&fit=crop&w=800&q=80" alt="Quantum AI">
+        </div>
+        <div class="card-body">
+          <div class="card-meta">15 Tháng 9, 2026 • 6 phút đọc</div>
+          <h2 class="card-title">Trải nghiệm không gian thực tế ảo và Robot tự hành thế hệ mới tại Sơn Trà Innovation Hub</h2>
+          <p class="card-excerpt">
+            Khu vực triển lãm công nghệ chào đón hàng nghìn lượt khách tham quan trải nghiệm tương tác với hệ thống AI Agents đa phương thức.
+          </p>
+          <div class="card-footer">
+            <span class="read-link">Đọc chi tiết →</span>
+            <span class="ai-confidence-tag">#SHOWCASE</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+</div>
+
+<script>
+  const concepts = {
+    1: {
+      title: "◆ OPTION 1: NEURAL SYNAPSE & VECTOR CONSTELLATION",
+      desc: "Mô phỏng mạng lưới nơ-ron AI (Knowledge Graph / Neural Mesh). Các node phát xung radar nhịp thở (pulse), luồng dữ liệu chạy tuần hoàn theo đường vector SVG, gợi liên tưởng trực tiếp đến Deep Learning, Graph RAG và kết nối tri thức.",
+      badge: "Kỹ thuật: SVG Vector + CSS Keyframe Streams"
+    },
+    2: {
+      title: "◆ OPTION 2: QUANTUM HORIZON & PERSPECTIVE GRID",
+      desc: "Phối cảnh lưới không gian ma trận 3D (3D Perspective Cyber Plane) chuyển động về phía trước, kết hợp tia laser chân trời neon và đường đồng mức Latent Space ở Hero. Mang lại cảm giác như đang đứng trước một Siêu máy tính trung tâm.",
+      badge: "Kỹ thuật: CSS 3D Transforms + Animated Mesh Grid"
+    },
+    3: {
+      title: "◆ OPTION 3: MINIMAL GENERATIVE HUD + AURORA FLOW",
+      desc: "Thẩm mỹ cao cấp, tinh gọn theo phong cách các phòng thí nghiệm AI hiện đại (OpenAI / Linear / Vercel). Các quả cầu cực quang chuyển động thở nhẹ nhàng, kết hợp các thông số telemetry HUD vi mô và vạch định vị tọa độ Sơn Trà.",
+      badge: "Kỹ thuật: Ambient Radial Orbs + HUD Matrix Monospace"
+    }
+  };
+
+  function switchTheme(id) {
+    // 1. Update buttons
+    const buttons = document.querySelectorAll('.opt-btn');
+    buttons.forEach((btn, index) => {
+      btn.classList.toggle('active', index === id - 1);
+    });
+
+    // 2. Update background themes
+    for (let i = 1; i <= 3; i++) {
+      const el = document.getElementById('theme-' + i);
+      if (el) {
+        if (i === id) {
+          el.classList.add('active');
+        } else {
+          el.classList.remove('active');
+        }
+      }
+    }
+
+    // 3. Update description banner
+    const banner = document.getElementById('concept-banner');
+    const titleEl = document.getElementById('concept-title');
+    const descEl = document.getElementById('concept-desc');
+    const badgeEl = document.getElementById('concept-badge');
+
+    banner.style.animation = 'none';
+    banner.offsetHeight; // trigger reflow
+    banner.style.animation = 'fadeIn 0.35s ease';
+
+    titleEl.textContent = concepts[id].title;
+    descEl.textContent = concepts[id].desc;
+    badgeEl.textContent = concepts[id].badge;
+  }
+</script>
+
+</body>
+</html>
