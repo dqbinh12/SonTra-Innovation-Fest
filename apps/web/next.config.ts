@@ -18,6 +18,8 @@ const nextConfig: NextConfig = {
     '*.serveo.net',
     '*.ngrok-free.app',
     '*.trycloudflare.com',
+    'dqbinh',
+    '*.ts.net',
   ],
   // fileURLToPath, not URL.pathname — the repo path contains a space, which
   // percent-encodes into a path Next cannot resolve.

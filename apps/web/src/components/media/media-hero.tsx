@@ -23,7 +23,7 @@ export function MediaHero({
   lead?: string | null;
 }) {
   return (
-    <header className="relative overflow-hidden pt-32 pb-14 sm:pt-40 sm:pb-16">
+    <header className="relative overflow-hidden pt-20 pb-5 sm:pt-24 sm:pb-6">
       <div aria-hidden="true" className="grid-motif text-white" />
 
       {/* One streak only. The About hero crosses two because it opens a page;
@@ -35,18 +35,20 @@ export function MediaHero({
       />
 
       <Container className="relative">
-        <p className="glass-invert inline-flex items-center gap-2.5 rounded-full px-5 py-2 text-xs font-semibold tracking-[0.18em] text-white uppercase">
+        <p className="glass-invert inline-flex items-center gap-2 rounded-full px-4 py-1.5 text-xs font-semibold tracking-[0.18em] text-white uppercase">
           <span aria-hidden="true" className="bg-brand-mint size-1.5 rounded-full" />
           {eyebrow}
         </p>
 
-        <h1 className="gradient-text-aurora mt-6 max-w-3xl text-4xl font-bold tracking-tight text-balance sm:text-5xl lg:text-6xl">
+        <h1 className="gradient-text-aurora mt-2 max-w-3xl text-3xl font-bold tracking-tight text-balance sm:text-4xl lg:text-5xl">
           {title}
         </h1>
 
         {/* Solid white, not white/85: 18px regular is body text by WCAG's
             reckoning and needs 4.5:1, which softened white misses here. */}
-        {lead && <p className="mt-6 max-w-2xl text-lg text-white">{lead}</p>}
+        {lead && (
+          <p className="mt-2 max-w-2xl text-xs leading-relaxed text-white/80 sm:text-sm">{lead}</p>
+        )}
       </Container>
     </header>
   );

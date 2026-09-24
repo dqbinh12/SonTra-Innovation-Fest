@@ -111,13 +111,24 @@ async function seed(strapi: Core.Strapi) {
       venue: '171–173 Tran Hung Dao, Da Nang',
       ctaLabel: 'Plan your visit',
       ctaHref: '/attend',
-      stats: [
-        { label: 'Days', value: '3' },
-        { label: 'Daily', value: '9:00 – 22:00' },
-        { label: 'Entry', value: 'Free' },
+      eventDays: [
+        { date: '3 October 2026', startTime: '08:00:00', endTime: '22:00:00' },
+        { date: '4 October 2026', startTime: '08:00:00', endTime: '17:00:00' },
       ],
+      admission: 'Free',
       aboutTeaser:
         'A flagship celebration of technology, innovation and global lifestyle in Son Tra Ward.',
+      introBadge: 'Official Teaser',
+      introTitle: 'Experience Son Tra Innovation Fest',
+      introBody:
+        'Where nature, community and cutting-edge technology converge on the vibrant waterfront of Son Tra. Discover the ideas, makers and innovations shaping tomorrow.',
+      introYoutubeUrl: 'https://www.youtube.com/watch?v=EB2RaO8jnck',
+      exploreTitle: 'Explore the festival',
+      exploreSubtitle: 'Three days, one waterfront. Here is where to start.',
+      exploreAgenda: 'Talks, panels and workshops across all three days.',
+      exploreExhibition: 'Meet the startups, labs and makers on the show floor.',
+      exploreLocation: 'Getting there, parking and opening hours.',
+      exploreSponsors: 'The partners making the festival possible.',
       seo: {
         metaTitle: 'Son Tra Innovation Fest 2026',
         metaDescription:
@@ -132,13 +143,24 @@ async function seed(strapi: Core.Strapi) {
       venue: '171–173 Trần Hưng Đạo, Đà Nẵng',
       ctaLabel: 'Lên kế hoạch tham dự',
       ctaHref: '/tham-du',
-      stats: [
-        { label: 'Ngày', value: '3' },
-        { label: 'Mỗi ngày', value: '9:00 – 22:00' },
-        { label: 'Vào cửa', value: 'Miễn phí' },
+      eventDays: [
+        { date: 'Ngày 3 tháng 10, 2026', startTime: '08:00:00', endTime: '22:00:00' },
+        { date: 'Ngày 4 tháng 10, 2026', startTime: '08:00:00', endTime: '17:00:00' },
       ],
+      admission: 'Miễn phí',
       aboutTeaser:
         'Lễ hội thường niên tôn vinh công nghệ, đổi mới sáng tạo và lối sống toàn cầu tại phường Sơn Trà.',
+      introBadge: 'Teaser chính thức',
+      introTitle: 'Trải nghiệm Lễ hội Đổi mới Sáng tạo Sơn Trà',
+      introBody:
+        'Nơi thiên nhiên, cộng đồng và công nghệ tiên phong giao thoa bên bờ sông Sơn Trà đầy sức sống. Cùng khám phá những ý tưởng, con người và sáng kiến đang kiến tạo tương lai.',
+      introYoutubeUrl: 'https://www.youtube.com/watch?v=EB2RaO8jnck',
+      exploreTitle: 'Khám phá sự kiện',
+      exploreSubtitle: 'Ba ngày, một bờ sông. Bắt đầu từ đây.',
+      exploreAgenda: 'Các buổi trò chuyện, tọa đàm và workshop trong cả ba ngày.',
+      exploreExhibition: 'Gặp gỡ startup, phòng lab và nhà sáng tạo tại khu trưng bày.',
+      exploreLocation: 'Đường đi, chỗ đỗ xe và giờ mở cửa.',
+      exploreSponsors: 'Những đối tác đồng hành cùng sự kiện.',
     },
   );
 

@@ -49,8 +49,12 @@ export function SiteHeader({ siteName, logo }: { siteName: string; logo?: Strapi
   const immersive =
     pathname === '/' ||
     pathname === '/about' ||
+    pathname === '/agenda' ||
+    pathname === '/contact' ||
+    pathname === '/exhibition' ||
     pathname === '/media' ||
     pathname === '/location' ||
+    pathname === '/sponsors' ||
     pathname === '/news' ||
     pathname.startsWith('/news/');
   // Once the mobile sheet is open it needs an opaque ground of its own.

@@ -39,8 +39,12 @@ export function SiteFooter({
   const immersive =
     pathname === '/' ||
     pathname === '/about' ||
+    pathname === '/agenda' ||
+    pathname === '/contact' ||
+    pathname === '/exhibition' ||
     pathname === '/media' ||
     pathname === '/location' ||
+    pathname === '/sponsors' ||
     pathname === '/news' ||
     pathname.startsWith('/news/');
 

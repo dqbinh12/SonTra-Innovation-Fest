@@ -124,7 +124,7 @@ export default async function NewsPage({ params, searchParams }: Props) {
   const isDefaultView = !q && (!categoryParam || categoryParam === 'all') && page === 1;
 
   return (
-    <div className="page-deep dark min-h-full pb-20 text-foreground">
+    <div className="page-deep dark flex-1 pb-20 text-foreground">
       <NewsBackdrop />
 
       {/* ─── Hero Section with Tech Pulse & Filter Dock ───────────────────── */}

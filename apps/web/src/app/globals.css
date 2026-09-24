@@ -333,7 +333,12 @@
  */
 .gradient-text {
   color: var(--color-brand-blue);
-  background: linear-gradient(135deg, var(--color-brand-cyan), var(--color-brand-blue), var(--color-brand-violet));
+  background: linear-gradient(
+    135deg,
+    var(--color-brand-cyan),
+    var(--color-brand-blue),
+    var(--color-brand-violet)
+  );
   background-clip: text;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -544,7 +549,8 @@
 }
 
 .bg-tech-grid {
-  background-image: linear-gradient(
+  background-image:
+    linear-gradient(
       color-mix(in oklab, var(--color-brand-blue) 8%, transparent) 1px,
       transparent 1px
     ),
@@ -1261,5 +1267,140 @@
     animation: none;
     transform: scale(1.4);
     opacity: 0.25;
+  }
+}
+
+/* ----------------------------------- shared festival route constellation */
+
+.festival-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  mask-image: linear-gradient(to bottom, #000 0%, #000 78%, transparent 100%);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 78%, transparent 100%);
+}
+
+.festival-backdrop__grid {
+  position: absolute;
+  inset: 0;
+  opacity: 0.5;
+  background-image:
+    linear-gradient(
+      color-mix(in oklab, var(--color-brand-cyan) 7%, transparent) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      color-mix(in oklab, var(--color-brand-cyan) 7%, transparent) 1px,
+      transparent 1px
+    );
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 85% 60% at 50% 16%, #000 12%, transparent 82%);
+  -webkit-mask-image: radial-gradient(ellipse 85% 60% at 50% 16%, #000 12%, transparent 82%);
+}
+
+.festival-backdrop__glow {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(90px);
+}
+
+.festival-backdrop__glow--one {
+  top: -10rem;
+  left: -8rem;
+  width: 42rem;
+  height: 38rem;
+  background: color-mix(in oklab, var(--color-brand-blue) 36%, transparent);
+}
+
+.festival-backdrop__glow--two {
+  top: 18rem;
+  right: -12rem;
+  width: 38rem;
+  height: 34rem;
+  background: color-mix(in oklab, var(--color-brand-violet) 20%, transparent);
+}
+
+.festival-backdrop--sponsors .festival-backdrop__glow--two {
+  background: color-mix(in oklab, var(--color-brand-mint) 16%, transparent);
+}
+
+.festival-backdrop--exhibition .festival-backdrop__glow--one {
+  background: color-mix(in oklab, var(--color-brand-teal) 34%, transparent);
+}
+
+.festival-backdrop--agenda .festival-backdrop__glow--two {
+  background: color-mix(in oklab, var(--color-brand-purple) 24%, transparent);
+}
+
+.festival-backdrop__svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: min(82rem, 100%);
+  opacity: 0.74;
+}
+
+.festival-backdrop__path {
+  fill: none;
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-dasharray: 7 16;
+  vector-effect: non-scaling-stroke;
+  animation: festival-flow 34s linear infinite;
+}
+
+.festival-backdrop__node {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: festival-node 4.6s ease-in-out infinite;
+}
+
+.festival-backdrop__halo {
+  fill: color-mix(in oklab, var(--color-brand-cyan) 12%, transparent);
+  stroke: color-mix(in oklab, var(--color-brand-cyan) 25%, transparent);
+  stroke-width: 1;
+  vector-effect: non-scaling-stroke;
+}
+
+.festival-backdrop__core {
+  fill: var(--color-brand-mint);
+  filter: drop-shadow(0 0 8px color-mix(in oklab, var(--color-brand-mint) 70%, transparent));
+}
+
+@keyframes festival-flow {
+  to {
+    stroke-dashoffset: -230;
+  }
+}
+
+@keyframes festival-node {
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.18);
+  }
+}
+
+@media (max-width: 639px) {
+  .festival-backdrop__grid {
+    background-size: 44px 44px;
+  }
+  .festival-backdrop__svg {
+    width: 175%;
+    margin-left: -38%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .festival-backdrop__path,
+  .festival-backdrop__node {
+    animation: none;
   }
 }

@@ -5,7 +5,7 @@
     "singularName": "home-page",
     "pluralName": "home-pages",
     "displayName": "Home Page",
-    "description": "Hero, stats and about teaser for the homepage. heroMedia is the wide / desktop background; heroMediaMobile is the portrait crop used on phones (optional \u2014 falls back to heroMedia)."
+    "description": "Hero, event schedule, admission and about teaser for the homepage. heroMedia is the wide / desktop background; heroMediaMobile is the portrait crop used on phones (optional \u2014 falls back to heroMedia)."
   },
   "options": {
     "draftAndPublish": true
@@ -68,10 +68,7 @@
     "heroMedia": {
       "type": "media",
       "multiple": false,
-      "allowedTypes": [
-        "images",
-        "videos"
-      ],
+      "allowedTypes": ["images", "videos"],
       "pluginOptions": {
         "i18n": {
           "localized": false
@@ -81,20 +78,25 @@
     "heroMediaMobile": {
       "type": "media",
       "multiple": false,
-      "allowedTypes": [
-        "images",
-        "videos"
-      ],
+      "allowedTypes": ["images", "videos"],
       "pluginOptions": {
         "i18n": {
           "localized": false
         }
       }
     },
-    "stats": {
+    "eventDays": {
       "type": "component",
       "repeatable": true,
-      "component": "shared.stat",
+      "component": "home.event-day",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "admission": {
+      "type": "string",
       "pluginOptions": {
         "i18n": {
           "localized": true
@@ -102,6 +104,86 @@
       }
     },
     "aboutTeaser": {
+      "type": "text",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "introBadge": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "introTitle": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "introBody": {
+      "type": "text",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "introYoutubeUrl": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "exploreTitle": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "exploreSubtitle": {
+      "type": "text",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "exploreAgenda": {
+      "type": "text",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "exploreExhibition": {
+      "type": "text",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "exploreLocation": {
+      "type": "text",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "exploreSponsors": {
       "type": "text",
       "pluginOptions": {
         "i18n": {

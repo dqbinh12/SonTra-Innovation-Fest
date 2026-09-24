@@ -1,15 +1,23 @@
 import type { Metadata } from 'next';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
-import { ArrowRight, CalendarDays, LayoutGrid, MapPin, Handshake } from 'lucide-react';
+import {
+  ArrowRight,
+  CalendarDays,
+  Clock3,
+  LayoutGrid,
+  MapPin,
+  Handshake,
+  Ticket,
+} from 'lucide-react';
 import type { Article, HomePage, Locale, Sponsor } from '@sif/shared';
 import { strapiFetch, strapiFetchOptional } from '@/lib/strapi';
 import { seoMetadata } from '@/lib/metadata';
+import { getYouTubeEmbedUrl } from '@/lib/youtube';
 import { Link } from '@/i18n/navigation';
 import { Container } from '@/components/layout/container';
 import { HeroMedia } from '@/components/hero-media';
 import { HeroTitle } from '@/components/home/hero-title';
 import { TechBackdrop, SectionGlow } from '@/components/home/tech-backdrop';
-import { AnimatedCounter } from '@/components/home/animated-counter';
 import { ScrollReveal } from '@/components/home/scroll-reveal';
 import { NewsCard } from '@/components/home/news-card';
 import { SponsorMarquee } from '@/components/home/sponsor-marquee';
@@ -20,11 +28,11 @@ type Props = { params: Promise<{ locale: string }> };
 function getHomePage(locale: string) {
   return strapiFetchOptional<HomePage>('home-page', {
     locale: locale as Locale,
-    // Components are not populated by default — stats and seo need naming.
+    // Components are not populated by default — event days and seo need naming.
     query: {
       'populate[heroMedia]': 'true',
       'populate[heroMediaMobile]': 'true',
-      'populate[stats]': 'true',
+      'populate[eventDays]': 'true',
       'populate[seo][populate]': 'ogImage',
     },
     tags: ['home-page'],
@@ -59,10 +67,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function Home({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const [t, tNav] = await Promise.all([
-    getTranslations('home'),
-    getTranslations('nav'),
-  ]);
+  const [t, tNav] = await Promise.all([getTranslations('home'), getTranslations('nav')]);
 
   const [home, latestNews, sponsors] = await Promise.all([
     getHomePage(locale),
@@ -90,17 +95,45 @@ export default async function Home({ params }: Props) {
       .catch(() => [] as Sponsor[]),
   ]);
 
-  /**
-   * The four pages a first-time visitor actually needs. Kept here rather than
-   * in the CMS: they are fixed routes, and the copy is UI text like the nav
-   * labels beside them.
-   */
+  /** The destinations are fixed routes; editors control their localized copy. */
   const exploreCards = [
-    { href: '/agenda', icon: CalendarDays, label: tNav('agenda'), body: t('exploreAgenda') },
-    { href: '/exhibition', icon: LayoutGrid, label: tNav('exhibition'), body: t('exploreExhibition') },
-    { href: '/location', icon: MapPin, label: tNav('location'), body: t('exploreLocation') },
-    { href: '/sponsors', icon: Handshake, label: tNav('sponsors'), body: t('exploreSponsors') },
+    {
+      href: '/agenda',
+      icon: CalendarDays,
+      label: tNav('agenda'),
+      body: home?.exploreAgenda ?? t('exploreAgenda'),
+    },
+    {
+      href: '/exhibition',
+      icon: LayoutGrid,
+      label: tNav('exhibition'),
+      body: home?.exploreExhibition ?? t('exploreExhibition'),
+    },
+    {
+      href: '/location',
+      icon: MapPin,
+      label: tNav('location'),
+      body: home?.exploreLocation ?? t('exploreLocation'),
+    },
+    {
+      href: '/sponsors',
+      icon: Handshake,
+      label: tNav('sponsors'),
+      body: home?.exploreSponsors ?? t('exploreSponsors'),
+    },
   ] as const;
+
+  const eventDays =
+    home?.eventDays && home.eventDays.length > 0
+      ? home.eventDays
+      : [
+          { date: t('defaultEventDay3'), startTime: '08:00:00', endTime: '22:00:00' },
+          { date: t('defaultEventDay4'), startTime: '08:00:00', endTime: '17:00:00' },
+        ];
+  const admission = home?.admission || t('defaultAdmission');
+  const introVideoUrl =
+    home?.introYoutubeUrl ?? 'https://www.youtube.com/watch?v=EB2RaO8jnck';
+  const introVideoEmbedUrl = getYouTubeEmbedUrl(introVideoUrl);
 
   return (
     <>
@@ -189,32 +222,157 @@ export default async function Home({ params }: Props) {
         action={<RegisterButton label={t('heroCta')} />}
       />
 
-      {/* ─── Stats ─────────────────────────────────────────────────────── */}
-      {home?.stats && home.stats.length > 0 && (
+      {/* ─── Event overview ────────────────────────────────────────────── */}
+      {eventDays.length > 0 && (
         <section className="relative z-10 -mt-16 pb-16">
           <Container>
-            <h2 className="sr-only">{t('highlightsTitle')}</h2>
-            {/* A `div` per term/description pair is the spec-sanctioned way to
-                group inside a `dl`; ScrollReveal renders that div. */}
-            <dl className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {home.stats.map((stat, i) => (
-                <ScrollReveal key={stat.label} delay={i * 100} className="group glass lift rounded-2xl p-6 text-center">
-                  <dt className="text-muted-foreground text-sm font-medium tracking-wider uppercase">
-                    {stat.label}
+            <ScrollReveal className="glass overflow-hidden rounded-3xl">
+              <div className="border-border/60 border-b px-6 py-5 sm:px-8">
+                <h2 className="text-xl font-bold tracking-tight sm:text-2xl">
+                  {t('highlightsTitle')}
+                </h2>
+              </div>
+
+              <dl className="grid lg:grid-cols-[0.9fr_1.6fr_0.9fr]">
+                <div className="border-border/60 p-6 sm:p-8 lg:border-r">
+                  <dt className="text-muted-foreground flex items-center gap-2 text-xs font-semibold tracking-[0.16em] uppercase">
+                    <CalendarDays aria-hidden="true" className="text-brand-cyan size-4" />
+                    {t('eventDaysLabel')}
                   </dt>
-                  <dd className="text-foreground mt-2 text-4xl font-bold tracking-tight">
-                    <AnimatedCounter value={stat.value} />
+                  <dd className="mt-4">
+                    <strong className="block text-3xl font-bold tracking-tight">
+                      {t('eventDuration')}
+                    </strong>
+                    <span className="mt-2 block text-lg font-bold tracking-tight">
+                      {t('eventDateRange')}
+                    </span>
+                    {home?.venue && (
+                      <span className="text-muted-foreground border-border/60 mt-4 flex items-start gap-2 border-t pt-4 text-sm leading-relaxed">
+                        <MapPin
+                          aria-hidden="true"
+                          className="text-brand-cyan mt-0.5 size-4 shrink-0"
+                        />
+                        {home.venue}
+                      </span>
+                    )}
                   </dd>
-                  <div
-                    aria-hidden="true"
-                    className="from-brand-cyan to-brand-blue mx-auto mt-4 h-0.5 w-12 rounded-full bg-gradient-to-r opacity-60 transition-all duration-300 group-hover:w-20 group-hover:opacity-100"
-                  />
-                </ScrollReveal>
-              ))}
-            </dl>
+                </div>
+
+                <div className="border-border/60 border-t p-6 sm:p-8 lg:border-t-0 lg:border-r">
+                  <dt className="text-muted-foreground flex items-center gap-2 text-xs font-semibold tracking-[0.16em] uppercase">
+                    <Clock3 aria-hidden="true" className="text-brand-cyan size-4" />
+                    {t('openingHoursLabel')}
+                  </dt>
+                  <dd className="mt-5 space-y-5">
+                    {eventDays.map((day) => {
+                      const start = day.startTime.slice(0, 5);
+                      const end = day.endTime.slice(0, 5);
+                      const [startHour, startMinute] = start.split(':').map(Number);
+                      const [endHour, endMinute] = end.split(':').map(Number);
+                      const startPercent = ((startHour * 60 + startMinute) / 1440) * 100;
+                      const widthPercent =
+                        (((endHour - startHour) * 60 + endMinute - startMinute) / 1440) * 100;
+
+                      return (
+                        <div key={`${day.date}-${start}`}>
+                          <div className="flex items-center justify-between gap-4 text-sm">
+                            <span className="font-medium">{day.date}</span>
+                            <time className="font-mono font-semibold" dateTime={`${start}/${end}`}>
+                              {start} – {end}
+                            </time>
+                          </div>
+                          <div className="bg-muted relative mt-2 h-2 overflow-hidden rounded-full bg-[repeating-linear-gradient(90deg,transparent_0,transparent_calc(25%_-_1px),var(--border)_calc(25%_-_1px),var(--border)_25%)]">
+                            <div
+                              aria-hidden="true"
+                              className="from-brand-cyan to-brand-blue absolute h-full rounded-full bg-gradient-to-r"
+                              style={{ left: `${startPercent}%`, width: `${widthPercent}%` }}
+                            />
+                          </div>
+                          <div className="text-muted-foreground mt-1 flex justify-between font-mono text-[9px]">
+                            <span>00h</span>
+                            <span>06h</span>
+                            <span>12h</span>
+                            <span>18h</span>
+                            <span>24h</span>
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </dd>
+                </div>
+
+                <div className="border-border/60 border-t p-6 sm:p-8 lg:border-t-0">
+                  <dt className="text-muted-foreground flex items-center gap-2 text-xs font-semibold tracking-[0.16em] uppercase">
+                    <Ticket aria-hidden="true" className="text-brand-cyan size-4" />
+                    {t('admissionLabel')}
+                  </dt>
+                  <dd className="text-primary mt-5 text-3xl font-bold tracking-tight">
+                    {admission}
+                  </dd>
+                  <p className="text-muted-foreground mt-2 text-sm leading-relaxed">
+                    {t('admissionNote')}
+                  </p>
+                  <p className="text-muted-foreground mt-4 flex items-center gap-2 text-xs">
+                    <span aria-hidden="true" className="bg-brand-mint size-2 rounded-full" />
+                    {t('entryOpenToAll')}
+                  </p>
+                </div>
+              </dl>
+            </ScrollReveal>
           </Container>
         </section>
       )}
+
+      {/* ─── Video & Introduction ────────────────────────────────────── */}
+      <section className="relative py-20 lg:py-28">
+        <Container>
+          <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-14">
+            <ScrollReveal className="lg:col-span-5">
+              {(home?.introBadge ?? t('introBadge')) && (
+                <div className="text-brand-cyan mb-3 inline-flex items-center gap-2 text-xs font-semibold tracking-[0.16em] uppercase">
+                  <span
+                    aria-hidden="true"
+                    className="bg-brand-cyan inline-block size-2 rounded-full"
+                  />
+                  {home?.introBadge ?? t('introBadge')}
+                </div>
+              )}
+              <h2 className="text-3xl font-bold tracking-tight text-balance sm:text-4xl">
+                {home?.introTitle ?? t('introTitle')}
+              </h2>
+              {(home?.introBody ?? t('introBody')) && (
+                <p className="text-muted-foreground mt-6 text-base leading-relaxed sm:text-lg">
+                  {home?.introBody ?? t('introBody')}
+                </p>
+              )}
+            </ScrollReveal>
+
+            {introVideoEmbedUrl && (
+              <ScrollReveal delay={120} className="lg:col-span-7">
+                <div className="relative">
+                  <div
+                    aria-hidden="true"
+                    className="from-brand-cyan/20 via-brand-blue/15 to-transparent absolute -inset-3 rounded-3xl bg-gradient-to-tr blur-xl opacity-75"
+                  />
+                  <div className="glass border-border/70 relative overflow-hidden rounded-2xl p-2 sm:rounded-3xl sm:p-3 shadow-2xl">
+                    <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-black">
+                      <iframe
+                        src={introVideoEmbedUrl}
+                        title={t('introVideoAria')}
+                        loading="lazy"
+                        referrerPolicy="strict-origin-when-cross-origin"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                        allowFullScreen
+                        className="absolute inset-0 h-full w-full border-0"
+                      />
+                    </div>
+                  </div>
+                </div>
+              </ScrollReveal>
+            )}
+          </div>
+        </Container>
+      </section>
 
       {/* ─── Explore ───────────────────────────────────────────────────── */}
       <section className="relative py-24">
@@ -222,9 +380,11 @@ export default async function Home({ params }: Props) {
         <Container>
           <ScrollReveal>
             <h2 className="text-3xl font-bold tracking-tight text-balance lg:text-4xl">
-              {t('exploreTitle')}
+              {home?.exploreTitle ?? t('exploreTitle')}
             </h2>
-            <p className="text-muted-foreground mt-4 max-w-xl text-lg">{t('exploreSubtitle')}</p>
+            <p className="text-muted-foreground mt-4 max-w-xl text-lg">
+              {home?.exploreSubtitle ?? t('exploreSubtitle')}
+            </p>
           </ScrollReveal>
 
           <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
@@ -284,27 +444,39 @@ export default async function Home({ params }: Props) {
                   </Link>
                 </div>
 
-                {/* The stats again, as a portrait card — the panel used to hold
-                    a static "SIF 2026" placeholder, which said nothing. Hidden
-                    below lg, where the stats grid above is already in view. */}
+                {/* The highlights again, as a rich quick-summary card */}
                 <div className="relative hidden lg:block">
                   <div
                     aria-hidden="true"
                     className="from-brand-cyan/10 via-brand-blue/8 to-brand-violet/10 absolute -inset-8 rounded-3xl bg-gradient-to-br blur-2xl"
                   />
-                  <div className="glass relative rounded-3xl p-10">
+                  <div className="glass relative rounded-3xl p-8 sm:p-10">
                     <p className="text-muted-foreground text-xs font-semibold tracking-[0.2em] uppercase">
-                      {t('highlightsTitle')}
+                      {t('quickSummaryTitle')}
                     </p>
-                    <ul className="divide-border/60 mt-6 divide-y">
-                      {(home.stats ?? []).slice(0, 4).map((stat) => (
-                        <li key={stat.label} className="flex items-baseline justify-between gap-6 py-4">
-                          <span className="text-muted-foreground text-sm">{stat.label}</span>
-                          <span className="gradient-text text-2xl font-bold tracking-tight">
-                            {stat.value}
+                    <ul className="divide-border/60 mt-6 divide-y text-sm">
+                      <li className="flex items-baseline justify-between gap-6 py-3.5">
+                        <span className="text-muted-foreground">{t('timeLabel')}</span>
+                        <strong className="text-foreground font-semibold">
+                          {t('eventDateRange')}
+                        </strong>
+                      </li>
+                      {home?.venue && (
+                        <li className="flex items-baseline justify-between gap-6 py-3.5">
+                          <span className="text-muted-foreground">{t('venueLabel')}</span>
+                          <span className="text-foreground max-w-[14rem] text-right font-medium">
+                            {home.venue}
                           </span>
                         </li>
-                      ))}
+                      )}
+                      <li className="flex items-baseline justify-between gap-6 py-3.5">
+                        <span className="text-muted-foreground">{t('latestClosingLabel')}</span>
+                        <span className="gradient-text font-mono text-lg font-bold">22:00</span>
+                      </li>
+                      <li className="flex items-baseline justify-between gap-6 py-3.5">
+                        <span className="text-muted-foreground">{t('admissionLabel')}</span>
+                        <span className="gradient-text text-lg font-bold">{admission}</span>
+                      </li>
                     </ul>
                   </div>
                 </div>

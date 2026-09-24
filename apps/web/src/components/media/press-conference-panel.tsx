@@ -2,7 +2,6 @@ import { getFormatter, getTranslations } from 'next-intl/server';
 import { CalendarDays, ExternalLink, MapPin } from 'lucide-react';
 import type { PressConference } from '@sif/shared';
 import { Container } from '@/components/layout/container';
-import { EmptyState } from '@/components/layout/section';
 import { ScrollReveal } from '@/components/home/scroll-reveal';
 import { RichText } from '@/components/rich-text';
 
@@ -20,8 +19,10 @@ export async function PressConferencePanel({ conference }: { conference: PressCo
 
   if (!conference) {
     return (
-      <Container className="py-20">
-        <EmptyState>{t('empty')}</EmptyState>
+      <Container className="py-10">
+        <div className="glass mx-auto max-w-lg rounded-3xl border border-white/10 p-8 text-center backdrop-blur-xl sm:p-10">
+          <p className="text-sm font-medium text-white/80">{t('empty')}</p>
+        </div>
       </Container>
     );
   }
@@ -39,7 +40,7 @@ export async function PressConferencePanel({ conference }: { conference: PressCo
   const registrationUrl = conference.registrationUrl?.trim();
 
   return (
-    <section className="py-16 sm:py-20">
+    <section className="py-8 sm:py-10">
       <Container>
         <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-16">
           {/* ── The briefing itself ─────────────────────────────────────── */}

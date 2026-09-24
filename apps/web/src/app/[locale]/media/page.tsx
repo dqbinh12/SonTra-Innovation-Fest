@@ -110,7 +110,7 @@ export default async function Media({ params }: Props) {
   ];
 
   return (
-    <div className="page-deep dark text-foreground">
+    <div className="page-deep dark flex-1 text-foreground">
       <MediaHero
         eyebrow={t('eyebrow')}
         title={page?.heroTitle ?? t('title')}
@@ -120,10 +120,10 @@ export default async function Media({ params }: Props) {
       <MediaTabs tabs={tabs} label={t('tabsLabel')} />
 
       {/* ─── Press contact ─────────────────────────────────────────────── */}
-      <section className="pb-20 sm:pb-24">
+      <section className="pb-12 sm:pb-16">
         <Container>
           <ScrollReveal>
-            <div className="glass flex flex-wrap items-center justify-between gap-8 rounded-2xl p-8 sm:p-10">
+            <div className="glass flex flex-wrap items-center justify-between gap-6 rounded-2xl p-6 sm:p-8">
               <div className="max-w-xl">
                 <h2 className="text-xl font-bold tracking-tight">{t('contact.title')}</h2>
                 <p className="text-muted-foreground mt-2">{t('contact.lead')}</p>

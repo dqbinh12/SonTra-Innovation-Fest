@@ -104,7 +104,7 @@ export default async function ArticlePage({ params }: Props) {
   const formatDate = (date: string) => format.dateTime(new Date(date), { dateStyle: 'long' });
 
   return (
-    <div className="page-deep dark min-h-full pb-20 text-foreground">
+    <div className="page-deep dark flex-1 pb-20 text-foreground">
       <ReadingProgress />
       <NewsBackdrop />
 

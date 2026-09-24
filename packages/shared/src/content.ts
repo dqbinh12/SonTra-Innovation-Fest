@@ -64,6 +64,12 @@ export interface Stat {
   value: string;
 }
 
+export interface EventDay {
+  date: string;
+  startTime: string;
+  endTime: string;
+}
+
 export interface AttendBenefit {
   title: string;
   description: string | null;
@@ -198,8 +204,19 @@ export interface HomePage extends StrapiEntry {
   heroMedia: StrapiMedia | null;
   /** Portrait crop for phones. Falls back to `heroMedia` when unset. */
   heroMediaMobile: StrapiMedia | null;
-  stats: Stat[];
+  eventDays: EventDay[];
+  admission: string | null;
   aboutTeaser: string | null;
+  introBadge: string | null;
+  introTitle: string | null;
+  introBody: string | null;
+  introYoutubeUrl: string | null;
+  exploreTitle: string | null;
+  exploreSubtitle: string | null;
+  exploreAgenda: string | null;
+  exploreExhibition: string | null;
+  exploreLocation: string | null;
+  exploreSponsors: string | null;
   seo: Seo | null;
 }
 
