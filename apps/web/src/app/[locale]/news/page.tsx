@@ -128,7 +128,7 @@ export default async function NewsPage({ params, searchParams }: Props) {
       <NewsBackdrop />
 
       {/* ─── Hero Section with Tech Pulse & Filter Dock ───────────────────── */}
-      <section className="relative overflow-hidden pt-24 pb-8 sm:pt-28 sm:pb-10 lg:pt-32 lg:pb-12 text-white">
+      <section className="relative overflow-hidden pt-20 pb-4 sm:pt-24 sm:pb-6 lg:pt-26 lg:pb-8 text-white">
         <Container className="relative grid gap-8 lg:grid-cols-[1fr_24rem] lg:items-end lg:gap-12">
           <div>
             {/* Live Dispatch Pulse Pill */}
@@ -150,11 +150,11 @@ export default async function NewsPage({ params, searchParams }: Props) {
               )}
             </div>
 
-            <h1 className="gradient-text-aurora mt-4 max-w-3xl text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
+            <h1 className="gradient-text-aurora mt-4 max-w-3xl text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">
               {content?.title ?? t('title')}
             </h1>
 
-            <p className="mt-3 max-w-2xl text-sm leading-relaxed text-white/80 sm:text-base">
+            <p className="mt-3 max-w-2xl text-xs leading-relaxed text-white/75 sm:text-sm">
               {content?.intro ?? t('intro')}
             </p>
           </div>

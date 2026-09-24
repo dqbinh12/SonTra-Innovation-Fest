@@ -21,7 +21,7 @@ export function Field({ name, label, error, required, type = 'text', rows }: Fie
   const errorId = `${name}-error`;
 
   const className = cn(
-    'border-input bg-background text-foreground mt-2.5 w-full rounded-xl border px-4 py-3.5 text-sm',
+    'border-input bg-background text-foreground mt-1.5 w-full rounded-xl border px-3.5 py-2.5 sm:py-3 text-sm',
     'placeholder:text-muted-foreground transition-all duration-200 hover:border-ring/40',
     'focus:border-ring focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--ring)_10%,transparent)]',
     'focus-visible:outline-none focus-visible:ring-0',
@@ -61,7 +61,7 @@ export function Field({ name, label, error, required, type = 'text', rows }: Fie
       )}
 
       {error && (
-        <p id={errorId} className="text-destructive mt-1 text-sm">
+        <p id={errorId} className="text-destructive mt-1 text-xs sm:text-sm">
           {t(error)}
         </p>
       )}
@@ -69,12 +69,11 @@ export function Field({ name, label, error, required, type = 'text', rows }: Fie
   );
 }
 
-/** The hidden field that catches naive bots. Must stay out of the tab order. */
 export function Honeypot() {
   return (
-    <div aria-hidden="true" className="absolute -left-[9999px] h-px w-px overflow-hidden">
-      <label htmlFor="website_url">Leave this field empty</label>
-      <input id="website_url" name="website_url" type="text" tabIndex={-1} autoComplete="off" />
+    <div className="hidden" aria-hidden="true">
+      <label htmlFor="website">Do not fill this</label>
+      <input type="text" id="website" name="website" tabIndex={-1} autoComplete="off" />
     </div>
   );
 }

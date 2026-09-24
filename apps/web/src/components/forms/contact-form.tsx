@@ -15,7 +15,7 @@ export function ContactForm() {
   if (state.status === 'success') return <FormStatus status="success" />;
 
   return (
-    <form action={action} className="relative w-full space-y-4">
+    <form action={action} className="relative w-full space-y-3 sm:space-y-4">
       <Honeypot />
 
       <Field name="name" label={t('name')} required error={state.fieldErrors?.name} />
@@ -29,14 +29,16 @@ export function ContactForm() {
       <Field
         name="message"
         label={t('message')}
-        rows={4}
+        rows={3}
         required
         error={state.fieldErrors?.message}
       />
 
       {state.status === 'error' && !state.fieldErrors && <FormStatus status="error" />}
 
-      <SubmitButton />
+      <div className="pt-1">
+        <SubmitButton />
+      </div>
     </form>
   );
 }

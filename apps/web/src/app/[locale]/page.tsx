@@ -8,6 +8,10 @@ import {
   MapPin,
   Handshake,
   Ticket,
+  Sparkles,
+  Cpu,
+  Layers,
+  Users,
 } from 'lucide-react';
 import type { Article, HomePage, Locale, Sponsor } from '@sif/shared';
 import { strapiFetch, strapiFetchOptional } from '@/lib/strapi';
@@ -22,13 +26,13 @@ import { ScrollReveal } from '@/components/home/scroll-reveal';
 import { NewsCard } from '@/components/home/news-card';
 import { SponsorMarquee } from '@/components/home/sponsor-marquee';
 import { EventCountdown } from '@/components/countdown/event-countdown';
+import { cn } from '@/lib/utils';
 
 type Props = { params: Promise<{ locale: string }> };
 
 function getHomePage(locale: string) {
   return strapiFetchOptional<HomePage>('home-page', {
     locale: locale as Locale,
-    // Components are not populated by default — event days and seo need naming.
     query: {
       'populate[heroMedia]': 'true',
       'populate[heroMediaMobile]': 'true',
@@ -39,14 +43,6 @@ function getHomePage(locale: string) {
   });
 }
 
-/**
- * The homepage carries the CMS `seo` component like every other page — without
- * this the uploaded ogImage never reaches the document head, and the page falls
- * back to the layout defaults (which have no image at all).
- *
- * The title is marked absolute so the homepage keeps the bare site name rather
- * than picking up the layout's `%s — SIF` template.
- */
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
   const [tSite, page] = await Promise.all([
@@ -95,31 +91,46 @@ export default async function Home({ params }: Props) {
       .catch(() => [] as Sponsor[]),
   ]);
 
-  /** The destinations are fixed routes; editors control their localized copy. */
   const exploreCards = [
     {
       href: '/agenda',
       icon: CalendarDays,
       label: tNav('agenda'),
       body: home?.exploreAgenda ?? t('exploreAgenda'),
+      index: '01',
+      accentColor: 'text-brand-cyan',
+      accentBorder: 'group-hover:border-brand-cyan/50',
+      accentBg: 'bg-brand-cyan/15',
     },
     {
       href: '/exhibition',
       icon: LayoutGrid,
       label: tNav('exhibition'),
       body: home?.exploreExhibition ?? t('exploreExhibition'),
+      index: '02',
+      accentColor: 'text-brand-mint',
+      accentBorder: 'group-hover:border-brand-mint/50',
+      accentBg: 'bg-brand-mint/15',
     },
     {
       href: '/location',
       icon: MapPin,
       label: tNav('location'),
       body: home?.exploreLocation ?? t('exploreLocation'),
+      index: '03',
+      accentColor: 'text-brand-violet',
+      accentBorder: 'group-hover:border-brand-violet/50',
+      accentBg: 'bg-brand-violet/15',
     },
     {
       href: '/sponsors',
       icon: Handshake,
       label: tNav('sponsors'),
       body: home?.exploreSponsors ?? t('exploreSponsors'),
+      index: '04',
+      accentColor: 'text-brand-blue',
+      accentBorder: 'group-hover:border-brand-blue/50',
+      accentBg: 'bg-brand-blue/15',
     },
   ] as const;
 
@@ -135,86 +146,104 @@ export default async function Home({ params }: Props) {
     home?.introYoutubeUrl ?? 'https://www.youtube.com/watch?v=EB2RaO8jnck';
   const introVideoEmbedUrl = getYouTubeEmbedUrl(introVideoUrl);
 
+  const fallbackTitle =
+    locale === 'vi'
+      ? 'Kết nối công nghệ – Kiến tạo tương lai Sơn Trà'
+      : 'Connecting Technology – Shaping the Future of Son Tra';
+  const heroDisplayTitle = home?.heroTitle || fallbackTitle;
+
   return (
     <>
       {/* ─── Hero ──────────────────────────────────────────────────────── */}
-      {/*
-        A full-viewport video stage with the copy centred on it — the format
-        the reference event sites use, and the one that lets the footage read
-        as the subject rather than as wallpaper behind a left-aligned column.
-
-        `min-h-svh`, not `min-h-screen`: on mobile Safari `100vh` is the
-        *largest* viewport, so the CTA row would sit under the browser chrome
-        on first paint. `svh` is what is actually visible.
-
-        The heavier bottom padding below `sm` is not decorative: the countdown
-        is a fixed corner widget, and on a phone it is wide enough to cover the
-        secondary CTA. The padding lifts the centred copy clear of it. Adjust
-        it alongside the widget's size, not on its own.
-      */}
-      <section className="bg-brand-navy relative isolate flex min-h-svh items-center overflow-hidden pt-32 pb-52 text-white sm:py-36">
-        {/* Hero artwork from the CMS — image or video, at -z-10 with its own
-            navy scrim. `centre`, not the default edge scrim: the copy on this
-            page is centred on the stage, and an edge scrim leaves the middle of
-            the frame open. Nothing renders until heroMedia is uploaded, and
-            <TechBackdrop> below shows through. */}
+      <section className="bg-brand-navy relative isolate flex min-h-svh items-center overflow-hidden pt-28 pb-36 text-white sm:pt-32 sm:pb-40 lg:pt-36 lg:pb-44">
         {(home?.heroMedia || home?.heroMediaMobile) && (
           <HeroMedia desktop={home.heroMedia} mobile={home.heroMediaMobile} scrim="centre" />
         )}
-        {/* Animated backdrop — sits at -z-20, so artwork simply covers it. */}
         <TechBackdrop />
 
         <Container className="relative w-full">
           <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
-            {(home?.eventDate || home?.venue) && (
-              <p className="glass-invert mb-10 inline-flex items-center gap-2 rounded-full px-5 py-2 text-xs font-semibold tracking-[0.12em] text-white uppercase sm:text-sm">
-                <span className="bg-brand-mint inline-block size-2 animate-pulse rounded-full" />
-                {[home.eventDate, home.venue].filter(Boolean).join(' · ')}
-              </p>
-            )}
+            {/* Live Event Telemetry Pill */}
+            <div className="glass-invert mb-6 inline-flex items-center gap-2.5 rounded-full border border-brand-cyan/30 px-4 py-1.5 text-xs font-semibold tracking-wider text-brand-cyan uppercase backdrop-blur-xl shadow-[0_0_24px_rgba(0,240,255,0.18)] sm:mb-8 sm:px-5 sm:py-2">
+              <span className="relative flex size-2">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brand-mint opacity-75" />
+                <span className="relative inline-flex size-2 rounded-full bg-brand-mint" />
+              </span>
+              <span>
+                {[home?.eventDate || '3–4 OCT 2026', home?.venue || 'SƠN TRÀ, ĐÀ NẴNG']
+                  .filter(Boolean)
+                  .join(' · ')}
+              </span>
+            </div>
 
-            {/*
-              One fluid size rather than four breakpoint steps — a display line
-              on a full-bleed stage should scale with the stage, and `clamp`
-              keeps it from wrapping into four lines on a phone or stopping
-              short of the video on a 27" screen. `leading-[1.02]` because
-              default leading opens a visible gap between lines this large.
-            */}
-            <h1 className="text-[clamp(2.5rem,6.4vw,5.75rem)] leading-[1.02] font-bold tracking-tight text-balance">
-              {/* Typed on load, with the full accent palette drifting through
-                  it — see hero-title.tsx and `.gradient-text-aurora`. */}
-              <HeroTitle text={home?.heroTitle ?? t('title')} />
+            {/* Main Fluid Title with typing aurora glow */}
+            <h1 className="text-[clamp(2.15rem,5.6vw,5.25rem)] leading-[1.08] font-bold tracking-tight text-balance">
+              <HeroTitle text={heroDisplayTitle} />
             </h1>
 
             {home?.heroSubtitle && (
-              <p className="mt-8 max-w-2xl text-lg leading-relaxed text-balance text-white sm:text-xl">
+              <p className="mt-5 max-w-2xl text-sm leading-relaxed text-balance text-white/85 sm:mt-6 sm:text-base lg:text-lg">
                 {home.heroSubtitle}
               </p>
             )}
 
-            <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
+            {/* Dual CTAs with glowing primary */}
+            <div className="mt-8 flex flex-wrap items-center justify-center gap-3.5 sm:mt-10 sm:gap-4">
               <HeroCta href={home?.ctaHref} label={home?.ctaLabel ?? t('heroCta')} />
               <Link
                 href="/agenda"
-                className="glass-invert inline-flex items-center gap-2 rounded-full px-8 py-4 text-sm font-semibold tracking-wide text-white uppercase transition-colors hover:bg-white/15"
+                className="glass-invert inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 text-xs font-semibold tracking-wider text-white uppercase backdrop-blur-md transition-all hover:border-white/40 hover:bg-white/15 sm:px-8 sm:py-3.5 sm:text-sm"
               >
                 {t('heroCtaSecondary')}
               </Link>
             </div>
+
+            {/* Quick Metrics Bar at hero base */}
+            <div className="mt-12 grid w-full max-w-3xl grid-cols-2 gap-2.5 sm:mt-14 sm:grid-cols-4 sm:gap-3.5">
+              <div className="glass rounded-xl border border-white/10 p-3 text-center backdrop-blur-md transition-transform hover:-translate-y-0.5 sm:rounded-2xl sm:p-3.5">
+                <span className="gradient-text-aurora block font-mono text-xl font-extrabold tracking-tight sm:text-2xl">
+                  {t('statExhibitors')}
+                </span>
+                <span className="mt-0.5 block text-[11px] font-medium text-white/70 sm:text-xs">
+                  {t('statExhibitorsLabel')}
+                </span>
+              </div>
+              <div className="glass rounded-xl border border-white/10 p-3 text-center backdrop-blur-md transition-transform hover:-translate-y-0.5 sm:rounded-2xl sm:p-3.5">
+                <span className="gradient-text-aurora block font-mono text-xl font-extrabold tracking-tight sm:text-2xl">
+                  {t('statKeynotes')}
+                </span>
+                <span className="mt-0.5 block text-[11px] font-medium text-white/70 sm:text-xs">
+                  {t('statKeynotesLabel')}
+                </span>
+              </div>
+              <div className="glass rounded-xl border border-white/10 p-3 text-center backdrop-blur-md transition-transform hover:-translate-y-0.5 sm:rounded-2xl sm:p-3.5">
+                <span className="gradient-text-aurora block font-mono text-xl font-extrabold tracking-tight sm:text-2xl">
+                  {t('statAttendees')}
+                </span>
+                <span className="mt-0.5 block text-[11px] font-medium text-white/70 sm:text-xs">
+                  {t('statAttendeesLabel')}
+                </span>
+              </div>
+              <div className="glass rounded-xl border border-white/10 p-3 text-center backdrop-blur-md transition-transform hover:-translate-y-0.5 sm:rounded-2xl sm:p-3.5">
+                <span className="gradient-text-aurora block font-mono text-xl font-extrabold tracking-tight sm:text-2xl">
+                  {t('statAccess')}
+                </span>
+                <span className="mt-0.5 block text-[11px] font-medium text-white/70 sm:text-xs">
+                  {t('statAccessLabel')}
+                </span>
+              </div>
+            </div>
           </div>
         </Container>
 
-        {/* Fade into the page ground so the seam is a gradient, not a line.
-            On the section rather than inside <HeroMedia>, so it is there even
-            before any artwork is uploaded. */}
+        {/* Ambient bottom fade */}
         <div
           aria-hidden="true"
-          className="from-background absolute inset-x-0 bottom-0 h-40 bg-gradient-to-t to-transparent"
+          className="from-background absolute inset-x-0 bottom-0 h-32 bg-gradient-to-t to-transparent sm:h-40"
         />
       </section>
 
-      {/* The countdown, as a corner widget pinned for the whole page. Rendered
-          once and outside the hero — it positions itself. */}
+      {/* Floating Countdown Widget */}
       <EventCountdown
         locale={locale}
         variant="hero"
@@ -222,32 +251,42 @@ export default async function Home({ params }: Props) {
         action={<RegisterButton label={t('heroCta')} />}
       />
 
-      {/* ─── Event overview ────────────────────────────────────────────── */}
+      {/* ─── Event Overview Dashboard ──────────────────────────────────── */}
       {eventDays.length > 0 && (
-        <section className="relative z-10 -mt-16 pb-16">
+        <section className="relative z-10 -mt-12 pb-12 sm:-mt-16 sm:pb-16">
           <Container>
-            <ScrollReveal className="glass overflow-hidden rounded-3xl">
-              <div className="border-border/60 border-b px-6 py-5 sm:px-8">
-                <h2 className="text-xl font-bold tracking-tight sm:text-2xl">
-                  {t('highlightsTitle')}
-                </h2>
+            <ScrollReveal className="glass relative overflow-hidden rounded-2xl border border-white/15 bg-white/[0.03] backdrop-blur-2xl shadow-2xl sm:rounded-3xl">
+              {/* Neon top highlight */}
+              <div className="h-0.5 w-full bg-gradient-to-r from-transparent via-brand-cyan/60 to-transparent" />
+
+              <div className="border-border/60 flex items-center justify-between border-b px-5 py-4 sm:px-8 sm:py-5">
+                <div className="flex items-center gap-2">
+                  <span className="size-2 rounded-full bg-brand-cyan animate-pulse" />
+                  <h2 className="text-lg font-bold tracking-tight text-white sm:text-xl">
+                    {t('highlightsTitle')}
+                  </h2>
+                </div>
+                <span className="rounded-full border border-white/10 bg-white/5 px-2.5 py-0.5 font-mono text-xs text-white/70">
+                  SIF 2026
+                </span>
               </div>
 
               <dl className="grid lg:grid-cols-[0.9fr_1.6fr_0.9fr]">
-                <div className="border-border/60 p-6 sm:p-8 lg:border-r">
+                {/* Date & Location */}
+                <div className="border-border/60 p-5 sm:p-7 lg:border-r">
                   <dt className="text-muted-foreground flex items-center gap-2 text-xs font-semibold tracking-[0.16em] uppercase">
                     <CalendarDays aria-hidden="true" className="text-brand-cyan size-4" />
                     {t('eventDaysLabel')}
                   </dt>
-                  <dd className="mt-4">
-                    <strong className="block text-3xl font-bold tracking-tight">
+                  <dd className="mt-3 sm:mt-4">
+                    <strong className="block text-2xl font-bold tracking-tight text-white sm:text-3xl">
                       {t('eventDuration')}
                     </strong>
-                    <span className="mt-2 block text-lg font-bold tracking-tight">
+                    <span className="mt-1 block text-base font-semibold text-brand-cyan sm:text-lg">
                       {t('eventDateRange')}
                     </span>
                     {home?.venue && (
-                      <span className="text-muted-foreground border-border/60 mt-4 flex items-start gap-2 border-t pt-4 text-sm leading-relaxed">
+                      <span className="text-muted-foreground border-border/60 mt-4 flex items-start gap-2 border-t pt-4 text-xs leading-relaxed sm:text-sm">
                         <MapPin
                           aria-hidden="true"
                           className="text-brand-cyan mt-0.5 size-4 shrink-0"
@@ -258,12 +297,13 @@ export default async function Home({ params }: Props) {
                   </dd>
                 </div>
 
-                <div className="border-border/60 border-t p-6 sm:p-8 lg:border-t-0 lg:border-r">
+                {/* Timeline */}
+                <div className="border-border/60 border-t p-5 sm:p-7 lg:border-t-0 lg:border-r">
                   <dt className="text-muted-foreground flex items-center gap-2 text-xs font-semibold tracking-[0.16em] uppercase">
                     <Clock3 aria-hidden="true" className="text-brand-cyan size-4" />
                     {t('openingHoursLabel')}
                   </dt>
-                  <dd className="mt-5 space-y-5">
+                  <dd className="mt-3 space-y-4 sm:mt-4 sm:space-y-5">
                     {eventDays.map((day) => {
                       const start = day.startTime.slice(0, 5);
                       const end = day.endTime.slice(0, 5);
@@ -275,16 +315,19 @@ export default async function Home({ params }: Props) {
 
                       return (
                         <div key={`${day.date}-${start}`}>
-                          <div className="flex items-center justify-between gap-4 text-sm">
-                            <span className="font-medium">{day.date}</span>
-                            <time className="font-mono font-semibold" dateTime={`${start}/${end}`}>
+                          <div className="flex items-center justify-between gap-4 text-xs sm:text-sm">
+                            <span className="font-medium text-white">{day.date}</span>
+                            <time
+                              className="font-mono font-semibold text-brand-mint"
+                              dateTime={`${start}/${end}`}
+                            >
                               {start} – {end}
                             </time>
                           </div>
                           <div className="bg-muted relative mt-2 h-2 overflow-hidden rounded-full bg-[repeating-linear-gradient(90deg,transparent_0,transparent_calc(25%_-_1px),var(--border)_calc(25%_-_1px),var(--border)_25%)]">
                             <div
                               aria-hidden="true"
-                              className="from-brand-cyan to-brand-blue absolute h-full rounded-full bg-gradient-to-r"
+                              className="from-brand-cyan via-brand-blue to-brand-mint absolute h-full rounded-full bg-gradient-to-r"
                               style={{ left: `${startPercent}%`, width: `${widthPercent}%` }}
                             />
                           </div>
@@ -301,18 +344,19 @@ export default async function Home({ params }: Props) {
                   </dd>
                 </div>
 
-                <div className="border-border/60 border-t p-6 sm:p-8 lg:border-t-0">
+                {/* Admission */}
+                <div className="border-border/60 border-t p-5 sm:p-7 lg:border-t-0">
                   <dt className="text-muted-foreground flex items-center gap-2 text-xs font-semibold tracking-[0.16em] uppercase">
                     <Ticket aria-hidden="true" className="text-brand-cyan size-4" />
                     {t('admissionLabel')}
                   </dt>
-                  <dd className="text-primary mt-5 text-3xl font-bold tracking-tight">
+                  <dd className="gradient-text-aurora mt-3 text-2xl font-bold tracking-tight sm:mt-4 sm:text-3xl">
                     {admission}
                   </dd>
-                  <p className="text-muted-foreground mt-2 text-sm leading-relaxed">
+                  <p className="text-muted-foreground mt-2 text-xs leading-relaxed sm:text-sm">
                     {t('admissionNote')}
                   </p>
-                  <p className="text-muted-foreground mt-4 flex items-center gap-2 text-xs">
+                  <p className="text-muted-foreground mt-3 flex items-center gap-2 text-xs sm:mt-4">
                     <span aria-hidden="true" className="bg-brand-mint size-2 rounded-full" />
                     {t('entryOpenToAll')}
                   </p>
@@ -323,28 +367,59 @@ export default async function Home({ params }: Props) {
         </section>
       )}
 
-      {/* ─── Video & Introduction ────────────────────────────────────── */}
-      <section className="relative py-20 lg:py-28">
+      {/* ─── Video & Mission Section ───────────────────────────────────── */}
+      <section className="relative py-14 sm:py-20 lg:py-24">
         <Container>
-          <div className="grid items-center gap-10 lg:grid-cols-12 lg:gap-14">
+          <div className="grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
             <ScrollReveal className="lg:col-span-5">
               {(home?.introBadge ?? t('introBadge')) && (
-                <div className="text-brand-cyan mb-3 inline-flex items-center gap-2 text-xs font-semibold tracking-[0.16em] uppercase">
-                  <span
-                    aria-hidden="true"
-                    className="bg-brand-cyan inline-block size-2 rounded-full"
-                  />
-                  {home?.introBadge ?? t('introBadge')}
+                <div className="inline-flex items-center gap-2 rounded-full border border-brand-cyan/30 bg-brand-cyan/10 px-3 py-1 text-xs font-semibold tracking-wider text-brand-cyan uppercase backdrop-blur-md mb-3">
+                  <Sparkles className="size-3" />
+                  <span>{home?.introBadge ?? t('introBadge')}</span>
                 </div>
               )}
-              <h2 className="text-3xl font-bold tracking-tight text-balance sm:text-4xl">
+              <h2 className="text-2xl font-bold tracking-tight text-white text-balance sm:text-3xl lg:text-4xl">
                 {home?.introTitle ?? t('introTitle')}
               </h2>
               {(home?.introBody ?? t('introBody')) && (
-                <p className="text-muted-foreground mt-6 text-base leading-relaxed sm:text-lg">
+                <p className="text-muted-foreground mt-4 text-xs leading-relaxed sm:mt-5 sm:text-sm sm:leading-relaxed lg:text-base">
                   {home?.introBody ?? t('introBody')}
                 </p>
               )}
+
+              {/* 3 Tech Pillars */}
+              <div className="mt-6 grid gap-2.5 sm:mt-8">
+                <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.02] p-2.5 sm:p-3">
+                  <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-brand-cyan/10 text-brand-cyan">
+                    <Cpu className="size-4" />
+                  </div>
+                  <span className="text-xs font-medium text-white/90 sm:text-sm">
+                    {locale === 'vi'
+                      ? 'Trình diễn công nghệ AI, Robotics & Smart City'
+                      : 'AI, Robotics & Smart City demonstrations'}
+                  </span>
+                </div>
+                <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.02] p-2.5 sm:p-3">
+                  <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-brand-mint/10 text-brand-mint">
+                    <Layers className="size-4" />
+                  </div>
+                  <span className="text-xs font-medium text-white/90 sm:text-sm">
+                    {locale === 'vi'
+                      ? 'Khu trải nghiệm công nghệ đa giác quan & VR/AR'
+                      : 'Multisensory immersive tech & VR/AR zones'}
+                  </span>
+                </div>
+                <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.02] p-2.5 sm:p-3">
+                  <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-brand-violet/10 text-brand-violet">
+                    <Users className="size-4" />
+                  </div>
+                  <span className="text-xs font-medium text-white/90 sm:text-sm">
+                    {locale === 'vi'
+                      ? 'Kết nối đầu tư & vườn ươm khởi nghiệp đổi mới'
+                      : 'Startup investment matchmaking & networking'}
+                  </span>
+                </div>
+              </div>
             </ScrollReveal>
 
             {introVideoEmbedUrl && (
@@ -352,7 +427,7 @@ export default async function Home({ params }: Props) {
                 <div className="relative">
                   <div
                     aria-hidden="true"
-                    className="from-brand-cyan/20 via-brand-blue/15 to-transparent absolute -inset-3 rounded-3xl bg-gradient-to-tr blur-xl opacity-75"
+                    className="from-brand-cyan/20 via-brand-blue/15 to-brand-violet/20 absolute -inset-3 rounded-3xl bg-gradient-to-tr blur-2xl opacity-75"
                   />
                   <div className="glass border-border/70 relative overflow-hidden rounded-2xl p-2 sm:rounded-3xl sm:p-3 shadow-2xl">
                     <div className="relative aspect-video w-full overflow-hidden rounded-xl bg-black">
@@ -374,67 +449,89 @@ export default async function Home({ params }: Props) {
         </Container>
       </section>
 
-      {/* ─── Explore ───────────────────────────────────────────────────── */}
-      <section className="relative py-24">
+      {/* ─── Explore Festival (4 Interactive Tiles) ────────────────────── */}
+      <section className="relative py-14 sm:py-20 lg:py-24">
         <SectionGlow />
         <Container>
           <ScrollReveal>
-            <h2 className="text-3xl font-bold tracking-tight text-balance lg:text-4xl">
-              {home?.exploreTitle ?? t('exploreTitle')}
-            </h2>
-            <p className="text-muted-foreground mt-4 max-w-xl text-lg">
-              {home?.exploreSubtitle ?? t('exploreSubtitle')}
-            </p>
+            <div className="max-w-2xl">
+              <h2 className="text-2xl font-bold tracking-tight text-white text-balance sm:text-3xl lg:text-4xl">
+                {home?.exploreTitle ?? t('exploreTitle')}
+              </h2>
+              <p className="text-muted-foreground mt-2 text-xs leading-relaxed sm:mt-3 sm:text-sm lg:text-base">
+                {home?.exploreSubtitle ?? t('exploreSubtitle')}
+              </p>
+            </div>
           </ScrollReveal>
 
-          <ul className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {exploreCards.map(({ href, icon: Icon, label, body }, i) => (
-              <li key={href}>
-                <ScrollReveal delay={i * 90} className="h-full">
-                  <Link
-                    href={href}
-                    className="group glass lift flex h-full flex-col rounded-2xl p-6"
-                  >
-                    <span
-                      aria-hidden="true"
-                      className="from-brand-cyan/20 to-brand-blue/20 text-primary inline-flex size-11 items-center justify-center rounded-xl bg-gradient-to-br"
+          <ul className="mt-8 grid gap-3.5 sm:mt-12 sm:grid-cols-2 lg:grid-cols-4 sm:gap-4">
+            {exploreCards.map(
+              ({ href, icon: Icon, label, body, index, accentColor, accentBorder, accentBg }, i) => (
+                <li key={href}>
+                  <ScrollReveal delay={i * 90} className="h-full">
+                    <Link
+                      href={href}
+                      className={cn(
+                        'group glass lift relative flex h-full flex-col justify-between overflow-hidden rounded-2xl border border-white/10 p-5 sm:p-6 transition-all duration-300',
+                        accentBorder,
+                      )}
                     >
-                      <Icon className="size-5" />
-                    </span>
-                    <span className="group-hover:text-primary mt-5 font-semibold transition-colors">
-                      {label}
-                    </span>
-                    <span className="text-muted-foreground mt-2 text-sm leading-relaxed">
-                      {body}
-                    </span>
-                    <ArrowRight
-                      aria-hidden="true"
-                      className="text-primary mt-4 size-4 transition-transform duration-300 group-hover:translate-x-1"
-                    />
-                  </Link>
-                </ScrollReveal>
-              </li>
-            ))}
+                      <div>
+                        <div className="flex items-center justify-between">
+                          <span
+                            aria-hidden="true"
+                            className={cn(
+                              'inline-flex size-10 items-center justify-center rounded-xl sm:size-11',
+                              accentBg,
+                              accentColor,
+                            )}
+                          >
+                            <Icon className="size-5" />
+                          </span>
+                          <span className="font-mono text-xs font-semibold text-white/40">
+                            {index}
+                          </span>
+                        </div>
+                        <h3 className="mt-4 text-base font-bold text-white transition-colors group-hover:text-brand-cyan sm:mt-5 sm:text-lg">
+                          {label}
+                        </h3>
+                        <p className="text-muted-foreground mt-1.5 text-xs leading-relaxed sm:text-sm">
+                          {body}
+                        </p>
+                      </div>
+
+                      <div className="mt-4 flex items-center gap-1.5 text-xs font-semibold text-brand-cyan sm:mt-6">
+                        <span>{locale === 'vi' ? 'Khám phá' : 'Explore'}</span>
+                        <ArrowRight
+                          aria-hidden="true"
+                          className="size-3.5 transition-transform duration-300 group-hover:translate-x-1"
+                        />
+                      </div>
+                    </Link>
+                  </ScrollReveal>
+                </li>
+              ),
+            )}
           </ul>
         </Container>
       </section>
 
-      {/* ─── About teaser ──────────────────────────────────────────────── */}
+      {/* ─── About Teaser ──────────────────────────────────────────────── */}
       {home?.aboutTeaser && (
-        <section className="relative py-24">
+        <section className="relative py-14 sm:py-20 lg:py-24">
           <Container>
             <ScrollReveal>
-              <div className="grid items-center gap-12 lg:grid-cols-2">
+              <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
                 <div>
-                  <h2 className="text-3xl font-bold tracking-tight text-balance lg:text-4xl">
+                  <h2 className="text-2xl font-bold tracking-tight text-white text-balance sm:text-3xl lg:text-4xl">
                     {t('aboutTeaserTitle')}
                   </h2>
-                  <p className="text-muted-foreground mt-6 max-w-lg text-lg leading-relaxed">
+                  <p className="text-muted-foreground mt-4 text-xs leading-relaxed sm:mt-5 sm:text-sm lg:text-base">
                     {home.aboutTeaser}
                   </p>
                   <Link
                     href="/about"
-                    className="group text-primary hover:text-brand-blue mt-8 inline-flex items-center gap-2 text-sm font-semibold transition-colors"
+                    className="group text-primary hover:text-brand-cyan mt-6 inline-flex items-center gap-2 text-xs font-semibold tracking-wider uppercase transition-colors sm:mt-8 sm:text-sm"
                   >
                     {t('aboutTeaserCta')}
                     <ArrowRight
@@ -444,38 +541,45 @@ export default async function Home({ params }: Props) {
                   </Link>
                 </div>
 
-                {/* The highlights again, as a rich quick-summary card */}
-                <div className="relative hidden lg:block">
+                {/* Highlights Summary Card */}
+                <div className="relative">
                   <div
                     aria-hidden="true"
-                    className="from-brand-cyan/10 via-brand-blue/8 to-brand-violet/10 absolute -inset-8 rounded-3xl bg-gradient-to-br blur-2xl"
+                    className="from-brand-cyan/15 via-brand-blue/10 to-brand-violet/15 absolute -inset-4 rounded-3xl bg-gradient-to-br blur-2xl opacity-75 sm:-inset-8"
                   />
-                  <div className="glass relative rounded-3xl p-8 sm:p-10">
-                    <p className="text-muted-foreground text-xs font-semibold tracking-[0.2em] uppercase">
-                      {t('quickSummaryTitle')}
-                    </p>
-                    <ul className="divide-border/60 mt-6 divide-y text-sm">
-                      <li className="flex items-baseline justify-between gap-6 py-3.5">
+                  <div className="glass relative rounded-2xl border border-white/10 p-5 sm:rounded-3xl sm:p-8">
+                    <div className="flex items-center justify-between border-b border-white/10 pb-3">
+                      <p className="text-xs font-semibold tracking-[0.2em] text-brand-cyan uppercase">
+                        {t('quickSummaryTitle')}
+                      </p>
+                      <span className="size-2 rounded-full bg-brand-mint" />
+                    </div>
+                    <ul className="divide-border/60 divide-y text-xs sm:text-sm">
+                      <li className="flex items-baseline justify-between gap-4 py-3 sm:py-3.5">
                         <span className="text-muted-foreground">{t('timeLabel')}</span>
                         <strong className="text-foreground font-semibold">
                           {t('eventDateRange')}
                         </strong>
                       </li>
                       {home?.venue && (
-                        <li className="flex items-baseline justify-between gap-6 py-3.5">
+                        <li className="flex items-baseline justify-between gap-4 py-3 sm:py-3.5">
                           <span className="text-muted-foreground">{t('venueLabel')}</span>
                           <span className="text-foreground max-w-[14rem] text-right font-medium">
                             {home.venue}
                           </span>
                         </li>
                       )}
-                      <li className="flex items-baseline justify-between gap-6 py-3.5">
+                      <li className="flex items-baseline justify-between gap-4 py-3 sm:py-3.5">
                         <span className="text-muted-foreground">{t('latestClosingLabel')}</span>
-                        <span className="gradient-text font-mono text-lg font-bold">22:00</span>
+                        <span className="gradient-text font-mono text-base font-bold sm:text-lg">
+                          22:00
+                        </span>
                       </li>
-                      <li className="flex items-baseline justify-between gap-6 py-3.5">
+                      <li className="flex items-baseline justify-between gap-4 py-3 sm:py-3.5">
                         <span className="text-muted-foreground">{t('admissionLabel')}</span>
-                        <span className="gradient-text text-lg font-bold">{admission}</span>
+                        <span className="gradient-text text-base font-bold sm:text-lg">
+                          {admission}
+                        </span>
                       </li>
                     </ul>
                   </div>
@@ -486,26 +590,28 @@ export default async function Home({ params }: Props) {
         </section>
       )}
 
-      {/* ─── Sponsors ──────────────────────────────────────────────────── */}
+      {/* ─── Sponsors Marquee ──────────────────────────────────────────── */}
       {sponsors.length > 0 && (
-        <section className="relative overflow-hidden py-24">
+        <section className="relative overflow-hidden py-12 sm:py-16 lg:py-20">
           <div
             aria-hidden="true"
             className="from-secondary/30 to-secondary/30 absolute inset-0 -z-10 bg-gradient-to-b via-transparent"
           />
           <Container>
             <ScrollReveal className="text-center">
-              <h2 className="text-3xl font-bold tracking-tight">{t('sponsorsTitle')}</h2>
+              <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">
+                {t('sponsorsTitle')}
+              </h2>
             </ScrollReveal>
-            <div className="mt-12">
+            <div className="mt-8 sm:mt-10">
               <ScrollReveal delay={150}>
                 <SponsorMarquee sponsors={sponsors} />
               </ScrollReveal>
             </div>
-            <ScrollReveal delay={250} className="mt-10 text-center">
+            <ScrollReveal delay={250} className="mt-8 text-center sm:mt-10">
               <Link
                 href="/sponsors"
-                className="text-primary hover:text-brand-blue group inline-flex items-center gap-2 text-sm font-semibold transition-colors"
+                className="text-primary hover:text-brand-cyan group inline-flex items-center gap-2 text-xs font-semibold tracking-wider uppercase transition-colors sm:text-sm"
               >
                 {t('sponsorsCta')}
                 <ArrowRight
@@ -518,22 +624,24 @@ export default async function Home({ params }: Props) {
         </section>
       )}
 
-      {/* ─── Latest news ───────────────────────────────────────────────── */}
+      {/* ─── Latest News ───────────────────────────────────────────────── */}
       {latestNews.length > 0 && (
-        <section className="py-24">
+        <section className="py-12 sm:py-16 lg:py-20">
           <Container>
             <ScrollReveal>
               <div className="flex flex-wrap items-baseline justify-between gap-4">
-                <h2 className="text-3xl font-bold tracking-tight">{t('latestNewsTitle')}</h2>
+                <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">
+                  {t('latestNewsTitle')}
+                </h2>
                 <Link
                   href="/news"
-                  className="border-border text-primary hover:bg-primary hover:text-primary-foreground rounded-lg border px-5 py-2 text-sm font-medium transition-colors"
+                  className="border-border text-primary hover:bg-primary hover:text-primary-foreground rounded-lg border px-4 py-1.5 text-xs font-medium transition-colors sm:px-5 sm:py-2 sm:text-sm"
                 >
                   {t('latestNewsCta')}
                 </Link>
               </div>
             </ScrollReveal>
-            <ul className="mt-10 grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 sm:gap-6">
               {latestNews.map((article, i) => (
                 <li key={article.documentId}>
                   <ScrollReveal delay={i * 120}>
@@ -547,10 +655,10 @@ export default async function Home({ params }: Props) {
       )}
 
       {/* ─── Closing CTA ───────────────────────────────────────────────── */}
-      <section className="pb-24">
+      <section className="pb-16 sm:pb-24">
         <Container>
           <ScrollReveal>
-            <div className="bg-brand-navy relative isolate overflow-hidden rounded-3xl px-6 py-16 text-center text-white sm:px-12">
+            <div className="bg-brand-navy relative isolate overflow-hidden rounded-2xl px-5 py-12 text-center text-white sm:rounded-3xl sm:px-10 sm:py-16">
               <div aria-hidden="true" className="bg-aurora absolute inset-0 -z-10 opacity-90" />
               <div aria-hidden="true" className="bg-tech-grid absolute inset-0 -z-10" />
               <div
@@ -558,21 +666,23 @@ export default async function Home({ params }: Props) {
                 className="bg-brand-cyan/20 animate-float-slow absolute -top-24 -right-16 -z-10 size-72 rounded-full blur-3xl"
               />
 
-              <h2 className="mx-auto max-w-2xl text-3xl font-bold tracking-tight text-balance lg:text-4xl">
+              <h2 className="mx-auto max-w-2xl text-2xl font-bold tracking-tight text-balance sm:text-3xl lg:text-4xl">
                 {t('ctaTitle')}
               </h2>
-              <p className="mx-auto mt-4 max-w-xl text-lg text-white/85">{t('ctaBody')}</p>
+              <p className="mx-auto mt-3 max-w-xl text-xs leading-relaxed text-white/85 sm:mt-4 sm:text-sm lg:text-base">
+                {t('ctaBody')}
+              </p>
 
-              <div className="mt-10 flex flex-wrap justify-center gap-4">
+              <div className="mt-8 flex flex-wrap justify-center gap-3.5 sm:mt-10 sm:gap-4">
                 <Link
                   href="/attend"
-                  className="btn-glow bg-primary text-primary-foreground inline-flex rounded-lg px-8 py-4 text-sm font-semibold tracking-wide uppercase"
+                  className="btn-glow bg-primary text-primary-foreground inline-flex rounded-full px-7 py-3 text-xs font-bold tracking-wider uppercase sm:px-8 sm:py-3.5 sm:text-sm"
                 >
                   {t('ctaPrimary')}
                 </Link>
                 <Link
                   href="/contact"
-                  className="glass-invert inline-flex rounded-lg px-8 py-4 text-sm font-semibold tracking-wide text-white uppercase transition-colors hover:bg-white/15"
+                  className="glass-invert inline-flex rounded-full border border-white/20 px-7 py-3 text-xs font-semibold tracking-wider text-white uppercase backdrop-blur-md transition-all hover:bg-white/15 sm:px-8 sm:py-3.5 sm:text-sm"
                 >
                   {t('ctaSecondary')}
                 </Link>
@@ -585,37 +695,22 @@ export default async function Home({ params }: Props) {
   );
 }
 
-/**
- * The pill with the travelling gradient border — see `.btn-conic` in
- * globals.css for how the spinning layer is built.
- *
- * Always points at /attend rather than honouring the CMS `ctaHref`: this one
- * sits inside the countdown, where the only sensible destination is the page
- * that tells you how to turn up.
- */
 function RegisterButton({ label }: { label: string }) {
   return (
     <Link href="/attend" className="btn-conic w-full">
-      <span className="btn-conic__label px-5 py-2.5 text-sm font-semibold text-white">{label}</span>
+      <span className="btn-conic__label px-5 py-2.5 text-xs font-semibold text-white sm:text-sm">
+        {label}
+      </span>
     </Link>
   );
 }
 
-/**
- * The hero button, honouring the CMS `ctaHref`.
- *
- * `Link` from `@/i18n/navigation` only accepts the typed pathnames in
- * `i18n/routing`, so an absolute URL from the CMS has to go through a plain
- * anchor — it is off-site anyway and should not be locale-prefixed. Anything
- * else falls back to `/attend`, which is what the button meant before the
- * field existed.
- */
 function HeroCta({ href, label }: { href?: string | null; label: string }) {
   const className =
-    'btn-glow bg-primary text-primary-foreground inline-flex rounded-full px-8 py-4 text-sm font-semibold tracking-wide uppercase';
+    'btn-glow bg-primary text-primary-foreground inline-flex rounded-full px-7 py-3 text-xs font-bold tracking-wider uppercase shadow-xl shadow-brand-blue/30 sm:px-8 sm:py-3.5 sm:text-sm';
   const target = href?.trim();
 
-  if (target && /^https?:\/\//i.test(target)) {
+  if (target && (target.startsWith('http://') || target.startsWith('https://'))) {
     return (
       <a href={target} className={className} rel="noopener noreferrer" target="_blank">
         {label}
