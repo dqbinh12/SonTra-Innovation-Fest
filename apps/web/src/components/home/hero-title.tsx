@@ -18,6 +18,15 @@ function prefersReducedMotion() {
   return window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 }
 
+function subscribeVisibility(onChange: () => void) {
+  document.addEventListener('visibilitychange', onChange);
+  return () => document.removeEventListener('visibilitychange', onChange);
+}
+
+function isDocumentVisible() {
+  return document.visibilityState === 'visible';
+}
+
 /**
  * The hero display line, typed out on load with a blinking caret.
  *
@@ -32,7 +41,10 @@ function prefersReducedMotion() {
  * heroes feel broken.
  */
 export function HeroTitle({ text, className }: { text: string; className?: string }) {
-  const [typed, setTyped] = useState(0);
+  // Ship the complete title in the initial HTML. Once the component hydrates in
+  // a visible tab, the effect resets it and starts the typewriter animation.
+  // This keeps previews and no-JS clients from seeing only an empty caret.
+  const [typed, setTyped] = useState(text.length);
 
   /**
    * Read as external state rather than set from inside the effect: the setting
@@ -42,18 +54,21 @@ export function HeroTitle({ text, className }: { text: string; className?: strin
    * way, because the accessible copy is always present.
    */
   const reduced = useSyncExternalStore(subscribeMotion, prefersReducedMotion, () => false);
+  const visible = useSyncExternalStore(subscribeVisibility, isDocumentVisible, () => true);
 
   useEffect(() => {
-    if (reduced) return;
+    if (reduced || !visible) return;
 
-    let index = 0;
     let interval: ReturnType<typeof setInterval>;
 
     const lead = setTimeout(() => {
+      setTyped(0);
       interval = setInterval(() => {
-        index += 1;
-        setTyped(index);
-        if (index >= text.length) clearInterval(interval);
+        setTyped((current) => {
+          const next = current + 1;
+          if (next >= text.length) clearInterval(interval);
+          return next;
+        });
       }, STEP_MS);
     }, LEAD_IN_MS);
 
@@ -61,11 +76,12 @@ export function HeroTitle({ text, className }: { text: string; className?: strin
       clearTimeout(lead);
       clearInterval(interval);
     };
-  }, [text, reduced]);
+  }, [text, reduced, visible]);
 
-  // Reduced motion gets the finished line immediately — a caret marching
-  // across the screen is exactly the kind of motion the setting turns off.
-  const shown = reduced ? text.length : typed;
+  // Reduced motion and background preview tabs get the finished line
+  // immediately. Browsers throttle timers in hidden tabs, otherwise leaving an
+  // empty title and only the caret visible in the in-app preview.
+  const shown = reduced || !visible ? text.length : typed;
   const done = shown >= text.length;
 
   return (

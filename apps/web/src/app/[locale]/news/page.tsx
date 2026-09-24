@@ -1,8 +1,9 @@
 import type { Metadata } from 'next';
 import { ArrowLeft, ArrowRight, Newspaper, RotateCcw } from 'lucide-react';
 import { getFormatter, getTranslations, setRequestLocale } from 'next-intl/server';
-import type { Article, Locale } from '@sif/shared';
-import { strapiFetch } from '@/lib/strapi';
+import type { Article, Locale, NewsPage as NewsPageContent } from '@sif/shared';
+import { strapiFetch, strapiFetchOptional } from '@/lib/strapi';
+import { seoMetadata } from '@/lib/metadata';
 import { Link, getPathname } from '@/i18n/navigation';
 import { Container } from '@/components/layout/container';
 import { NewsBackdrop } from '@/components/news/news-backdrop';
@@ -18,10 +19,27 @@ type Props = {
   }>;
 };
 
+function getNewsPage(locale: string) {
+  return strapiFetchOptional<NewsPageContent>('news-page', {
+    locale: locale as Locale,
+    query: { 'populate[seo][populate]': 'ogImage' },
+    tags: ['news-page'],
+  });
+}
+
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params;
-  const t = await getTranslations({ locale, namespace: 'news' });
-  return { title: t('title'), description: t('intro') };
+  const [t, content] = await Promise.all([
+    getTranslations({ locale, namespace: 'news' }),
+    getNewsPage(locale),
+  ]);
+
+  return seoMetadata(content?.seo, {
+    title: content?.title ?? t('title'),
+    description: content?.intro ?? t('intro'),
+    locale,
+    href: '/news',
+  });
 }
 
 export default async function NewsPage({ params, searchParams }: Props) {
@@ -38,7 +56,8 @@ export default async function NewsPage({ params, searchParams }: Props) {
   const t = await getTranslations('news');
   const format = await getFormatter();
 
-  const [response, categoriesResponse] = await Promise.all([
+  const [content, response, categoriesResponse] = await Promise.all([
+    getNewsPage(locale),
     strapiFetch<Article[]>('articles', {
       locale: locale as Locale,
       query: {
@@ -118,19 +137,25 @@ export default async function NewsPage({ params, searchParams }: Props) {
                 aria-hidden="true"
                 className="size-2 rounded-full bg-brand-mint animate-pulse"
               />
-              <span>{t('pulseLabel')}</span>
-              <span aria-hidden="true" className="text-white/30">
-                •
-              </span>
-              <span className="text-white/70 font-normal">{t('pulseDates')}</span>
+              <span>{content?.pulseLabel ?? t('pulseLabel')}</span>
+              {(content?.eventDate ?? t('pulseDates')) && (
+                <>
+                  <span aria-hidden="true" className="text-white/30">
+                    •
+                  </span>
+                  <span className="text-white/70 font-normal">
+                    {content?.eventDate ?? t('pulseDates')}
+                  </span>
+                </>
+              )}
             </div>
 
             <h1 className="gradient-text-aurora mt-4 max-w-3xl text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
-              {t('title')}
+              {content?.title ?? t('title')}
             </h1>
 
             <p className="mt-3 max-w-2xl text-sm leading-relaxed text-white/80 sm:text-base">
-              {t('intro')}
+              {content?.intro ?? t('intro')}
             </p>
           </div>
 

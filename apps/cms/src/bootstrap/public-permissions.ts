@@ -8,6 +8,7 @@ import type { Core } from '@strapi/strapi';
 const READABLE_SINGLE = [
   'site-setting',
   'home-page',
+  'news-page',
   'attend-page',
   'sponsors-page',
   'agenda-page',

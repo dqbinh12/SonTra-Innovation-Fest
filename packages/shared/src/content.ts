@@ -224,6 +224,14 @@ export interface SponsorsPage extends StrapiEntry {
   seo: Seo | null;
 }
 
+export interface NewsPage extends StrapiEntry {
+  title: string | null;
+  intro: string | null;
+  pulseLabel: string | null;
+  eventDate: string | null;
+  seo: Seo | null;
+}
+
 export interface AgendaPage extends StrapiEntry {
   title: string | null;
   intro: string | null;

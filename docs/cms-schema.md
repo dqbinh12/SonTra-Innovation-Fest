@@ -11,6 +11,7 @@ draft/publish enabled.
 | Site Settings | `/api/site-setting` | Logo, contact info, social links, footer text, countdown |
 | Home Page | `/api/home-page` | Hero, stats, about teaser |
 | Attend Page | `/api/attend-page` | Why-attend hero, audience, benefits, entry info |
+| News Page | `/api/news-page` | News hero title, intro, pulse label, event date, SEO |
 | Sponsors Page | `/api/sponsors-page` | Tier descriptions, application intro |
 | Agenda Page | `/api/agenda-page` | Intro copy and the downloadable agenda PDF |
 | Exhibition Page | `/api/exhibition-page` | Floor plan graphic and intro copy |

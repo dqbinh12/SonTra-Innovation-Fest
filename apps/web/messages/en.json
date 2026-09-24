@@ -284,10 +284,15 @@
   },
   "contact": {
     "title": "Contact Us",
+    "eyebrow": "Connect & Collaborate",
+    "intro": "We are always ready to hear your feedback, partnership proposals, and innovative ideas.",
     "formTitle": "Send us a message",
+    "formIntro": "Fill out the form below, our team will respond within 24 hours.",
     "infoTitle": "Contact details",
     "email": "Email",
     "phone": "Phone",
+    "location": "Location",
+    "locationValue": "Son Tra Peninsula & Dragon Bridge East Park, Da Nang City",
     "social": "Follow us"
   },
   "form": {

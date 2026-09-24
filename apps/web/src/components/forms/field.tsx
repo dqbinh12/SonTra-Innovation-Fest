@@ -21,16 +21,21 @@ export function Field({ name, label, error, required, type = 'text', rows }: Fie
   const errorId = `${name}-error`;
 
   const className = cn(
-    'border-input bg-background mt-2 w-full rounded-md border px-3 py-2 text-sm',
-    'focus-visible:ring-ring focus-visible:ring-2 focus-visible:outline-none',
-    error && 'border-destructive',
+    'border-input bg-background text-foreground mt-2.5 w-full rounded-xl border px-4 py-3.5 text-sm',
+    'placeholder:text-muted-foreground transition-all duration-200 hover:border-ring/40',
+    'focus:border-ring focus:shadow-[0_0_0_3px_color-mix(in_srgb,var(--ring)_10%,transparent)]',
+    'focus-visible:outline-none focus-visible:ring-0',
+    error && 'border-destructive focus:border-destructive',
   );
 
   return (
     <div>
-      <label htmlFor={name} className="block text-sm font-medium">
+      <label
+        htmlFor={name}
+        className="text-muted-foreground block text-xs font-semibold tracking-wider uppercase"
+      >
         {label}
-        {required && <span className="text-destructive ml-0.5">*</span>}
+        {required && <span className="text-primary ml-1">*</span>}
       </label>
 
       {rows ? (

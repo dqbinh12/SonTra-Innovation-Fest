@@ -284,10 +284,15 @@
   },
   "contact": {
     "title": "Liên hệ",
+    "eyebrow": "Kết nối & Hợp tác",
+    "intro": "Chúng tôi luôn sẵn sàng lắng nghe mọi câu hỏi, đề xuất hợp tác hoặc ý tưởng sáng tạo từ bạn.",
     "formTitle": "Gửi tin nhắn cho chúng tôi",
+    "formIntro": "Điền thông tin bên dưới, ban tổ chức sẽ phản hồi trong 24 giờ.",
     "infoTitle": "Thông tin liên hệ",
     "email": "Email",
     "phone": "Điện thoại",
+    "location": "Địa điểm",
+    "locationValue": "Bán đảo Sơn Trà & Công viên bờ Đông Cầu Rồng, TP. Đà Nẵng",
     "social": "Theo dõi chúng tôi"
   },
   "form": {

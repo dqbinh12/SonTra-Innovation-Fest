@@ -189,6 +189,23 @@ async function seed(strapi: Core.Strapi) {
 
   await seedSingle(
     strapi,
+    'api::news-page.news-page',
+    {
+      title: 'News',
+      intro: 'Ideas, people and updates shaping Son Tra Innovation Fest.',
+      pulseLabel: 'SIF 2026 Tech Dispatch',
+      eventDate: 'Da Nang • Oct 2–4, 2026',
+    },
+    {
+      title: 'Tin tức',
+      intro: 'Ý tưởng, con người và những cập nhật mới từ Son Tra Innovation Fest.',
+      pulseLabel: 'Nhịp đập công nghệ SIF 2026',
+      eventDate: 'Đà Nẵng • 02–04/10/2026',
+    },
+  );
+
+  await seedSingle(
+    strapi,
     'api::sponsors-page.sponsors-page',
     {
       title: 'Sponsors',
