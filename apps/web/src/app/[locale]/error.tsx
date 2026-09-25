@@ -13,7 +13,7 @@ export default function Error({
 
   return (
     <Container className="py-24 text-center">
-      <h1 className="text-3xl font-bold tracking-tight">{t('genericTitle')}</h1>
+      <h1 className="text-2xl font-bold tracking-tight">{t('genericTitle')}</h1>
       <p className="text-muted-foreground mt-4">{t('genericBody')}</p>
       <button
         type="button"

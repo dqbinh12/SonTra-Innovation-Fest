@@ -70,7 +70,7 @@ export default async function Sponsors({ params }: Props) {
               <p className="text-xs font-bold tracking-[0.18em] text-brand-cyan uppercase">
                 {t('networkEyebrow')}
               </p>
-              <h2 className="mt-3 text-2xl font-bold tracking-tight sm:text-3xl">
+              <h2 className="mt-3 text-lg font-bold tracking-tight sm:text-3xl">
                 {t('networkTitle')}
               </h2>
             </div>
@@ -101,7 +101,7 @@ export default async function Sponsors({ params }: Props) {
                         sizes="240px"
                       />
                     ) : (
-                      <span className="text-center text-lg font-bold text-brand-navy">
+                      <span className="text-center text-base font-bold text-brand-navy">
                         {sponsor.name}
                       </span>
                     )}
@@ -125,7 +125,7 @@ export default async function Sponsors({ params }: Props) {
             <p className="mt-6 text-xs font-bold tracking-[0.18em] text-brand-mint uppercase">
               {t('joinEyebrow')}
             </p>
-            <h2 className="mt-3 text-2xl font-bold tracking-tight sm:text-3xl">
+            <h2 className="mt-3 text-lg font-bold tracking-tight sm:text-3xl">
               {t('becomeTitle')}
             </h2>
             <p className="mt-4 max-w-md leading-7 text-muted-foreground">

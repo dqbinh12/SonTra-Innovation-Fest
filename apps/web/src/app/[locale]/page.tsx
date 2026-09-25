@@ -176,7 +176,7 @@ export default async function Home({ params }: Props) {
             </div>
 
             {/* Main Fluid Title with typing aurora glow */}
-            <h1 className="text-[clamp(2.15rem,5.6vw,5.25rem)] leading-[1.08] font-bold tracking-tight text-balance">
+            <h1 className="text-[clamp(1.5rem,5.6vw,5.25rem)] leading-[1.08] font-bold tracking-tight text-balance">
               <HeroTitle text={heroDisplayTitle} />
             </h1>
 
@@ -200,34 +200,34 @@ export default async function Home({ params }: Props) {
             {/* Quick Metrics Bar at hero base */}
             <div className="mt-12 grid w-full max-w-3xl grid-cols-2 gap-2.5 sm:mt-14 sm:grid-cols-4 sm:gap-3.5">
               <div className="glass rounded-xl border border-white/10 p-3 text-center backdrop-blur-md transition-transform hover:-translate-y-0.5 sm:rounded-2xl sm:p-3.5">
-                <span className="gradient-text-aurora block font-mono text-xl font-extrabold tracking-tight sm:text-2xl">
+                <span className="gradient-text-aurora block font-mono text-lg font-extrabold tracking-tight sm:text-2xl">
                   {t('statExhibitors')}
                 </span>
-                <span className="mt-0.5 block text-[11px] font-medium text-white/70 sm:text-xs">
+                <span className="mt-0.5 block text-xs font-medium text-white/70">
                   {t('statExhibitorsLabel')}
                 </span>
               </div>
               <div className="glass rounded-xl border border-white/10 p-3 text-center backdrop-blur-md transition-transform hover:-translate-y-0.5 sm:rounded-2xl sm:p-3.5">
-                <span className="gradient-text-aurora block font-mono text-xl font-extrabold tracking-tight sm:text-2xl">
+                <span className="gradient-text-aurora block font-mono text-lg font-extrabold tracking-tight sm:text-2xl">
                   {t('statKeynotes')}
                 </span>
-                <span className="mt-0.5 block text-[11px] font-medium text-white/70 sm:text-xs">
+                <span className="mt-0.5 block text-xs font-medium text-white/70">
                   {t('statKeynotesLabel')}
                 </span>
               </div>
               <div className="glass rounded-xl border border-white/10 p-3 text-center backdrop-blur-md transition-transform hover:-translate-y-0.5 sm:rounded-2xl sm:p-3.5">
-                <span className="gradient-text-aurora block font-mono text-xl font-extrabold tracking-tight sm:text-2xl">
+                <span className="gradient-text-aurora block font-mono text-lg font-extrabold tracking-tight sm:text-2xl">
                   {t('statAttendees')}
                 </span>
-                <span className="mt-0.5 block text-[11px] font-medium text-white/70 sm:text-xs">
+                <span className="mt-0.5 block text-xs font-medium text-white/70">
                   {t('statAttendeesLabel')}
                 </span>
               </div>
               <div className="glass rounded-xl border border-white/10 p-3 text-center backdrop-blur-md transition-transform hover:-translate-y-0.5 sm:rounded-2xl sm:p-3.5">
-                <span className="gradient-text-aurora block font-mono text-xl font-extrabold tracking-tight sm:text-2xl">
+                <span className="gradient-text-aurora block font-mono text-lg font-extrabold tracking-tight sm:text-2xl">
                   {t('statAccess')}
                 </span>
-                <span className="mt-0.5 block text-[11px] font-medium text-white/70 sm:text-xs">
+                <span className="mt-0.5 block text-xs font-medium text-white/70">
                   {t('statAccessLabel')}
                 </span>
               </div>
@@ -261,7 +261,7 @@ export default async function Home({ params }: Props) {
               <div className="border-border/60 flex items-center justify-between border-b px-5 py-4 sm:px-8 sm:py-5">
                 <div className="flex items-center gap-2">
                   <span className="size-2 rounded-full bg-brand-cyan animate-pulse" />
-                  <h2 className="text-lg font-bold tracking-tight text-white sm:text-xl">
+                  <h2 className="text-base font-bold tracking-tight text-white sm:text-xl">
                     {t('highlightsTitle')}
                   </h2>
                 </div>
@@ -278,10 +278,10 @@ export default async function Home({ params }: Props) {
                     {t('eventDaysLabel')}
                   </dt>
                   <dd className="mt-3 sm:mt-4">
-                    <strong className="block text-2xl font-bold tracking-tight text-white sm:text-3xl">
+                    <strong className="block text-xl font-bold tracking-tight text-white sm:text-3xl">
                       {t('eventDuration')}
                     </strong>
-                    <span className="mt-1 block text-base font-semibold text-brand-cyan sm:text-lg">
+                    <span className="mt-1 block text-sm font-semibold text-brand-cyan sm:text-lg">
                       {t('eventDateRange')}
                     </span>
                     {home?.venue && (
@@ -330,7 +330,7 @@ export default async function Home({ params }: Props) {
                               style={{ left: `${startPercent}%`, width: `${widthPercent}%` }}
                             />
                           </div>
-                          <div className="text-muted-foreground mt-1 flex justify-between font-mono text-[9px]">
+                          <div className="text-muted-foreground mt-1 flex justify-between font-mono text-xs">
                             <span>00h</span>
                             <span>06h</span>
                             <span>12h</span>
@@ -349,7 +349,7 @@ export default async function Home({ params }: Props) {
                     <Ticket aria-hidden="true" className="text-brand-cyan size-4" />
                     {t('admissionLabel')}
                   </dt>
-                  <dd className="gradient-text-aurora mt-3 text-2xl font-bold tracking-tight sm:mt-4 sm:text-3xl">
+                  <dd className="gradient-text-aurora mt-3 text-xl font-bold tracking-tight sm:mt-4 sm:text-3xl">
                     {admission}
                   </dd>
                   <p className="text-muted-foreground mt-2 text-xs leading-relaxed sm:text-sm">
@@ -377,7 +377,7 @@ export default async function Home({ params }: Props) {
                   <span>{home?.introBadge ?? t('introBadge')}</span>
                 </div>
               )}
-              <h2 className="text-2xl font-bold tracking-tight text-white text-balance sm:text-3xl lg:text-4xl">
+              <h2 className="text-lg font-bold tracking-tight text-white text-balance sm:text-3xl lg:text-4xl">
                 {home?.introTitle ?? t('introTitle')}
               </h2>
               {(home?.introBody ?? t('introBody')) && (
@@ -454,7 +454,7 @@ export default async function Home({ params }: Props) {
         <Container>
           <ScrollReveal>
             <div className="max-w-2xl">
-              <h2 className="text-2xl font-bold tracking-tight text-white text-balance sm:text-3xl lg:text-4xl">
+              <h2 className="text-lg font-bold tracking-tight text-white text-balance sm:text-3xl lg:text-4xl">
                 {home?.exploreTitle ?? t('exploreTitle')}
               </h2>
               <p className="text-muted-foreground mt-2 text-xs leading-relaxed sm:mt-3 sm:text-sm lg:text-base">
@@ -494,7 +494,7 @@ export default async function Home({ params }: Props) {
                             {index}
                           </span>
                         </div>
-                        <h3 className="mt-4 text-base font-bold text-white transition-colors group-hover:text-brand-cyan sm:mt-5 sm:text-lg">
+                        <h3 className="mt-4 text-sm font-bold text-white transition-colors group-hover:text-brand-cyan sm:mt-5 sm:text-lg">
                           {label}
                         </h3>
                         <p className="text-muted-foreground mt-1.5 text-xs leading-relaxed sm:text-sm">
@@ -525,7 +525,7 @@ export default async function Home({ params }: Props) {
             <ScrollReveal>
               <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
                 <div>
-                  <h2 className="text-2xl font-bold tracking-tight text-white text-balance sm:text-3xl lg:text-4xl">
+                  <h2 className="text-lg font-bold tracking-tight text-white text-balance sm:text-3xl lg:text-4xl">
                     {t('aboutTeaserTitle')}
                   </h2>
                   <p className="text-muted-foreground mt-4 text-xs leading-relaxed sm:mt-5 sm:text-sm lg:text-base">
@@ -573,13 +573,13 @@ export default async function Home({ params }: Props) {
                       )}
                       <li className="flex items-baseline justify-between gap-4 py-3 sm:py-3.5">
                         <span className="text-muted-foreground">{t('latestClosingLabel')}</span>
-                        <span className="gradient-text font-mono text-base font-bold sm:text-lg">
+                        <span className="gradient-text font-mono text-sm font-bold sm:text-lg">
                           22:00
                         </span>
                       </li>
                       <li className="flex items-baseline justify-between gap-4 py-3 sm:py-3.5">
                         <span className="text-muted-foreground">{t('admissionLabel')}</span>
-                        <span className="gradient-text text-base font-bold sm:text-lg">
+                        <span className="gradient-text text-sm font-bold sm:text-lg">
                           {admission}
                         </span>
                       </li>
@@ -601,7 +601,7 @@ export default async function Home({ params }: Props) {
           />
           <Container>
             <ScrollReveal className="text-center">
-              <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">
+              <h2 className="text-lg font-bold tracking-tight text-white sm:text-3xl">
                 {t('sponsorsTitle')}
               </h2>
             </ScrollReveal>
@@ -632,7 +632,7 @@ export default async function Home({ params }: Props) {
           <Container>
             <ScrollReveal>
               <div className="flex flex-wrap items-baseline justify-between gap-4">
-                <h2 className="text-2xl font-bold tracking-tight text-white sm:text-3xl">
+                <h2 className="text-lg font-bold tracking-tight text-white sm:text-3xl">
                   {t('latestNewsTitle')}
                 </h2>
                 <Link
@@ -668,7 +668,7 @@ export default async function Home({ params }: Props) {
                 className="bg-brand-cyan/20 animate-float-slow absolute -top-24 -right-16 -z-10 size-72 rounded-full blur-3xl"
               />
 
-              <h2 className="mx-auto max-w-2xl text-2xl font-bold tracking-tight text-balance sm:text-3xl lg:text-4xl">
+              <h2 className="mx-auto max-w-2xl text-lg font-bold tracking-tight text-balance sm:text-3xl lg:text-4xl">
                 {t('ctaTitle')}
               </h2>
               <p className="mx-auto mt-3 max-w-xl text-xs leading-relaxed text-white/85 sm:mt-4 sm:text-sm lg:text-base">

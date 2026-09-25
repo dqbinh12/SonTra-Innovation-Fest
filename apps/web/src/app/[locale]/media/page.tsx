@@ -135,7 +135,7 @@ export default async function Media({ params }: Props) {
           <ScrollReveal>
             <div className="glass flex flex-wrap items-center justify-between gap-6 rounded-2xl p-6 sm:p-8">
               <div className="max-w-xl">
-                <h2 className="text-xl font-bold tracking-tight">{t('contact.title')}</h2>
+                <h2 className="text-lg font-bold tracking-tight">{t('contact.title')}</h2>
                 <p className="text-muted-foreground mt-2">{t('contact.lead')}</p>
 
                 {(page?.pressContactName || email || phone) && (

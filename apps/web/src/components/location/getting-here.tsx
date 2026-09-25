@@ -50,9 +50,9 @@ export async function GettingHere({
     <section className="py-16 sm:py-20">
       <Container>
         <ScrollReveal className="group max-w-2xl">
-          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">{t('directions')}</h2>
+          <h2 className="text-lg font-bold tracking-tight sm:text-3xl">{t('directions')}</h2>
           <span aria-hidden="true" className="rule-accent mt-5" />
-          <p className="text-muted-foreground mt-6 text-lg">{t('directionsLead')}</p>
+          <p className="text-muted-foreground mt-6 text-base">{t('directionsLead')}</p>
         </ScrollReveal>
 
         {options.length > 0 && (
@@ -72,7 +72,7 @@ export async function GettingHere({
                         <Icon className="size-5" />
                       </span>
 
-                      <h3 className="mt-5 text-lg font-semibold">{option.title}</h3>
+                      <h3 className="mt-5 text-base font-semibold">{option.title}</h3>
 
                       {option.duration && (
                         <p className="text-brand-cyan mt-1 text-xs font-semibold tracking-widest uppercase">
@@ -110,7 +110,7 @@ export async function GettingHere({
             {directions && (
               <ScrollReveal>
                 <div className="glass h-full rounded-2xl p-7 sm:p-8">
-                  <h3 className="flex items-center gap-3 text-lg font-semibold">
+                  <h3 className="flex items-center gap-3 text-base font-semibold">
                     <Route aria-hidden="true" className="text-brand-cyan size-5" />
                     {t('directionsDetail')}
                   </h3>
@@ -124,7 +124,7 @@ export async function GettingHere({
             {parkingNotes && (
               <ScrollReveal delay={80}>
                 <div className="glass h-full rounded-2xl p-7 sm:p-8">
-                  <h3 className="flex items-center gap-3 text-lg font-semibold">
+                  <h3 className="flex items-center gap-3 text-base font-semibold">
                     <ParkingCircle aria-hidden="true" className="text-brand-cyan size-5" />
                     {t('parking')}
                   </h3>

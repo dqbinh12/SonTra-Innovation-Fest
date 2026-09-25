@@ -37,9 +37,9 @@ export async function EventPhotosPanel({
     <section className="py-16 sm:py-20">
       <Container>
         <ScrollReveal className="group max-w-2xl">
-          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">{t('title')}</h2>
+          <h2 className="text-lg font-bold tracking-tight sm:text-3xl">{t('title')}</h2>
           <span aria-hidden="true" className="rule-accent mt-5" />
-          <p className="text-muted-foreground mt-6 text-lg">{intro ?? t('lead')}</p>
+          <p className="text-muted-foreground mt-6 text-base">{intro ?? t('lead')}</p>
         </ScrollReveal>
 
         {!drive && withLinks.length === 0 ? (
@@ -67,7 +67,7 @@ export async function EventPhotosPanel({
                         <span className="text-xs font-bold tracking-widest text-brand-cyan uppercase">
                           Google Drive
                         </span>
-                        <h3 className="text-xl sm:text-2xl font-bold tracking-tight">
+                        <h3 className="text-lg sm:text-2xl font-bold tracking-tight">
                           {t('openDrive')}
                         </h3>
                       </div>
@@ -163,7 +163,7 @@ export async function EventPhotosPanel({
                                 : null}
                             </p>
 
-                            <h4 className="mt-2 text-lg font-semibold">{album.title}</h4>
+                            <h4 className="mt-2 text-base font-semibold">{album.title}</h4>
                             {album.description && (
                               <p className="text-muted-foreground mt-2 text-sm">
                                 {album.description}

@@ -43,7 +43,7 @@ export function MediaQrBanner({
                   {badgeText}
                 </span>
               )}
-              <h3 className="text-xl sm:text-2xl font-bold tracking-tight">{title}</h3>
+              <h3 className="text-lg sm:text-2xl font-bold tracking-tight">{title}</h3>
             </div>
           </div>
 

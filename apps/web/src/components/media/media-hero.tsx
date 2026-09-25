@@ -40,7 +40,7 @@ export function MediaHero({
           {eyebrow}
         </p>
 
-        <h1 className="gradient-text-aurora mt-2 max-w-3xl text-2xl font-bold tracking-tight text-balance sm:text-3xl lg:text-4xl">
+        <h1 className="gradient-text-aurora mt-2 max-w-3xl text-xl font-bold tracking-tight text-balance sm:text-3xl lg:text-4xl">
           {title}
         </h1>
 

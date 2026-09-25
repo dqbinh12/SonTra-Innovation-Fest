@@ -22,11 +22,11 @@ export function ImmersivePageHero({
         }
       >
         <div>
-          <p className="inline-flex items-center gap-2 text-[11px] font-bold tracking-[0.2em] text-brand-mint uppercase sm:text-xs">
+          <p className="inline-flex items-center gap-2 text-xs font-bold tracking-[0.2em] text-brand-mint uppercase">
             <span className="h-px w-5 sm:w-6 bg-brand-mint" />
             {eyebrow}
           </p>
-          <h1 className="gradient-text-aurora mt-1.5 sm:mt-2 max-w-4xl text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">
+          <h1 className="gradient-text-aurora mt-1.5 sm:mt-2 max-w-4xl text-xl font-bold tracking-tight sm:text-3xl lg:text-4xl">
             {title}
           </h1>
           {lead && (

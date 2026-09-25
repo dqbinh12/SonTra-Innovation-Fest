@@ -120,7 +120,7 @@ export default async function About({ params }: Props) {
                   <dl className="divide-y divide-border/40 text-sm">
                     {overviewItems.map((item, idx) => (
                       <div key={idx} className="py-3.5 first:pt-0 last:pb-0 flex flex-col gap-1">
-                        <dt className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+                        <dt className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">
                           {item.label}
                         </dt>
                         <dd className="font-semibold text-foreground text-[14px] leading-snug">
@@ -153,7 +153,7 @@ export default async function About({ params }: Props) {
         <section className="band-inset relative isolate overflow-hidden py-12 sm:py-16">
           <Container>
             <ScrollReveal className="group text-center">
-              <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
+              <h2 className="text-lg font-bold tracking-tight sm:text-3xl">
                 {t('organizerTitle')}
               </h2>
               <span aria-hidden="true" className="rule-accent mx-auto mt-4" />
@@ -178,7 +178,7 @@ export default async function About({ params }: Props) {
 
               <div className="grid items-center gap-7 md:grid-cols-[minmax(0,1fr)_auto] md:gap-10">
                 <div className="max-w-2xl">
-                  <h2 className="text-2xl font-bold tracking-tight text-balance text-foreground sm:text-3xl">
+                  <h2 className="text-lg font-bold tracking-tight text-balance text-foreground sm:text-3xl">
                     {t('ctaTitle')}
                   </h2>
                   <p className="mt-3 max-w-xl text-sm leading-relaxed text-foreground/70 sm:text-base">

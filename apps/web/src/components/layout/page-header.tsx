@@ -15,7 +15,7 @@ export function PageHeader({
     <div className="border-border border-b py-8 sm:py-12 lg:py-14">
       <Container className="flex flex-wrap items-start justify-between gap-6 sm:gap-8">
         <div className="min-w-[16rem] flex-1">
-          <h1 className="text-2xl font-bold tracking-tight text-white sm:text-3xl lg:text-4xl">
+          <h1 className="text-xl font-bold tracking-tight text-white sm:text-3xl lg:text-4xl">
             {title}
           </h1>
           {lead && (

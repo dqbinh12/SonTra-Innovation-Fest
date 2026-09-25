@@ -87,7 +87,7 @@ export default async function Exhibition({ params }: Props) {
               <p className="text-xs font-bold tracking-[0.18em] text-brand-mint uppercase">
                 {t('floorPlanEyebrow')}
               </p>
-              <h2 className="mt-1 text-2xl font-bold tracking-tight sm:text-3xl">
+              <h2 className="mt-1 text-lg font-bold tracking-tight sm:text-3xl">
                 {t('floorPlanTitle')}
               </h2>
             </div>
@@ -118,7 +118,7 @@ export default async function Exhibition({ params }: Props) {
               <p className="text-xs font-bold tracking-[0.18em] text-brand-cyan uppercase">
                 {t('showcaseEyebrow')}
               </p>
-              <h2 className="mt-1 text-2xl font-bold tracking-tight sm:text-3xl">
+              <h2 className="mt-1 text-lg font-bold tracking-tight sm:text-3xl">
                 {t('exhibitorsTitle')}
               </h2>
             </div>
@@ -134,7 +134,7 @@ export default async function Exhibition({ params }: Props) {
               <div className="mx-auto mb-4 flex size-12 items-center justify-center rounded-2xl border border-brand-cyan/30 bg-brand-blue/20">
                 <Layers className="size-6 text-brand-cyan" />
               </div>
-              <p className="text-base font-semibold text-white">{t('empty')}</p>
+              <p className="text-sm font-semibold text-white">{t('empty')}</p>
               <p className="mt-2 text-xs text-muted-foreground sm:text-sm">{t('emptyLead')}</p>
             </div>
           ) : (
@@ -168,7 +168,7 @@ export default async function Exhibition({ params }: Props) {
                       )}
                     </div>
 
-                    <h3 className="text-base font-bold tracking-tight text-white transition-colors group-hover:text-brand-cyan">
+                    <h3 className="text-sm font-bold tracking-tight text-white transition-colors group-hover:text-brand-cyan">
                       {exhibitor.companyName}
                     </h3>
 

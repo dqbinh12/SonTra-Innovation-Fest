@@ -145,13 +145,13 @@ export default async function ArticlePage({ params }: Props) {
             </div>
 
             {/* Headline */}
-            <h1 className="mt-4 text-2xl font-bold tracking-tight text-white sm:text-3xl lg:text-4xl leading-tight">
+            <h1 className="mt-4 text-xl font-bold tracking-tight text-white sm:text-3xl lg:text-4xl leading-tight">
               {article.title}
             </h1>
 
             {/* Excerpt Lead */}
             {article.excerpt && (
-              <p className="mt-5 text-base sm:text-lg leading-relaxed text-white/80">
+              <p className="mt-5 text-sm sm:text-lg leading-relaxed text-white/80">
                 {article.excerpt}
               </p>
             )}
@@ -179,7 +179,7 @@ export default async function ArticlePage({ params }: Props) {
             <RichText
               content={article.body}
               variant="story"
-              className="space-y-6 text-foreground/90 text-base sm:text-lg leading-relaxed"
+              className="space-y-6 text-foreground/90 text-sm sm:text-lg leading-relaxed"
             />
           </div>
 
@@ -204,7 +204,7 @@ export default async function ArticlePage({ params }: Props) {
         <section className="pt-12 sm:pt-16">
           <Container className="max-w-6xl">
             <div className="mb-6 flex items-center justify-between">
-              <h2 className="text-xl font-bold tracking-tight text-white sm:text-2xl">
+              <h2 className="text-lg font-bold tracking-tight text-white sm:text-2xl">
                 {t('relatedStories')}
               </h2>
               <span aria-hidden="true" className="rule-accent" />

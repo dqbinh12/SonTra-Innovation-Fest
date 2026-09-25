@@ -66,7 +66,7 @@ export function SiteFooter({
               className="h-16 w-auto max-w-[17rem] object-contain"
             />
           ) : (
-            <p className="text-lg font-bold tracking-tight">{siteName}</p>
+            <p className="text-base font-bold tracking-tight">{siteName}</p>
           )}
           <p className="text-muted-foreground mt-2 max-w-sm text-sm">
             {footerText ?? t('site.tagline')}

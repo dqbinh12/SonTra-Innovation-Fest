@@ -41,7 +41,7 @@ export function NewsCard({ article, formatDate, readMoreLabel, readingTimeLabel 
           )}
 
           {/* Category Pill floating top-left */}
-          <span className="glass-invert absolute top-3 left-3 z-10 rounded-md border border-brand-cyan/25 px-2.5 py-1 text-[10px] font-mono font-bold tracking-wider text-brand-cyan uppercase backdrop-blur-md">
+          <span className="glass-invert absolute top-3 left-3 z-10 rounded-md border border-brand-cyan/25 px-2.5 py-1 text-xs font-mono font-bold tracking-wider text-brand-cyan uppercase backdrop-blur-md">
             {article.category || 'SIF 2026'}
           </span>
 
@@ -54,7 +54,7 @@ export function NewsCard({ article, formatDate, readMoreLabel, readingTimeLabel 
 
         {/* Content Body */}
         <div className="flex flex-1 flex-col p-4 sm:p-5">
-          <div className="flex items-center gap-2 text-[11px] font-mono text-muted-foreground">
+          <div className="flex items-center gap-2 text-xs font-mono text-muted-foreground">
             <time dateTime={article.date}>{formatDate(article.date)}</time>
             <span aria-hidden="true" className="text-white/20">
               •
@@ -65,7 +65,7 @@ export function NewsCard({ article, formatDate, readMoreLabel, readingTimeLabel 
             </span>
           </div>
 
-          <h3 className="mt-2.5 text-base font-bold leading-snug tracking-tight text-white transition-colors group-hover:text-brand-cyan sm:text-lg">
+          <h3 className="mt-2.5 text-sm font-bold leading-snug tracking-tight text-white transition-colors group-hover:text-brand-cyan sm:text-lg">
             {article.title}
           </h3>
 

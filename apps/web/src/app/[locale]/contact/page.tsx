@@ -57,7 +57,7 @@ export default async function Contact({ params }: Props) {
               <Sparkles className="size-3" />
               <span>{t('eyebrow')}</span>
             </div>
-            <h1 className="mt-3 text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl font-display">
+            <h1 className="mt-3 text-xl font-bold tracking-tight sm:text-3xl lg:text-4xl font-display">
               <span className="gradient-text-aurora">{t('title')}</span>
             </h1>
             <p className="mt-2.5 text-xs sm:text-sm text-white/70 leading-relaxed max-w-xl">
@@ -74,7 +74,7 @@ export default async function Contact({ params }: Props) {
           <div className="relative rounded-2xl sm:rounded-3xl border border-white/15 bg-white/[0.04] p-4.5 sm:p-6 lg:p-7 backdrop-blur-2xl shadow-2xl shadow-black/40">
             <div className="flex items-center justify-between border-b border-white/10 pb-3 mb-4 sm:mb-5">
               <div>
-                <h2 className="text-base font-bold tracking-tight text-white sm:text-lg font-display">
+                <h2 className="text-sm font-bold tracking-tight text-white sm:text-lg font-display">
                   {t('formTitle')}
                 </h2>
                 <p className="text-xs text-white/60 mt-0.5">{t('formIntro')}</p>
@@ -103,7 +103,7 @@ export default async function Contact({ params }: Props) {
                       <Mail className="size-4" />
                     </div>
                     <div className="min-w-0 flex-1">
-                      <dt className="text-[11px] font-semibold text-white/50 tracking-wider uppercase">
+                      <dt className="text-xs font-semibold text-white/50 tracking-wider uppercase">
                         {t('email')}
                       </dt>
                       <dd className="mt-0.5">
@@ -124,7 +124,7 @@ export default async function Contact({ params }: Props) {
                       <Phone className="size-4" />
                     </div>
                     <div className="min-w-0 flex-1">
-                      <dt className="text-[11px] font-semibold text-white/50 tracking-wider uppercase">
+                      <dt className="text-xs font-semibold text-white/50 tracking-wider uppercase">
                         {t('phone')}
                       </dt>
                       <dd className="mt-0.5">
@@ -144,7 +144,7 @@ export default async function Contact({ params }: Props) {
                     <MapPin className="size-4" />
                   </div>
                   <div className="min-w-0 flex-1">
-                    <dt className="text-[11px] font-semibold text-white/50 tracking-wider uppercase">
+                    <dt className="text-xs font-semibold text-white/50 tracking-wider uppercase">
                       {t('location')}
                     </dt>
                     <dd className="mt-0.5 text-xs sm:text-sm font-medium text-white/90">

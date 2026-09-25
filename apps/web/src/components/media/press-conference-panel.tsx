@@ -58,13 +58,15 @@ export async function PressConferencePanel({
           <div className="mt-12 grid gap-12 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-16">
             {/* ── The briefing details ─────────────────────────────────── */}
             <ScrollReveal className="group order-2 lg:order-1">
-              <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
+              <h2 className="text-lg font-bold tracking-tight sm:text-3xl">
                 {conference.title ?? t('title')}
               </h2>
               <span aria-hidden="true" className="rule-accent mt-5" />
 
               {conference.summary && (
-                <p className="text-muted-foreground mt-6 max-w-2xl text-lg">{conference.summary}</p>
+                <p className="text-muted-foreground mt-6 max-w-2xl text-base">
+                  {conference.summary}
+                </p>
               )}
 
               {conference.schedule && conference.schedule.length > 0 && (

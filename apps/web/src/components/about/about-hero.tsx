@@ -21,13 +21,13 @@ export function AboutHero({
       <Container>
         <div className="flex flex-col sm:flex-row sm:items-baseline gap-2.5 sm:gap-3.5">
           {badge && (
-            <span className="glass-invert inline-flex w-fit items-center gap-2 rounded-full px-3 py-1 text-[11px] font-semibold tracking-wider text-brand-cyan uppercase shrink-0">
+            <span className="glass-invert inline-flex w-fit items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold tracking-wider text-brand-cyan uppercase shrink-0">
               <span aria-hidden="true" className="size-1.5 rounded-full bg-brand-mint" />
               {badge}
             </span>
           )}
 
-          <h1 className="text-2xl sm:text-3xl font-bold tracking-tight text-white flex flex-wrap items-baseline gap-2 sm:gap-3">
+          <h1 className="text-xl sm:text-3xl font-bold tracking-tight text-white flex flex-wrap items-baseline gap-2 sm:gap-3">
             <span>{title}</span>
             {tagline && (
               <span className="text-sm sm:text-base font-normal text-muted-foreground">

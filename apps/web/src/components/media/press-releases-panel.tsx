@@ -32,9 +32,9 @@ export async function PressReleasesPanel({
     <section className="py-16 sm:py-20">
       <Container>
         <ScrollReveal className="group max-w-2xl">
-          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">{t('title')}</h2>
+          <h2 className="text-lg font-bold tracking-tight sm:text-3xl">{t('title')}</h2>
           <span aria-hidden="true" className="rule-accent mt-5" />
-          <p className="text-muted-foreground mt-6 text-lg">{intro ?? t('lead')}</p>
+          <p className="text-muted-foreground mt-6 text-base">{intro ?? t('lead')}</p>
         </ScrollReveal>
 
         {releasesUrl && (
@@ -84,7 +84,7 @@ export async function PressReleasesPanel({
                             )}
                           </div>
 
-                          <h3 className="mt-2 text-lg font-semibold text-balance">
+                          <h3 className="mt-2 text-base font-semibold text-balance">
                             {release.title}
                           </h3>
                           {release.summary && (

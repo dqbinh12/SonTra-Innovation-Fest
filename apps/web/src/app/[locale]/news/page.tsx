@@ -150,7 +150,7 @@ export default async function NewsPage({ params, searchParams }: Props) {
               )}
             </div>
 
-            <h1 className="gradient-text-aurora mt-4 max-w-3xl text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">
+            <h1 className="gradient-text-aurora mt-4 max-w-3xl text-xl font-bold tracking-tight sm:text-3xl lg:text-4xl">
               {content?.title ?? t('title')}
             </h1>
 
@@ -183,7 +183,7 @@ export default async function NewsPage({ params, searchParams }: Props) {
               <div>
                 <h2
                   id="news-browse"
-                  className="text-xl font-bold tracking-tight sm:text-2xl text-white"
+                  className="text-lg font-bold tracking-tight sm:text-2xl text-white"
                 >
                   {q ? t('searchResults') : t('filterResults', { category: categoryParam })}
                 </h2>
@@ -219,7 +219,7 @@ export default async function NewsPage({ params, searchParams }: Props) {
                 />
               </div>
 
-              <h3 className="text-lg font-bold text-white mb-2">
+              <h3 className="text-base font-bold text-white mb-2">
                 {!response
                   ? t('unavailable')
                   : q || categoryParam

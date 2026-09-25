@@ -56,9 +56,9 @@ export async function MediaKitPanel({
     <section className="py-16 sm:py-20">
       <Container>
         <ScrollReveal className="group max-w-2xl">
-          <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">{t('title')}</h2>
+          <h2 className="text-lg font-bold tracking-tight sm:text-3xl">{t('title')}</h2>
           <span aria-hidden="true" className="rule-accent mt-5" />
-          <p className="text-muted-foreground mt-6 text-lg">{intro ?? t('lead')}</p>
+          <p className="text-muted-foreground mt-6 text-base">{intro ?? t('lead')}</p>
         </ScrollReveal>
 
         {mediaKitUrl && (
@@ -100,7 +100,7 @@ export async function MediaKitPanel({
                         <p className="text-muted-foreground mt-5 text-xs font-semibold tracking-widest uppercase">
                           {t(`categories.${item.category}`)}
                         </p>
-                        <h3 className="mt-2 text-lg font-semibold">{item.title}</h3>
+                        <h3 className="mt-2 text-base font-semibold">{item.title}</h3>
                         {item.description && (
                           <p className="text-muted-foreground mt-2 text-sm">{item.description}</p>
                         )}

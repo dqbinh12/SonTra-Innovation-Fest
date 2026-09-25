@@ -90,7 +90,7 @@ export default async function Attend({ params }: Props) {
             {t('heroBadge')}
           </p>
 
-          <h1 className="max-w-3xl text-2xl font-bold tracking-tight text-balance sm:text-3xl lg:text-4xl">
+          <h1 className="max-w-3xl text-xl font-bold tracking-tight text-balance sm:text-3xl lg:text-4xl">
             <span className="gradient-text-hero">{page?.heroTitle ?? t('title')}</span>
           </h1>
 
@@ -121,7 +121,7 @@ export default async function Attend({ params }: Props) {
         <SectionGlow />
         <Container>
           <ScrollReveal>
-            <h2 className="text-2xl font-bold tracking-tight text-balance sm:text-3xl">
+            <h2 className="text-lg font-bold tracking-tight text-balance sm:text-3xl">
               {t('audienceTitle')}
             </h2>
             <p className="text-muted-foreground mt-2 max-w-2xl text-xs sm:text-sm leading-relaxed">
@@ -193,7 +193,7 @@ export default async function Attend({ params }: Props) {
         <Container>
           <ScrollReveal>
             <div className="glass rounded-2xl p-5 sm:rounded-3xl sm:p-7">
-              <h2 className="text-2xl font-bold tracking-tight">{t('entryTitle')}</h2>
+              <h2 className="text-lg font-bold tracking-tight">{t('entryTitle')}</h2>
               <div className="mt-6 max-w-3xl">
                 {page?.entryInfo ? (
                   <RichText content={page.entryInfo} />
@@ -218,7 +218,7 @@ export default async function Attend({ params }: Props) {
                 className="bg-brand-cyan/20 animate-float-slow absolute -top-24 -left-16 -z-10 size-72 rounded-full blur-3xl"
               />
 
-              <h2 className="mx-auto max-w-2xl text-2xl font-bold tracking-tight text-balance sm:text-3xl">
+              <h2 className="mx-auto max-w-2xl text-lg font-bold tracking-tight text-balance sm:text-3xl">
                 {t('ctaTitle')}
               </h2>
               <p className="mx-auto mt-4 max-w-xl text-xs sm:text-sm text-white/85 leading-relaxed">

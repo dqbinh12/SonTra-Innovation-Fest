@@ -110,7 +110,7 @@ export function CountdownCard({
           'font-semibold uppercase',
           onHero
             ? cn('text-center tracking-[0.12em] text-white', compact ? 'text-xs' : 'text-sm')
-            : 'text-muted-foreground text-[0.65rem] tracking-[0.18em]',
+            : 'text-muted-foreground text-xs tracking-[0.18em]',
         )}
       >
         {label?.trim() || t('label')}
@@ -180,11 +180,8 @@ export function CountdownCard({
               className={cn(
                 'block tracking-wider uppercase',
                 onHero
-                  ? cn(
-                      'mt-1 font-semibold text-white/65',
-                      compact ? 'text-[0.55rem]' : 'text-[0.6rem]',
-                    )
-                  : 'text-muted-foreground mt-0.5 text-[0.6rem] font-medium',
+                  ? 'mt-1 text-xs font-semibold text-white/65'
+                  : 'text-muted-foreground mt-0.5 text-xs font-medium',
               )}
             >
               {t(key)}

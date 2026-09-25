@@ -143,7 +143,7 @@ export default async function Agenda({ params }: Props) {
               <div className="mx-auto mb-4 flex size-12 items-center justify-center rounded-2xl border border-brand-cyan/30 bg-brand-blue/20">
                 <Calendar className="size-6 text-brand-cyan" />
               </div>
-              <p className="text-base font-semibold text-white">{t('empty')}</p>
+              <p className="text-sm font-semibold text-white">{t('empty')}</p>
               <p className="mt-2 text-xs text-muted-foreground sm:text-sm">{t('emptyLead')}</p>
             </div>
           ) : (
@@ -156,7 +156,7 @@ export default async function Agenda({ params }: Props) {
                       <span className="flex size-8 items-center justify-center rounded-lg border border-brand-cyan/30 bg-brand-cyan/10 font-mono text-xs font-bold text-brand-cyan">
                         0{dayIdx + 1}
                       </span>
-                      <h2 className="text-lg font-bold tracking-tight text-white sm:text-xl">
+                      <h2 className="text-base font-bold tracking-tight text-white sm:text-xl">
                         {format.dateTime(new Date(day), { dateStyle: 'full' })}
                       </h2>
                     </div>
@@ -183,7 +183,7 @@ export default async function Agenda({ params }: Props) {
                               {String(section.order).padStart(2, '0')}
                             </span>
                             <div>
-                              <h3 className="text-base font-bold tracking-tight text-white sm:text-lg">
+                              <h3 className="text-sm font-bold tracking-tight text-white sm:text-lg">
                                 {section.title || t('title')}
                               </h3>
                               {section.location && (
@@ -256,14 +256,14 @@ export default async function Agenda({ params }: Props) {
                                           session.location !== section.location))) && (
                                       <div className="flex shrink-0 flex-wrap items-center gap-2 text-xs sm:justify-end pl-28 sm:pl-0">
                                         {session.speaker && (
-                                          <span className="inline-flex items-center gap-1 rounded-full border border-brand-mint/30 bg-brand-mint/10 px-2 py-0.5 text-[0.7rem] font-medium text-brand-mint">
+                                          <span className="inline-flex items-center gap-1 rounded-full border border-brand-mint/30 bg-brand-mint/10 px-2 py-0.5 text-xs font-medium text-brand-mint">
                                             <Mic className="size-2.5" />
                                             <span>{session.speaker}</span>
                                           </span>
                                         )}
 
                                         {session.track && (
-                                          <span className="inline-flex items-center gap-1 rounded-full border border-brand-violet/20 bg-brand-violet/10 px-2 py-0.5 text-[0.7rem] font-medium text-brand-violet">
+                                          <span className="inline-flex items-center gap-1 rounded-full border border-brand-violet/20 bg-brand-violet/10 px-2 py-0.5 text-xs font-medium text-brand-violet">
                                             <Tag className="size-2.5" />
                                             <span>{session.track}</span>
                                           </span>
@@ -272,7 +272,7 @@ export default async function Agenda({ params }: Props) {
                                         {session.location &&
                                           (!section.location ||
                                             session.location !== section.location) && (
-                                            <span className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-2 py-0.5 text-[0.7rem] font-medium text-muted-foreground">
+                                            <span className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-2 py-0.5 text-xs font-medium text-muted-foreground">
                                               <MapPin className="size-2.5 text-brand-cyan" />
                                               <span>{session.location}</span>
                                             </span>

@@ -62,7 +62,7 @@ export function AudienceCard({
         <Icon className="size-6" />
       </span>
 
-      <h3 className="group-hover:text-primary mt-5 text-lg font-semibold tracking-tight transition-colors">
+      <h3 className="group-hover:text-primary mt-5 text-base font-semibold tracking-tight transition-colors">
         {title}
       </h3>
       {description && (

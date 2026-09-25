@@ -7,7 +7,7 @@ export default function NotFound() {
 
   return (
     <Container className="py-24 text-center">
-      <h1 className="text-3xl font-bold tracking-tight">{t('notFoundTitle')}</h1>
+      <h1 className="text-2xl font-bold tracking-tight">{t('notFoundTitle')}</h1>
       <p className="text-muted-foreground mt-4">{t('notFoundBody')}</p>
       <Link
         href="/"

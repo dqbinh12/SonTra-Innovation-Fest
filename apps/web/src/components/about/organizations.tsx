@@ -84,7 +84,7 @@ function RoleLabel({
   return (
     <span
       className={cn(
-        'block text-center text-[0.65rem] tracking-[0.2em] uppercase sm:text-xs',
+        'block text-center text-xs tracking-[0.2em] uppercase',
         strong ? 'text-brand-cyan font-bold' : 'text-foreground font-medium',
         className,
       )}

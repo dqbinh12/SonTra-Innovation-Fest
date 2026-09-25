@@ -91,7 +91,7 @@ export async function LocationHero({
 
             {/* A step smaller than the About hero's: this headline shares a
                 screen with two map frames instead of owning one. */}
-            <h1 className="gradient-text-aurora mt-3 text-2xl font-bold tracking-tight text-balance sm:text-3xl lg:text-4xl">
+            <h1 className="gradient-text-aurora mt-3 text-xl font-bold tracking-tight text-balance sm:text-3xl lg:text-4xl">
               {title}
             </h1>
 
@@ -104,7 +104,7 @@ export async function LocationHero({
             <address className="flex gap-4 not-italic">
               <MapPin aria-hidden="true" className="text-brand-cyan mt-1 size-6 shrink-0" />
               <span>
-                {venueName && <span className="block text-xl font-semibold">{venueName}</span>}
+                {venueName && <span className="block text-lg font-semibold">{venueName}</span>}
                 <span className="mt-1 block max-w-xs whitespace-pre-line text-white">
                   {address}
                 </span>

@@ -14,7 +14,7 @@ export function Section({
   return (
     <section className={cn('py-12', className)}>
       <Container>
-        {title && <h2 className="text-2xl font-bold tracking-tight">{title}</h2>}
+        {title && <h2 className="text-lg font-bold tracking-tight">{title}</h2>}
         <div className={cn(title && 'mt-8')}>{children}</div>
       </Container>
     </section>
