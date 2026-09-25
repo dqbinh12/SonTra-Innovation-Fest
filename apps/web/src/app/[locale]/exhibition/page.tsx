@@ -43,7 +43,8 @@ export default async function Exhibition({ params }: Props) {
     strapiFetch<Exhibitor[]>('exhibitors', {
       locale: locale as Locale,
       query: {
-        'sort[0]': 'companyName:asc',
+        'sort[0]': 'order:asc',
+        'sort[1]': 'companyName:asc',
         'pagination[pageSize]': 200,
         'populate[logo]': 'true',
       },

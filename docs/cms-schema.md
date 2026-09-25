@@ -23,14 +23,14 @@ type, and granting one has it pruned and re-created on every boot.
 
 ## Collection types
 
-| Type                            | API path                    | Covers                                            |
-| ------------------------------- | --------------------------- | ------------------------------------------------- |
-| Agenda Session                  | `/api/sessions`             | Day, time, title, speaker, track, location        |
-| Exhibitor                       | `/api/exhibitors`           | Company, logo, booth #, category, description     |
-| Sponsor                         | `/api/sponsors`             | Name, logo, tier, link, order                     |
-| News Article                    | `/api/articles`             | Title, slug, cover, date, excerpt, body, category |
-| Contact Submission              | `/api/contact-submissions`  | Contact form entries                              |
-| Sponsor / Exhibitor Application | `/api/sponsor-applications` | Sponsor form entries                              |
+| Type                            | API path                    | Covers                                               |
+| ------------------------------- | --------------------------- | ---------------------------------------------------- |
+| Agenda Session                  | `/api/sessions`             | Day, time, title, speaker, track, location           |
+| Exhibitor                       | `/api/exhibitors`           | Company, logo, booth #, category, description, order |
+| Sponsor                         | `/api/sponsors`             | Name, logo, tier, link, order                        |
+| News Article                    | `/api/articles`             | Title, slug, cover, date, excerpt, body, category    |
+| Contact Submission              | `/api/contact-submissions`  | Contact form entries                                 |
+| Sponsor / Exhibitor Application | `/api/sponsor-applications` | Sponsor form entries                                 |
 
 ## Components
 

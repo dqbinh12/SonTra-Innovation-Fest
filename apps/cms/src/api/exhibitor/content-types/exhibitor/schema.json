@@ -28,9 +28,7 @@
     "logo": {
       "type": "media",
       "multiple": false,
-      "allowedTypes": [
-        "images"
-      ],
+      "allowedTypes": ["images"],
       "pluginOptions": {
         "i18n": {
           "localized": false
@@ -63,6 +61,15 @@
     },
     "website": {
       "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
+    },
+    "order": {
+      "type": "integer",
+      "default": 0,
       "pluginOptions": {
         "i18n": {
           "localized": false
