@@ -14,6 +14,8 @@ const nextConfig: NextConfig = {
   // host that isn't localhost, so lazy route chunks 404 and client navigation —
   // e.g. the language switcher — silently dies. Dev-only; ignored by `next build`.
   allowedDevOrigins: [
+    '127.0.0.1',
+    'localhost',
     '*.serveousercontent.com',
     '*.serveo.net',
     '*.ngrok-free.app',

@@ -334,6 +334,10 @@ export interface Session extends StrapiEntry {
   /** 24h time, e.g. "09:30:00.000". */
   startTime: string;
   endTime: string | null;
+  /** Section / area grouping title, e.g. "Khai mạc Lễ hội SIF 2026". */
+  sectionTitle?: string | null;
+  /** Display order for section grouping (e.g. 1, 2, 3). */
+  sectionOrder?: number | null;
   speaker: string | null;
   track: string | null;
   location: string | null;

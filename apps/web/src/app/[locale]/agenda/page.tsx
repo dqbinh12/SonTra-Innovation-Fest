@@ -13,6 +13,68 @@ import { EventCountdown } from '@/components/countdown/event-countdown';
 
 type Props = { params: Promise<{ locale: string }> };
 
+interface AgendaSectionGroup {
+  id: string;
+  order: number;
+  title: string | null;
+  location: string | null;
+  startTime: string;
+  endTime: string | null;
+  sessions: Session[];
+}
+
+function groupSessionsIntoSections(sessions: Session[]): AgendaSectionGroup[] {
+  const groups: AgendaSectionGroup[] = [];
+  let currentGroup: AgendaSectionGroup | null = null;
+  let sectionCounter = 0;
+
+  for (const session of sessions) {
+    const sTitle = session.sectionTitle?.trim() || null;
+
+    if (sTitle) {
+      if (currentGroup && currentGroup.title === sTitle) {
+        currentGroup.sessions.push(session);
+        if (session.endTime) {
+          currentGroup.endTime = session.endTime;
+        }
+      } else {
+        sectionCounter++;
+        currentGroup = {
+          id: `section-${session.documentId || sectionCounter}`,
+          order: session.sectionOrder ?? sectionCounter,
+          title: sTitle,
+          location: session.location ?? null,
+          startTime: session.startTime,
+          endTime: session.endTime,
+          sessions: [session],
+        };
+        groups.push(currentGroup);
+      }
+    } else {
+      if (currentGroup && currentGroup.title === null) {
+        currentGroup.sessions.push(session);
+        if (session.endTime) {
+          currentGroup.endTime = session.endTime;
+        }
+      } else {
+        sectionCounter++;
+        currentGroup = {
+          id: `session-group-${session.documentId || sectionCounter}`,
+          order: session.sectionOrder ?? sectionCounter,
+          title: null,
+          location: session.location ?? null,
+          startTime: session.startTime,
+          endTime: session.endTime,
+          sessions: [session],
+        };
+        groups.push(currentGroup);
+      }
+    }
+  }
+
+  return groups;
+}
+
 function getAgendaPage(locale: string) {
   return strapiFetchOptional<AgendaPage>('agenda-page', {
     locale: locale as Locale,
@@ -89,7 +151,7 @@ export default async function Agenda({ params }: Props) {
               {[...days].map(([day, daySessions], dayIdx) => (
                 <div key={day} className="relative">
                   {/* Day Header Banner */}
-                  <div className="mb-4 flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-3">
+                  <div className="mb-6 flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-3">
                     <div className="flex items-center gap-2.5">
                       <span className="flex size-8 items-center justify-center rounded-lg border border-brand-cyan/30 bg-brand-cyan/10 font-mono text-xs font-bold text-brand-cyan">
                         0{dayIdx + 1}
@@ -104,63 +166,128 @@ export default async function Agenda({ params }: Props) {
                     </span>
                   </div>
 
-                  {/* Sessions Timeline Cards */}
-                  <ul className="space-y-3">
-                    {daySessions.map((session) => (
-                      <li
-                        key={session.documentId}
-                        className="glass lift group rounded-2xl border border-white/10 p-4 sm:p-5 backdrop-blur-xl transition-all"
+                  {/* Sections List */}
+                  <div className="space-y-4 sm:space-y-5">
+                    {groupSessionsIntoSections(daySessions).map((section) => (
+                      <div
+                        key={section.id}
+                        className="glass relative overflow-hidden rounded-2xl border border-white/10 backdrop-blur-xl transition-all duration-300 hover:border-brand-cyan/30 hover:shadow-xl hover:shadow-brand-cyan/5"
                       >
-                        <div className="grid gap-3 sm:grid-cols-[10rem_minmax(0,1fr)] sm:gap-5">
-                          {/* Time Column */}
-                          <div className="flex items-start">
-                            <span className="inline-flex items-center gap-1.5 rounded-lg border border-brand-cyan/20 bg-brand-navy/60 px-2.5 py-1 font-mono text-xs font-semibold text-brand-cyan">
-                              <Clock className="size-3" />
-                              <span>{formatTime(session.startTime)}</span>
-                              {session.endTime && <span>– {formatTime(session.endTime)}</span>}
+                        {/* Accent gradient strip on left border */}
+                        <div className="absolute top-0 bottom-0 left-0 w-1 bg-gradient-to-b from-brand-cyan via-brand-blue to-transparent opacity-80" />
+
+                        {/* Section Header */}
+                        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 bg-gradient-to-r from-brand-blue/15 via-white/[0.02] to-transparent px-4 py-3 sm:px-6 sm:py-3.5">
+                          <div className="flex items-center gap-3">
+                            <span className="flex size-8 sm:size-9 items-center justify-center rounded-lg border border-brand-cyan/40 bg-brand-cyan/15 font-mono text-xs sm:text-sm font-extrabold text-brand-cyan shadow-[0_0_12px_rgba(78,226,255,0.2)]">
+                              {String(section.order).padStart(2, '0')}
                             </span>
-                          </div>
-
-                          {/* Session Info */}
-                          <div>
-                            <h3 className="text-base font-bold text-white transition-colors group-hover:text-brand-cyan">
-                              {session.title}
-                            </h3>
-
-                            {session.description && (
-                              <p className="mt-1 text-xs sm:text-sm leading-relaxed text-muted-foreground">
-                                {session.description}
-                              </p>
-                            )}
-
-                            {/* Session Meta Pills */}
-                            <div className="mt-3 flex flex-wrap items-center gap-2 text-xs">
-                              {session.speaker && (
-                                <span className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-2.5 py-0.5 font-medium text-white/85">
-                                  <Mic className="size-3 text-brand-mint" />
-                                  <span>{session.speaker}</span>
-                                </span>
-                              )}
-
-                              {session.track && (
-                                <span className="inline-flex items-center gap-1 rounded-full border border-brand-violet/20 bg-brand-violet/10 px-2.5 py-0.5 font-medium text-brand-violet">
-                                  <Tag className="size-3" />
-                                  <span>{session.track}</span>
-                                </span>
-                              )}
-
-                              {session.location && (
-                                <span className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-2.5 py-0.5 font-medium text-muted-foreground">
+                            <div>
+                              <h3 className="text-base font-bold tracking-tight text-white sm:text-lg">
+                                {section.title || t('title')}
+                              </h3>
+                              {section.location && (
+                                <p className="mt-0.5 flex items-center gap-1.5 text-xs text-muted-foreground">
                                   <MapPin className="size-3 text-brand-cyan" />
-                                  <span>{session.location}</span>
-                                </span>
+                                  <span>{section.location}</span>
+                                </p>
                               )}
                             </div>
                           </div>
+
+                          <div className="flex items-center gap-2">
+                            <span className="inline-flex items-center gap-1.5 rounded-full border border-brand-cyan/30 bg-brand-navy/80 px-3 py-0.5 font-mono text-xs font-semibold text-brand-cyan">
+                              <Clock className="size-3" />
+                              <span>{formatTime(section.startTime)}</span>
+                              {section.endTime && <span>– {formatTime(section.endTime)}</span>}
+                            </span>
+                          </div>
                         </div>
-                      </li>
+
+                        {/* Sub-items Nested Timeline */}
+                        <div className="px-3 py-2.5 sm:px-6 sm:py-3.5">
+                          <div className="relative">
+                            {/* Vertical timeline connector line */}
+                            <div className="absolute top-3 bottom-3 left-[7.5rem] sm:left-[8.5rem] hidden sm:block w-px bg-gradient-to-b from-brand-cyan/40 via-brand-blue/20 to-white/5" />
+
+                            <ul className="space-y-1.5 sm:space-y-2">
+                              {section.sessions.map((session) => (
+                                <li
+                                  key={session.documentId}
+                                  className="group relative rounded-xl px-2.5 py-2 transition-all duration-200 hover:bg-white/[0.04]"
+                                >
+                                  <div className="flex flex-col gap-1.5 sm:flex-row sm:items-center sm:justify-between">
+                                    <div className="flex items-start sm:items-center gap-2 sm:gap-3 min-w-0 flex-1">
+                                      {/* Time Column */}
+                                      <div className="shrink-0 w-28 sm:w-32">
+                                        <span className="inline-flex items-center gap-1 rounded-md border border-brand-cyan/20 bg-brand-navy/60 px-2 py-0.5 font-mono text-xs font-semibold text-brand-cyan sm:border-0 sm:bg-transparent sm:p-0 sm:text-white/80">
+                                          <Clock className="size-3 sm:hidden text-brand-cyan" />
+                                          <span>{formatTime(session.startTime)}</span>
+                                          {session.endTime && (
+                                            <span> – {formatTime(session.endTime)}</span>
+                                          )}
+                                        </span>
+                                      </div>
+
+                                      {/* Dot on Timeline */}
+                                      <div className="hidden sm:flex items-center justify-center shrink-0 w-4">
+                                        <div className="size-2 rounded-full border-2 border-brand-cyan bg-brand-navy shadow-[0_0_6px_rgba(78,226,255,0.7)] transition-transform duration-200 group-hover:scale-125 group-hover:border-brand-mint group-hover:bg-brand-mint" />
+                                      </div>
+
+                                      {/* Session Content */}
+                                      <div className="min-w-0 flex-1 pr-2">
+                                        <h4 className="text-sm font-semibold text-white transition-colors group-hover:text-brand-cyan leading-snug">
+                                          {session.title}
+                                        </h4>
+
+                                        {session.description && (
+                                          <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground line-clamp-2">
+                                            {session.description}
+                                          </p>
+                                        )}
+                                      </div>
+                                    </div>
+
+                                    {/* Metadata Badges (aligned to the right on desktop) */}
+                                    {(session.speaker ||
+                                      session.track ||
+                                      (session.location &&
+                                        (!section.location ||
+                                          session.location !== section.location))) && (
+                                      <div className="flex shrink-0 flex-wrap items-center gap-2 text-xs sm:justify-end pl-28 sm:pl-0">
+                                        {session.speaker && (
+                                          <span className="inline-flex items-center gap-1 rounded-full border border-brand-mint/30 bg-brand-mint/10 px-2 py-0.5 text-[0.7rem] font-medium text-brand-mint">
+                                            <Mic className="size-2.5" />
+                                            <span>{session.speaker}</span>
+                                          </span>
+                                        )}
+
+                                        {session.track && (
+                                          <span className="inline-flex items-center gap-1 rounded-full border border-brand-violet/20 bg-brand-violet/10 px-2 py-0.5 text-[0.7rem] font-medium text-brand-violet">
+                                            <Tag className="size-2.5" />
+                                            <span>{session.track}</span>
+                                          </span>
+                                        )}
+
+                                        {session.location &&
+                                          (!section.location ||
+                                            session.location !== section.location) && (
+                                            <span className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-2 py-0.5 text-[0.7rem] font-medium text-muted-foreground">
+                                              <MapPin className="size-2.5 text-brand-cyan" />
+                                              <span>{session.location}</span>
+                                            </span>
+                                          )}
+                                      </div>
+                                    )}
+                                  </div>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        </div>
+                      </div>
                     ))}
-                  </ul>
+                  </div>
                 </div>
               ))}
             </div>
