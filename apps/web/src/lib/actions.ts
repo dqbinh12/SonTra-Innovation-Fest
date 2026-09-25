@@ -52,11 +52,7 @@ function toFieldErrors(error: z.ZodError): FormState {
   return { status: 'error', fieldErrors };
 }
 
-async function submit(
-  path: string,
-  schema: z.ZodType,
-  formData: FormData,
-): Promise<FormState> {
+async function submit(path: string, schema: z.ZodType, formData: FormData): Promise<FormState> {
   if (isBot(formData)) return { status: 'success' };
 
   const parsed = schema.safeParse(Object.fromEntries(formData));

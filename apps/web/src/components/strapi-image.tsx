@@ -29,7 +29,9 @@ export function StrapiImage({
   const alt = media.alternativeText ?? '';
 
   if (fill) {
-    return <Image src={src} alt={alt} fill sizes={sizes} priority={priority} className={className} />;
+    return (
+      <Image src={src} alt={alt} fill sizes={sizes} priority={priority} className={className} />
+    );
   }
 
   return (

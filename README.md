@@ -4,20 +4,20 @@ Website and CMS for the Son Tra Innovation Fest (SIF), Da Nang — **2–4 Octob
 9:00–22:00 daily at 171–173 Trần Hưng Đạo.
 
 The full scope, sitemap, content structure and decision log live in
-`Son Tra Innovation Fest.xlsx`. That workbook is the source of truth for *what*
-gets built; this repo is *how*.
+`Son Tra Innovation Fest.xlsx`. That workbook is the source of truth for _what_
+gets built; this repo is _how_.
 
 ## Stack
 
-| Layer     | Choice                                     |
-| --------- | ------------------------------------------ |
-| Frontend  | Next.js 16 (App Router, RSC) + TypeScript  |
-| Styling   | Tailwind CSS v4 + shadcn/ui                |
-| i18n      | next-intl — EN (default) + VI              |
-| CMS       | Strapi 5 (TypeScript)                      |
-| Database  | SQLite in dev, PostgreSQL 17 in production |
-| Monorepo  | pnpm workspaces + Turborepo                |
-| Deploy    | Docker Compose on the client's own server  |
+| Layer    | Choice                                     |
+| -------- | ------------------------------------------ |
+| Frontend | Next.js 16 (App Router, RSC) + TypeScript  |
+| Styling  | Tailwind CSS v4 + shadcn/ui                |
+| i18n     | next-intl — EN (default) + VI              |
+| CMS      | Strapi 5 (TypeScript)                      |
+| Database | SQLite in dev, PostgreSQL 17 in production |
+| Monorepo | pnpm workspaces + Turborepo                |
+| Deploy   | Docker Compose on the client's own server  |
 
 Brand colour, type and event facts come from `SIF Brand Guidelines.pdf` — see
 [docs/brand.md](docs/brand.md), which also lists what still needs confirming.
@@ -85,9 +85,9 @@ pnpm --filter @sif/cms seed
 Publishing in Strapi refreshes the site automatically — the CMS registers its
 own revalidation webhook on boot. That needs two matching values:
 
-| Variable | Where |
-| -------- | ----- |
-| `SITE_URL` | `apps/cms/.env` — where the public site lives |
+| Variable            | Where                                                    |
+| ------------------- | -------------------------------------------------------- |
+| `SITE_URL`          | `apps/cms/.env` — where the public site lives            |
 | `REVALIDATE_SECRET` | `apps/cms/.env` **and** `apps/web/.env.local`, identical |
 
 If either is missing the CMS logs a warning at startup and content changes take
@@ -98,13 +98,13 @@ and set it as `STRAPI_API_TOKEN`.
 
 ## Commands
 
-| Command          | Does                                       |
-| ---------------- | ------------------------------------------ |
-| `pnpm dev`       | Run web + cms in watch mode                |
-| `pnpm build`     | Build both apps                            |
-| `pnpm typecheck` | TypeScript across the workspace            |
-| `pnpm lint`      | ESLint on the frontend                     |
-| `pnpm format`    | Prettier across the repo                   |
+| Command                       | Does                                 |
+| ----------------------------- | ------------------------------------ |
+| `pnpm dev`                    | Run web + cms in watch mode          |
+| `pnpm build`                  | Build both apps                      |
+| `pnpm typecheck`              | TypeScript across the workspace      |
+| `pnpm lint`                   | ESLint on the frontend               |
+| `pnpm format`                 | Prettier across the repo             |
 | `pnpm --filter @sif/cms seed` | Placeholder EN/VI content in the CMS |
 
 Add shadcn/ui components from `apps/web`:

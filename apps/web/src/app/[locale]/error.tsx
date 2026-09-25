@@ -3,7 +3,12 @@
 import { useTranslations } from 'next-intl';
 import { Container } from '@/components/layout/container';
 
-export default function Error({ reset }: { error: Error & { digest?: string }; reset: () => void }) {
+export default function Error({
+  reset,
+}: {
+  error: Error & { digest?: string };
+  reset: () => void;
+}) {
   const t = useTranslations('error');
 
   return (

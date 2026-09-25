@@ -52,7 +52,9 @@ export function SiteFooter({
     <footer
       className={cn(
         'border-t',
-        immersive ? 'dark border-white/10 bg-brand-navy text-foreground' : 'border-border bg-secondary/40 mt-24',
+        immersive
+          ? 'dark border-white/10 bg-brand-navy text-foreground'
+          : 'border-border bg-secondary/40 mt-24',
       )}
     >
       <Container className="grid gap-10 py-12 sm:grid-cols-2 lg:grid-cols-4">
@@ -96,7 +98,10 @@ export function SiteFooter({
             )}
             {contactPhone && (
               <li>
-                <a href={`tel:${contactPhone.replace(/\s/g, '')}`} className="hover:text-foreground">
+                <a
+                  href={`tel:${contactPhone.replace(/\s/g, '')}`}
+                  className="hover:text-foreground"
+                >
                   {contactPhone}
                 </a>
               </li>

@@ -101,10 +101,7 @@ export function HeroMedia({ desktop, mobile, scrim = 'edge' }: HeroMediaProps) {
 function objectPosition(hasDedicatedMobile: boolean, scrim: HeroScrim) {
   if (scrim === 'centre') return 'object-center';
 
-  return cn(
-    hasDedicatedMobile ? 'object-center' : 'object-left',
-    'sm:object-left xl:object-right',
-  );
+  return cn(hasDedicatedMobile ? 'object-center' : 'object-left', 'sm:object-left xl:object-right');
 }
 
 function HeroPicture({

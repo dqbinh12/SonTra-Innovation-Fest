@@ -110,13 +110,13 @@ Caddy in front for TLS and routing. See `infra/docker-compose.yml`.
 
 ## Still open — blocks work
 
-| # | Question | Blocks |
-| - | -------- | ------ |
-| 3 | Logo file and licensed webfonts | Colour is done; see [brand.md](brand.md). |
-| 6 | Server specs, OS, existing setup | Confirming Docker Compose is deployable there at all. |
-| 7 | Who configures DNS | Go-live. |
-| 8 | Email notifications on form submission | Whether the contact and sponsor forms need an SMTP provider. |
-| 11 | Go-live date | Everything. The event is 2–4 October — roughly a month out. |
+| #   | Question                               | Blocks                                                       |
+| --- | -------------------------------------- | ------------------------------------------------------------ |
+| 3   | Logo file and licensed webfonts        | Colour is done; see [brand.md](brand.md).                    |
+| 6   | Server specs, OS, existing setup       | Confirming Docker Compose is deployable there at all.        |
+| 7   | Who configures DNS                     | Go-live.                                                     |
+| 8   | Email notifications on form submission | Whether the contact and sponsor forms need an SMTP provider. |
+| 11  | Go-live date                           | Everything. The event is 2–4 October — roughly a month out.  |
 
 Question 6 is the sharpest: "hosting already covered by client" is in the
 budget note, but with no specs we cannot confirm the server can run three
@@ -141,7 +141,7 @@ Two details worth knowing before editing that file:
   `FormState` type and `initialFormState` constant live in
   `apps/web/src/lib/form-state.ts` for that reason — exporting the constant
   from the actions module is a runtime error, not a lint warning.
-- The actions return error *keys*, not sentences. A server action does not know
+- The actions return error _keys_, not sentences. A server action does not know
   the request locale, so the form components translate them through the
   `form.*` messages.
 

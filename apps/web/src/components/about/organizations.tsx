@@ -73,10 +73,7 @@ function OrganizationTile({
 
   const plate = (
     <span
-      className={cn(
-        'logo-plate lift flex items-center justify-center rounded-xl px-5 py-3',
-        tile,
-      )}
+      className={cn('logo-plate lift flex items-center justify-center rounded-xl px-5 py-3', tile)}
     >
       {organization.logo ? (
         <StrapiImage

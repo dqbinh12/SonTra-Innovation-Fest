@@ -38,9 +38,7 @@
     "coverImage": {
       "type": "media",
       "multiple": false,
-      "allowedTypes": [
-        "images"
-      ],
+      "allowedTypes": ["images"],
       "pluginOptions": {
         "i18n": {
           "localized": false

@@ -14,13 +14,7 @@ import { useEffect, useRef, useState } from 'react';
  */
 const COUNTABLE = /^(\d+)\s*([+%]|[kKmM])?$/;
 
-export function AnimatedCounter({
-  value,
-  className,
-}: {
-  value: string;
-  className?: string;
-}) {
+export function AnimatedCounter({ value, className }: { value: string; className?: string }) {
   const ref = useRef<HTMLSpanElement>(null);
   const [display, setDisplay] = useState(value);
   const hasAnimated = useRef(false);

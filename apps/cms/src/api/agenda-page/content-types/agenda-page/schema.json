@@ -35,9 +35,7 @@
     "agendaPdf": {
       "type": "media",
       "multiple": false,
-      "allowedTypes": [
-        "files"
-      ],
+      "allowedTypes": ["files"],
       "pluginOptions": {
         "i18n": {
           "localized": false

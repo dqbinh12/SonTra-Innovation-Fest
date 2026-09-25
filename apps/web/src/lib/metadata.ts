@@ -39,8 +39,7 @@ export async function seoMetadata(
   const description = seo?.metaDescription ?? fallback.description ?? undefined;
   const image = mediaUrl(seo?.ogImage);
   const url =
-    siteUrl +
-    getPathname({ href: fallback.href, locale: fallback.locale as 'en' | 'vi' });
+    siteUrl + getPathname({ href: fallback.href, locale: fallback.locale as 'en' | 'vi' });
 
   // Real dimensions from Strapi, not assumed ones: they save the crawler a
   // round trip to measure the file, and Zalo renders a large card rather than a

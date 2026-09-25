@@ -36,10 +36,7 @@
     "heroMedia": {
       "type": "media",
       "multiple": false,
-      "allowedTypes": [
-        "images",
-        "videos"
-      ],
+      "allowedTypes": ["images", "videos"],
       "pluginOptions": {
         "i18n": {
           "localized": false
@@ -49,10 +46,7 @@
     "heroMediaMobile": {
       "type": "media",
       "multiple": false,
-      "allowedTypes": [
-        "images",
-        "videos"
-      ],
+      "allowedTypes": ["images", "videos"],
       "pluginOptions": {
         "i18n": {
           "localized": false

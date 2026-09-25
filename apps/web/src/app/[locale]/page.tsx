@@ -131,8 +131,7 @@ export default async function Home({ params }: Props) {
           { date: t('defaultEventDay4'), startTime: '08:00:00', endTime: '17:00:00' },
         ];
   const admission = home?.admission || t('defaultAdmission');
-  const introVideoUrl =
-    home?.introYoutubeUrl ?? 'https://www.youtube.com/watch?v=EB2RaO8jnck';
+  const introVideoUrl = home?.introYoutubeUrl ?? 'https://www.youtube.com/watch?v=EB2RaO8jnck';
   const introVideoEmbedUrl = getYouTubeEmbedUrl(introVideoUrl);
 
   return (

@@ -28,9 +28,7 @@
     "logo": {
       "type": "media",
       "multiple": false,
-      "allowedTypes": [
-        "images"
-      ],
+      "allowedTypes": ["images"],
       "pluginOptions": {
         "i18n": {
           "localized": false
@@ -39,13 +37,7 @@
     },
     "tier": {
       "type": "enumeration",
-      "enum": [
-        "platinum",
-        "gold",
-        "silver",
-        "bronze",
-        "partner"
-      ],
+      "enum": ["platinum", "gold", "silver", "bronze", "partner"],
       "default": "partner",
       "required": true,
       "pluginOptions": {

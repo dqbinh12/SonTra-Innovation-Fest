@@ -94,9 +94,7 @@ export default async function Attend({ params }: Props) {
             <span className="gradient-text-hero">{page?.heroTitle ?? t('title')}</span>
           </h1>
 
-          {page?.heroBody && (
-            <p className="mt-6 max-w-xl text-lg text-white/85">{page.heroBody}</p>
-          )}
+          {page?.heroBody && <p className="mt-6 max-w-xl text-lg text-white/85">{page.heroBody}</p>}
 
           {/* Jump straight to your own card rather than reading all four. */}
           <ul className="mt-10 flex flex-wrap gap-3">

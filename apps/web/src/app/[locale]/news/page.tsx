@@ -111,8 +111,8 @@ export default async function NewsPage({ params, searchParams }: Props) {
     new Set(
       (categoriesResponse?.data ?? [])
         .map((item) => item.category?.trim())
-        .filter((cat): cat is string => Boolean(cat))
-    )
+        .filter((cat): cat is string => Boolean(cat)),
+    ),
   );
 
   const categories = [

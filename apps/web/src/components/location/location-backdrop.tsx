@@ -1,4 +1,12 @@
-import { MAJOR_PATH, MINOR_PATH, RIVER_PATH, SECONDARY_PATH, VENUE_POINT, VENUE_STREET_PATH, VENUE_VIEWBOX } from './venue-geography';
+import {
+  MAJOR_PATH,
+  MINOR_PATH,
+  RIVER_PATH,
+  SECONDARY_PATH,
+  VENUE_POINT,
+  VENUE_STREET_PATH,
+  VENUE_VIEWBOX,
+} from './venue-geography';
 
 /**
  * The Location hero's ground.

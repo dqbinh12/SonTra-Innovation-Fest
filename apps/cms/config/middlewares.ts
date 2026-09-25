@@ -9,10 +9,9 @@ const config: Core.Config.Middlewares = [
     config: {
       // The Next.js frontend calls the REST API from the server, but the admin
       // preview and browser-side media requests need the site origin allowed.
-      origin: [
-        process.env.SITE_URL ?? 'http://localhost:3000',
-        'http://localhost:3000',
-      ].filter(Boolean),
+      origin: [process.env.SITE_URL ?? 'http://localhost:3000', 'http://localhost:3000'].filter(
+        Boolean,
+      ),
     },
   },
   'strapi::poweredBy',

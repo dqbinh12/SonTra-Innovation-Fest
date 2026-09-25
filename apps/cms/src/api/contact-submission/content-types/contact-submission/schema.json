@@ -25,11 +25,7 @@
     },
     "status": {
       "type": "enumeration",
-      "enum": [
-        "new",
-        "in_progress",
-        "closed"
-      ],
+      "enum": ["new", "in_progress", "closed"],
       "default": "new"
     }
   }

@@ -8,9 +8,9 @@ Target: the client's own server, three containers behind a reverse proxy.
 
 ## Suggested domains
 
-| Host | Serves |
-| ---- | ------ |
-| `www.innovationfest.vn` | Next.js frontend (port 3000) |
+| Host                    | Serves                         |
+| ----------------------- | ------------------------------ |
+| `www.innovationfest.vn` | Next.js frontend (port 3000)   |
 | `cms.innovationfest.vn` | Strapi admin + API (port 1337) |
 
 Both containers bind to `127.0.0.1`, so only the reverse proxy can reach them.
@@ -110,6 +110,7 @@ the connection — see below.
   proxy_set_header Upgrade $http_upgrade;
   proxy_set_header Connection "upgrade";
   ```
+
 - The `NEXT_PUBLIC_*` variables are baked in at image build time, so changing
   the domain means rebuilding the `web` image, not just restarting it.
 - `NEXT_PUBLIC_STRAPI_URL` must be a URL a **browser** can reach, on a public
