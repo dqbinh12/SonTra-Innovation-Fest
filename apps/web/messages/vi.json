@@ -324,7 +324,11 @@
     "roles": {
       "organizer": "Đơn vị tổ chức",
       "co-organizer": "Đơn vị đồng tổ chức",
-      "coordinator": "Đơn vị điều phối"
+      "coordinator": "Đơn vị điều phối",
+      "media-sponsor": "Đơn vị bảo trợ truyền thông",
+      "venue-sponsor": "Đơn vị tài trợ địa điểm",
+      "silver-sponsor": "Đơn vị tài trợ bạc",
+      "partner": "Đơn vị đồng hành"
     }
   },
   "contact": {

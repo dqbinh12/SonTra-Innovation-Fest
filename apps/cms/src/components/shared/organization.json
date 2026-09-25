@@ -9,7 +9,15 @@
   "attributes": {
     "role": {
       "type": "enumeration",
-      "enum": ["organizer", "co-organizer", "coordinator"],
+      "enum": [
+        "organizer",
+        "co-organizer",
+        "coordinator",
+        "media-sponsor",
+        "venue-sponsor",
+        "silver-sponsor",
+        "partner"
+      ],
       "default": "co-organizer",
       "required": true,
       "description": "Drives which group the logo appears in on the About page."

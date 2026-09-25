@@ -89,7 +89,14 @@ export interface AttendAudienceSegment {
 }
 
 /** The role an organization plays in the festival, from the About page. */
-export type OrganizationRole = 'organizer' | 'co-organizer' | 'coordinator';
+export type OrganizationRole =
+  | 'organizer'
+  | 'co-organizer'
+  | 'coordinator'
+  | 'media-sponsor'
+  | 'venue-sponsor'
+  | 'silver-sponsor'
+  | 'partner';
 
 export interface Organization {
   role: OrganizationRole;

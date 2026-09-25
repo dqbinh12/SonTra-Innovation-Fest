@@ -324,7 +324,11 @@
     "roles": {
       "organizer": "Organizer",
       "co-organizer": "Co-organizer",
-      "coordinator": "Coordinating entity"
+      "coordinator": "Coordinating entity",
+      "media-sponsor": "Media sponsor",
+      "venue-sponsor": "Venue sponsor",
+      "silver-sponsor": "Silver sponsor",
+      "partner": "Partner"
     }
   },
   "contact": {

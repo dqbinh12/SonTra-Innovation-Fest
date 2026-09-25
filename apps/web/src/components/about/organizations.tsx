@@ -4,11 +4,21 @@ import { ScrollReveal } from '@/components/home/scroll-reveal';
 import { cn } from '@/lib/utils';
 
 /**
- * Tile size per role. The organizer is the headline logo, the co-organizers
- * flank it, and the coordinating entities close the block one step smaller —
- * the same hierarchy as the printed key visual, at a height that does not
- * push the rest of the page below the fold.
+ * Tile size per role. The organizer is the headline logo and the co-organizers
+ * flank it; everything below that is a peer tier, so the coordinating entities
+ * and the four supporting roles share one plate size — a descending scale
+ * would read as a shrinking hierarchy the client never asked for.
+ *
+ * The supporting plate stays narrow until `lg`, where four of them fit on one
+ * row at 176px; between 768 and 1023 the narrower plate is what keeps the row
+ * from wrapping.
  */
+const COORDINATOR_TILE = {
+  tile: 'h-16 w-36 lg:h-18 lg:w-44',
+  logo: 'max-h-8 sm:max-h-10',
+  sizes: '176px',
+};
+
 const ROLES: Record<OrganizationRole, { tile: string; logo: string; sizes: string }> = {
   organizer: {
     tile: 'h-22 w-48 sm:h-24 sm:w-56',
@@ -20,12 +30,25 @@ const ROLES: Record<OrganizationRole, { tile: string; logo: string; sizes: strin
     logo: 'max-h-9 sm:max-h-11',
     sizes: '192px',
   },
-  coordinator: {
-    tile: 'h-16 w-36 sm:h-18 sm:w-44',
-    logo: 'max-h-8 sm:max-h-10',
-    sizes: '176px',
-  },
+  coordinator: COORDINATOR_TILE,
+  'media-sponsor': COORDINATOR_TILE,
+  'venue-sponsor': COORDINATOR_TILE,
+  'silver-sponsor': COORDINATOR_TILE,
+  partner: COORDINATOR_TILE,
 };
+
+/**
+ * Ordering of the supporting roles below the organizing pair. Each one is
+ * rendered as its own labelled row, in the order the client lists them, so a
+ * role with a single organization still reads as a tier rather than a stray
+ * logo.
+ */
+const SUPPORT_ROLES: OrganizationRole[] = [
+  'media-sponsor',
+  'venue-sponsor',
+  'silver-sponsor',
+  'partner',
+];
 
 export const ORGANIZATION_ROLES = Object.keys(ROLES) as OrganizationRole[];
 
@@ -48,12 +71,22 @@ export function isOrganizationRole(value: unknown): value is OrganizationRole {
  *    foreground at 7.32:1, with the weight difference carrying the hierarchy
  *    instead of a contrast difference.
  */
-function RoleLabel({ children, strong = false }: { children: string; strong?: boolean }) {
+function RoleLabel({
+  children,
+  strong = false,
+  className,
+}: {
+  children: string;
+  strong?: boolean;
+  /** Extra layout classes — used to reserve two lines so labels pair with plates. */
+  className?: string;
+}) {
   return (
     <span
       className={cn(
         'block text-center text-[0.65rem] tracking-[0.2em] uppercase sm:text-xs',
         strong ? 'text-brand-cyan font-bold' : 'text-foreground font-medium',
+        className,
       )}
     >
       {children}
@@ -71,9 +104,17 @@ function OrganizationTile({
 }) {
   const { tile, logo, sizes } = ROLES[organization.role];
 
+  /**
+   * A plate with a logo keeps its fixed tile. A plate falling back to the
+   * organisation's name has to be free to grow: Vietnamese names run to three
+   * lines at this width, and a fixed height clips them.
+   */
   const plate = (
     <span
-      className={cn('logo-plate lift flex items-center justify-center rounded-xl px-5 py-3', tile)}
+      className={cn(
+        'logo-plate lift flex items-center justify-center rounded-xl px-5 py-3',
+        organization.logo ? tile : 'h-auto min-h-16 w-36 lg:min-h-18 lg:w-44',
+      )}
     >
       {organization.logo ? (
         <StrapiImage
@@ -84,7 +125,7 @@ function OrganizationTile({
       ) : (
         /* The plate is white in every theme, so the fallback name is navy in
            every theme — it cannot inherit the page foreground here. */
-        <span className="text-center text-sm font-semibold text-balance text-[#001f4b]">
+        <span className="text-center text-[0.8rem] leading-snug font-semibold text-balance text-[#001f4b] sm:text-sm">
           {organization.name}
         </span>
       )}
@@ -118,7 +159,8 @@ function OrganizationTile({
 
 /**
  * The organizations behind the festival: the organizer centred between its two
- * co-organizers, with the coordinating entities on the row below.
+ * co-organizers, then the coordinating entities and the four supporting roles
+ * as labelled rows below.
  *
  * The arrangement is composed rather than a plain grid, but nothing here
  * assumes the 1 / 2 / 2 split — an extra logo in the CMS simply wraps.
@@ -149,6 +191,17 @@ export function Organizations({
     ...coOrganizers.slice(1),
   ];
 
+  /**
+   * The four supporting tiers, in the client's listed order. They share one
+   * row — label on top, plate underneath — so read left to right they read as
+   * the four sponsorship tiers rather than four stacked sections.
+   *
+   * A single CSS grid is what keeps each label above its own plate: two
+   * stacked grids would lose the pairing the moment a label wrapped to a
+   * second line. On phones the four collapse to two columns.
+   */
+  const supportRoles = SUPPORT_ROLES.filter((role) => byRole(role).length > 0);
+
   return (
     <div>
       {/* No panel of its own any more: the band behind it is the grouping.
@@ -169,11 +222,11 @@ export function Organizations({
 
       {coordinators.length > 0 && (
         <div className="mt-10 sm:mt-12 lg:mt-14">
-          {/* One label for the pair — repeating it over each logo reads as two
+          {/* One label for the row — repeating it over each logo reads as
               separate roles rather than one group. */}
           <RoleLabel>{labels.coordinator}</RoleLabel>
 
-          <ul className="mt-3.5 sm:mt-4 flex flex-wrap items-end justify-center gap-x-6 gap-y-4 sm:gap-x-8 sm:gap-y-5 lg:gap-x-10">
+          <ul className="mt-3.5 flex flex-wrap items-end justify-center gap-x-6 gap-y-4 sm:mt-4 sm:gap-x-8 sm:gap-y-5 lg:gap-x-10">
             {coordinators.map((organization, i) => (
               <li key={`coordinator-${i}`}>
                 <ScrollReveal delay={i * 80}>
@@ -183,6 +236,31 @@ export function Organizations({
             ))}
           </ul>
         </div>
+      )}
+
+      {supportRoles.length > 0 && (
+        <ul className="mt-10 grid grid-cols-2 gap-x-6 gap-y-9 sm:mt-12 sm:gap-x-8 md:grid-cols-4 lg:mt-14 lg:gap-x-10">
+          {supportRoles.map((role) => {
+            const members = byRole(role);
+
+            return (
+              <li key={role} className="flex flex-col items-center">
+                {/* A fixed label height keeps every plate on one line across
+                    the row; `items-end` sits single-line labels on that
+                    baseline instead of floating them mid-height. */}
+                <RoleLabel className="flex h-9 items-end justify-center">{labels[role]}</RoleLabel>
+
+                <div className="mt-3.5 flex flex-wrap items-end justify-center gap-x-6 gap-y-4 sm:mt-4 sm:gap-x-8 sm:gap-y-5 lg:gap-x-10">
+                  {members.map((organization, i) => (
+                    <ScrollReveal key={`${role}-${i}`} delay={i * 80}>
+                      <OrganizationTile organization={organization} />
+                    </ScrollReveal>
+                  ))}
+                </div>
+              </li>
+            );
+          })}
+        </ul>
       )}
     </div>
   );
