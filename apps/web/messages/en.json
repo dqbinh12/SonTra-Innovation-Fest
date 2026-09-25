@@ -245,6 +245,9 @@
       "when": "When",
       "where": "Where",
       "register": "Request accreditation",
+      "openBriefing": "Open press briefing portal",
+      "scanQr": "Scan to open on mobile",
+      "note": "Scan the QR code or click the link to view the dossier and register online.",
       "scheduleTitle": "Run sheet",
       "accreditationTitle": "Accreditation",
       "empty": "Details of the press conference will be published closer to the event."
@@ -254,6 +257,9 @@
       "lead": "Official statements, ready to quote. Each release is available as a PDF.",
       "download": "Download PDF",
       "read": "Read the release",
+      "openReleases": "Open press releases archive",
+      "scanQr": "Scan to open on mobile",
+      "note": "All official press releases and announcements are hosted and updated online.",
       "empty": "No press releases have been published yet."
     },
     "mediaKit": {
@@ -261,6 +267,9 @@
       "lead": "Logos, brand guidelines, fact sheets and key visuals — the assets to use when you write about the festival.",
       "download": "Download",
       "open": "Open link",
+      "openKit": "Open media kit archive",
+      "scanQr": "Scan to open on mobile",
+      "note": "Download official brand identity packs, high-resolution logos, and fact sheets.",
       "usageTitle": "Usage guidelines",
       "empty": "The media kit will be available for download shortly.",
       "categories": {

@@ -245,6 +245,9 @@
       "when": "Thời gian",
       "where": "Địa điểm",
       "register": "Đăng ký tác nghiệp",
+      "openBriefing": "Mở cổng thông tin họp báo",
+      "scanQr": "Quét mã để mở trên điện thoại",
+      "note": "Quét mã hoặc nhấn liên kết để xem hồ sơ và đăng ký tham dự họp báo trực tuyến.",
       "scheduleTitle": "Kịch bản chương trình",
       "accreditationTitle": "Đăng ký tác nghiệp",
       "empty": "Thông tin họp báo sẽ được công bố gần ngày diễn ra sự kiện."
@@ -254,6 +257,9 @@
       "lead": "Các thông cáo chính thức, sẵn sàng để trích dẫn. Mỗi thông cáo đều có bản PDF.",
       "download": "Tải PDF",
       "read": "Đọc thông cáo",
+      "openReleases": "Mở kho thông cáo báo chí",
+      "scanQr": "Quét mã để mở trên điện thoại",
+      "note": "Toàn bộ thông cáo báo chí chính thức được lưu trữ và cập nhật trực tuyến.",
       "empty": "Chưa có thông cáo báo chí nào được công bố."
     },
     "mediaKit": {
@@ -261,6 +267,9 @@
       "lead": "Logo, cẩm nang thương hiệu, tài liệu thông tin và hình ảnh chủ đạo — những tư liệu dùng khi viết về sự kiện.",
       "download": "Tải về",
       "open": "Mở liên kết",
+      "openKit": "Mở kho tài liệu truyền thông",
+      "scanQr": "Quét mã để mở trên điện thoại",
+      "note": "Tải bộ nhận diện thương hiệu, logo chất lượng cao và tài liệu giới thiệu sự kiện.",
       "usageTitle": "Quy định sử dụng",
       "empty": "Bộ tài liệu truyền thông sẽ sớm được đăng tải.",
       "categories": {

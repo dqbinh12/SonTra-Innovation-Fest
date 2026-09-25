@@ -312,9 +312,12 @@ export interface MediaPage extends StrapiEntry {
   pressContactEmail: string | null;
   pressContactPhone: string | null;
   pressConference: PressConference | null;
+  pressConferenceUrl?: string | null;
   pressReleasesIntro: string | null;
+  pressReleasesUrl?: string | null;
   pressReleases: PressRelease[];
   mediaKitIntro: string | null;
+  mediaKitUrl?: string | null;
   mediaKitItems: MediaKitItem[];
   mediaKitUsage: RichText | null;
   photosIntro: string | null;

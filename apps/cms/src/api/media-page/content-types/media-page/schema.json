@@ -137,6 +137,33 @@
         }
       }
     },
+    "pressConferenceUrl": {
+      "type": "string",
+      "description": "Link to press conference registration/documents/folder.",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
+    },
+    "pressReleasesUrl": {
+      "type": "string",
+      "description": "Link to the press release folder or document drive.",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
+    },
+    "mediaKitUrl": {
+      "type": "string",
+      "description": "Link to the media kit folder or zip download.",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
+    },
     "photoAlbums": {
       "type": "component",
       "repeatable": true,

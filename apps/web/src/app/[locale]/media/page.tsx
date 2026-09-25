@@ -75,13 +75,22 @@ export default async function Media({ params }: Props) {
     {
       key: 'press-conference',
       label: t('tabs.pressConference'),
-      panel: <PressConferencePanel conference={page?.pressConference ?? null} />,
+      panel: (
+        <PressConferencePanel
+          conference={page?.pressConference ?? null}
+          url={page?.pressConferenceUrl ?? page?.pressConference?.registrationUrl ?? null}
+        />
+      ),
     },
     {
       key: 'press-releases',
       label: t('tabs.pressReleases'),
       panel: (
-        <PressReleasesPanel releases={page?.pressReleases ?? []} intro={page?.pressReleasesIntro} />
+        <PressReleasesPanel
+          releases={page?.pressReleases ?? []}
+          intro={page?.pressReleasesIntro}
+          url={page?.pressReleasesUrl ?? null}
+        />
       ),
     },
     {
@@ -92,6 +101,7 @@ export default async function Media({ params }: Props) {
           items={page?.mediaKitItems ?? []}
           intro={page?.mediaKitIntro}
           usage={page?.mediaKitUsage}
+          url={page?.mediaKitUrl ?? null}
         />
       ),
     },
