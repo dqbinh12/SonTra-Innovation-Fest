@@ -1,10 +1,11 @@
 import { getFormatter, getTranslations } from 'next-intl/server';
-import { ExternalLink, FolderOpen, Images } from 'lucide-react';
+import { ExternalLink, FolderOpen, Images, QrCode } from 'lucide-react';
 import type { PhotoAlbum } from '@sif/shared';
 import { Container } from '@/components/layout/container';
 import { EmptyState } from '@/components/layout/section';
 import { ScrollReveal } from '@/components/home/scroll-reveal';
 import { StrapiImage } from '@/components/strapi-image';
+import { QrCodeSvg } from '@/components/ui/qr-code';
 
 /**
  * Tab 4 — event photography.
@@ -52,30 +53,60 @@ export async function EventPhotosPanel({
                 {/* The whole-drive link is the answer for most visitors, so it
                     gets the weight of a band rather than sitting as one card
                     among the albums. */}
-                <div className="from-brand-blue to-brand-violet relative isolate flex flex-wrap items-center justify-between gap-6 overflow-hidden rounded-2xl bg-gradient-to-br px-8 py-10 text-white">
-                  <div className="flex items-center gap-5">
-                    <span
-                      aria-hidden="true"
-                      className="glass-invert hidden size-14 shrink-0 items-center justify-center rounded-2xl sm:inline-flex"
-                    >
-                      <Images className="size-7" />
-                    </span>
-                    <div>
-                      <p className="text-lg font-semibold">{t('openDrive')}</p>
-                      <p className="mt-1 max-w-md text-sm text-white">{t('driveNote')}</p>
+                <div className="from-brand-blue to-brand-violet relative isolate flex flex-col md:flex-row md:items-center justify-between gap-6 overflow-hidden rounded-3xl bg-gradient-to-br px-6 py-6 sm:px-8 sm:py-7 md:px-10 md:py-8 text-white shadow-xl">
+                  {/* Left content: Icon, Title, Description, Button */}
+                  <div className="flex flex-1 flex-col items-start justify-center max-w-xl">
+                    <div className="flex items-center gap-3.5">
+                      <span
+                        aria-hidden="true"
+                        className="glass-invert flex size-12 shrink-0 items-center justify-center rounded-2xl shadow-inner"
+                      >
+                        <Images className="size-6" />
+                      </span>
+                      <div>
+                        <span className="text-xs font-bold tracking-widest text-brand-cyan uppercase">
+                          Google Drive
+                        </span>
+                        <h3 className="text-xl sm:text-2xl font-bold tracking-tight">
+                          {t('openDrive')}
+                        </h3>
+                      </div>
+                    </div>
+
+                    <p className="mt-2.5 text-sm sm:text-base leading-relaxed text-white/85">
+                      {t('driveNote')}
+                    </p>
+
+                    <div className="mt-4 flex flex-wrap items-center gap-4">
+                      <a
+                        href={drive}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="btn-glow text-brand-blue inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-semibold shadow-lg hover:bg-white/95 transition-all hover:scale-[1.02] active:scale-[0.98]"
+                      >
+                        {t('openDrive')}
+                        <ExternalLink aria-hidden="true" className="size-4" />
+                      </a>
                     </div>
                   </div>
 
-                  {/* White-filled: a blue button on the blue-violet ground is invisible. */}
-                  <a
-                    href={drive}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-glow text-brand-blue inline-flex shrink-0 items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-semibold"
-                  >
-                    {t('openDrive')}
-                    <ExternalLink aria-hidden="true" className="size-4" />
-                  </a>
+                  {/* Right content: prominent dedicated QR code card */}
+                  <div className="flex shrink-0 flex-col items-center justify-center rounded-2xl border border-white/15 bg-white/10 p-3.5 sm:p-4 backdrop-blur-xl shadow-2xl self-center md:self-auto">
+                    <QrCodeSvg
+                      value={drive}
+                      size={196}
+                      className="rounded-xl shadow-md p-2 transition-transform duration-300 hover:scale-105"
+                    />
+                    <div className="mt-2 flex flex-col items-center text-center">
+                      <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-brand-cyan">
+                        <QrCode className="size-3.5" />
+                        QR Code
+                      </span>
+                      <p className="mt-0.5 text-xs font-medium text-white/85 max-w-[190px] leading-tight">
+                        {t('scanDriveQr')}
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </ScrollReveal>
             )}
@@ -139,10 +170,18 @@ export async function EventPhotosPanel({
                               </p>
                             )}
 
-                            <span className="text-primary mt-auto inline-flex items-center gap-2 pt-6 text-sm font-semibold">
-                              {t('openAlbum')}
-                              <ExternalLink aria-hidden="true" className="size-4" />
-                            </span>
+                            <div className="mt-auto flex items-center justify-between gap-4 pt-6">
+                              <span className="text-primary inline-flex items-center gap-2 text-sm font-semibold">
+                                {t('openAlbum')}
+                                <ExternalLink aria-hidden="true" className="size-4" />
+                              </span>
+                              <div
+                                title={t('scanQr')}
+                                className="shrink-0 rounded-lg bg-black/5 dark:bg-white/10 p-1.5 transition-transform duration-200 group-hover:scale-105"
+                              >
+                                <QrCodeSvg value={album.driveUrl} size={54} />
+                              </div>
+                            </div>
                           </div>
                         </a>
                       </ScrollReveal>

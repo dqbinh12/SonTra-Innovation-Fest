@@ -277,6 +277,8 @@
       "lead": "High-resolution photography from the festival, hosted on Google Drive and free to use editorially with credit.",
       "openDrive": "Open the photo drive",
       "openAlbum": "Open in Drive",
+      "scanQr": "Scan QR to open album",
+      "scanDriveQr": "Scan to open on mobile",
       "driveNote": "The folders open in Google Drive. Ask for access if a link does not open.",
       "albumsTitle": "Albums",
       "photoCount": "{count, plural, one {# photo} other {# photos}}",

@@ -277,6 +277,8 @@
       "lead": "Ảnh độ phân giải cao từ sự kiện, lưu trên Google Drive và được dùng miễn phí cho mục đích đưa tin khi ghi rõ nguồn.",
       "openDrive": "Mở kho ảnh trên Drive",
       "openAlbum": "Mở trên Drive",
+      "scanQr": "Quét mã QR để mở album",
+      "scanDriveQr": "Quét mã để mở trên điện thoại",
       "driveNote": "Các thư mục được mở bằng Google Drive. Nếu không mở được, vui lòng gửi yêu cầu truy cập.",
       "albumsTitle": "Các bộ ảnh",
       "photoCount": "{count, plural, other {# ảnh}}",
