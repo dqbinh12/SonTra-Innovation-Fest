@@ -219,8 +219,8 @@ export default async function Agenda({ params }: Props) {
                                   <div className="flex flex-col gap-1.5 sm:flex-row sm:items-center sm:justify-between">
                                     <div className="flex items-start sm:items-center gap-2 sm:gap-3 min-w-0 flex-1">
                                       {/* Time Column */}
-                                      <div className="shrink-0 w-28 sm:w-32">
-                                        <span className="inline-flex items-center gap-1 rounded-md border border-brand-cyan/20 bg-brand-navy/60 px-2 py-0.5 font-mono text-xs font-semibold text-brand-cyan sm:border-0 sm:bg-transparent sm:p-0 sm:text-white/80">
+                                      <div className="shrink-0 sm:w-32">
+                                        <span className="inline-flex items-center gap-1 rounded-md border border-brand-cyan/20 bg-brand-navy/60 px-2 py-0.5 font-mono text-xs font-semibold whitespace-nowrap text-brand-cyan sm:border-0 sm:bg-transparent sm:p-0 sm:text-white/80">
                                           <Clock className="size-3 sm:hidden text-brand-cyan" />
                                           <span>{formatTime(session.startTime)}</span>
                                           {session.endTime && (

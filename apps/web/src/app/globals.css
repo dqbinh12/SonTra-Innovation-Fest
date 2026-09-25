@@ -364,6 +364,32 @@
 }
 
 /*
+ * Countdown panel on the agenda page.
+ *
+ * Same constraint as `.gradient-text-hero` — it sits on the navy page ground —
+ * but it needs a cooler sweep than the hero's so the clock still reads as data
+ * rather than as a headline. Cyan through mint, skipping the brand blue the
+ * general `.gradient-text` passes through: that stop measured ~4.2:1 against
+ * the translucent panel, and 2.1:1 against bare navy, which is what made the
+ * digits sink into the background.
+ *
+ * Keep every stop inside this cyan-mint band. A new stop has to be measured
+ * against the panel ground, not against white.
+ */
+.gradient-text-panel {
+  color: var(--color-brand-cyan);
+  background: linear-gradient(
+    135deg,
+    var(--color-brand-cyan) 0%,
+    var(--color-brand-mint) 60%,
+    var(--color-brand-cyan) 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/*
  * The full-bleed hero headline — the light end of the accent palette in one
  * moving sweep.
  *

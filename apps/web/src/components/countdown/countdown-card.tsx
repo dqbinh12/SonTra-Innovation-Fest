@@ -171,7 +171,7 @@ export function CountdownCard({
                 'block min-w-[2ch] font-bold tabular-nums',
                 onHero
                   ? cn('gradient-text-hero animate-tick-in', compact ? 'text-xl' : 'text-3xl')
-                  : 'gradient-text text-2xl',
+                  : 'gradient-text-panel text-2xl',
               )}
             >
               {pad ? String(value).padStart(2, '0') : value}
