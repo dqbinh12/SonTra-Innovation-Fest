@@ -74,7 +74,7 @@ export async function LocationHero({
   const frameHeight = 'h-[clamp(14rem,32vh,22rem)]';
 
   return (
-    <header className="relative overflow-hidden pt-24 pb-16 sm:pt-32 sm:pb-20 lg:pt-36">
+    <header className="relative overflow-hidden pt-20 pb-6 sm:pt-26 sm:pb-10 lg:pt-28 lg:pb-12">
       <LocationBackdrop />
 
       <Container className="relative">
@@ -91,13 +91,13 @@ export async function LocationHero({
 
             {/* A step smaller than the About hero's: this headline shares a
                 screen with two map frames instead of owning one. */}
-            <h1 className="gradient-text-aurora mt-6 text-4xl font-bold tracking-tight text-balance sm:text-5xl">
+            <h1 className="gradient-text-aurora mt-3 text-2xl font-bold tracking-tight text-balance sm:text-3xl lg:text-4xl">
               {title}
             </h1>
 
             {/* Solid white, not white/85: 16px regular is body text by WCAG's
                 reckoning and needs 4.5:1, which softened white misses here. */}
-            {lead && <p className="mt-5 text-base text-white">{lead}</p>}
+            {lead && <p className="mt-2.5 text-xs sm:text-sm text-white/85">{lead}</p>}
           </div>
 
           <div>

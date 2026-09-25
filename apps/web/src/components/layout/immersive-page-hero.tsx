@@ -13,20 +13,20 @@ export function ImmersivePageHero({
   aside?: ReactNode;
 }) {
   return (
-    <header className="relative overflow-hidden border-b border-white/10 pt-20 pb-4 sm:pt-24 sm:pb-5 lg:pt-24 lg:pb-6">
+    <header className="relative overflow-hidden border-b border-white/10 pt-20 pb-4 sm:pt-24 sm:pb-5 lg:pb-6">
       <Container
         className={
           aside
-            ? 'relative grid items-center gap-6 lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-8'
+            ? 'relative grid items-center gap-5 sm:gap-6 lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-8'
             : 'relative max-w-4xl'
         }
       >
         <div>
-          <p className="inline-flex items-center gap-2 text-xs font-bold tracking-[0.2em] text-brand-mint uppercase">
-            <span className="h-px w-6 bg-brand-mint" />
+          <p className="inline-flex items-center gap-2 text-[11px] font-bold tracking-[0.2em] text-brand-mint uppercase sm:text-xs">
+            <span className="h-px w-5 sm:w-6 bg-brand-mint" />
             {eyebrow}
           </p>
-          <h1 className="gradient-text-aurora mt-2 max-w-4xl text-3xl font-bold tracking-tight sm:text-4xl lg:text-5xl">
+          <h1 className="gradient-text-aurora mt-1.5 sm:mt-2 max-w-4xl text-2xl font-bold tracking-tight sm:text-3xl lg:text-4xl">
             {title}
           </h1>
           {lead && (

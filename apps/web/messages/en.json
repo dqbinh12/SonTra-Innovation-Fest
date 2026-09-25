@@ -25,7 +25,7 @@
     "switchTo": "Switch to {language}"
   },
   "home": {
-    "title": "Home",
+    "title": "Connecting Technology – Shaping the Future of Son Tra",
     "heroCta": "Plan your visit",
     "heroCtaSecondary": "See the agenda",
     "highlightsTitle": "The festival at a glance",
@@ -62,7 +62,15 @@
     "ctaTitle": "Free to attend. No ticket required.",
     "ctaBody": "Plan your days, pick your sessions and bring a friend.",
     "ctaPrimary": "Plan your visit",
-    "ctaSecondary": "Get in touch"
+    "ctaSecondary": "Get in touch",
+    "statExhibitors": "30+",
+    "statExhibitorsLabel": "Booths & Tech Demos",
+    "statKeynotes": "15+",
+    "statKeynotesLabel": "Panels & Keynotes",
+    "statAttendees": "5,000+",
+    "statAttendeesLabel": "Attendees & Guests",
+    "statAccess": "100%",
+    "statAccessLabel": "Free Public Access"
   },
   "countdown": {
     "label": "Counting down to the festival",

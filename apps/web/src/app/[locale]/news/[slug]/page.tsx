@@ -145,7 +145,7 @@ export default async function ArticlePage({ params }: Props) {
             </div>
 
             {/* Headline */}
-            <h1 className="mt-4 text-3xl font-bold tracking-tight text-white sm:text-4xl lg:text-5xl leading-[1.15]">
+            <h1 className="mt-4 text-2xl font-bold tracking-tight text-white sm:text-3xl lg:text-4xl leading-tight">
               {article.title}
             </h1>
 

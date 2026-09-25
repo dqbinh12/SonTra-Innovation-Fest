@@ -116,7 +116,7 @@ export default async function Sponsors({ params }: Props) {
         </Container>
       </section>
 
-      <section className="band-inset relative py-10 sm:py-12">
+      <section className="band-inset relative py-8 sm:py-10">
         <Container className="grid gap-8 lg:grid-cols-[2fr_3fr] lg:gap-10">
           <div className="lg:pt-6">
             <div className="flex size-12 items-center justify-center rounded-2xl border border-brand-mint/30 bg-brand-mint/10">
@@ -125,12 +125,14 @@ export default async function Sponsors({ params }: Props) {
             <p className="mt-6 text-xs font-bold tracking-[0.18em] text-brand-mint uppercase">
               {t('joinEyebrow')}
             </p>
-            <h2 className="mt-3 text-3xl font-bold tracking-tight">{t('becomeTitle')}</h2>
+            <h2 className="mt-3 text-2xl font-bold tracking-tight sm:text-3xl">
+              {t('becomeTitle')}
+            </h2>
             <p className="mt-4 max-w-md leading-7 text-muted-foreground">
               {page?.applicationIntro ?? t('becomeIntro')}
             </p>
           </div>
-          <div className="glass rounded-3xl border border-white/10 p-6 sm:p-8">
+          <div className="glass rounded-2xl border border-white/10 p-4.5 sm:rounded-3xl sm:p-6 lg:p-7">
             <SponsorForm />
           </div>
         </Container>

@@ -76,7 +76,7 @@ export default async function Attend({ params }: Props) {
   return (
     <>
       {/* ─── Hero ──────────────────────────────────────────────────────── */}
-      <section className="bg-brand-navy relative isolate overflow-hidden py-20 text-white sm:py-28">
+      <section className="bg-brand-navy relative isolate overflow-hidden pt-24 pb-10 text-white sm:pt-28 sm:pb-14">
         {/* CMS artwork or video — sits at -z-10 with its own navy scrim. */}
         {(page?.heroMedia || page?.heroMediaMobile) && (
           <HeroMedia desktop={page.heroMedia} mobile={page.heroMediaMobile} />
@@ -90,14 +90,18 @@ export default async function Attend({ params }: Props) {
             {t('heroBadge')}
           </p>
 
-          <h1 className="max-w-3xl text-4xl font-bold tracking-tight text-balance sm:text-5xl lg:text-6xl">
+          <h1 className="max-w-3xl text-2xl font-bold tracking-tight text-balance sm:text-3xl lg:text-4xl">
             <span className="gradient-text-hero">{page?.heroTitle ?? t('title')}</span>
           </h1>
 
-          {page?.heroBody && <p className="mt-6 max-w-xl text-lg text-white/85">{page.heroBody}</p>}
+          {page?.heroBody && (
+            <p className="mt-3 max-w-xl text-xs sm:text-sm text-white/80 leading-relaxed">
+              {page.heroBody}
+            </p>
+          )}
 
           {/* Jump straight to your own card rather than reading all four. */}
-          <ul className="mt-10 flex flex-wrap gap-3">
+          <ul className="mt-6 flex flex-wrap gap-2">
             {segments.map((segment) => (
               <li key={segment.key}>
                 <a
@@ -113,17 +117,19 @@ export default async function Attend({ params }: Props) {
       </section>
 
       {/* ─── Audience segments ─────────────────────────────────────────── */}
-      <section className="relative scroll-mt-24 py-24" id="audience">
+      <section className="relative scroll-mt-24 py-10 sm:py-14" id="audience">
         <SectionGlow />
         <Container>
           <ScrollReveal>
-            <h2 className="text-3xl font-bold tracking-tight text-balance lg:text-4xl">
+            <h2 className="text-2xl font-bold tracking-tight text-balance sm:text-3xl">
               {t('audienceTitle')}
             </h2>
-            <p className="text-muted-foreground mt-4 max-w-2xl text-lg">{t('audienceLead')}</p>
+            <p className="text-muted-foreground mt-2 max-w-2xl text-xs sm:text-sm leading-relaxed">
+              {t('audienceLead')}
+            </p>
           </ScrollReveal>
 
-          <ul className="mt-12 grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
+          <ul className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
             {segments.map((segment, i) => (
               <li key={segment.key} id={`audience-${segment.key}`} className="scroll-mt-24">
                 <ScrollReveal delay={i * 90} className="h-full">
@@ -154,7 +160,7 @@ export default async function Attend({ params }: Props) {
 
       {/* ─── Benefits ──────────────────────────────────────────────────── */}
       {page?.benefits && page.benefits.length > 0 && (
-        <Section title={t('benefitsTitle')} className="py-12 sm:py-16">
+        <Section title={t('benefitsTitle')} className="py-8 sm:py-12">
           <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {page.benefits.map((benefit, i) => (
               <li key={benefit.title}>
@@ -183,10 +189,10 @@ export default async function Attend({ params }: Props) {
       )}
 
       {/* ─── Entry info ────────────────────────────────────────────────── */}
-      <section className="relative py-16">
+      <section className="relative py-8 sm:py-12">
         <Container>
           <ScrollReveal>
-            <div className="glass rounded-3xl p-8 sm:p-10">
+            <div className="glass rounded-2xl p-5 sm:rounded-3xl sm:p-7">
               <h2 className="text-2xl font-bold tracking-tight">{t('entryTitle')}</h2>
               <div className="mt-6 max-w-3xl">
                 {page?.entryInfo ? (
@@ -201,10 +207,10 @@ export default async function Attend({ params }: Props) {
       </section>
 
       {/* ─── Closing CTA ───────────────────────────────────────────────── */}
-      <section className="pb-24">
+      <section className="pb-12 sm:pb-16">
         <Container>
           <ScrollReveal>
-            <div className="bg-brand-navy relative isolate overflow-hidden rounded-3xl px-6 py-14 text-center text-white sm:px-12">
+            <div className="bg-brand-navy relative isolate overflow-hidden rounded-2xl px-5 py-10 text-center text-white sm:rounded-3xl sm:px-10 sm:py-12">
               <div aria-hidden="true" className="bg-aurora absolute inset-0 -z-10 opacity-90" />
               <div aria-hidden="true" className="bg-tech-grid absolute inset-0 -z-10" />
               <div
@@ -212,10 +218,12 @@ export default async function Attend({ params }: Props) {
                 className="bg-brand-cyan/20 animate-float-slow absolute -top-24 -left-16 -z-10 size-72 rounded-full blur-3xl"
               />
 
-              <h2 className="mx-auto max-w-2xl text-3xl font-bold tracking-tight text-balance">
+              <h2 className="mx-auto max-w-2xl text-2xl font-bold tracking-tight text-balance sm:text-3xl">
                 {t('ctaTitle')}
               </h2>
-              <p className="mx-auto mt-4 max-w-xl text-lg text-white/85">{t('ctaBody')}</p>
+              <p className="mx-auto mt-4 max-w-xl text-xs sm:text-sm text-white/85 leading-relaxed">
+                {t('ctaBody')}
+              </p>
 
               <div className="mt-9 flex flex-wrap justify-center gap-4">
                 <Link
