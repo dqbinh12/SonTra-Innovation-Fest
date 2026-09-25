@@ -347,7 +347,7 @@ export interface Exhibitor extends StrapiEntry {
   category: string | null;
   description: string | null;
   website: string | null;
-  order: number;
+  order?: number | null;
 }
 
 export const sponsorTiers = ['platinum', 'gold', 'silver', 'bronze', 'partner'] as const;

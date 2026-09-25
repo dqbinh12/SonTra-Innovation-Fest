@@ -54,6 +54,23 @@ export default async function Exhibition({ params }: Props) {
       .catch(() => [] as Exhibitor[]),
   ]);
 
+  const sortedExhibitors = [...exhibitors].sort((a, b) => {
+    const aHasOrder = typeof a.order === 'number';
+    const bHasOrder = typeof b.order === 'number';
+
+    if (aHasOrder && bHasOrder) {
+      if (a.order !== b.order) {
+        return (a.order as number) - (b.order as number);
+      }
+    } else if (aHasOrder) {
+      return -1;
+    } else if (bHasOrder) {
+      return 1;
+    }
+
+    return (a.companyName ?? '').localeCompare(b.companyName ?? '', locale);
+  });
+
   return (
     <div className="page-deep dark relative flex-1 overflow-hidden text-foreground">
       <FestivalBackdrop variant="exhibition" />
@@ -105,14 +122,14 @@ export default async function Exhibition({ params }: Props) {
                 {t('exhibitorsTitle')}
               </h2>
             </div>
-            {exhibitors.length > 0 && (
+            {sortedExhibitors.length > 0 && (
               <span className="hidden rounded-full border border-white/10 bg-white/5 px-2.5 py-0.5 font-mono text-xs text-white/70 sm:block">
-                {t('exhibitorCount', { count: exhibitors.length })}
+                {t('exhibitorCount', { count: sortedExhibitors.length })}
               </span>
             )}
           </div>
 
-          {exhibitors.length === 0 ? (
+          {sortedExhibitors.length === 0 ? (
             <div className="glass rounded-3xl border border-white/10 p-12 text-center">
               <div className="mx-auto mb-4 flex size-12 items-center justify-center rounded-2xl border border-brand-cyan/30 bg-brand-blue/20">
                 <Layers className="size-6 text-brand-cyan" />
@@ -122,7 +139,7 @@ export default async function Exhibition({ params }: Props) {
             </div>
           ) : (
             <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {exhibitors.map((exhibitor) => (
+              {sortedExhibitors.map((exhibitor) => (
                 <li
                   key={exhibitor.documentId}
                   className="glass lift group relative flex flex-col justify-between rounded-2xl border border-white/10 p-5 backdrop-blur-xl"
