@@ -108,7 +108,7 @@ export default async function Home({ params }: Props) {
       label: tNav('exhibition'),
       body: home?.exploreExhibition ?? t('exploreExhibition'),
       index: '02',
-      accentColor: 'text-brand-mint',
+      accentColor: 'text-brand-teal',
       accentBorder: 'group-hover:border-brand-mint/50',
       accentBg: 'bg-brand-mint/15',
     },
@@ -261,11 +261,11 @@ export default async function Home({ params }: Props) {
               <div className="border-border/60 flex items-center justify-between border-b px-5 py-4 sm:px-8 sm:py-5">
                 <div className="flex items-center gap-2">
                   <span className="size-2 rounded-full bg-brand-cyan animate-pulse" />
-                  <h2 className="text-base font-bold tracking-tight text-white sm:text-xl">
+                  <h2 className="text-base font-bold tracking-tight text-foreground sm:text-xl">
                     {t('highlightsTitle')}
                   </h2>
                 </div>
-                <span className="rounded-full border border-white/10 bg-white/5 px-2.5 py-0.5 font-mono text-xs text-white/70">
+                <span className="rounded-full bg-white/5 px-2.5 py-0.5 font-mono text-xs text-muted-foreground">
                   SIF 2026
                 </span>
               </div>
@@ -274,21 +274,21 @@ export default async function Home({ params }: Props) {
                 {/* Date & Location */}
                 <div className="border-border/60 p-5 sm:p-7 lg:border-r">
                   <dt className="text-muted-foreground flex items-center gap-2 text-xs font-semibold tracking-[0.16em] uppercase">
-                    <CalendarDays aria-hidden="true" className="text-brand-cyan size-4" />
+                    <CalendarDays aria-hidden="true" className="text-brand-blue size-4" />
                     {t('eventDaysLabel')}
                   </dt>
                   <dd className="mt-3 sm:mt-4">
-                    <strong className="block text-xl font-bold tracking-tight text-white sm:text-3xl">
+                    <strong className="block text-xl font-bold tracking-tight text-foreground sm:text-3xl">
                       {t('eventDuration')}
                     </strong>
-                    <span className="mt-1 block text-sm font-semibold text-brand-cyan sm:text-lg">
+                    <span className="mt-1 block text-sm font-semibold text-brand-blue sm:text-lg">
                       {t('eventDateRange')}
                     </span>
                     {home?.venue && (
                       <span className="text-muted-foreground border-border/60 mt-4 flex items-start gap-2 border-t pt-4 text-xs leading-relaxed sm:text-sm">
                         <MapPin
                           aria-hidden="true"
-                          className="text-brand-cyan mt-0.5 size-4 shrink-0"
+                          className="text-brand-blue mt-0.5 size-4 shrink-0"
                         />
                         {home.venue}
                       </span>
@@ -299,7 +299,7 @@ export default async function Home({ params }: Props) {
                 {/* Timeline */}
                 <div className="border-border/60 border-t p-5 sm:p-7 lg:border-t-0 lg:border-r">
                   <dt className="text-muted-foreground flex items-center gap-2 text-xs font-semibold tracking-[0.16em] uppercase">
-                    <Clock3 aria-hidden="true" className="text-brand-cyan size-4" />
+                    <Clock3 aria-hidden="true" className="text-brand-blue size-4" />
                     {t('openingHoursLabel')}
                   </dt>
                   <dd className="mt-3 space-y-4 sm:mt-4 sm:space-y-5">
@@ -315,9 +315,9 @@ export default async function Home({ params }: Props) {
                       return (
                         <div key={`${day.date}-${start}`}>
                           <div className="flex items-center justify-between gap-4 text-xs sm:text-sm">
-                            <span className="font-medium text-white">{day.date}</span>
+                            <span className="font-medium text-foreground">{day.date}</span>
                             <time
-                              className="font-mono font-semibold text-brand-mint"
+                              className="font-mono font-semibold text-brand-blue"
                               dateTime={`${start}/${end}`}
                             >
                               {start} – {end}
@@ -346,10 +346,10 @@ export default async function Home({ params }: Props) {
                 {/* Admission */}
                 <div className="border-border/60 border-t p-5 sm:p-7 lg:border-t-0">
                   <dt className="text-muted-foreground flex items-center gap-2 text-xs font-semibold tracking-[0.16em] uppercase">
-                    <Ticket aria-hidden="true" className="text-brand-cyan size-4" />
+                    <Ticket aria-hidden="true" className="text-brand-blue size-4" />
                     {t('admissionLabel')}
                   </dt>
-                  <dd className="gradient-text-aurora mt-3 text-xl font-bold tracking-tight sm:mt-4 sm:text-3xl">
+                  <dd className="text-brand-blue mt-3 text-xl font-bold tracking-tight sm:mt-4 sm:text-3xl">
                     {admission}
                   </dd>
                   <p className="text-muted-foreground mt-2 text-xs leading-relaxed sm:text-sm">
@@ -372,12 +372,12 @@ export default async function Home({ params }: Props) {
           <div className="grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
             <ScrollReveal className="lg:col-span-5">
               {(home?.introBadge ?? t('introBadge')) && (
-                <div className="inline-flex items-center gap-2 rounded-full border border-brand-cyan/30 bg-brand-cyan/10 px-3 py-1 text-xs font-semibold tracking-wider text-brand-cyan uppercase backdrop-blur-md mb-3">
+                <div className="inline-flex items-center gap-2 rounded-full border border-brand-cyan/30 bg-brand-cyan/10 px-3 py-1 text-xs font-semibold tracking-wider text-brand-blue uppercase backdrop-blur-md mb-3">
                   <Sparkles className="size-3" />
                   <span>{home?.introBadge ?? t('introBadge')}</span>
                 </div>
               )}
-              <h2 className="text-lg font-bold tracking-tight text-white text-balance sm:text-3xl lg:text-4xl">
+              <h2 className="text-lg font-bold tracking-tight text-foreground text-balance sm:text-3xl lg:text-4xl">
                 {home?.introTitle ?? t('introTitle')}
               </h2>
               {(home?.introBody ?? t('introBody')) && (
@@ -388,31 +388,31 @@ export default async function Home({ params }: Props) {
 
               {/* 3 Tech Pillars */}
               <div className="mt-6 grid gap-2.5 sm:mt-8">
-                <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.02] p-2.5 sm:p-3">
-                  <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-brand-cyan/10 text-brand-cyan">
+                <div className="flex items-center gap-3 rounded-xl bg-white/[0.02] p-2.5 sm:p-3">
+                  <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-brand-cyan/10 text-brand-blue">
                     <Cpu className="size-4" />
                   </div>
-                  <span className="text-xs font-medium text-white/90 sm:text-sm">
+                  <span className="text-xs font-medium text-foreground/90 sm:text-sm">
                     {locale === 'vi'
                       ? 'Trình diễn công nghệ AI, Robotics & Smart City'
                       : 'AI, Robotics & Smart City demonstrations'}
                   </span>
                 </div>
-                <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.02] p-2.5 sm:p-3">
-                  <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-brand-mint/10 text-brand-mint">
+                <div className="flex items-center gap-3 rounded-xl bg-white/[0.02] p-2.5 sm:p-3">
+                  <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-brand-teal/10 text-brand-teal">
                     <Layers className="size-4" />
                   </div>
-                  <span className="text-xs font-medium text-white/90 sm:text-sm">
+                  <span className="text-xs font-medium text-foreground/90 sm:text-sm">
                     {locale === 'vi'
                       ? 'Khu trải nghiệm công nghệ đa giác quan & VR/AR'
                       : 'Multisensory immersive tech & VR/AR zones'}
                   </span>
                 </div>
-                <div className="flex items-center gap-3 rounded-xl border border-white/10 bg-white/[0.02] p-2.5 sm:p-3">
+                <div className="flex items-center gap-3 rounded-xl bg-white/[0.02] p-2.5 sm:p-3">
                   <div className="flex size-8 shrink-0 items-center justify-center rounded-lg bg-brand-violet/10 text-brand-violet">
                     <Users className="size-4" />
                   </div>
-                  <span className="text-xs font-medium text-white/90 sm:text-sm">
+                  <span className="text-xs font-medium text-foreground/90 sm:text-sm">
                     {locale === 'vi'
                       ? 'Kết nối đầu tư & vườn ươm khởi nghiệp đổi mới'
                       : 'Startup investment matchmaking & networking'}
@@ -454,7 +454,7 @@ export default async function Home({ params }: Props) {
         <Container>
           <ScrollReveal>
             <div className="max-w-2xl">
-              <h2 className="text-lg font-bold tracking-tight text-white text-balance sm:text-3xl lg:text-4xl">
+              <h2 className="text-lg font-bold tracking-tight text-foreground text-balance sm:text-3xl lg:text-4xl">
                 {home?.exploreTitle ?? t('exploreTitle')}
               </h2>
               <p className="text-muted-foreground mt-2 text-xs leading-relaxed sm:mt-3 sm:text-sm lg:text-base">
@@ -474,7 +474,7 @@ export default async function Home({ params }: Props) {
                     <Link
                       href={href}
                       className={cn(
-                        'group glass lift relative flex h-full flex-col justify-between overflow-hidden rounded-2xl border border-white/10 p-5 sm:p-6 transition-all duration-300',
+                        'group glass lift relative flex h-full flex-col justify-between overflow-hidden rounded-2xl p-5 sm:p-6 transition-all duration-300',
                         accentBorder,
                       )}
                     >
@@ -490,11 +490,11 @@ export default async function Home({ params }: Props) {
                           >
                             <Icon className="size-5" />
                           </span>
-                          <span className="font-mono text-xs font-semibold text-white/40">
+                          <span className="font-mono text-xs font-semibold text-muted-foreground">
                             {index}
                           </span>
                         </div>
-                        <h3 className="mt-4 text-sm font-bold text-white transition-colors group-hover:text-brand-cyan sm:mt-5 sm:text-lg">
+                        <h3 className="mt-4 text-sm font-bold text-foreground transition-colors group-hover:text-brand-blue sm:mt-5 sm:text-lg">
                           {label}
                         </h3>
                         <p className="text-muted-foreground mt-1.5 text-xs leading-relaxed sm:text-sm">
@@ -502,7 +502,7 @@ export default async function Home({ params }: Props) {
                         </p>
                       </div>
 
-                      <div className="mt-4 flex items-center gap-1.5 text-xs font-semibold text-brand-cyan sm:mt-6">
+                      <div className="mt-4 flex items-center gap-1.5 text-xs font-semibold text-brand-blue sm:mt-6">
                         <span>{locale === 'vi' ? 'Khám phá' : 'Explore'}</span>
                         <ArrowRight
                           aria-hidden="true"
@@ -520,12 +520,12 @@ export default async function Home({ params }: Props) {
 
       {/* ─── About Teaser ──────────────────────────────────────────────── */}
       {home?.aboutTeaser && (
-        <section className="relative py-14 sm:py-20 lg:py-24">
+        <section className="relative overflow-hidden py-14 sm:py-20 lg:py-24">
           <Container>
             <ScrollReveal>
               <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
                 <div>
-                  <h2 className="text-lg font-bold tracking-tight text-white text-balance sm:text-3xl lg:text-4xl">
+                  <h2 className="text-lg font-bold tracking-tight text-foreground text-balance sm:text-3xl lg:text-4xl">
                     {t('aboutTeaserTitle')}
                   </h2>
                   <p className="text-muted-foreground mt-4 text-xs leading-relaxed sm:mt-5 sm:text-sm lg:text-base">
@@ -533,7 +533,7 @@ export default async function Home({ params }: Props) {
                   </p>
                   <Link
                     href="/about"
-                    className="group text-primary hover:text-brand-cyan mt-6 inline-flex items-center gap-2 text-xs font-semibold tracking-wider uppercase transition-colors sm:mt-8 sm:text-sm"
+                    className="group text-primary hover:text-brand-blue mt-4 inline-flex items-center gap-2 py-2 text-xs font-semibold tracking-wider uppercase transition-colors sm:mt-6 sm:text-sm"
                   >
                     {t('aboutTeaserCta')}
                     <ArrowRight
@@ -549,9 +549,9 @@ export default async function Home({ params }: Props) {
                     aria-hidden="true"
                     className="from-brand-cyan/15 via-brand-blue/10 to-brand-violet/15 absolute -inset-4 rounded-3xl bg-gradient-to-br blur-2xl opacity-75 sm:-inset-8"
                   />
-                  <div className="glass relative rounded-2xl border border-white/10 p-5 sm:rounded-3xl sm:p-8">
+                  <div className="glass relative rounded-2xl p-5 sm:rounded-3xl sm:p-8">
                     <div className="flex items-center justify-between border-b border-white/10 pb-3">
-                      <p className="text-xs font-semibold tracking-[0.2em] text-brand-cyan uppercase">
+                      <p className="text-xs font-semibold tracking-[0.2em] text-brand-blue uppercase">
                         {t('quickSummaryTitle')}
                       </p>
                       <span className="size-2 rounded-full bg-brand-mint" />
@@ -601,7 +601,7 @@ export default async function Home({ params }: Props) {
           />
           <Container>
             <ScrollReveal className="text-center">
-              <h2 className="text-lg font-bold tracking-tight text-white sm:text-3xl">
+              <h2 className="text-lg font-bold tracking-tight text-foreground sm:text-3xl">
                 {t('sponsorsTitle')}
               </h2>
             </ScrollReveal>
@@ -613,7 +613,7 @@ export default async function Home({ params }: Props) {
             <ScrollReveal delay={250} className="mt-8 text-center sm:mt-10">
               <Link
                 href="/sponsors"
-                className="text-primary hover:text-brand-cyan group inline-flex items-center gap-2 text-xs font-semibold tracking-wider uppercase transition-colors sm:text-sm"
+                className="text-primary hover:text-brand-blue group inline-flex items-center gap-2 py-2 text-xs font-semibold tracking-wider uppercase transition-colors sm:text-sm"
               >
                 {t('sponsorsCta')}
                 <ArrowRight
@@ -632,7 +632,7 @@ export default async function Home({ params }: Props) {
           <Container>
             <ScrollReveal>
               <div className="flex flex-wrap items-baseline justify-between gap-4">
-                <h2 className="text-lg font-bold tracking-tight text-white sm:text-3xl">
+                <h2 className="text-lg font-bold tracking-tight text-foreground sm:text-3xl">
                   {t('latestNewsTitle')}
                 </h2>
                 <Link
@@ -668,7 +668,7 @@ export default async function Home({ params }: Props) {
                 className="bg-brand-cyan/20 animate-float-slow absolute -top-24 -right-16 -z-10 size-72 rounded-full blur-3xl"
               />
 
-              <h2 className="mx-auto max-w-2xl text-lg font-bold tracking-tight text-balance sm:text-3xl lg:text-4xl">
+              <h2 className="mx-auto max-w-2xl text-lg font-bold tracking-tight text-white text-balance sm:text-3xl lg:text-4xl">
                 {t('ctaTitle')}
               </h2>
               <p className="mx-auto mt-3 max-w-xl text-xs leading-relaxed text-white/85 sm:mt-4 sm:text-sm lg:text-base">
