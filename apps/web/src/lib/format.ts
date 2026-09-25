@@ -14,20 +14,38 @@ export function mapsUrl(lat: number | null, lng: number | null, address: string)
 }
 
 /**
+ * Extracts the `src` attribute from an iframe embed HTML string, or returns
+ * the string if it is already a direct URL.
+ */
+export function extractMapEmbedSrc(embedHtmlOrUrl: string | null | undefined): string | null {
+  if (!embedHtmlOrUrl) return null;
+  const trimmed = embedHtmlOrUrl.trim();
+  if (!trimmed) return null;
+  if (/^https?:\/\//i.test(trimmed)) {
+    return trimmed;
+  }
+  const match = trimmed.match(/src=["']([^"']+)["']/i);
+  return match ? match[1] : null;
+}
+
+/**
  * Google Maps `output=embed` URL for the venue.
  *
- * The keyless classic-maps embed rather than the Maps Embed API: the latter
- * needs a billing-enabled browser key shipped to the client, and the only
- * thing this page asks of a map is "show this pin". Coordinates win over the
- * address string when the CMS has them — a text query can resolve to the
- * wrong side of a long street.
+ * An explicit embed HTML/iframe or URL takes precedence when provided.
+ * Coordinates win over the address string when the CMS has them — a text query
+ * can resolve to the wrong side of a long street.
  */
 export function mapEmbedUrl(
   lat: number | null,
   lng: number | null,
   address: string,
   locale: string,
+  embedHtml?: string | null,
 ): string {
+  const extracted = extractMapEmbedSrc(embedHtml);
+  if (extracted) {
+    return extracted;
+  }
   const query = lat != null && lng != null ? `${lat},${lng}` : address;
   const params = new URLSearchParams({ q: query, z: '16', hl: locale, output: 'embed' });
   return `https://www.google.com/maps?${params.toString()}`;

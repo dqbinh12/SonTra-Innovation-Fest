@@ -52,8 +52,8 @@ export async function LocationHero({
   venueName?: string | null;
   address: string;
   openingHours?: string | null;
-  latitude: number | null;
-  longitude: number | null;
+  latitude?: number | null;
+  longitude?: number | null;
   embedSrc: string;
   venueMap?: StrapiMedia | null;
   venueMapCaption?: string | null;
@@ -64,7 +64,9 @@ export async function LocationHero({
   const t = await getTranslations('location');
 
   const coordinates =
-    latitude != null && longitude != null ? `${latitude.toFixed(5)}, ${longitude.toFixed(5)}` : null;
+    latitude != null && longitude != null
+      ? `${latitude.toFixed(5)}, ${longitude.toFixed(5)}`
+      : null;
 
   // One height for both frames so the row reads as a pair rather than two
   // unrelated boxes. Deliberately shorter than when the map had the column to
@@ -103,7 +105,9 @@ export async function LocationHero({
               <MapPin aria-hidden="true" className="text-brand-cyan mt-1 size-6 shrink-0" />
               <span>
                 {venueName && <span className="block text-xl font-semibold">{venueName}</span>}
-                <span className="mt-1 block max-w-xs whitespace-pre-line text-white">{address}</span>
+                <span className="mt-1 block max-w-xs whitespace-pre-line text-white">
+                  {address}
+                </span>
                 {copyButton && <span className="mt-3 block">{copyButton}</span>}
               </span>
             </address>
@@ -149,7 +153,7 @@ export async function LocationHero({
                 title={t('map.frameTitle')}
                 loading="lazy"
                 allowFullScreen
-                referrerPolicy="no-referrer-when-downgrade"
+                referrerPolicy="strict-origin-when-cross-origin"
                 className={cn('w-full rounded-xl border-0', frameHeight)}
               />
             </div>

@@ -285,8 +285,9 @@ export interface LocationPage extends StrapiEntry {
   address: string;
   /** One line per day. */
   openingHours: string | null;
-  mapLatitude: number | null;
-  mapLongitude: number | null;
+  mapEmbedHtml?: string | null;
+  mapLatitude?: number | null;
+  mapLongitude?: number | null;
   /** Bird's-eye site plan of the festival ground. */
   venueMap: StrapiMedia | null;
   venueMapCaption: string | null;

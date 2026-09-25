@@ -274,9 +274,8 @@ async function seed(strapi: Core.Strapi) {
     'api::location-page.location-page',
     {
       address: '171–173 Tran Hung Dao\nSon Tra, Da Nang\nVietnam',
-      // Approximate — confirm the exact pin with the venue before go-live.
-      mapLatitude: 16.0678,
-      mapLongitude: 108.2298,
+      mapEmbedHtml:
+        '<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d711.3421468911326!2d108.2238571197455!3d16.097853318784374!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3142180fe0af6541%3A0x7286a33cefda8ba!2sWyndham%20Danang%20Golden%20Bay%20Hotel!5e0!3m2!1svi!2s!4v1790305495401!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>',
       directions: paragraphs(
         'The festival runs 9:00 to 22:00 on 2, 3 and 4 October 2026.',
         'Directions and transport information will be published closer to the event.',

@@ -10,6 +10,9 @@ import { GettingHere } from '@/components/location/getting-here';
 
 type Props = { params: Promise<{ locale: string }> };
 
+const DEFAULT_MAP_EMBED_HTML =
+  '<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d711.3421468911326!2d108.2238571197455!3d16.097853318784374!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3142180fe0af6541%3A0x7286a33cefda8ba!2sWyndham%20Danang%20Golden%20Bay%20Hotel!5e0!3m2!1svi!2s!4v1790305495401!5m2!1svi!2s" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>';
+
 function getLocationPage(locale: string) {
   return strapiFetchOptional<LocationPage>('location-page', {
     // Explicit paths rather than `populate=*`: Strapi's wildcard stops at the
@@ -59,8 +62,8 @@ export default async function Location({ params }: Props) {
   const page = await getLocationPage(locale);
 
   const address = page?.address?.trim() || t('addressFallback');
-  const latitude = page?.mapLatitude ?? null;
-  const longitude = page?.mapLongitude ?? null;
+  const embedHtml = page?.mapEmbedHtml?.trim() || DEFAULT_MAP_EMBED_HTML;
+  const embedSrc = mapEmbedUrl(null, null, address, locale, embedHtml);
 
   return (
     <div className="page-deep dark text-foreground">
@@ -70,13 +73,11 @@ export default async function Location({ params }: Props) {
         venueName={page?.venueName}
         address={address}
         openingHours={page?.openingHours}
-        latitude={latitude}
-        longitude={longitude}
-        embedSrc={mapEmbedUrl(latitude, longitude, address, locale)}
+        embedSrc={embedSrc}
         venueMap={page?.venueMap}
         venueMapCaption={page?.venueMapCaption}
-        mapsHref={mapsUrl(latitude, longitude, address)}
-        directionsHref={directionsUrl(latitude, longitude, address)}
+        mapsHref={mapsUrl(null, null, address)}
+        directionsHref={directionsUrl(null, null, address)}
         copyButton={
           <CopyAddress value={address} label={t('copyAddress')} copiedLabel={t('addressCopied')} />
         }

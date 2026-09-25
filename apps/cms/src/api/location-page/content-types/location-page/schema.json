@@ -59,16 +59,9 @@
         }
       }
     },
-    "mapLatitude": {
-      "type": "decimal",
-      "pluginOptions": {
-        "i18n": {
-          "localized": false
-        }
-      }
-    },
-    "mapLongitude": {
-      "type": "decimal",
+    "mapEmbedHtml": {
+      "type": "text",
+      "description": "HTML iframe embed code for the map, e.g. from Google Maps",
       "pluginOptions": {
         "i18n": {
           "localized": false
@@ -78,9 +71,7 @@
     "venueMap": {
       "type": "media",
       "multiple": false,
-      "allowedTypes": [
-        "images"
-      ],
+      "allowedTypes": ["images"],
       "description": "The bird's-eye site plan of the festival ground.",
       "pluginOptions": {
         "i18n": {

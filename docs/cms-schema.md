@@ -6,31 +6,31 @@ draft/publish enabled.
 
 ## Single types
 
-| Type | API path | Covers |
-| ---- | -------- | ------ |
-| Site Settings | `/api/site-setting` | Logo, contact info, social links, footer text, countdown |
-| Home Page | `/api/home-page` | Hero, stats, about teaser |
-| Attend Page | `/api/attend-page` | Why-attend hero, audience, benefits, entry info |
-| News Page | `/api/news-page` | News hero title, intro, pulse label, event date, SEO |
-| Sponsors Page | `/api/sponsors-page` | Tier descriptions, application intro |
-| Agenda Page | `/api/agenda-page` | Intro copy and the downloadable agenda PDF |
-| Exhibition Page | `/api/exhibition-page` | Floor plan graphic and intro copy |
-| Location | `/api/location-page` | Address, map coordinates, directions, parking |
-| About Us | `/api/about-page` | Story, mission, organizer |
+| Type            | API path               | Covers                                                   |
+| --------------- | ---------------------- | -------------------------------------------------------- |
+| Site Settings   | `/api/site-setting`    | Logo, contact info, social links, footer text, countdown |
+| Home Page       | `/api/home-page`       | Hero, stats, about teaser                                |
+| Attend Page     | `/api/attend-page`     | Why-attend hero, audience, benefits, entry info          |
+| News Page       | `/api/news-page`       | News hero title, intro, pulse label, event date, SEO     |
+| Sponsors Page   | `/api/sponsors-page`   | Tier descriptions, application intro                     |
+| Agenda Page     | `/api/agenda-page`     | Intro copy and the downloadable agenda PDF               |
+| Exhibition Page | `/api/exhibition-page` | Floor plan graphic and intro copy                        |
+| Location        | `/api/location-page`   | Address, map embed HTML, directions, parking             |
+| About Us        | `/api/about-page`      | Story, mission, organizer                                |
 
 Single types expose `find` only — there is no `findOne` action on a single
 type, and granting one has it pruned and re-created on every boot.
 
 ## Collection types
 
-| Type | API path | Covers |
-| ---- | -------- | ------ |
-| Agenda Session | `/api/sessions` | Day, time, title, speaker, track, location |
-| Exhibitor | `/api/exhibitors` | Company, logo, booth #, category, description |
-| Sponsor | `/api/sponsors` | Name, logo, tier, link, order |
-| News Article | `/api/articles` | Title, slug, cover, date, excerpt, body, category |
-| Contact Submission | `/api/contact-submissions` | Contact form entries |
-| Sponsor / Exhibitor Application | `/api/sponsor-applications` | Sponsor form entries |
+| Type                            | API path                    | Covers                                            |
+| ------------------------------- | --------------------------- | ------------------------------------------------- |
+| Agenda Session                  | `/api/sessions`             | Day, time, title, speaker, track, location        |
+| Exhibitor                       | `/api/exhibitors`           | Company, logo, booth #, category, description     |
+| Sponsor                         | `/api/sponsors`             | Name, logo, tier, link, order                     |
+| News Article                    | `/api/articles`             | Title, slug, cover, date, excerpt, body, category |
+| Contact Submission              | `/api/contact-submissions`  | Contact form entries                              |
+| Sponsor / Exhibitor Application | `/api/sponsor-applications` | Sponsor form entries                              |
 
 ## Components
 
@@ -43,7 +43,7 @@ it: `?populate[stats]=true`, `?populate[seo][populate]=ogImage`.
 ## The countdown
 
 `shared.countdown` lives on **Site Settings**, once, and drives the small
-countdown card in the top-right of the homepage hero *and* the one beside the
+countdown card in the top-right of the homepage hero _and_ the one beside the
 Agenda page title — there is no second place to keep in step. Fields:
 `enabled`, `targetDate`, and an optional `label`.
 
@@ -71,12 +71,12 @@ cache never shows a stale count.
 The workbook's CMS tab lists 10 content types. Its Content Structure tab asks
 for more, and Scope item 1.0 requires every info page to be editable in Strapi:
 
-| Added | Because the Content Structure tab lists |
-| ----- | --------------------------------------- |
-| Attend Page | "Why Attend hero", "Audience / benefits", "Free entry info" |
-| Sponsors Page | Intro copy and the application form section |
-| Agenda Page | "Download agenda (optional) — PDF agenda file", CMS-managed media |
-| Exhibition Page | "Floor plan / layout image", CMS-managed media |
+| Added           | Because the Content Structure tab lists                           |
+| --------------- | ----------------------------------------------------------------- |
+| Attend Page     | "Why Attend hero", "Audience / benefits", "Free entry info"       |
+| Sponsors Page   | Intro copy and the application form section                       |
+| Agenda Page     | "Download agenda (optional) — PDF agenda file", CMS-managed media |
+| Exhibition Page | "Floor plan / layout image", CMS-managed media                    |
 
 Without these, four pages would have no editable copy and the agenda PDF and
 floor plan would have nowhere to live. Worth confirming with the client so the
@@ -137,17 +137,17 @@ video. See [brand.md](brand.md) for the breakpoint, crop and contrast rules.
 Uploading a file is only half of it — a field also has to be rendered. These
 are the media fields and where they show up:
 
-| Field | Rendered in |
-| ----- | ----------- |
-| Site Settings → `logo` | Header and footer, every page |
-| Home Page → `heroMedia` | Hero background, 640px and up |
-| Home Page → `heroMediaMobile` | Hero background, below 640px |
-| Article → `coverImage` | News list cards, article page, homepage news block, and the social preview |
-| Exhibition Page → `floorPlan` | Exhibition page |
-| Agenda Page → `agendaPdf` | Download link on the Agenda page |
-| Location Page → `images` | Gallery on the Location page |
-| About Page → `organizerLogo` | Organizer block on the About page |
-| `seo.ogImage` (most pages) | Social preview only — never on the page itself |
+| Field                         | Rendered in                                                                |
+| ----------------------------- | -------------------------------------------------------------------------- |
+| Site Settings → `logo`        | Header and footer, every page                                              |
+| Home Page → `heroMedia`       | Hero background, 640px and up                                              |
+| Home Page → `heroMediaMobile` | Hero background, below 640px                                               |
+| Article → `coverImage`        | News list cards, article page, homepage news block, and the social preview |
+| Exhibition Page → `floorPlan` | Exhibition page                                                            |
+| Agenda Page → `agendaPdf`     | Download link on the Agenda page                                           |
+| Location Page → `images`      | Gallery on the Location page                                               |
+| About Page → `organizerLogo`  | Organizer block on the About page                                          |
+| `seo.ogImage` (most pages)    | Social preview only — never on the page itself                             |
 
 ## Publishing: do it per locale
 
@@ -159,7 +159,7 @@ immediately.
 It does **not** publish them. Publish acts on the locale you are looking at.
 
 So attaching a hero image while viewing English and pressing Publish leaves the
-Vietnamese *published* entry without it, and `/vi` keeps serving the old version
+Vietnamese _published_ entry without it, and `/vi` keeps serving the old version
 even though the admin panel shows the image on both. This is normal Strapi
 behaviour, not a bug, and it bites hardest on exactly the fields an editor
 assumes are shared.
