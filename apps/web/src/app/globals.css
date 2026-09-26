@@ -394,25 +394,26 @@
 }
 
 /*
- * The session bars in the overview dashboard wipe in as a slice and then keep a
- * sheen travelling across them, so the schedule reads as a live timeline rather
- * than two static bars. Kept on longhands for the same reason as above.
+ * The session bars in the overview dashboard wipe in from left to right once
+ * the dashboard panel scrolls into view.
  *
- * `transform-origin: left` keeps the start position pinned so the bar grows
- * toward its end time. `linear` because on a scroll-driven timeline, an easing
- * curve makes the fill lurch forward then crawl, which reads as stutter.
+ * This is a TIME-BASED transition triggered on enter, deliberately not tied to
+ * scroll position with `animation-timeline: view()`. The bar is only 8px tall,
+ * so as a scroll timeline its travel plays out in ~300px of scroll — and a
+ * physical mouse wheel moves in discrete ~100px notches, which made the bar
+ * leap forward roughly a quarter of its length on every tick, reading as a
+ * stutter. A transition plays at 60fps regardless of how the user scrolls.
+ *
+ * The trigger is `.is-visible`, added by ScrollReveal's IntersectionObserver.
  */
-@supports (animation-timeline: view()) {
-  .session-bar-fill {
-    animation-name: bar-slice;
-    animation-duration: auto;
-    animation-timing-function: linear;
-    animation-fill-mode: both;
-    animation-timeline: view();
-    animation-range: entry 10% cover 50%;
-    transform-origin: left center;
-    will-change: transform;
-  }
+.session-bar-fill {
+  transform-origin: left center;
+  transform: scaleX(0);
+  transition: transform 1.05s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+}
+
+.scroll-reveal.is-visible .session-bar-fill {
+  transform: scaleX(1);
 }
 
 @supports not (animation-timeline: view()) {

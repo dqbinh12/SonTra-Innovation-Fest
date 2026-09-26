@@ -45,10 +45,11 @@ export function ScrollReveal({
     const el = ref.current;
     if (!el) return;
 
-    // If the browser supports scroll-driven animations natively, the CSS
-    // handles everything — no JS needed.
-    if (CSS.supports('animation-timeline: view()')) return;
-
+    // Add `.is-visible` when the element scrolls into view. The scroll-driven
+    // CSS animation (where supported) does not need this, but the session bars
+    // inside the reveal rely on it as a trigger for their timed wipe, so we
+    // always run the observer instead of early-returning on
+    // `CSS.supports('animation-timeline: view()')`.
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
