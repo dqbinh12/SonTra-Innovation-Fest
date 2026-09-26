@@ -189,8 +189,17 @@ export default async function Home({ params }: Props) {
               </span>
             </div>
 
-            {/* Main Fluid Title with typing aurora glow */}
-            <h1 className="text-[clamp(1.5rem,5.2vw,4.75rem)] leading-[1.08] font-bold tracking-tight text-pretty">
+            {/* Main Fluid Title with typing aurora glow.
+                `w-full` is load-bearing: the parent is `flex flex-col
+                items-center`, so without it the h1 is a flex item sized to
+                fit-content. Firefox resolves that shrink-to-fit far narrower
+                than Chrome (924px vs 1088px at 1440px viewport), which breaks
+                the second line onto a third. Full width makes the box identical
+                in every engine and the headline wraps where intended.
+                Cap of 4.5rem (72px) guarantees the longer English second line
+                comfortably fits inside the 1088px container at wide viewports
+                (1440px, 1600px, 1920px) across both Gecko and Blink. */}
+            <h1 className="w-full text-[clamp(1.5rem,5vw,4.5rem)] leading-[1.08] font-bold tracking-tight text-pretty">
               <HeroTitle text={heroDisplayTitle} />
             </h1>
 
