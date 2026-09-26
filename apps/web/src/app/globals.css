@@ -217,13 +217,17 @@
   }
 }
 
-/* The session bar wipes in as a slice, then keeps a sheen crossing it. */
+/* The session bar grows in from its start time, left to right.
+   `scaleX` + `transform-origin: left` is GPU-composited — unlike `clip-path`,
+   which is a CPU paint that visibly judders inside a `backdrop-blur` panel.
+   Timing is `linear`: a scroll timeline already quantizes to scroll position,
+   so an easing curve would only make the bar lurch ahead then creep. */
 @keyframes bar-slice {
   from {
-    clip-path: inset(0 100% 0 0);
+    transform: scaleX(0);
   }
   to {
-    clip-path: inset(0 0 0 0);
+    transform: scaleX(1);
   }
 }
 
@@ -393,15 +397,21 @@
  * The session bars in the overview dashboard wipe in as a slice and then keep a
  * sheen travelling across them, so the schedule reads as a live timeline rather
  * than two static bars. Kept on longhands for the same reason as above.
+ *
+ * `transform-origin: left` keeps the start position pinned so the bar grows
+ * toward its end time. `linear` because on a scroll-driven timeline, an easing
+ * curve makes the fill lurch forward then crawl, which reads as stutter.
  */
 @supports (animation-timeline: view()) {
   .session-bar-fill {
     animation-name: bar-slice;
     animation-duration: auto;
-    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    animation-timing-function: linear;
     animation-fill-mode: both;
     animation-timeline: view();
     animation-range: entry 10% cover 50%;
+    transform-origin: left center;
+    will-change: transform;
   }
 }
 
