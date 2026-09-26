@@ -256,7 +256,7 @@ export default async function Home({ params }: Props) {
           <Container>
             <ScrollReveal
               direction="up-lg"
-              className="glass relative overflow-clip rounded-2xl border border-white/15 bg-white/[0.03] backdrop-blur-2xl shadow-2xl sm:rounded-3xl"
+              className="relative overflow-clip rounded-2xl border border-border/60 bg-white/95 shadow-[0_24px_60px_-16px_rgba(0,31,75,0.22)] sm:rounded-3xl"
             >
               {/* Neon top highlight */}
               <div className="h-0.5 w-full bg-gradient-to-r from-transparent via-brand-cyan/60 to-transparent" />
