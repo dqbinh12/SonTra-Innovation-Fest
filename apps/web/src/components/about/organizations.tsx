@@ -4,14 +4,7 @@ import { ScrollReveal } from '@/components/home/scroll-reveal';
 import { cn } from '@/lib/utils';
 
 /**
- * Tile size per role. The organizer is the headline logo and the co-organizers
- * flank it; everything below that is a peer tier, so the coordinating entities
- * and the four supporting roles share one plate size — a descending scale
- * would read as a shrinking hierarchy the client never asked for.
- *
- * The supporting plate stays narrow until `lg`, where four of them fit on one
- * row at 176px; between 768 and 1023 the narrower plate is what keeps the row
- * from wrapping.
+ * Plate size for the coordinating entity, which sits on a row of its own.
  */
 const COORDINATOR_TILE = {
   tile: 'h-16 w-36 lg:h-18 lg:w-44',
@@ -20,19 +13,21 @@ const COORDINATOR_TILE = {
 };
 
 /**
- * A smaller plate for a tier that shares the supporting row with others and
- * holds several organizations. Three full-size plates would push the fourth
- * tier onto a second row, so tiers with more than one member use this instead.
+ * Plate size for the supporting tiers. Every tier uses this one size, so the
+ * sponsor logos and the partner logos read as peers rather than as a ranked
+ * group — the client asked for the partners to be the same size as the tiers
+ * beside them, not gathered into a smaller cluster.
  *
- * Two steps, not one: the four tiers only fit on a single line from `lg` up,
- * and at 1024px the container gives 960px against 1088px at 1280px. The
- * tighter `lg` step is what keeps the row on one line at the narrow end of
- * `lg`; `xl` spends the extra room on larger logos.
+ * Width is fluid (`w-full`) and capped by the cell, which is what makes one
+ * constant work across breakpoints: six equal columns at `lg` leave roughly
+ * 140–160px each, and the same plate fills the wider cells at `sm` up to the
+ * 176px cap. Fixed widths cannot do this — six plates at the old 176px need
+ * 1088px of plates alone, before the gaps.
  */
-const COMPACT_TILE = {
-  tile: 'h-14 w-28 lg:w-24 xl:h-16 xl:w-28',
-  logo: 'max-h-7 sm:max-h-9',
-  sizes: '128px',
+const SUPPORT_TILE = {
+  tile: 'h-16 w-full xl:h-18',
+  logo: 'max-h-8 sm:max-h-10',
+  sizes: '176px',
 };
 
 const ROLES: Record<OrganizationRole, { tile: string; logo: string; sizes: string }> = {
@@ -47,17 +42,15 @@ const ROLES: Record<OrganizationRole, { tile: string; logo: string; sizes: strin
     sizes: '192px',
   },
   coordinator: COORDINATOR_TILE,
-  'media-sponsor': COORDINATOR_TILE,
-  'venue-sponsor': COORDINATOR_TILE,
-  'silver-sponsor': COORDINATOR_TILE,
-  partner: COORDINATOR_TILE,
+  'media-sponsor': SUPPORT_TILE,
+  'venue-sponsor': SUPPORT_TILE,
+  'silver-sponsor': SUPPORT_TILE,
+  partner: SUPPORT_TILE,
 };
 
 /**
- * Ordering of the supporting roles below the organizing pair. Each one is
- * rendered as its own labelled row, in the order the client lists them, so a
- * role with a single organization still reads as a tier rather than a stray
- * logo.
+ * Ordering of the supporting roles below the organizing pair, in the order the
+ * client lists them.
  */
 const SUPPORT_ROLES: OrganizationRole[] = [
   'media-sponsor',
@@ -113,15 +106,12 @@ function RoleLabel({
 function OrganizationTile({
   organization,
   label,
-  compact = false,
 }: {
   organization: Organization;
   /** Omitted when the row already carries one shared label. */
   label?: string;
-  /** Use the smaller plate that lets several logos share one tier's column. */
-  compact?: boolean;
 }) {
-  const { tile, logo, sizes } = compact ? COMPACT_TILE : ROLES[organization.role];
+  const { tile, logo, sizes } = ROLES[organization.role];
 
   /**
    * A plate with a logo keeps its fixed tile. A plate falling back to the
@@ -132,11 +122,7 @@ function OrganizationTile({
     <span
       className={cn(
         'logo-plate lift flex items-center justify-center rounded-xl px-5 py-3',
-        organization.logo
-          ? tile
-          : compact
-            ? 'h-auto min-h-14 w-28 lg:w-24 xl:min-h-16 xl:w-28'
-            : 'h-auto min-h-16 w-36 lg:min-h-18 lg:w-44',
+        organization.logo ? tile : 'h-auto min-h-16 w-full',
       )}
     >
       {organization.logo ? (
@@ -156,7 +142,7 @@ function OrganizationTile({
   );
 
   return (
-    <figure className="flex flex-col items-center gap-2.5 sm:gap-3">
+    <figure className="flex w-full flex-col items-center gap-2.5 sm:gap-3">
       {label && <RoleLabel strong={organization.role === 'organizer'}>{label}</RoleLabel>}
 
       {organization.link ? (
@@ -165,7 +151,7 @@ function OrganizationTile({
           target="_blank"
           rel="noopener noreferrer"
           aria-label={organization.name}
-          className="block"
+          className="block w-full"
         >
           {plate}
         </a>
@@ -182,11 +168,16 @@ function OrganizationTile({
 
 /**
  * The organizations behind the festival: the organizer centred between its two
- * co-organizers, then the coordinating entities and the four supporting roles
- * as labelled rows below.
+ * co-organizers, then the coordinating entity, then the supporting tiers.
  *
- * The arrangement is composed rather than a plain grid, but nothing here
- * assumes the 1 / 2 / 2 split — an extra logo in the CMS simply wraps.
+ * Each supporting organization is one unit of its own, laid out on a single
+ * grid row with the rest. A tier holding several organizations — the partners
+ * — used to render as one cell whose members stacked inside it, which made
+ * that column as many plates tall as it had members and left an L-shaped hole
+ * under its neighbours; gathering them into a smaller cluster instead made the
+ * partner logos visibly smaller than the tiers they sit beside. Spreading them
+ * as peers of the same size solves both, and the grid keeps the six columns
+ * even so nothing is sized by how long its own label happens to be.
  */
 export function Organizations({
   organizations,
@@ -215,28 +206,13 @@ export function Organizations({
   ];
 
   /**
-   * The four supporting tiers, in the client's listed order. They share one
-   * row — label on top, plate underneath — so read left to right they read as
-   * the four sponsorship tiers rather than four stacked sections.
-   *
-   * A single CSS grid is what keeps each label above its own plate: two
-   * stacked grids would lose the pairing the moment a label wrapped to a
-   * second line. On phones the four collapse to two columns.
+   * One unit per supporting organization, in the client's listed tier order.
+   * Building it by flattening the roles — rather than mapping roles to cells —
+   * is what keeps an organization from being merged with its tier-mates.
    */
-  const supportRoles = SUPPORT_ROLES.filter((role) => byRole(role).length > 0);
-
-  /**
-   * Split the supporting tiers by how many organizations each holds.
-   *
-   * A tier with a single organization is one cell wide, so several of them sit
-   * on one balanced row. A tier holding several — the partners, in practice —
-   * cannot: stacking its logos vertically inside a single grid cell makes that
-   * column as many plates tall as it has members, which pushes a large
-   * L-shaped hole under the neighbouring cells. Those tiers therefore get a
-   * row of their own below, with their logos side by side.
-   */
-  const singleTiers = supportRoles.filter((role) => byRole(role).length === 1);
-  const multiTiers = supportRoles.filter((role) => byRole(role).length > 1);
+  const supportUnits = SUPPORT_ROLES.flatMap((role) =>
+    byRole(role).map((organization) => ({ role, organization })),
+  );
 
   return (
     <div>
@@ -274,61 +250,26 @@ export function Organizations({
         </div>
       )}
 
-      {singleTiers.length > 0 && (
-        <ul className="mt-10 flex flex-wrap items-end justify-center gap-x-6 gap-y-9 sm:mt-12 sm:gap-x-8 lg:mt-14 lg:gap-x-10 xl:gap-x-12">
-          {singleTiers.map((role) => {
-            const members = byRole(role);
+      {supportUnits.length > 0 && (
+        /* Even columns, so a long label ("ĐƠN VỊ BẢO TRỢ TRUYỀN THÔNG") wraps
+           inside its own cell instead of widening it and shifting every plate
+           after it. Two columns on phones, three from `sm`, all on one row
+           from `lg`. */
+        <ul className="mt-10 grid grid-cols-2 gap-x-6 gap-y-9 sm:mt-12 sm:grid-cols-3 sm:gap-x-8 lg:mt-14 lg:grid-cols-6 lg:gap-x-6">
+          {supportUnits.map(({ role, organization }, i) => (
+            <li key={`${role}-${i}`} className="flex flex-col items-center">
+              {/* A fixed label height keeps every plate on one line across the
+                  row; `items-end` sits single-line labels on that baseline
+                  instead of floating them mid-height. */}
+              <RoleLabel className="flex min-h-10 items-end justify-center text-balance">
+                {labels[role]}
+              </RoleLabel>
 
-            return (
-              /* The cell is pinned to the plate's width rather than sized by
-                 its label. A long label ("ĐƠN VỊ BẢO TRỢ TRUYỀN THÔNG") is
-                 wider than the plate under it, and letting it size the cell
-                 shifted every plate after it — the row read as drifting to
-                 the right. The label now wraps inside the plate's width. */
-              <li key={role} className="flex w-36 flex-col items-center lg:w-40 xl:w-44">
-                {/* A fixed label height keeps every plate on one line across
-                    the row; `items-end` sits single-line labels on that
-                    baseline instead of floating them mid-height. */}
-                <RoleLabel className="flex min-h-10 w-full items-end justify-center text-balance">
-                  {labels[role]}
-                </RoleLabel>
-
-                <div className="mt-3.5 flex flex-wrap items-end justify-center gap-x-6 gap-y-4 sm:mt-4 sm:gap-x-8 sm:gap-y-5">
-                  {members.map((organization, i) => (
-                    <ScrollReveal key={`${role}-${i}`} delay={i * 80}>
-                      <OrganizationTile organization={organization} />
-                    </ScrollReveal>
-                  ))}
-                </div>
-              </li>
-            );
-          })}
-
-          {/* A tier holding several organizations shares this row rather than
-              dropping to one of its own: one column whose members sit side by
-              side on the compact plate, so all four tiers stay on one line. */}
-          {multiTiers.map((role) => {
-            const members = byRole(role);
-
-            return (
-              <li
-                key={role}
-                className="flex w-full flex-col items-center sm:w-auto lg:[--tier-w:min-content]"
-              >
-                <RoleLabel className="flex min-h-10 w-full items-end justify-center text-balance">
-                  {labels[role]}
-                </RoleLabel>
-
-                <div className="mt-3.5 flex flex-wrap items-end justify-center gap-x-4 gap-y-4 sm:mt-4 sm:gap-x-5 sm:gap-y-5">
-                  {members.map((organization, i) => (
-                    <ScrollReveal key={`${role}-${i}`} delay={i * 80}>
-                      <OrganizationTile organization={organization} compact />
-                    </ScrollReveal>
-                  ))}
-                </div>
-              </li>
-            );
-          })}
+              <ScrollReveal className="mx-auto mt-3.5 w-full max-w-44 sm:mt-4" delay={i * 60}>
+                <OrganizationTile organization={organization} />
+              </ScrollReveal>
+            </li>
+          ))}
         </ul>
       )}
     </div>
