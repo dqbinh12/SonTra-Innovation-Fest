@@ -298,6 +298,11 @@
  * block that has already revealed — the "flash/jank" the scroll-linked version
  * produced when the user scrolled back up over a revealed section.
  *
+ * Travel distances are deliberate: long enough that the block visibly slides
+ * in from the section edge, but short enough that it does not "hide" content
+ * far below its resting position and force extra scrolling. (The earlier 24px
+ * was too short — it read as "just appears"; 130-190px hid too much.)
+ *
  * No `will-change` here on purpose: a page carries ~17 of these, and hinting
  * every one holds ~17 oversized layers on the GPU from first paint — tens of
  * megabytes on a phone, which is the device this is being reported from. A
@@ -308,26 +313,26 @@
  */
 .scroll-reveal {
   opacity: 0;
-  transform: translateY(130px);
+  transform: translateY(80px);
   transition:
     opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
     transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .scroll-reveal[data-reveal='up-lg'] {
-  transform: translateY(190px);
+  transform: translateY(110px);
 }
 
 .scroll-reveal[data-reveal='left'] {
-  transform: translateX(-120px);
+  transform: translateX(-80px);
 }
 
 .scroll-reveal[data-reveal='right'] {
-  transform: translateX(130px);
+  transform: translateX(80px);
 }
 
 .scroll-reveal[data-reveal='focus'] {
-  transform: scale(1.14);
+  transform: scale(1.08);
 }
 
 .scroll-reveal.is-visible {

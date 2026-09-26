@@ -44,11 +44,13 @@ export function ScrollReveal({
     const el = ref.current;
     if (!el) return;
 
-    // Add `.is-visible` when the element scrolls into view. The scroll-driven
-    // CSS animation (where supported) does not need this, but the session bars
-    // inside the reveal rely on it as a trigger for their timed wipe, so we
-    // always run the observer instead of early-returning on
-    // `CSS.supports('animation-timeline: view()')`.
+    // Add `.is-visible` the moment ANY part of the element reaches the fold
+    // (`threshold: 0`, no `rootMargin`). The previous `threshold: 0.15` made a
+    // tall section wait until 15% of its own height was inside the viewport —
+    // on a 800px-tall section that is 120px of scrolling before anything moved,
+    // which read as content being withheld. The trigger is measured on the
+    // element's transformed box, so "first pixel at the fold" is literal: the
+    // block starts sliding up as it enters, not after it has already entered.
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
@@ -61,7 +63,7 @@ export function ScrollReveal({
           observer.unobserve(el);
         }
       },
-      { threshold: 0.15 },
+      { threshold: 0 },
     );
 
     observer.observe(el);
