@@ -19,6 +19,22 @@ const COORDINATOR_TILE = {
   sizes: '176px',
 };
 
+/**
+ * A smaller plate for a tier that shares the supporting row with others and
+ * holds several organizations. Three full-size plates would push the fourth
+ * tier onto a second row, so tiers with more than one member use this instead.
+ *
+ * Two steps, not one: the four tiers only fit on a single line from `lg` up,
+ * and at 1024px the container gives 960px against 1088px at 1280px. The
+ * tighter `lg` step is what keeps the row on one line at the narrow end of
+ * `lg`; `xl` spends the extra room on larger logos.
+ */
+const COMPACT_TILE = {
+  tile: 'h-14 w-28 lg:w-24 xl:h-16 xl:w-28',
+  logo: 'max-h-7 sm:max-h-9',
+  sizes: '128px',
+};
+
 const ROLES: Record<OrganizationRole, { tile: string; logo: string; sizes: string }> = {
   organizer: {
     tile: 'h-22 w-48 sm:h-24 sm:w-56',
@@ -97,12 +113,15 @@ function RoleLabel({
 function OrganizationTile({
   organization,
   label,
+  compact = false,
 }: {
   organization: Organization;
   /** Omitted when the row already carries one shared label. */
   label?: string;
+  /** Use the smaller plate that lets several logos share one tier's column. */
+  compact?: boolean;
 }) {
-  const { tile, logo, sizes } = ROLES[organization.role];
+  const { tile, logo, sizes } = compact ? COMPACT_TILE : ROLES[organization.role];
 
   /**
    * A plate with a logo keeps its fixed tile. A plate falling back to the
@@ -113,7 +132,11 @@ function OrganizationTile({
     <span
       className={cn(
         'logo-plate lift flex items-center justify-center rounded-xl px-5 py-3',
-        organization.logo ? tile : 'h-auto min-h-16 w-36 lg:min-h-18 lg:w-44',
+        organization.logo
+          ? tile
+          : compact
+            ? 'h-auto min-h-14 w-28 lg:w-24 xl:min-h-16 xl:w-28'
+            : 'h-auto min-h-16 w-36 lg:min-h-18 lg:w-44',
       )}
     >
       {organization.logo ? (
@@ -252,7 +275,7 @@ export function Organizations({
       )}
 
       {singleTiers.length > 0 && (
-        <ul className="mt-10 flex flex-wrap items-end justify-center gap-x-6 gap-y-9 sm:mt-12 sm:gap-x-8 lg:mt-14 lg:gap-x-10">
+        <ul className="mt-10 flex flex-wrap items-end justify-center gap-x-6 gap-y-9 sm:mt-12 sm:gap-x-8 lg:mt-14 lg:gap-x-10 xl:gap-x-12">
           {singleTiers.map((role) => {
             const members = byRole(role);
 
@@ -262,7 +285,7 @@ export function Organizations({
                  wider than the plate under it, and letting it size the cell
                  shifted every plate after it — the row read as drifting to
                  the right. The label now wraps inside the plate's width. */
-              <li key={role} className="flex w-36 flex-col items-center lg:w-44">
+              <li key={role} className="flex w-36 flex-col items-center lg:w-40 xl:w-44">
                 {/* A fixed label height keeps every plate on one line across
                     the row; `items-end` sits single-line labels on that
                     baseline instead of floating them mid-height. */}
@@ -270,7 +293,7 @@ export function Organizations({
                   {labels[role]}
                 </RoleLabel>
 
-                <div className="mt-3.5 flex flex-wrap items-end justify-center gap-x-6 gap-y-4 sm:mt-4 sm:gap-x-8 sm:gap-y-5 lg:gap-x-10">
+                <div className="mt-3.5 flex flex-wrap items-end justify-center gap-x-6 gap-y-4 sm:mt-4 sm:gap-x-8 sm:gap-y-5">
                   {members.map((organization, i) => (
                     <ScrollReveal key={`${role}-${i}`} delay={i * 80}>
                       <OrganizationTile organization={organization} />
@@ -280,30 +303,34 @@ export function Organizations({
               </li>
             );
           })}
+
+          {/* A tier holding several organizations shares this row rather than
+              dropping to one of its own: one column whose members sit side by
+              side on the compact plate, so all four tiers stay on one line. */}
+          {multiTiers.map((role) => {
+            const members = byRole(role);
+
+            return (
+              <li
+                key={role}
+                className="flex w-full flex-col items-center sm:w-auto lg:[--tier-w:min-content]"
+              >
+                <RoleLabel className="flex min-h-10 w-full items-end justify-center text-balance">
+                  {labels[role]}
+                </RoleLabel>
+
+                <div className="mt-3.5 flex flex-wrap items-end justify-center gap-x-4 gap-y-4 sm:mt-4 sm:gap-x-5 sm:gap-y-5">
+                  {members.map((organization, i) => (
+                    <ScrollReveal key={`${role}-${i}`} delay={i * 80}>
+                      <OrganizationTile organization={organization} compact />
+                    </ScrollReveal>
+                  ))}
+                </div>
+              </li>
+            );
+          })}
         </ul>
       )}
-
-      {/* Tiers holding more than one organization get their own row, logos
-          side by side, so no column grows taller than its neighbours. */}
-      {multiTiers.map((role) => {
-        const members = byRole(role);
-
-        return (
-          <div key={role} className="mt-10 sm:mt-12 lg:mt-14">
-            <RoleLabel>{labels[role]}</RoleLabel>
-
-            <ul className="mt-3.5 flex flex-wrap items-end justify-center gap-x-6 gap-y-6 sm:mt-4 sm:gap-x-8 lg:gap-x-10">
-              {members.map((organization, i) => (
-                <li key={`${role}-${i}`} className="flex justify-center">
-                  <ScrollReveal delay={i * 80}>
-                    <OrganizationTile organization={organization} />
-                  </ScrollReveal>
-                </li>
-              ))}
-            </ul>
-          </div>
-        );
-      })}
     </div>
   );
 }
