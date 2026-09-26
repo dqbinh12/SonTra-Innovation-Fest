@@ -34,9 +34,9 @@ export async function EventPhotosPanel({
   const withLinks = albums.filter((album) => album.driveUrl?.trim());
 
   return (
-    <section className="py-16 sm:py-20">
+    <section className="relative overflow-x-clip py-16 sm:py-20">
       <Container>
-        <ScrollReveal className="group max-w-2xl">
+        <ScrollReveal direction="left" className="group max-w-2xl">
           <h2 className="text-lg font-bold tracking-tight sm:text-3xl">{t('title')}</h2>
           <span aria-hidden="true" className="rule-accent mt-5" />
           <p className="text-muted-foreground mt-6 text-base">{intro ?? t('lead')}</p>
@@ -49,7 +49,7 @@ export async function EventPhotosPanel({
         ) : (
           <>
             {drive && (
-              <ScrollReveal className="mt-10">
+              <ScrollReveal direction="up-lg" className="mt-10">
                 {/* The whole-drive link is the answer for most visitors, so it
                     gets the weight of a band rather than sitting as one card
                     among the albums. */}
@@ -120,7 +120,7 @@ export async function EventPhotosPanel({
                 <ul className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                   {withLinks.map((album, index) => (
                     <li key={`${album.title}-${index}`}>
-                      <ScrollReveal delay={Math.min(index, 5) * 60} className="h-full">
+                      <ScrollReveal direction="up" delay={Math.min(index, 5) * 60} className="h-full">
                         {/* The whole card is the link — an album has one
                             destination, and a card with a single small link in
                             it wastes the target area. */}

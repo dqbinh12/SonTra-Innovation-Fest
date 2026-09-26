@@ -9,6 +9,7 @@ import { formatTime } from '@/lib/format';
 import { Container } from '@/components/layout/container';
 import { FestivalBackdrop } from '@/components/layout/festival-backdrop';
 import { ImmersivePageHero } from '@/components/layout/immersive-page-hero';
+import { ScrollReveal } from '@/components/home/scroll-reveal';
 import { EventCountdown } from '@/components/countdown/event-countdown';
 
 type Props = { params: Promise<{ locale: string }> };
@@ -127,7 +128,7 @@ export default async function Agenda({ params }: Props) {
   const pdfUrl = mediaUrl(page?.agendaPdf);
 
   return (
-    <div className="page-deep dark relative flex-1 overflow-hidden text-foreground">
+    <div className="page-deep dark relative flex-1 overflow-x-clip text-foreground">
       <FestivalBackdrop variant="agenda" />
       <ImmersivePageHero
         eyebrow={t('eyebrow')}
@@ -151,26 +152,32 @@ export default async function Agenda({ params }: Props) {
               {[...days].map(([day, daySessions], dayIdx) => (
                 <div key={day} className="relative">
                   {/* Day Header Banner */}
-                  <div className="mb-6 flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-3">
-                    <div className="flex items-center gap-2.5">
-                      <span className="flex size-8 items-center justify-center rounded-lg border border-brand-cyan/30 bg-brand-cyan/10 font-mono text-xs font-bold text-brand-cyan">
-                        0{dayIdx + 1}
-                      </span>
-                      <h2 className="text-base font-bold tracking-tight text-white sm:text-xl">
-                        {format.dateTime(new Date(day), { dateStyle: 'full' })}
-                      </h2>
-                    </div>
+                  <ScrollReveal direction="left">
+                    <div className="mb-6 flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-3">
+                      <div className="flex items-center gap-2.5">
+                        <span className="flex size-8 items-center justify-center rounded-lg border border-brand-cyan/30 bg-brand-cyan/10 font-mono text-xs font-bold text-brand-cyan">
+                          0{dayIdx + 1}
+                        </span>
+                        <h2 className="text-base font-bold tracking-tight text-white sm:text-xl">
+                          {format.dateTime(new Date(day), { dateStyle: 'full' })}
+                        </h2>
+                      </div>
 
-                    <span className="rounded-full border border-white/10 bg-white/5 px-2.5 py-0.5 font-mono text-xs text-white/70">
-                      {t('sessionCount', { count: daySessions.length })}
-                    </span>
-                  </div>
+                      <span className="rounded-full border border-white/10 bg-white/5 px-2.5 py-0.5 font-mono text-xs text-white/70">
+                        {t('sessionCount', { count: daySessions.length })}
+                      </span>
+                    </div>
+                  </ScrollReveal>
 
                   {/* Sections List */}
                   <div className="space-y-4 sm:space-y-5">
-                    {groupSessionsIntoSections(daySessions).map((section) => (
-                      <div
+                    {groupSessionsIntoSections(daySessions).map((section, sectionIdx) => (
+                      <ScrollReveal
                         key={section.id}
+                        direction="up-lg"
+                        delay={(sectionIdx % 4) * 80}
+                      >
+                      <div
                         className="glass relative overflow-hidden rounded-2xl border border-white/10 backdrop-blur-xl transition-all duration-300 hover:border-brand-cyan/30 hover:shadow-xl hover:shadow-brand-cyan/5"
                       >
                         {/* Accent gradient strip on left border */}
@@ -286,6 +293,7 @@ export default async function Agenda({ params }: Props) {
                           </div>
                         </div>
                       </div>
+                      </ScrollReveal>
                     ))}
                   </div>
                 </div>
@@ -294,7 +302,7 @@ export default async function Agenda({ params }: Props) {
           )}
 
           {pdfUrl && (
-            <div className="mt-14 flex justify-center sm:justify-start">
+            <ScrollReveal direction="up" className="mt-14 flex justify-center sm:justify-start">
               <a
                 href={pdfUrl}
                 target="_blank"
@@ -304,7 +312,7 @@ export default async function Agenda({ params }: Props) {
                 <Download className="size-4" />
                 <span>{t('downloadPdf')}</span>
               </a>
-            </div>
+            </ScrollReveal>
           )}
         </Container>
       </section>

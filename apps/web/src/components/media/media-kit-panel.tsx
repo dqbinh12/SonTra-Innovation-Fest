@@ -53,9 +53,9 @@ export async function MediaKitPanel({
   const mediaKitUrl = url?.trim();
 
   return (
-    <section className="py-16 sm:py-20">
+    <section className="relative overflow-x-clip py-16 sm:py-20">
       <Container>
-        <ScrollReveal className="group max-w-2xl">
+        <ScrollReveal direction="left" className="group max-w-2xl">
           <h2 className="text-lg font-bold tracking-tight sm:text-3xl">{t('title')}</h2>
           <span aria-hidden="true" className="rule-accent mt-5" />
           <p className="text-muted-foreground mt-6 text-base">{intro ?? t('lead')}</p>
@@ -88,7 +88,7 @@ export async function MediaKitPanel({
 
                 return (
                   <li key={`${item.title}-${index}`}>
-                    <ScrollReveal delay={Math.min(index, 5) * 60} className="h-full">
+                    <ScrollReveal direction="up" delay={Math.min(index, 5) * 60} className="h-full">
                       <article className="group glass lift flex h-full flex-col rounded-2xl p-6">
                         <span
                           aria-hidden="true"
@@ -138,7 +138,7 @@ export async function MediaKitPanel({
         )}
 
         {usage && usage.length > 0 && (
-          <ScrollReveal className="mt-16">
+          <ScrollReveal direction="up-lg" className="mt-16">
             <div className="glass rounded-2xl p-8">
               <h3 className="text-sm font-semibold tracking-widest uppercase">{t('usageTitle')}</h3>
               <div className="text-muted-foreground mt-5 max-w-3xl text-sm">

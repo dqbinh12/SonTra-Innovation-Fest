@@ -47,9 +47,9 @@ export async function GettingHere({
   if (options.length === 0 && !directions && !parkingNotes) return null;
 
   return (
-    <section className="py-16 sm:py-20">
+    <section className="relative overflow-x-clip py-16 sm:py-20">
       <Container>
-        <ScrollReveal className="group max-w-2xl">
+        <ScrollReveal direction="left" className="group max-w-2xl">
           <h2 className="text-lg font-bold tracking-tight sm:text-3xl">{t('directions')}</h2>
           <span aria-hidden="true" className="rule-accent mt-5" />
           <p className="text-muted-foreground mt-6 text-base">{t('directionsLead')}</p>
@@ -63,7 +63,7 @@ export async function GettingHere({
 
               return (
                 <li key={`${option.mode}-${index}`}>
-                  <ScrollReveal delay={Math.min(index, 5) * 60} className="h-full">
+                  <ScrollReveal direction="up" delay={Math.min(index, 5) * 60} className="h-full">
                     <div className="glass lift flex h-full flex-col rounded-2xl p-6">
                       <span
                         aria-hidden="true"
@@ -108,7 +108,7 @@ export async function GettingHere({
         {(directions || parkingNotes) && (
           <div className="mt-12 grid gap-6 lg:grid-cols-2">
             {directions && (
-              <ScrollReveal>
+              <ScrollReveal direction="left">
                 <div className="glass h-full rounded-2xl p-7 sm:p-8">
                   <h3 className="flex items-center gap-3 text-base font-semibold">
                     <Route aria-hidden="true" className="text-brand-cyan size-5" />
@@ -122,7 +122,7 @@ export async function GettingHere({
             )}
 
             {parkingNotes && (
-              <ScrollReveal delay={80}>
+              <ScrollReveal direction="right" delay={80}>
                 <div className="glass h-full rounded-2xl p-7 sm:p-8">
                   <h3 className="flex items-center gap-3 text-base font-semibold">
                     <ParkingCircle aria-hidden="true" className="text-brand-cyan size-5" />

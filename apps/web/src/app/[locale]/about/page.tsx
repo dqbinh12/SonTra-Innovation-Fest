@@ -103,12 +103,12 @@ export default async function About({ params }: Props) {
       <AboutHero title={t('title')} tagline={page?.mission} badge="SIF 2026" />
 
       {/* ─── The story & Event Overview (2-Column Layout) ───────────────── */}
-      <section className="pt-8 pb-14 sm:pt-10 sm:pb-18">
+      <section className="relative overflow-x-clip pt-8 pb-14 sm:pt-10 sm:pb-18">
         <Container className="max-w-7xl">
           <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-[17rem_minmax(0,1fr)] lg:gap-8">
             {/* Sidebar: Event At A Glance / Thông Tin Tổng Quan */}
             <aside className="lg:sticky lg:top-24">
-              <ScrollReveal>
+              <ScrollReveal direction="left">
                 <div className="glass rounded-2xl p-6 sm:p-7 border border-border/70 backdrop-blur-md">
                   <div className="flex items-center gap-2 mb-5">
                     <span className="size-2 rounded-full bg-brand-cyan" />
@@ -135,7 +135,7 @@ export default async function About({ params }: Props) {
 
             {/* Main Content: Story with custom rendered Blocks */}
             <div className="min-w-0">
-              <ScrollReveal className="glass rounded-3xl border border-border/70 p-6 sm:p-8">
+              <ScrollReveal direction="up-lg" delay={100} className="glass rounded-3xl border border-border/70 p-6 sm:p-8">
                 <span aria-hidden="true" className="rule-accent mb-4" />
                 {page ? (
                   <RichText content={page.story} variant="story" />
@@ -150,9 +150,9 @@ export default async function About({ params }: Props) {
 
       {/* ─── Who is behind the festival ────────────────────────────────── */}
       {organizations.length > 0 && (
-        <section className="band-inset relative isolate overflow-hidden py-12 sm:py-16">
+        <section className="band-inset relative isolate overflow-clip py-12 sm:py-16">
           <Container>
-            <ScrollReveal className="group text-center">
+            <ScrollReveal direction="left" className="group text-center">
               <h2 className="text-lg font-bold tracking-tight sm:text-3xl">
                 {t('organizerTitle')}
               </h2>
@@ -167,9 +167,9 @@ export default async function About({ params }: Props) {
       )}
 
       {/* ─── Closing CTA ───────────────────────────────────────────────── */}
-      <section className="pt-8 pb-16 sm:pt-10 sm:pb-20">
+      <section className="relative overflow-x-clip pt-8 pb-16 sm:pt-10 sm:pb-20">
         <Container className="max-w-7xl">
-          <ScrollReveal>
+          <ScrollReveal direction="up-lg">
             <div className="bg-brand-navy/55 relative isolate overflow-hidden rounded-3xl border border-white/10 px-6 py-7 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-xl sm:px-8 sm:py-8 lg:px-10">
               <div
                 aria-hidden="true"

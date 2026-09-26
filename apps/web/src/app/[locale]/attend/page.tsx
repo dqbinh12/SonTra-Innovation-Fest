@@ -117,10 +117,10 @@ export default async function Attend({ params }: Props) {
       </section>
 
       {/* ─── Audience segments ─────────────────────────────────────────── */}
-      <section className="relative scroll-mt-24 py-10 sm:py-14" id="audience">
+      <section className="relative overflow-x-clip scroll-mt-24 py-10 sm:py-14" id="audience">
         <SectionGlow />
         <Container>
-          <ScrollReveal>
+          <ScrollReveal direction="left">
             <h2 className="text-lg font-bold tracking-tight text-balance sm:text-3xl">
               {t('audienceTitle')}
             </h2>
@@ -132,7 +132,7 @@ export default async function Attend({ params }: Props) {
           <ul className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
             {segments.map((segment, i) => (
               <li key={segment.key} id={`audience-${segment.key}`} className="scroll-mt-24">
-                <ScrollReveal delay={i * 90} className="h-full">
+                <ScrollReveal direction="up" delay={i * 90} className="h-full">
                   <AudienceCard
                     segmentKey={segment.key}
                     title={segment.title}
@@ -149,7 +149,7 @@ export default async function Attend({ params }: Props) {
 
           {/* Free-form note from the CMS, kept under the cards it qualifies. */}
           {page?.audience && (
-            <ScrollReveal className="glass text-muted-foreground mt-8 rounded-2xl p-6">
+            <ScrollReveal direction="up-lg" className="glass text-muted-foreground mt-8 rounded-2xl p-6">
               <div className="max-w-3xl">
                 <RichText content={page.audience} />
               </div>
@@ -164,7 +164,7 @@ export default async function Attend({ params }: Props) {
           <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
             {page.benefits.map((benefit, i) => (
               <li key={benefit.title}>
-                <ScrollReveal delay={i * 80} className="h-full">
+                <ScrollReveal direction="up" delay={(i % 3) * 80} className="h-full">
                   <div className="group glass lift h-full rounded-2xl p-6">
                     <span
                       aria-hidden="true"
@@ -189,9 +189,9 @@ export default async function Attend({ params }: Props) {
       )}
 
       {/* ─── Entry info ────────────────────────────────────────────────── */}
-      <section className="relative py-8 sm:py-12">
+      <section className="relative overflow-x-clip py-8 sm:py-12">
         <Container>
-          <ScrollReveal>
+          <ScrollReveal direction="up-lg">
             <div className="glass rounded-2xl p-5 sm:rounded-3xl sm:p-7">
               <h2 className="text-lg font-bold tracking-tight">{t('entryTitle')}</h2>
               <div className="mt-6 max-w-3xl">
@@ -207,9 +207,9 @@ export default async function Attend({ params }: Props) {
       </section>
 
       {/* ─── Closing CTA ───────────────────────────────────────────────── */}
-      <section className="pb-12 sm:pb-16">
+      <section className="relative overflow-x-clip pb-12 sm:pb-16">
         <Container>
-          <ScrollReveal>
+          <ScrollReveal direction="up-lg">
             <div className="bg-brand-navy relative isolate overflow-hidden rounded-2xl px-5 py-10 text-center text-white sm:rounded-3xl sm:px-10 sm:py-12">
               <div aria-hidden="true" className="bg-aurora absolute inset-0 -z-10 opacity-90" />
               <div aria-hidden="true" className="bg-tech-grid absolute inset-0 -z-10" />

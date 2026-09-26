@@ -7,6 +7,7 @@ import { seoMetadata } from '@/lib/metadata';
 import { Container } from '@/components/layout/container';
 import { FestivalBackdrop } from '@/components/layout/festival-backdrop';
 import { ImmersivePageHero } from '@/components/layout/immersive-page-hero';
+import { ScrollReveal } from '@/components/home/scroll-reveal';
 import { StrapiImage } from '@/components/strapi-image';
 import { SponsorForm } from '@/components/forms/sponsor-form';
 
@@ -55,7 +56,7 @@ export default async function Sponsors({ params }: Props) {
   ]);
 
   return (
-    <div className="page-deep dark relative flex-1 overflow-hidden text-foreground">
+    <div className="page-deep dark relative flex-1 overflow-x-clip text-foreground">
       <FestivalBackdrop variant="sponsors" />
       <ImmersivePageHero
         eyebrow={t('eyebrow')}
@@ -63,9 +64,9 @@ export default async function Sponsors({ params }: Props) {
         lead={page?.intro ?? t('lead')}
       />
 
-      <section className="relative py-8 sm:py-10">
+      <section className="relative overflow-x-clip py-8 sm:py-10">
         <Container>
-          <div className="mb-6 flex items-end justify-between gap-4">
+          <ScrollReveal direction="left" className="mb-6 flex items-end justify-between gap-4">
             <div>
               <p className="text-xs font-bold tracking-[0.18em] text-brand-cyan uppercase">
                 {t('networkEyebrow')}
@@ -77,7 +78,7 @@ export default async function Sponsors({ params }: Props) {
             <span className="hidden font-mono text-xs text-muted-foreground sm:block">
               {t('partnerCount', { count: sponsors.length })}
             </span>
-          </div>
+          </ScrollReveal>
 
           {sponsors.length === 0 ? (
             <div className="glass rounded-3xl border border-white/10 p-10 text-center text-muted-foreground">
@@ -85,8 +86,9 @@ export default async function Sponsors({ params }: Props) {
             </div>
           ) : (
             <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {sponsors.map((sponsor) => (
+              {sponsors.map((sponsor, i) => (
                 <li key={sponsor.documentId}>
+                  <ScrollReveal direction="up" delay={(i % 3) * 80} className="h-full">
                   <a
                     href={sponsor.link || undefined}
                     target={sponsor.link ? '_blank' : undefined}
@@ -109,6 +111,7 @@ export default async function Sponsors({ params }: Props) {
                       <ArrowUpRight className="absolute top-3 right-3 size-3.5 text-brand-blue opacity-0 transition-opacity group-hover:opacity-100" />
                     )}
                   </a>
+                  </ScrollReveal>
                 </li>
               ))}
             </ul>
@@ -116,9 +119,9 @@ export default async function Sponsors({ params }: Props) {
         </Container>
       </section>
 
-      <section className="band-inset relative py-8 sm:py-10">
+      <section className="band-inset relative overflow-x-clip py-8 sm:py-10">
         <Container className="grid gap-8 lg:grid-cols-[2fr_3fr] lg:gap-10">
-          <div className="lg:pt-6">
+          <ScrollReveal direction="left" className="lg:pt-6">
             <div className="flex size-12 items-center justify-center rounded-2xl border border-brand-mint/30 bg-brand-mint/10">
               <Handshake className="size-6 text-brand-mint" />
             </div>
@@ -131,10 +134,10 @@ export default async function Sponsors({ params }: Props) {
             <p className="mt-4 max-w-md leading-7 text-muted-foreground">
               {page?.applicationIntro ?? t('becomeIntro')}
             </p>
-          </div>
-          <div className="glass rounded-2xl border border-white/10 p-4.5 sm:rounded-3xl sm:p-6 lg:p-7">
+          </ScrollReveal>
+          <ScrollReveal direction="up-lg" delay={120} className="glass rounded-2xl border border-white/10 p-4.5 sm:rounded-3xl sm:p-6 lg:p-7">
             <SponsorForm />
-          </div>
+          </ScrollReveal>
         </Container>
       </section>
     </div>

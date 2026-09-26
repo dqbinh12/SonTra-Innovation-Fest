@@ -7,6 +7,7 @@ import { seoMetadata } from '@/lib/metadata';
 import { Link, getPathname } from '@/i18n/navigation';
 import { Container } from '@/components/layout/container';
 import { NewsBackdrop } from '@/components/news/news-backdrop';
+import { ScrollReveal } from '@/components/home/scroll-reveal';
 import { NewsCard } from '@/components/news/news-card';
 import { NewsFilterBar } from '@/components/news/news-filter-bar';
 
@@ -128,9 +129,9 @@ export default async function NewsPage({ params, searchParams }: Props) {
       <NewsBackdrop />
 
       {/* ─── Hero Section with Tech Pulse & Filter Dock ───────────────────── */}
-      <section className="relative overflow-hidden pt-20 pb-4 sm:pt-24 sm:pb-6 lg:pt-26 lg:pb-8 text-white">
+      <section className="relative overflow-x-clip pt-20 pb-4 sm:pt-24 sm:pb-6 lg:pt-26 lg:pb-8 text-white">
         <Container className="relative grid gap-8 lg:grid-cols-[1fr_24rem] lg:items-end lg:gap-12">
-          <div>
+          <ScrollReveal direction="left">
             {/* Live Dispatch Pulse Pill */}
             <div className="glass-invert inline-flex items-center gap-2.5 rounded-full px-3.5 py-1.5 text-xs font-semibold tracking-wider text-brand-cyan uppercase">
               <span
@@ -157,17 +158,17 @@ export default async function NewsPage({ params, searchParams }: Props) {
             <p className="mt-3 max-w-2xl text-xs leading-relaxed text-white/75 sm:text-sm">
               {content?.intro ?? t('intro')}
             </p>
-          </div>
+          </ScrollReveal>
 
           {/* Interactive Search & Category Filter */}
-          <div className="w-full">
+          <ScrollReveal direction="right" delay={80} className="w-full">
             <NewsFilterBar
               query={q}
               category={categoryParam}
               categories={categories}
               newsPath={newsPath}
             />
-          </div>
+          </ScrollReveal>
         </Container>
       </section>
 
@@ -245,20 +246,26 @@ export default async function NewsPage({ params, searchParams }: Props) {
             </div>
           ) : (
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
-              {articles.map((article) => (
-                <NewsCard
+              {articles.map((article, i) => (
+                <ScrollReveal
                   key={article.documentId}
-                  article={article}
-                  formatDate={formatDate}
-                  readMoreLabel={t('readMore')}
-                  readingTimeLabel={(minutes) => t('readingTime', { minutes })}
-                />
+                  direction="up-lg"
+                  delay={(i % 3) * 100}
+                >
+                  <NewsCard
+                    article={article}
+                    formatDate={formatDate}
+                    readMoreLabel={t('readMore')}
+                    readingTimeLabel={(minutes) => t('readingTime', { minutes })}
+                  />
+                </ScrollReveal>
               ))}
             </div>
           )}
 
           {/* Pagination Navigation */}
           {pagination && pagination.pageCount > 1 && (
+            <ScrollReveal direction="up">
             <nav
               aria-label={t('pagination')}
               className="mt-12 flex flex-wrap items-center justify-between gap-4 border-t border-border/40 pt-6 text-sm"
@@ -291,6 +298,7 @@ export default async function NewsPage({ params, searchParams }: Props) {
                 <span />
               )}
             </nav>
+            </ScrollReveal>
           )}
         </section>
       </Container>

@@ -10,6 +10,7 @@ import { Container } from '@/components/layout/container';
 import { RichText } from '@/components/rich-text';
 import { StrapiImage } from '@/components/strapi-image';
 import { NewsBackdrop } from '@/components/news/news-backdrop';
+import { ScrollReveal } from '@/components/home/scroll-reveal';
 import { NewsCard } from '@/components/news/news-card';
 import { ReadingProgress } from '@/components/news/reading-progress';
 import { ArticleShareBar } from '@/components/news/article-share-bar';
@@ -174,6 +175,7 @@ export default async function ArticlePage({ params }: Props) {
 
       {/* ─── Reading Body Container ───────────────────────────────────────── */}
       <Container className="max-w-4xl py-6 sm:py-8">
+        <ScrollReveal direction="up-lg">
         <article className="glass rounded-3xl border border-border/70 p-6 sm:p-10 lg:p-12 backdrop-blur-xl shadow-2xl">
           <div className="prose prose-invert max-w-none">
             <RichText
@@ -197,28 +199,30 @@ export default async function ArticlePage({ params }: Props) {
             </Link>
           </div>
         </article>
+        </ScrollReveal>
       </Container>
 
       {/* ─── Related Stories Section ──────────────────────────────────────── */}
       {relatedArticles.length > 0 && (
-        <section className="pt-12 sm:pt-16">
+        <section className="relative overflow-x-clip pt-12 sm:pt-16">
           <Container className="max-w-6xl">
-            <div className="mb-6 flex items-center justify-between">
+            <ScrollReveal direction="left" className="mb-6 flex items-center justify-between">
               <h2 className="text-lg font-bold tracking-tight text-white sm:text-2xl">
                 {t('relatedStories')}
               </h2>
               <span aria-hidden="true" className="rule-accent" />
-            </div>
+            </ScrollReveal>
 
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
-              {relatedArticles.map((rel) => (
-                <NewsCard
-                  key={rel.documentId}
-                  article={rel}
-                  formatDate={formatDate}
-                  readMoreLabel={t('readMore')}
-                  readingTimeLabel={(minutes) => t('readingTime', { minutes })}
-                />
+              {relatedArticles.map((rel, i) => (
+                <ScrollReveal key={rel.documentId} direction="up-lg" delay={(i % 3) * 100}>
+                  <NewsCard
+                    article={rel}
+                    formatDate={formatDate}
+                    readMoreLabel={t('readMore')}
+                    readingTimeLabel={(minutes) => t('readingTime', { minutes })}
+                  />
+                </ScrollReveal>
               ))}
             </div>
           </Container>

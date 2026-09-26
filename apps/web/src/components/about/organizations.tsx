@@ -225,7 +225,7 @@ export function Organizations({
             key={`${organization.role}-${i}`}
             className={cn(organization.role === 'organizer' && 'order-first sm:order-none')}
           >
-            <ScrollReveal delay={i * 80}>
+            <ScrollReveal direction="up" delay={i * 80}>
               <OrganizationTile organization={organization} label={labels[organization.role]} />
             </ScrollReveal>
           </li>
@@ -241,7 +241,7 @@ export function Organizations({
           <ul className="mt-3.5 flex flex-wrap items-end justify-center gap-x-6 gap-y-4 sm:mt-4 sm:gap-x-8 sm:gap-y-5 lg:gap-x-10">
             {coordinators.map((organization, i) => (
               <li key={`coordinator-${i}`}>
-                <ScrollReveal delay={i * 80}>
+                <ScrollReveal direction="up" delay={i * 80}>
                   <OrganizationTile organization={organization} />
                 </ScrollReveal>
               </li>
@@ -265,7 +265,7 @@ export function Organizations({
                 {labels[role]}
               </RoleLabel>
 
-              <ScrollReveal className="mx-auto mt-3.5 w-full max-w-44 sm:mt-4" delay={i * 60}>
+              <ScrollReveal direction="up" className="mx-auto mt-3.5 w-full max-w-44 sm:mt-4" delay={i * 60}>
                 <OrganizationTile organization={organization} />
               </ScrollReveal>
             </li>

@@ -4,6 +4,7 @@ import { Mail, Phone, Share2, Sparkles, Send, MapPin } from 'lucide-react';
 import type { Locale, SiteSettings } from '@sif/shared';
 import { strapiFetchOptional } from '@/lib/strapi';
 import { Container } from '@/components/layout/container';
+import { ScrollReveal } from '@/components/home/scroll-reveal';
 import { ContactForm } from '@/components/forms/contact-form';
 
 type Props = { params: Promise<{ locale: string }> };
@@ -28,7 +29,7 @@ export default async function Contact({ params }: Props) {
   });
 
   return (
-    <div className="dark relative min-h-[calc(100vh-5rem)] overflow-hidden bg-brand-navy text-white">
+    <div className="dark relative min-h-[calc(100vh-5rem)] overflow-x-clip bg-brand-navy text-white">
       {/* Dynamic background ambient glows */}
       <div
         aria-hidden="true"
@@ -71,7 +72,7 @@ export default async function Contact({ params }: Props) {
       <Container className="py-6 sm:py-10 lg:py-12">
         <div className="grid gap-6 lg:grid-cols-[minmax(0,1.35fr)_minmax(0,1fr)] lg:gap-8 items-start">
           {/* Form Container */}
-          <div className="relative rounded-2xl sm:rounded-3xl border border-white/15 bg-white/[0.04] p-4.5 sm:p-6 lg:p-7 backdrop-blur-2xl shadow-2xl shadow-black/40">
+          <ScrollReveal direction="left" className="relative rounded-2xl sm:rounded-3xl border border-white/15 bg-white/[0.04] p-4.5 sm:p-6 lg:p-7 backdrop-blur-2xl shadow-2xl shadow-black/40">
             <div className="flex items-center justify-between border-b border-white/10 pb-3 mb-4 sm:mb-5">
               <div>
                 <h2 className="text-sm font-bold tracking-tight text-white sm:text-lg font-display">
@@ -85,10 +86,10 @@ export default async function Contact({ params }: Props) {
             </div>
 
             <ContactForm />
-          </div>
+          </ScrollReveal>
 
           {/* Contact Details & Info Cards */}
-          <div className="space-y-4 sm:space-y-6">
+          <ScrollReveal direction="right" delay={100} className="space-y-4 sm:space-y-6">
             {/* Direct Contact Card */}
             <div className="rounded-2xl sm:rounded-3xl border border-white/15 bg-white/[0.04] p-4.5 sm:p-6 backdrop-blur-2xl shadow-xl">
               <h2 className="text-xs font-bold tracking-wider uppercase text-brand-cyan flex items-center gap-2">
@@ -180,7 +181,7 @@ export default async function Contact({ params }: Props) {
                 </div>
               </div>
             )}
-          </div>
+          </ScrollReveal>
         </div>
       </Container>
     </div>

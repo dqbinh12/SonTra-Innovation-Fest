@@ -7,6 +7,7 @@ import { seoMetadata } from '@/lib/metadata';
 import { Container } from '@/components/layout/container';
 import { FestivalBackdrop } from '@/components/layout/festival-backdrop';
 import { ImmersivePageHero } from '@/components/layout/immersive-page-hero';
+import { ScrollReveal } from '@/components/home/scroll-reveal';
 import { StrapiImage } from '@/components/strapi-image';
 
 type Props = { params: Promise<{ locale: string }> };
@@ -72,7 +73,7 @@ export default async function Exhibition({ params }: Props) {
   });
 
   return (
-    <div className="page-deep dark relative flex-1 overflow-hidden text-foreground">
+    <div className="page-deep dark relative flex-1 overflow-x-clip text-foreground">
       <FestivalBackdrop variant="exhibition" />
       <ImmersivePageHero
         eyebrow={t('eyebrow')}
@@ -81,18 +82,18 @@ export default async function Exhibition({ params }: Props) {
       />
 
       {page?.floorPlan && (
-        <section className="relative py-8 sm:py-10">
+        <section className="relative overflow-x-clip py-8 sm:py-10">
           <Container>
-            <div className="mb-5">
+            <ScrollReveal direction="left" className="mb-5">
               <p className="text-xs font-bold tracking-[0.18em] text-brand-mint uppercase">
                 {t('floorPlanEyebrow')}
               </p>
               <h2 className="mt-1 text-lg font-bold tracking-tight sm:text-3xl">
                 {t('floorPlanTitle')}
               </h2>
-            </div>
+            </ScrollReveal>
 
-            <div className="glass rounded-3xl border border-white/10 p-4 shadow-2xl backdrop-blur-xl sm:p-6 lg:p-7">
+            <ScrollReveal direction="focus" delay={100} className="glass rounded-3xl border border-white/10 p-4 shadow-2xl backdrop-blur-xl sm:p-6 lg:p-7">
               <figure className="relative">
                 <StrapiImage
                   media={page.floorPlan}
@@ -106,14 +107,14 @@ export default async function Exhibition({ params }: Props) {
                   </figcaption>
                 )}
               </figure>
-            </div>
+            </ScrollReveal>
           </Container>
         </section>
       )}
 
-      <section className="relative pt-6 pb-12 sm:pt-8 sm:pb-16">
+      <section className="relative overflow-x-clip pt-6 pb-12 sm:pt-8 sm:pb-16">
         <Container>
-          <div className="mb-6 flex items-end justify-between gap-4">
+          <ScrollReveal direction="left" className="mb-6 flex items-end justify-between gap-4">
             <div>
               <p className="text-xs font-bold tracking-[0.18em] text-brand-cyan uppercase">
                 {t('showcaseEyebrow')}
@@ -127,7 +128,7 @@ export default async function Exhibition({ params }: Props) {
                 {t('exhibitorCount', { count: sortedExhibitors.length })}
               </span>
             )}
-          </div>
+          </ScrollReveal>
 
           {sortedExhibitors.length === 0 ? (
             <div className="glass rounded-3xl border border-white/10 p-12 text-center">
@@ -139,11 +140,10 @@ export default async function Exhibition({ params }: Props) {
             </div>
           ) : (
             <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {sortedExhibitors.map((exhibitor) => (
-                <li
-                  key={exhibitor.documentId}
-                  className="glass lift group relative flex flex-col justify-between rounded-2xl border border-white/10 p-5 backdrop-blur-xl"
-                >
+              {sortedExhibitors.map((exhibitor, i) => (
+                <li key={exhibitor.documentId}>
+                  <ScrollReveal direction="up" delay={(i % 4) * 80} className="h-full">
+                  <div className="glass lift group relative flex h-full flex-col justify-between rounded-2xl border border-white/10 p-5 backdrop-blur-xl">
                   <div>
                     <div className="mb-4 flex items-start justify-between gap-3">
                       {exhibitor.logo ? (
@@ -200,6 +200,8 @@ export default async function Exhibition({ params }: Props) {
                       </a>
                     </div>
                   )}
+                  </div>
+                  </ScrollReveal>
                 </li>
               ))}
             </ul>

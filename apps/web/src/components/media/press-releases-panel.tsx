@@ -29,9 +29,9 @@ export async function PressReleasesPanel({
   const sorted = [...releases].sort((a, b) => b.date.localeCompare(a.date));
 
   return (
-    <section className="py-16 sm:py-20">
+    <section className="relative overflow-x-clip py-16 sm:py-20">
       <Container>
-        <ScrollReveal className="group max-w-2xl">
+        <ScrollReveal direction="left" className="group max-w-2xl">
           <h2 className="text-lg font-bold tracking-tight sm:text-3xl">{t('title')}</h2>
           <span aria-hidden="true" className="rule-accent mt-5" />
           <p className="text-muted-foreground mt-6 text-base">{intro ?? t('lead')}</p>
@@ -63,7 +63,7 @@ export async function PressReleasesPanel({
 
                 return (
                   <li key={`${release.title}-${index}`}>
-                    <ScrollReveal delay={Math.min(index, 5) * 60}>
+                    <ScrollReveal direction="up" delay={Math.min(index, 5) * 60}>
                       <article className="border-border hover:bg-secondary/40 flex flex-wrap items-start gap-x-8 gap-y-4 border-b px-2 py-8 transition-colors sm:flex-nowrap">
                         <span
                           aria-hidden="true"

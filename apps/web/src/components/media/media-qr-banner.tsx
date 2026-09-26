@@ -26,7 +26,7 @@ export function MediaQrBanner({
   if (!link) return null;
 
   return (
-    <ScrollReveal className="mt-8 sm:mt-10">
+    <ScrollReveal direction="up-lg" className="mt-8 sm:mt-10">
       <div className="from-brand-blue to-brand-violet relative isolate flex flex-col md:flex-row md:items-center justify-between gap-6 overflow-hidden rounded-3xl bg-gradient-to-br px-6 py-6 sm:px-8 sm:py-7 md:px-10 md:py-8 text-white shadow-xl">
         {/* Left: Icon, Badge, Title, Description, Button */}
         <div className="flex flex-1 flex-col items-start justify-center max-w-xl">

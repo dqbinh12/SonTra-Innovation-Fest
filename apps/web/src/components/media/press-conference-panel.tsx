@@ -40,7 +40,7 @@ export async function PressConferencePanel({
     : null;
 
   return (
-    <section className="py-8 sm:py-10">
+    <section className="relative overflow-x-clip py-8 sm:py-10">
       <Container>
         {briefingUrl && (
           <MediaQrBanner
@@ -57,7 +57,7 @@ export async function PressConferencePanel({
         {conference && (
           <div className="mt-12 grid gap-12 lg:grid-cols-[minmax(0,1fr)_20rem] lg:gap-16">
             {/* ── The briefing details ─────────────────────────────────── */}
-            <ScrollReveal className="group order-2 lg:order-1">
+            <ScrollReveal direction="left" className="group order-2 lg:order-1">
               <h2 className="text-lg font-bold tracking-tight sm:text-3xl">
                 {conference.title ?? t('title')}
               </h2>
@@ -110,7 +110,7 @@ export async function PressConferencePanel({
             </ScrollReveal>
 
             {/* ── When / where ────────────────────────────────────────── */}
-            <ScrollReveal className="order-1 lg:order-2">
+            <ScrollReveal direction="right" delay={100} className="order-1 lg:order-2">
               <div className="glass sticky top-36 rounded-2xl p-6">
                 <dl className="space-y-6">
                   {when && (

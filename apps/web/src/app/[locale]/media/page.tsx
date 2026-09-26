@@ -130,9 +130,9 @@ export default async function Media({ params }: Props) {
       <MediaTabs tabs={tabs} label={t('tabsLabel')} />
 
       {/* ─── Press contact ─────────────────────────────────────────────── */}
-      <section className="pb-12 sm:pb-16">
+      <section className="relative overflow-x-clip pb-12 sm:pb-16">
         <Container>
-          <ScrollReveal>
+          <ScrollReveal direction="up-lg">
             <div className="glass flex flex-wrap items-center justify-between gap-6 rounded-2xl p-6 sm:p-8">
               <div className="max-w-xl">
                 <h2 className="text-lg font-bold tracking-tight">{t('contact.title')}</h2>
