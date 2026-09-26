@@ -149,7 +149,20 @@ export default async function Home({ params }: Props) {
     locale === 'vi'
       ? 'Kết nối công nghệ – Kiến tạo tương lai Sơn Trà'
       : 'Connecting Technology – Shaping the Future of Son Tra';
-  const heroDisplayTitle = home?.heroTitle || fallbackTitle;
+
+  // Keep multi-syllable Vietnamese words and the "Sơn Trà / Son Tra" place name
+  // on one line by joining their syllables with non-breaking spaces, so the
+  // headline never splits a single word across lines.
+  const NBSP = '\u00A0';
+  const heroDisplayTitle = (home?.heroTitle || fallbackTitle)
+    .replaceAll('công nghệ', `công${NBSP}nghệ`)
+    .replaceAll('Kiến tạo', `Kiến${NBSP}tạo`)
+    .replaceAll('tương lai', `tương${NBSP}lai`)
+    .replaceAll('Sơn Trà', `Sơn${NBSP}Trà`)
+    .replaceAll('Connecting Technology', `Connecting${NBSP}Technology`)
+    .replaceAll('Shaping the Future', `Shaping${NBSP}the${NBSP}Future`)
+    .replaceAll('of Son Tra', `of${NBSP}Son${NBSP}Tra`)
+    .replaceAll('Son Tra', `Son${NBSP}Tra`);
 
   return (
     <>
@@ -161,7 +174,7 @@ export default async function Home({ params }: Props) {
         <TechBackdrop />
 
         <Container className="relative w-full">
-          <div className="mx-auto flex max-w-4xl flex-col items-center text-center">
+          <div className="mx-auto flex max-w-6xl flex-col items-center text-center">
             {/* Live Event Telemetry Pill */}
             <div className="glass-invert mb-6 inline-flex items-center gap-2.5 rounded-full border border-brand-cyan/30 px-4 py-1.5 text-xs font-semibold tracking-wider text-brand-cyan uppercase backdrop-blur-xl shadow-[0_0_24px_rgba(0,240,255,0.18)] sm:mb-8 sm:px-5 sm:py-2">
               <span className="relative flex size-2">
@@ -176,7 +189,7 @@ export default async function Home({ params }: Props) {
             </div>
 
             {/* Main Fluid Title with typing aurora glow */}
-            <h1 className="text-[clamp(1.5rem,5.6vw,5.25rem)] leading-[1.08] font-bold tracking-tight text-balance">
+            <h1 className="text-[clamp(1.5rem,5.2vw,4.75rem)] leading-[1.08] font-bold tracking-tight text-pretty">
               <HeroTitle text={heroDisplayTitle} />
             </h1>
 
