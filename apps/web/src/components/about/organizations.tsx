@@ -202,6 +202,19 @@ export function Organizations({
    */
   const supportRoles = SUPPORT_ROLES.filter((role) => byRole(role).length > 0);
 
+  /**
+   * Split the supporting tiers by how many organizations each holds.
+   *
+   * A tier with a single organization is one cell wide, so several of them sit
+   * on one balanced row. A tier holding several — the partners, in practice —
+   * cannot: stacking its logos vertically inside a single grid cell makes that
+   * column as many plates tall as it has members, which pushes a large
+   * L-shaped hole under the neighbouring cells. Those tiers therefore get a
+   * row of their own below, with their logos side by side.
+   */
+  const singleTiers = supportRoles.filter((role) => byRole(role).length === 1);
+  const multiTiers = supportRoles.filter((role) => byRole(role).length > 1);
+
   return (
     <div>
       {/* No panel of its own any more: the band behind it is the grouping.
@@ -238,17 +251,24 @@ export function Organizations({
         </div>
       )}
 
-      {supportRoles.length > 0 && (
-        <ul className="mt-10 grid grid-cols-2 gap-x-6 gap-y-9 sm:mt-12 sm:gap-x-8 md:grid-cols-4 lg:mt-14 lg:gap-x-10">
-          {supportRoles.map((role) => {
+      {singleTiers.length > 0 && (
+        <ul className="mt-10 flex flex-wrap items-end justify-center gap-x-6 gap-y-9 sm:mt-12 sm:gap-x-8 lg:mt-14 lg:gap-x-10">
+          {singleTiers.map((role) => {
             const members = byRole(role);
 
             return (
-              <li key={role} className="flex flex-col items-center">
+              /* The cell is pinned to the plate's width rather than sized by
+                 its label. A long label ("ĐƠN VỊ BẢO TRỢ TRUYỀN THÔNG") is
+                 wider than the plate under it, and letting it size the cell
+                 shifted every plate after it — the row read as drifting to
+                 the right. The label now wraps inside the plate's width. */
+              <li key={role} className="flex w-36 flex-col items-center lg:w-44">
                 {/* A fixed label height keeps every plate on one line across
                     the row; `items-end` sits single-line labels on that
                     baseline instead of floating them mid-height. */}
-                <RoleLabel className="flex h-9 items-end justify-center">{labels[role]}</RoleLabel>
+                <RoleLabel className="flex min-h-10 w-full items-end justify-center text-balance">
+                  {labels[role]}
+                </RoleLabel>
 
                 <div className="mt-3.5 flex flex-wrap items-end justify-center gap-x-6 gap-y-4 sm:mt-4 sm:gap-x-8 sm:gap-y-5 lg:gap-x-10">
                   {members.map((organization, i) => (
@@ -262,6 +282,28 @@ export function Organizations({
           })}
         </ul>
       )}
+
+      {/* Tiers holding more than one organization get their own row, logos
+          side by side, so no column grows taller than its neighbours. */}
+      {multiTiers.map((role) => {
+        const members = byRole(role);
+
+        return (
+          <div key={role} className="mt-10 sm:mt-12 lg:mt-14">
+            <RoleLabel>{labels[role]}</RoleLabel>
+
+            <ul className="mt-3.5 flex flex-wrap items-end justify-center gap-x-6 gap-y-6 sm:mt-4 sm:gap-x-8 lg:gap-x-10">
+              {members.map((organization, i) => (
+                <li key={`${role}-${i}`} className="flex justify-center">
+                  <ScrollReveal delay={i * 80}>
+                    <OrganizationTile organization={organization} />
+                  </ScrollReveal>
+                </li>
+              ))}
+            </ul>
+          </div>
+        );
+      })}
     </div>
   );
 }
