@@ -19,14 +19,13 @@ export type RevealDirection = 'up' | 'up-lg' | 'left' | 'right' | 'focus';
 /**
  * Scroll-reveal wrapper.
  *
- * Uses the `.scroll-reveal` CSS class which is powered by CSS scroll-driven
- * animations where supported (Chrome 115+, Safari 26+). In Firefox or older
- * browsers the CSS rules use `opacity: 0; transform: translateY(130px)` and
- * wait for an `.is-visible` class — this component adds that via
- * IntersectionObserver.
+ * The `.scroll-reveal` class starts every element at `opacity: 0` plus a
+ * per-role transform, and `.is-visible` (added here, once, on first entry)
+ * transitions it into view. Revealing once and never re-hiding is deliberate:
+ * a scroll-linked timeline would play the transition in reverse when the user
+ * scrolls back up, which reads as the section flashing/janking.
  *
- * `delay` creates a stagger between sibling reveals by setting a CSS custom
- * property that the transition picks up.
+ * `delay` creates a stagger between sibling reveals via `transition-delay`.
  */
 export function ScrollReveal({
   children,

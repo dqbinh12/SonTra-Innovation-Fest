@@ -80,7 +80,12 @@ export function SiteHeader({ siteName, logo }: { siteName: string; logo?: Strapi
           : 'border-border bg-background/90 sticky border-b backdrop-blur',
         immersive &&
           !transparent &&
-          'border-b border-white/10 bg-[color-mix(in_oklab,var(--color-brand-navy)_88%,transparent)] backdrop-blur-xl',
+          // No `backdrop-blur` here. This bar is `fixed` and full-width, so a
+          // backdrop-filter re-rasterizes the whole strip behind it on every
+          // frame the page scrolls — a permanent per-frame cost that competes
+          // with the reveal transitions. A near-opaque navy fill reads the same
+          // over the hero video at a fraction of the paint cost.
+          'border-b border-white/10 bg-[color-mix(in_oklab,var(--color-brand-navy)_94%,transparent)]',
       )}
     >
       {/*

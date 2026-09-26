@@ -19,17 +19,31 @@ export function HeroVideoLayer({ src, className }: { src: string; className?: st
     if (!video) return;
 
     const media = window.matchMedia('(prefers-reduced-motion: reduce)');
-    const apply = () => {
-      // Pausing leaves the current frame on screen, which is the still hero we
-      // want — there is no poster to fall back to, since the CMS media field
-      // carries only the video itself.
-      if (media.matches) video.pause();
-      else void video.play().catch(() => {});
+
+    // Pause when the video is offscreen so decoding does not compete with
+    // page scroll and reveal transitions further down the page.
+    let isIntersecting = true;
+    const updatePlayState = () => {
+      if (media.matches || !isIntersecting) {
+        video.pause();
+      } else {
+        void video.play().catch(() => {});
+      }
     };
 
-    apply();
-    media.addEventListener('change', apply);
-    return () => media.removeEventListener('change', apply);
+    updatePlayState();
+    media.addEventListener('change', updatePlayState);
+
+    const observer = new IntersectionObserver(([entry]) => {
+      isIntersecting = entry.isIntersecting;
+      updatePlayState();
+    });
+    observer.observe(video);
+
+    return () => {
+      observer.disconnect();
+      media.removeEventListener('change', updatePlayState);
+    };
   }, []);
 
   return (

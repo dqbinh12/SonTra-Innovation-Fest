@@ -181,7 +181,14 @@ function HeroLayers({
   // it twice would put two <video> elements on the same source on the page —
   // one network fetch, but two decoders running for a file that can be several
   // megabytes. One layer, no breakpoint class.
-  if (!hasDedicatedMobile) return <HeroLayer media={wide} className={position} />;
+  //
+  // The same applies when a phone crop *was* uploaded but resolves to the very
+  // same file (the CMS often stores both fields pointing at one upload): two
+  // video elements then decode the same MP4 simultaneously, which is pure waste
+  // during scroll. Compare the resolved URLs and collapse to one layer.
+  if (!hasDedicatedMobile || mediaUrl(wide) === mediaUrl(small)) {
+    return <HeroLayer media={wide} className={position} />;
+  }
 
   return (
     <>
