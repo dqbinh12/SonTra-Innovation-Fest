@@ -169,13 +169,12 @@ export default async function Agenda({ params }: Props) {
                     </div>
                   </ScrollReveal>
 
-                  {/* Sections List */}
+                  {/* Sections List — all sections in a group animate together with no stagger */}
                   <div className="space-y-4 sm:space-y-5">
-                    {groupSessionsIntoSections(daySessions).map((section, sectionIdx) => (
+                    {groupSessionsIntoSections(daySessions).map((section) => (
                       <ScrollReveal
                         key={section.id}
                         direction="up-lg"
-                        delay={(sectionIdx % 4) * 80}
                       >
                       <div
                         className="glass relative overflow-hidden rounded-2xl border border-white/10 backdrop-blur-xl transition-all duration-300 hover:border-brand-cyan/30 hover:shadow-xl hover:shadow-brand-cyan/5"

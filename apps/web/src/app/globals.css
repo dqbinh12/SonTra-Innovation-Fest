@@ -313,26 +313,26 @@
  */
 .scroll-reveal {
   opacity: 0;
-  transform: translateY(80px);
+  transform: translateY(56px);
   transition:
     opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
     transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .scroll-reveal[data-reveal='up-lg'] {
-  transform: translateY(110px);
+  transform: translateY(72px);
 }
 
 .scroll-reveal[data-reveal='left'] {
-  transform: translateX(-80px);
+  transform: translateX(-56px);
 }
 
 .scroll-reveal[data-reveal='right'] {
-  transform: translateX(80px);
+  transform: translateX(56px);
 }
 
 .scroll-reveal[data-reveal='focus'] {
-  transform: scale(1.08);
+  transform: scale(1.05);
 }
 
 .scroll-reveal.is-visible {
