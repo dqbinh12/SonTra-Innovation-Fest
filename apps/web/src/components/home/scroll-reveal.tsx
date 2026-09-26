@@ -5,11 +5,23 @@ import type { ReactNode } from 'react';
 import { cn } from '@/lib/utils';
 
 /**
+ * Direction each reveal travels in. The direction carries meaning, so it is
+ * chosen by role rather than applied uniformly:
+ *
+ *   up      body copy and cards — rise from below (the natural reading move)
+ *   up-lg   heavy cards — rise further and settle from a slight scale
+ *   left    headings and CTA rows — slide in from the left edge
+ *   right   the sponsor/partner marquee — slide in from the right edge
+ *   focus   media — settle in from a slight zoom
+ */
+export type RevealDirection = 'up' | 'up-lg' | 'left' | 'right' | 'focus';
+
+/**
  * Scroll-reveal wrapper.
  *
  * Uses the `.scroll-reveal` CSS class which is powered by CSS scroll-driven
  * animations where supported (Chrome 115+, Safari 26+). In Firefox or older
- * browsers the CSS rules use `opacity: 0; transform: translateY(24px)` and
+ * browsers the CSS rules use `opacity: 0; transform: translateY(130px)` and
  * wait for an `.is-visible` class — this component adds that via
  * IntersectionObserver.
  *
@@ -20,10 +32,12 @@ export function ScrollReveal({
   children,
   className,
   delay = 0,
+  direction = 'up',
 }: {
   children: ReactNode;
   className?: string;
   delay?: number;
+  direction?: RevealDirection;
 }) {
   const ref = useRef<HTMLDivElement>(null);
 
@@ -58,6 +72,7 @@ export function ScrollReveal({
     <div
       ref={ref}
       className={cn('scroll-reveal', className)}
+      data-reveal={direction}
       style={delay ? ({ transitionDelay: `${delay}ms` } as React.CSSProperties) : undefined}
     >
       {children}

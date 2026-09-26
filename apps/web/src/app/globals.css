@@ -147,6 +147,86 @@
   }
 }
 
+/*
+ * Scroll-reveal choreography (PA2, "by role").
+ *
+ * Amplitude matters more than the easing: the previous 24px rise completed
+ * inside a few dozen pixels of scroll, which read as "it just appears". These
+ * travel far enough to be followed by eye — 120-190px — and read as the block
+ * sliding in from the edge of its section.
+ *
+ * Direction carries meaning, so it is not uniform:
+ *   reveal-up     body copy, cards — rise from below, the natural reading move
+ *   reveal-up-lg  cards with weight — rise further, settle from a slight scale
+ *   reveal-left   headings, CTA rows — slide in from the left edge
+ *   reveal-right  logo marquee — slide in from the right edge
+ *   reveal-focus  media — settle in from a slight zoom
+ */
+@keyframes reveal-up {
+  from {
+    opacity: 0;
+    transform: translateY(130px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes reveal-up-lg {
+  from {
+    opacity: 0;
+    transform: translateY(190px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes reveal-left {
+  from {
+    opacity: 0;
+    transform: translateX(-120px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes reveal-right {
+  from {
+    opacity: 0;
+    transform: translateX(130px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes reveal-focus {
+  from {
+    opacity: 0;
+    transform: scale(1.14);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* The session bar wipes in as a slice, then keeps a sheen crossing it. */
+@keyframes bar-slice {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
 @keyframes shimmer {
   from {
     background-position: -200% 0;
@@ -263,33 +343,97 @@
  * Scroll-triggered reveal — uses CSS scroll-driven animations where supported,
  * falls back to an IntersectionObserver that toggles `.is-visible`.
  *
- * `animation-range: entry 0% entry 40%` means the fade finishes when 40% of
- * the element has entered the viewport — roughly the point you notice it.
+ * Two things here are load-bearing and easy to break:
+ *
+ * 1. `animation-range` ends on a `cover` milestone, not an `entry` percentage.
+ *    For `entry`/`exit` milestones the percentage resolves against the ELEMENT's
+ *    own height, so the old `entry 0% entry 40%` finished a 36px heading inside
+ *    ~14px of scroll — visually indistinguishable from no animation at all.
+ *    `cover` percentages are viewport-relative, giving each reveal ~500-700px of
+ *    scroll to play out in.
+ *
+ * 2. Only longhands, never the `animation:` shorthand. The shorthand includes
+ *    `animation-timeline`, so a later `animation: X auto ease both` silently
+ *    resets the timeline to `auto` and the element stops animating.
+ *
+ * Per-role direction comes from `data-reveal` (see RevealDirection in
+ * scroll-reveal.tsx), so one class covers every variant.
  */
 @supports (animation-timeline: view()) {
   .scroll-reveal {
-    animation: fade-up auto ease both;
+    animation-duration: auto;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    animation-fill-mode: both;
     animation-timeline: view();
-    animation-range: entry 0% entry 40%;
+    animation-range: entry 0% cover 55%;
+    animation-name: reveal-up;
+  }
+
+  .scroll-reveal[data-reveal='up-lg'] {
+    animation-name: reveal-up-lg;
+  }
+
+  .scroll-reveal[data-reveal='left'] {
+    animation-name: reveal-left;
+    animation-range: entry 6% cover 42%;
+  }
+
+  .scroll-reveal[data-reveal='right'] {
+    animation-name: reveal-right;
+    animation-range: entry 0% cover 60%;
+  }
+
+  .scroll-reveal[data-reveal='focus'] {
+    animation-name: reveal-focus;
+    animation-range: entry 0% cover 62%;
+  }
+}
+
+/*
+ * The session bars in the overview dashboard wipe in as a slice and then keep a
+ * sheen travelling across them, so the schedule reads as a live timeline rather
+ * than two static bars. Kept on longhands for the same reason as above.
+ */
+@supports (animation-timeline: view()) {
+  .session-bar-fill {
+    animation-name: bar-slice;
+    animation-duration: auto;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    animation-fill-mode: both;
+    animation-timeline: view();
+    animation-range: entry 10% cover 50%;
   }
 }
 
 @supports not (animation-timeline: view()) {
   .scroll-reveal {
     opacity: 0;
-    transform: translateY(24px);
+    transform: translateY(130px);
     transition:
-      opacity 0.6s ease,
-      transform 0.6s ease;
+      opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .scroll-reveal[data-reveal='up-lg'] {
+    transform: translateY(190px);
+  }
+  .scroll-reveal[data-reveal='left'] {
+    transform: translateX(-120px);
+  }
+  .scroll-reveal[data-reveal='right'] {
+    transform: translateX(130px);
+  }
+  .scroll-reveal[data-reveal='focus'] {
+    transform: scale(1.14);
   }
   .scroll-reveal.is-visible {
     opacity: 1;
-    transform: translateY(0);
+    transform: none;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .scroll-reveal {
+  .scroll-reveal,
+  .session-bar-fill {
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;

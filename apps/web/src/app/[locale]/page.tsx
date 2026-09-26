@@ -254,7 +254,10 @@ export default async function Home({ params }: Props) {
       {eventDays.length > 0 && (
         <section className="relative z-10 -mt-12 pb-12 sm:-mt-16 sm:pb-16">
           <Container>
-            <ScrollReveal className="glass relative overflow-hidden rounded-2xl border border-white/15 bg-white/[0.03] backdrop-blur-2xl shadow-2xl sm:rounded-3xl">
+            <ScrollReveal
+              direction="up-lg"
+              className="glass relative overflow-clip rounded-2xl border border-white/15 bg-white/[0.03] backdrop-blur-2xl shadow-2xl sm:rounded-3xl"
+            >
               {/* Neon top highlight */}
               <div className="h-0.5 w-full bg-gradient-to-r from-transparent via-brand-cyan/60 to-transparent" />
 
@@ -323,10 +326,10 @@ export default async function Home({ params }: Props) {
                               {start} – {end}
                             </time>
                           </div>
-                          <div className="bg-muted relative mt-2 h-2 overflow-hidden rounded-full bg-[repeating-linear-gradient(90deg,transparent_0,transparent_calc(25%_-_1px),var(--border)_calc(25%_-_1px),var(--border)_25%)]">
+                          <div className="bg-muted relative mt-2 h-2 overflow-clip rounded-full bg-[repeating-linear-gradient(90deg,transparent_0,transparent_calc(25%_-_1px),var(--border)_calc(25%_-_1px),var(--border)_25%)]">
                             <div
                               aria-hidden="true"
-                              className="from-brand-cyan via-brand-blue to-brand-mint absolute h-full rounded-full bg-gradient-to-r"
+                              className="session-bar-fill from-brand-cyan via-brand-blue to-brand-mint absolute h-full rounded-full bg-gradient-to-r"
                               style={{ left: `${startPercent}%`, width: `${widthPercent}%` }}
                             />
                           </div>
@@ -367,10 +370,10 @@ export default async function Home({ params }: Props) {
       )}
 
       {/* ─── Video & Mission Section ───────────────────────────────────── */}
-      <section className="relative py-14 sm:py-20 lg:py-24">
+      <section className="relative overflow-x-clip py-14 sm:py-20 lg:py-24">
         <Container>
           <div className="grid items-center gap-8 lg:grid-cols-12 lg:gap-12">
-            <ScrollReveal className="lg:col-span-5">
+            <ScrollReveal direction="left" className="lg:col-span-5">
               {(home?.introBadge ?? t('introBadge')) && (
                 <div className="inline-flex items-center gap-2 rounded-full border border-brand-cyan/30 bg-brand-cyan/10 px-3 py-1 text-xs font-semibold tracking-wider text-brand-blue uppercase backdrop-blur-md mb-3">
                   <Sparkles className="size-3" />
@@ -422,7 +425,7 @@ export default async function Home({ params }: Props) {
             </ScrollReveal>
 
             {introVideoEmbedUrl && (
-              <ScrollReveal delay={120} className="lg:col-span-7">
+              <ScrollReveal direction="focus" delay={120} className="lg:col-span-7">
                 <div className="relative">
                   <div
                     aria-hidden="true"
@@ -449,10 +452,10 @@ export default async function Home({ params }: Props) {
       </section>
 
       {/* ─── Explore Festival (4 Interactive Tiles) ────────────────────── */}
-      <section className="relative py-14 sm:py-20 lg:py-24">
+      <section className="relative overflow-x-clip py-14 sm:py-20 lg:py-24">
         <SectionGlow />
         <Container>
-          <ScrollReveal>
+          <ScrollReveal direction="left">
             <div className="max-w-2xl">
               <h2 className="text-lg font-bold tracking-tight text-foreground text-balance sm:text-3xl lg:text-4xl">
                 {home?.exploreTitle ?? t('exploreTitle')}
@@ -470,7 +473,7 @@ export default async function Home({ params }: Props) {
                 i,
               ) => (
                 <li key={href}>
-                  <ScrollReveal delay={i * 90} className="h-full">
+                  <ScrollReveal direction="up" delay={i * 90} className="h-full">
                     <Link
                       href={href}
                       className={cn(
@@ -609,17 +612,17 @@ export default async function Home({ params }: Props) {
             className="from-secondary/30 to-secondary/30 absolute inset-0 -z-10 bg-gradient-to-b via-transparent"
           />
           <Container>
-            <ScrollReveal className="text-center">
+            <ScrollReveal direction="left" className="text-center">
               <h2 className="text-lg font-bold tracking-tight text-foreground sm:text-3xl">
                 {t('sponsorsTitle')}
               </h2>
             </ScrollReveal>
             <div className="mt-8 sm:mt-10">
-              <ScrollReveal delay={150}>
+              <ScrollReveal direction="right" delay={150}>
                 <SponsorMarquee sponsors={sponsors} />
               </ScrollReveal>
             </div>
-            <ScrollReveal delay={250} className="mt-8 text-center sm:mt-10">
+            <ScrollReveal direction="left" delay={250} className="mt-8 text-center sm:mt-10">
               <Link
                 href="/sponsors"
                 className="text-primary hover:text-brand-blue group inline-flex items-center gap-2 py-2 text-xs font-semibold tracking-wider uppercase transition-colors sm:text-sm"
@@ -637,9 +640,9 @@ export default async function Home({ params }: Props) {
 
       {/* ─── Latest News ───────────────────────────────────────────────── */}
       {latestNews.length > 0 && (
-        <section className="py-12 sm:py-16 lg:py-20">
+        <section className="overflow-x-clip py-12 sm:py-16 lg:py-20">
           <Container>
-            <ScrollReveal>
+            <ScrollReveal direction="left">
               <div className="flex flex-wrap items-baseline justify-between gap-4">
                 <h2 className="text-lg font-bold tracking-tight text-foreground sm:text-3xl">
                   {t('latestNewsTitle')}
@@ -655,7 +658,7 @@ export default async function Home({ params }: Props) {
             <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 sm:gap-6">
               {latestNews.map((article, i) => (
                 <li key={article.documentId}>
-                  <ScrollReveal delay={i * 120}>
+                  <ScrollReveal direction="up-lg" delay={i * 120}>
                     <NewsCard article={article} />
                   </ScrollReveal>
                 </li>
@@ -666,10 +669,10 @@ export default async function Home({ params }: Props) {
       )}
 
       {/* ─── Closing CTA ───────────────────────────────────────────────── */}
-      <section className="pb-16 sm:pb-24">
+      <section className="overflow-x-clip pb-16 sm:pb-24">
         <Container>
-          <ScrollReveal>
-            <div className="bg-brand-navy relative isolate overflow-hidden rounded-2xl px-5 py-12 text-center text-white sm:rounded-3xl sm:px-10 sm:py-16">
+          <ScrollReveal direction="up-lg">
+            <div className="bg-brand-navy relative isolate overflow-clip rounded-2xl px-5 py-12 text-center text-white sm:rounded-3xl sm:px-10 sm:py-16">
               <div aria-hidden="true" className="bg-aurora absolute inset-0 -z-10 opacity-90" />
               <div aria-hidden="true" className="bg-tech-grid absolute inset-0 -z-10" />
               <div
