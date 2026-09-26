@@ -518,9 +518,15 @@ export default async function Home({ params }: Props) {
         </Container>
       </section>
 
-      {/* ─── About Teaser ──────────────────────────────────────────────── */}
+      {/* ─── About Teaser ────────────────────────────────────────────────
+          The section clips with `overflow-clip`, not `overflow-hidden`: the
+          glow inside needs clipping, but `hidden` would make this section the
+          scrollport for the `view()` timelines of the reveals inside it, and a
+          scrollport that cannot scroll reports no view progress — those reveals
+          would never animate. `clip` clips without creating a scroll container.
+      */}
       {home?.aboutTeaser && (
-        <section className="relative overflow-hidden py-14 sm:py-20 lg:py-24">
+        <section className="relative overflow-clip py-14 sm:py-20 lg:py-24">
           <Container>
             <ScrollReveal>
               <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
@@ -592,9 +598,12 @@ export default async function Home({ params }: Props) {
         </section>
       )}
 
-      {/* ─── Sponsors Marquee ──────────────────────────────────────────── */}
+      {/* ─── Sponsors Marquee ────────────────────────────────────────────
+          Clipped the same way and for the same reason as the About Teaser:
+          the marquee track is clipped and its reveals still animate.
+      */}
       {sponsors.length > 0 && (
-        <section className="relative overflow-hidden py-12 sm:py-16 lg:py-20">
+        <section className="relative overflow-clip py-12 sm:py-16 lg:py-20">
           <div
             aria-hidden="true"
             className="from-secondary/30 to-secondary/30 absolute inset-0 -z-10 bg-gradient-to-b via-transparent"
