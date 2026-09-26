@@ -147,12 +147,13 @@ export default async function Home({ params }: Props) {
 
   const fallbackTitle =
     locale === 'vi'
-      ? 'Kết nối công nghệ – Kiến tạo tương lai Sơn Trà'
-      : 'Connecting Technology – Shaping the Future of Son Tra';
+      ? 'Kết nối công nghệ\nKiến tạo tương lai Sơn Trà'
+      : 'Connecting Technology\nShaping the Future of Son Tra';
 
-  // Keep multi-syllable Vietnamese words and the "Sơn Trà / Son Tra" place name
-  // on one line by joining their syllables with non-breaking spaces, so the
-  // headline never splits a single word across lines.
+  // The CMS field is a textarea: whatever line breaks the editor types are
+  // honoured verbatim (`.whitespace-pre-line` on the hero). Compound words and
+  // the place name are still glued with non-breaking spaces so an over-long
+  // line degrades by wrapping between phrases, never inside a word.
   const NBSP = '\u00A0';
   const heroDisplayTitle = (home?.heroTitle || fallbackTitle)
     .replaceAll('công nghệ', `công${NBSP}nghệ`)

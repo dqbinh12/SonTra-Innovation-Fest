@@ -308,6 +308,36 @@
   }
 }
 
+/* Caret attached as a pseudo-element so it is impossible for the browser to
+   break it onto a line of its own when the headline nearly fills the row.
+
+   The caret is `display: inline` (NOT inline-block): an inline-block is an
+   atomic inline-level box, so when the last line is nearly full the browser
+   has nowhere to put it and breaks it onto its own line — the headline grows
+   a phantom third line the moment typing finishes. An inline box flows with
+   the final word and can only ever wrap together with it.
+
+   Content must stay empty: a zero-width space here is itself a break
+   opportunity and reintroduces the phantom line. With no content, the box has
+   zero width and the visible bar is drawn by `border-right`. */
+.hero-caret-typing::after,
+.hero-caret-blink::after {
+  content: '';
+  display: inline;
+  font-size: 0.82em;
+  line-height: 1;
+  border-right: 0.16em solid var(--color-brand-cyan);
+  margin-left: 0.08em;
+}
+
+.hero-caret-typing::after {
+  opacity: 0.9;
+}
+
+.hero-caret-blink::after {
+  animation: caret 1.1s steps(1, end) infinite;
+}
+
 @keyframes marquee {
   from {
     transform: translateX(0);

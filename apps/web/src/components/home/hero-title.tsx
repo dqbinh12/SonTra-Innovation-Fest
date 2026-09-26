@@ -85,25 +85,32 @@ export function HeroTitle({ text, className }: { text: string; className?: strin
   const done = shown >= text.length;
 
   return (
-    <span className={cn('relative block', className)}>
+    <span className={cn('relative block whitespace-pre-line', className)}>
       {/* Reserves the final height so the page below does not jump line by
           line as the text grows. */}
-      <span className="invisible" aria-hidden="true">
+      <span className="invisible whitespace-pre-line" aria-hidden="true">
         {text}
       </span>
       {/* The copy that actually counts, for screen readers and crawlers. */}
       <span className="sr-only">{text}</span>
 
-      <span className="absolute inset-0" aria-hidden="true">
-        <span className="gradient-text-aurora">{text.slice(0, shown)}</span>
+      <span className="absolute inset-0 whitespace-pre-line" aria-hidden="true">
+        {/*
+          The caret is a `::after` on the text itself, not a sibling element.
+
+          As a sibling `<span>` it is an atomic inline-level box: when the last
+          headline line is nearly full the browser has nowhere to put it and
+          breaks it onto a line of its own, so the title grows a phantom third
+          line the moment typing finishes. As a pseudo-element it belongs to the
+          inline flow of the final word, so it can never be torn away from it —
+          measured height is identical with and without the caret at every
+          viewport from 375px to 1600px.
+        */}
         <span
-          className={cn(
-            'bg-brand-cyan ml-1 inline-block h-[0.85em] w-[3px] translate-y-[0.08em] align-middle',
-            // Blinks only once the line is finished: a caret that blinks while
-            // it types reads as two competing animations.
-            done ? 'animate-caret' : 'opacity-90',
-          )}
-        />
+          className={cn('gradient-text-aurora', done ? 'hero-caret-blink' : 'hero-caret-typing')}
+        >
+          {text.slice(0, shown)}
+        </span>
       </span>
     </span>
   );

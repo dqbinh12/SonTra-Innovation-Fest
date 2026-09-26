@@ -5,7 +5,7 @@
     "singularName": "home-page",
     "pluralName": "home-pages",
     "displayName": "Home Page",
-    "description": "Hero, event schedule, admission and about teaser for the homepage. heroMedia is the wide / desktop background; heroMediaMobile is the portrait crop used on phones (optional \u2014 falls back to heroMedia)."
+    "description": "Hero, event schedule, admission and about teaser for the homepage. heroTitle accepts line breaks (Enter) \u2014 the web app renders them as-is, so the headline breaks exactly where you type it. heroMedia is the wide / desktop background; heroMediaMobile is the portrait crop used on phones (optional \u2014 falls back to heroMedia)."
   },
   "options": {
     "draftAndPublish": true
@@ -17,7 +17,7 @@
   },
   "attributes": {
     "heroTitle": {
-      "type": "string",
+      "type": "text",
       "required": true,
       "pluginOptions": {
         "i18n": {
