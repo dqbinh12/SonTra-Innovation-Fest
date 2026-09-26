@@ -199,35 +199,35 @@ export default async function Home({ params }: Props) {
 
             {/* Quick Metrics Bar at hero base */}
             <div className="mt-12 grid w-full max-w-3xl grid-cols-2 gap-2.5 sm:mt-14 sm:grid-cols-4 sm:gap-3.5">
-              <div className="glass rounded-xl border border-white/10 p-3 text-center backdrop-blur-md transition-transform hover:-translate-y-0.5 sm:rounded-2xl sm:p-3.5">
+              <div className="glass-invert rounded-xl p-3 text-center transition-transform hover:-translate-y-0.5 sm:rounded-2xl sm:p-3.5">
                 <span className="gradient-text-aurora block font-mono text-lg font-extrabold tracking-tight sm:text-2xl">
                   {t('statExhibitors')}
                 </span>
-                <span className="mt-0.5 block text-xs font-medium text-white/70">
+                <span className="mt-0.5 block text-xs font-medium text-white/80">
                   {t('statExhibitorsLabel')}
                 </span>
               </div>
-              <div className="glass rounded-xl border border-white/10 p-3 text-center backdrop-blur-md transition-transform hover:-translate-y-0.5 sm:rounded-2xl sm:p-3.5">
+              <div className="glass-invert rounded-xl p-3 text-center transition-transform hover:-translate-y-0.5 sm:rounded-2xl sm:p-3.5">
                 <span className="gradient-text-aurora block font-mono text-lg font-extrabold tracking-tight sm:text-2xl">
                   {t('statKeynotes')}
                 </span>
-                <span className="mt-0.5 block text-xs font-medium text-white/70">
+                <span className="mt-0.5 block text-xs font-medium text-white/80">
                   {t('statKeynotesLabel')}
                 </span>
               </div>
-              <div className="glass rounded-xl border border-white/10 p-3 text-center backdrop-blur-md transition-transform hover:-translate-y-0.5 sm:rounded-2xl sm:p-3.5">
+              <div className="glass-invert rounded-xl p-3 text-center transition-transform hover:-translate-y-0.5 sm:rounded-2xl sm:p-3.5">
                 <span className="gradient-text-aurora block font-mono text-lg font-extrabold tracking-tight sm:text-2xl">
                   {t('statAttendees')}
                 </span>
-                <span className="mt-0.5 block text-xs font-medium text-white/70">
+                <span className="mt-0.5 block text-xs font-medium text-white/80">
                   {t('statAttendeesLabel')}
                 </span>
               </div>
-              <div className="glass rounded-xl border border-white/10 p-3 text-center backdrop-blur-md transition-transform hover:-translate-y-0.5 sm:rounded-2xl sm:p-3.5">
+              <div className="glass-invert rounded-xl p-3 text-center transition-transform hover:-translate-y-0.5 sm:rounded-2xl sm:p-3.5">
                 <span className="gradient-text-aurora block font-mono text-lg font-extrabold tracking-tight sm:text-2xl">
                   {t('statAccess')}
                 </span>
-                <span className="mt-0.5 block text-xs font-medium text-white/70">
+                <span className="mt-0.5 block text-xs font-medium text-white/80">
                   {t('statAccessLabel')}
                 </span>
               </div>
