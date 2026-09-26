@@ -16,6 +16,10 @@ const nextConfig: NextConfig = {
   allowedDevOrigins: [
     '127.0.0.1',
     'localhost',
+    // Dev environment runs from the worktree at /home/dqbinh/sif-dev and is
+    // reached through the shared nginx gateway on this hostname.
+    'innovationfest.toolfree.vn',
+    'cms-innovationfest.toolfree.vn',
     '*.serveousercontent.com',
     '*.serveo.net',
     '*.ngrok-free.app',

@@ -410,6 +410,7 @@
   transform-origin: left center;
   transform: scaleX(0);
   transition: transform 1.05s cubic-bezier(0.16, 1, 0.3, 1) 0.15s;
+  will-change: transform;
 }
 
 .scroll-reveal.is-visible .session-bar-fill {
