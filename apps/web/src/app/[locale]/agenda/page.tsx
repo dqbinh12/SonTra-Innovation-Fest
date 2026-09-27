@@ -151,32 +151,29 @@ export default async function Agenda({ params }: Props) {
             <div className="space-y-10">
               {[...days].map(([day, daySessions], dayIdx) => (
                 <div key={day} className="relative">
-                  {/* Day Header Banner */}
-                  <ScrollReveal direction="left">
-                    <div className="mb-6 flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-3">
-                      <div className="flex items-center gap-2.5">
-                        <span className="flex size-8 items-center justify-center rounded-lg border border-brand-cyan/30 bg-brand-cyan/10 font-mono text-xs font-bold text-brand-cyan">
-                          0{dayIdx + 1}
-                        </span>
-                        <h2 className="text-base font-bold tracking-tight text-white sm:text-xl">
-                          {format.dateTime(new Date(day), { dateStyle: 'full' })}
-                        </h2>
-                      </div>
-
-                      <span className="rounded-full border border-white/10 bg-white/5 px-2.5 py-0.5 font-mono text-xs text-white/70">
-                        {t('sessionCount', { count: daySessions.length })}
+                  {/* Day Header Banner — no scroll reveal: the agenda is a long
+                      list and a transition on every row makes scrolling to the
+                      session you want feel slow. Rows appear immediately. */}
+                  <div className="mb-6 flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-3">
+                    <div className="flex items-center gap-2.5">
+                      <span className="flex size-8 items-center justify-center rounded-lg border border-brand-cyan/30 bg-brand-cyan/10 font-mono text-xs font-bold text-brand-cyan">
+                        0{dayIdx + 1}
                       </span>
+                      <h2 className="text-base font-bold tracking-tight text-white sm:text-xl">
+                        {format.dateTime(new Date(day), { dateStyle: 'full' })}
+                      </h2>
                     </div>
-                  </ScrollReveal>
 
-                  {/* Sections List — all sections in a group animate together with no stagger */}
+                    <span className="rounded-full border border-white/10 bg-white/5 px-2.5 py-0.5 font-mono text-xs text-white/70">
+                      {t('sessionCount', { count: daySessions.length })}
+                    </span>
+                  </div>
+
+                  {/* Sections List — rendered as-is, no reveal wrapper. */}
                   <div className="space-y-4 sm:space-y-5">
                     {groupSessionsIntoSections(daySessions).map((section) => (
-                      <ScrollReveal
-                        key={section.id}
-                        direction="up-lg"
-                      >
                       <div
+                        key={section.id}
                         className="glass relative overflow-hidden rounded-2xl border border-white/10 backdrop-blur-xl transition-all duration-300 hover:border-brand-cyan/30 hover:shadow-xl hover:shadow-brand-cyan/5"
                       >
                         {/* Accent gradient strip on left border */}
@@ -292,7 +289,6 @@ export default async function Agenda({ params }: Props) {
                           </div>
                         </div>
                       </div>
-                      </ScrollReveal>
                     ))}
                   </div>
                 </div>

@@ -169,7 +169,7 @@ export default async function About({ params }: Props) {
       {/* ─── Closing CTA ───────────────────────────────────────────────── */}
       <section className="relative overflow-x-clip pt-8 pb-16 sm:pt-10 sm:pb-20">
         <Container className="max-w-7xl">
-          <ScrollReveal direction="up-lg">
+          <ScrollReveal direction="up-zoom" scrollDriven>
             <div className="bg-brand-navy/55 relative isolate overflow-hidden rounded-3xl border border-white/10 px-6 py-7 shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] backdrop-blur-xl sm:px-8 sm:py-8 lg:px-10">
               <div
                 aria-hidden="true"

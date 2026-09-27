@@ -118,6 +118,19 @@
     @apply border-border;
   }
 
+  /*
+   * Overscroll / rubber-band canvas. `body` carries `bg-background` (white in
+   * light theme) and, because `html` has no background, that white propagates
+   * to the canvas — so pulling past the top of a dark page flashes white above
+   * the fixed header. Giving `html` an explicit navy background stops the body
+   * background from being promoted to the canvas; the navy only shows in the
+   * overscroll gutters, never behind the page's own light sections (the body
+   * still paints its own background over it).
+   */
+  html {
+    background-color: var(--color-brand-navy);
+  }
+
   body {
     @apply bg-background text-foreground font-sans antialiased;
     text-rendering: optimizeLegibility;
@@ -335,9 +348,36 @@
   transform: scale(1.05);
 }
 
+/* `up-zoom` carries its travel in `.scroll-reveal--driven` above, which reads
+   `--reveal-p` every frame — a static transform here would win on specificity
+   and freeze the block. */
+
 .scroll-reveal.is-visible {
   opacity: 1;
   transform: none;
+}
+
+/*
+ * Scroll-driven reveal (Apple glass scale-in, NO translateY).
+ *
+ * The block stays anchored at its layout position (no drifting / sliding).
+ * Instead, as the user scrolls in:
+ *   - It enters larger (`scale(1.08)`) with frosted glass optics
+ *   - Compresses down to resting size (`scale(1.00)`) as it reaches final position
+ *   - Reverses seamlessly (in & out) when scrolling up or down
+ *   - Apple UI glass styling: deep multi-layer shadow, top specular rim,
+ *     frosted saturation blur.
+ */
+.scroll-reveal--driven {
+  --reveal-p: 0;
+  /* Rapid ramp-up: reaches full opacity when progress is ~0.6 (within ~150px) */
+  opacity: min(1, calc(var(--reveal-p) * 1.65));
+  transform: scale(calc(1 + (1 - var(--reveal-p)) * 0.07));
+  transform-origin: center center;
+  transition:
+    opacity 100ms linear,
+    transform 100ms linear;
+  will-change: transform, opacity;
 }
 
 /*
