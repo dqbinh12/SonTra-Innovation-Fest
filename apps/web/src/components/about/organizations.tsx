@@ -215,63 +215,64 @@ export function Organizations({
   );
 
   return (
-    <div>
-      {/* No panel of its own any more: the band behind it is the grouping.
-          A tinted box on a tinted band is one container too many. */}
+    /* One reveal unit for the whole organizations block: every role slides up
+       together, rather than each tile (and each row) firing its own observer
+       at a slightly different scroll position. */
+    <ScrollReveal direction="up">
+      <div>
+        {/* No panel of its own any more: the band behind it is the grouping.
+            A tinted box on a tinted band is one container too many. */}
 
-      <ul className="flex flex-wrap items-end justify-center gap-x-6 gap-y-6 sm:gap-x-10 sm:gap-y-6 lg:gap-x-14">
-        {topRow.map((organization, i) => (
-          <li
-            key={`${organization.role}-${i}`}
-            className={cn(organization.role === 'organizer' && 'order-first sm:order-none')}
-          >
-            <ScrollReveal direction="up" delay={i * 80}>
+        <ul className="flex flex-wrap items-end justify-center gap-x-6 gap-y-6 sm:gap-x-10 sm:gap-y-6 lg:gap-x-14">
+          {topRow.map((organization, i) => (
+            <li
+              key={`${organization.role}-${i}`}
+              className={cn(organization.role === 'organizer' && 'order-first sm:order-none')}
+            >
               <OrganizationTile organization={organization} label={labels[organization.role]} />
-            </ScrollReveal>
-          </li>
-        ))}
-      </ul>
-
-      {coordinators.length > 0 && (
-        <div className="mt-10 sm:mt-12 lg:mt-14">
-          {/* One label for the row — repeating it over each logo reads as
-              separate roles rather than one group. */}
-          <RoleLabel>{labels.coordinator}</RoleLabel>
-
-          <ul className="mt-3.5 flex flex-wrap items-end justify-center gap-x-6 gap-y-4 sm:mt-4 sm:gap-x-8 sm:gap-y-5 lg:gap-x-10">
-            {coordinators.map((organization, i) => (
-              <li key={`coordinator-${i}`}>
-                <ScrollReveal direction="up" delay={i * 80}>
-                  <OrganizationTile organization={organization} />
-                </ScrollReveal>
-              </li>
-            ))}
-          </ul>
-        </div>
-      )}
-
-      {supportUnits.length > 0 && (
-        /* Even columns, so a long label ("ĐƠN VỊ BẢO TRỢ TRUYỀN THÔNG") wraps
-           inside its own cell instead of widening it and shifting every plate
-           after it. Two columns on phones, three from `sm`, all on one row
-           from `lg`. */
-        <ul className="mt-10 grid grid-cols-2 gap-x-6 gap-y-9 sm:mt-12 sm:grid-cols-3 sm:gap-x-8 lg:mt-14 lg:grid-cols-6 lg:gap-x-6">
-          {supportUnits.map(({ role, organization }, i) => (
-            <li key={`${role}-${i}`} className="flex flex-col items-center">
-              {/* A fixed label height keeps every plate on one line across the
-                  row; `items-end` sits single-line labels on that baseline
-                  instead of floating them mid-height. */}
-              <RoleLabel className="flex min-h-10 items-end justify-center text-balance">
-                {labels[role]}
-              </RoleLabel>
-
-              <ScrollReveal direction="up" className="mx-auto mt-3.5 w-full max-w-44 sm:mt-4" delay={i * 60}>
-                <OrganizationTile organization={organization} />
-              </ScrollReveal>
             </li>
           ))}
         </ul>
-      )}
-    </div>
+
+        {coordinators.length > 0 && (
+          <div className="mt-10 sm:mt-12 lg:mt-14">
+            {/* One label for the row — repeating it over each logo reads as
+                separate roles rather than one group. */}
+            <RoleLabel>{labels.coordinator}</RoleLabel>
+
+            <ul className="mt-3.5 flex flex-wrap items-end justify-center gap-x-6 gap-y-4 sm:mt-4 sm:gap-x-8 sm:gap-y-5 lg:gap-x-10">
+              {coordinators.map((organization, i) => (
+                <li key={`coordinator-${i}`}>
+                  <OrganizationTile organization={organization} />
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        {supportUnits.length > 0 && (
+          /* Even columns, so a long label ("ĐƠN VỊ BẢO TRỢ TRUYỀN THÔNG") wraps
+             inside its own cell instead of widening it and shifting every plate
+             after it. Two columns on phones, three from `sm`, all on one row
+             from `lg`. */
+          <ul className="mt-10 grid grid-cols-2 gap-x-6 gap-y-9 sm:mt-12 sm:grid-cols-3 sm:gap-x-8 lg:mt-14 lg:grid-cols-6 lg:gap-x-6">
+            {supportUnits.map(({ role, organization }, i) => (
+              <li key={`${role}-${i}`} className="flex flex-col items-center">
+                {/* A fixed label height keeps every plate on one line across the
+                    row; `items-end` sits single-line labels on that baseline
+                    instead of floating them mid-height. */}
+                <RoleLabel className="flex min-h-10 items-end justify-center text-balance">
+                  {labels[role]}
+                </RoleLabel>
+
+                <div className="mx-auto mt-3.5 w-full max-w-44 sm:mt-4">
+                  <OrganizationTile organization={organization} />
+                </div>
+              </li>
+            ))}
+          </ul>
+        )}
+      </div>
+    </ScrollReveal>
   );
 }
