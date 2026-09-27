@@ -18,7 +18,7 @@ export function ImmersivePageHero({
         className={
           aside
             ? 'relative grid items-center gap-5 sm:gap-6 lg:grid-cols-[minmax(0,1fr)_22rem] lg:gap-8'
-            : 'relative max-w-4xl'
+            : 'relative'
         }
       >
         <div>
