@@ -79,6 +79,7 @@ export async function MediaKitPanel({
           </div>
         ) : (
           items.length > 0 && (
+            <ScrollReveal direction="up">
             <ul className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {items.map((item, index) => {
                 const { icon: Icon, accent } = category(item.category);
@@ -88,7 +89,6 @@ export async function MediaKitPanel({
 
                 return (
                   <li key={`${item.title}-${index}`}>
-                    <ScrollReveal direction="up" delay={Math.min(index, 5) * 60} className="h-full">
                       <article className="group glass lift flex h-full flex-col rounded-2xl p-6">
                         <span
                           aria-hidden="true"
@@ -129,11 +129,11 @@ export async function MediaKitPanel({
                           )}
                         </div>
                       </article>
-                    </ScrollReveal>
                   </li>
                 );
               })}
             </ul>
+            </ScrollReveal>
           )
         )}
 

@@ -85,10 +85,10 @@ export default async function Sponsors({ params }: Props) {
               {t('empty')}
             </div>
           ) : (
+            <ScrollReveal direction="up">
             <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {sponsors.map((sponsor, i) => (
+              {sponsors.map((sponsor) => (
                 <li key={sponsor.documentId}>
-                  <ScrollReveal direction="up" delay={(i % 3) * 80} className="h-full">
                   <a
                     href={sponsor.link || undefined}
                     target={sponsor.link ? '_blank' : undefined}
@@ -111,10 +111,10 @@ export default async function Sponsors({ params }: Props) {
                       <ArrowUpRight className="absolute top-3 right-3 size-3.5 text-brand-blue opacity-0 transition-opacity group-hover:opacity-100" />
                     )}
                   </a>
-                  </ScrollReveal>
                 </li>
               ))}
             </ul>
+            </ScrollReveal>
           )}
         </Container>
       </section>
@@ -135,7 +135,7 @@ export default async function Sponsors({ params }: Props) {
               {page?.applicationIntro ?? t('becomeIntro')}
             </p>
           </ScrollReveal>
-          <ScrollReveal direction="up-lg" delay={120} className="glass rounded-2xl border border-white/10 p-4.5 sm:rounded-3xl sm:p-6 lg:p-7">
+          <ScrollReveal direction="up-lg" className="glass rounded-2xl border border-white/10 p-4.5 sm:rounded-3xl sm:p-6 lg:p-7">
             <SponsorForm />
           </ScrollReveal>
         </Container>

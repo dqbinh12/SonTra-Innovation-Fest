@@ -89,7 +89,7 @@ export default async function Contact({ params }: Props) {
           </ScrollReveal>
 
           {/* Contact Details & Info Cards */}
-          <ScrollReveal direction="right" delay={100} className="space-y-4 sm:space-y-6">
+          <ScrollReveal direction="right" className="space-y-4 sm:space-y-6">
             {/* Direct Contact Card */}
             <div className="rounded-2xl sm:rounded-3xl border border-white/15 bg-white/[0.04] p-4.5 sm:p-6 backdrop-blur-2xl shadow-xl">
               <h2 className="text-xs font-bold tracking-wider uppercase text-brand-cyan flex items-center gap-2">

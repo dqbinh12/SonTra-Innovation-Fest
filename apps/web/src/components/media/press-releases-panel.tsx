@@ -55,6 +55,7 @@ export async function PressReleasesPanel({
           </div>
         ) : (
           sorted.length > 0 && (
+            <ScrollReveal direction="up">
             <ul className="border-border mt-12 border-t">
               {sorted.map((release, index) => {
                 const file = mediaUrl(release.file);
@@ -63,7 +64,6 @@ export async function PressReleasesPanel({
 
                 return (
                   <li key={`${release.title}-${index}`}>
-                    <ScrollReveal direction="up" delay={Math.min(index, 5) * 60}>
                       <article className="border-border hover:bg-secondary/40 flex flex-wrap items-start gap-x-8 gap-y-4 border-b px-2 py-8 transition-colors sm:flex-nowrap">
                         <span
                           aria-hidden="true"
@@ -111,11 +111,11 @@ export async function PressReleasesPanel({
                           </a>
                         )}
                       </article>
-                    </ScrollReveal>
                   </li>
                 );
               })}
             </ul>
+            </ScrollReveal>
           )
         )}
       </Container>

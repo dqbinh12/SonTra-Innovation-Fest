@@ -135,7 +135,7 @@ export default async function About({ params }: Props) {
 
             {/* Main Content: Story with custom rendered Blocks */}
             <div className="min-w-0">
-              <ScrollReveal direction="up-lg" delay={100} className="glass rounded-3xl border border-border/70 p-6 sm:p-8">
+              <ScrollReveal direction="up-lg" className="glass rounded-3xl border border-border/70 p-6 sm:p-8">
                 <span aria-hidden="true" className="rule-accent mb-4" />
                 {page ? (
                   <RichText content={page.story} variant="story" />

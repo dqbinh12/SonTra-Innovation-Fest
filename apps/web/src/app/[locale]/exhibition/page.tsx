@@ -93,7 +93,7 @@ export default async function Exhibition({ params }: Props) {
               </h2>
             </ScrollReveal>
 
-            <ScrollReveal direction="focus" delay={100} className="glass rounded-3xl border border-white/10 p-4 shadow-2xl backdrop-blur-xl sm:p-6 lg:p-7">
+            <ScrollReveal direction="focus" className="glass rounded-3xl border border-white/10 p-4 shadow-2xl backdrop-blur-xl sm:p-6 lg:p-7">
               <figure className="relative">
                 <StrapiImage
                   media={page.floorPlan}
@@ -139,10 +139,10 @@ export default async function Exhibition({ params }: Props) {
               <p className="mt-2 text-xs text-muted-foreground sm:text-sm">{t('emptyLead')}</p>
             </div>
           ) : (
+            <ScrollReveal direction="up">
             <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-              {sortedExhibitors.map((exhibitor, i) => (
+              {sortedExhibitors.map((exhibitor) => (
                 <li key={exhibitor.documentId}>
-                  <ScrollReveal direction="up" delay={(i % 4) * 80} className="h-full">
                   <div className="glass lift group relative flex h-full flex-col justify-between rounded-2xl border border-white/10 p-5 backdrop-blur-xl">
                   <div>
                     <div className="mb-4 flex items-start justify-between gap-3">
@@ -201,10 +201,10 @@ export default async function Exhibition({ params }: Props) {
                     </div>
                   )}
                   </div>
-                  </ScrollReveal>
                 </li>
               ))}
             </ul>
+            </ScrollReveal>
           )}
         </Container>
       </section>

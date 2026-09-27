@@ -110,7 +110,7 @@ export async function PressConferencePanel({
             </ScrollReveal>
 
             {/* ── When / where ────────────────────────────────────────── */}
-            <ScrollReveal direction="right" delay={100} className="order-1 lg:order-2">
+            <ScrollReveal direction="right" className="order-1 lg:order-2">
               <div className="glass sticky top-36 rounded-2xl p-6">
                 <dl className="space-y-6">
                   {when && (

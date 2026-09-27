@@ -213,18 +213,19 @@ export default async function ArticlePage({ params }: Props) {
               <span aria-hidden="true" className="rule-accent" />
             </ScrollReveal>
 
+            <ScrollReveal direction="up-lg">
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
-              {relatedArticles.map((rel, i) => (
-                <ScrollReveal key={rel.documentId} direction="up-lg" delay={(i % 3) * 100}>
-                  <NewsCard
-                    article={rel}
-                    formatDate={formatDate}
-                    readMoreLabel={t('readMore')}
-                    readingTimeLabel={(minutes) => t('readingTime', { minutes })}
-                  />
-                </ScrollReveal>
+              {relatedArticles.map((rel) => (
+                <NewsCard
+                  key={rel.documentId}
+                  article={rel}
+                  formatDate={formatDate}
+                  readMoreLabel={t('readMore')}
+                  readingTimeLabel={(minutes) => t('readingTime', { minutes })}
+                />
               ))}
             </div>
+            </ScrollReveal>
           </Container>
         </section>
       )}

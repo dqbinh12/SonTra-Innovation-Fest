@@ -56,14 +56,14 @@ export async function GettingHere({
         </ScrollReveal>
 
         {options.length > 0 && (
-          <ul className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {options.map((option, index) => {
-              const Icon = MODE_ICONS[option.mode] ?? Route;
-              const href = option.url?.trim();
+          <ScrollReveal direction="up">
+            <ul className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {options.map((option, index) => {
+                const Icon = MODE_ICONS[option.mode] ?? Route;
+                const href = option.url?.trim();
 
-              return (
-                <li key={`${option.mode}-${index}`}>
-                  <ScrollReveal direction="up" delay={Math.min(index, 5) * 60} className="h-full">
+                return (
+                  <li key={`${option.mode}-${index}`}>
                     <div className="glass lift flex h-full flex-col rounded-2xl p-6">
                       <span
                         aria-hidden="true"
@@ -98,11 +98,11 @@ export async function GettingHere({
                         </a>
                       )}
                     </div>
-                  </ScrollReveal>
-                </li>
-              );
-            })}
-          </ul>
+                  </li>
+                );
+              })}
+            </ul>
+          </ScrollReveal>
         )}
 
         {(directions || parkingNotes) && (
@@ -122,7 +122,7 @@ export async function GettingHere({
             )}
 
             {parkingNotes && (
-              <ScrollReveal direction="right" delay={80}>
+              <ScrollReveal direction="right">
                 <div className="glass h-full rounded-2xl p-7 sm:p-8">
                   <h3 className="flex items-center gap-3 text-base font-semibold">
                     <ParkingCircle aria-hidden="true" className="text-brand-cyan size-5" />

@@ -448,7 +448,7 @@ export default async function Home({ params }: Props) {
             </ScrollReveal>
 
             {introVideoEmbedUrl && (
-              <ScrollReveal direction="focus" delay={120} className="lg:col-span-7">
+              <ScrollReveal direction="focus" className="lg:col-span-7">
                 <div className="relative">
                   <div
                     aria-hidden="true"
@@ -489,14 +489,11 @@ export default async function Home({ params }: Props) {
             </div>
           </ScrollReveal>
 
-          <ul className="mt-8 grid gap-3.5 sm:mt-12 sm:grid-cols-2 lg:grid-cols-4 sm:gap-4">
-            {exploreCards.map(
-              (
-                { href, icon: Icon, label, body, index, accentColor, accentBorder, accentBg },
-                i,
-              ) => (
-                <li key={href}>
-                  <ScrollReveal direction="up" delay={i * 90} className="h-full">
+          <ScrollReveal direction="up">
+            <ul className="mt-8 grid gap-3.5 sm:mt-12 sm:grid-cols-2 lg:grid-cols-4 sm:gap-4">
+              {exploreCards.map(
+                ({ href, icon: Icon, label, body, index, accentColor, accentBorder, accentBg }) => (
+                  <li key={href}>
                     <Link
                       href={href}
                       className={cn(
@@ -536,11 +533,11 @@ export default async function Home({ params }: Props) {
                         />
                       </div>
                     </Link>
-                  </ScrollReveal>
-                </li>
-              ),
-            )}
-          </ul>
+                  </li>
+                ),
+              )}
+            </ul>
+          </ScrollReveal>
         </Container>
       </section>
 
@@ -641,11 +638,11 @@ export default async function Home({ params }: Props) {
               </h2>
             </ScrollReveal>
             <div className="mt-8 sm:mt-10">
-              <ScrollReveal direction="right" delay={150}>
+              <ScrollReveal direction="right">
                 <SponsorMarquee sponsors={sponsors} />
               </ScrollReveal>
             </div>
-            <ScrollReveal direction="left" delay={250} className="mt-8 text-center sm:mt-10">
+            <ScrollReveal direction="left" className="mt-8 text-center sm:mt-10">
               <Link
                 href="/sponsors"
                 className="text-primary hover:text-brand-blue group inline-flex items-center gap-2 py-2 text-xs font-semibold tracking-wider uppercase transition-colors sm:text-sm"
@@ -678,15 +675,15 @@ export default async function Home({ params }: Props) {
                 </Link>
               </div>
             </ScrollReveal>
-            <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 sm:gap-6">
-              {latestNews.map((article, i) => (
-                <li key={article.documentId}>
-                  <ScrollReveal direction="up-lg" delay={i * 120}>
+            <ScrollReveal direction="up-lg">
+              <ul className="mt-8 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 sm:gap-6">
+                {latestNews.map((article) => (
+                  <li key={article.documentId}>
                     <NewsCard article={article} />
-                  </ScrollReveal>
-                </li>
-              ))}
-            </ul>
+                  </li>
+                ))}
+              </ul>
+            </ScrollReveal>
           </Container>
         </section>
       )}

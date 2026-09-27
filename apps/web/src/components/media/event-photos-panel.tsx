@@ -117,10 +117,10 @@ export async function EventPhotosPanel({
                   {t('albumsTitle')}
                 </h3>
 
+                <ScrollReveal direction="up">
                 <ul className="mt-6 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
                   {withLinks.map((album, index) => (
                     <li key={`${album.title}-${index}`}>
-                      <ScrollReveal direction="up" delay={Math.min(index, 5) * 60} className="h-full">
                         {/* The whole card is the link — an album has one
                             destination, and a card with a single small link in
                             it wastes the target area. */}
@@ -184,10 +184,10 @@ export async function EventPhotosPanel({
                             </div>
                           </div>
                         </a>
-                      </ScrollReveal>
-                    </li>
-                  ))}
-                </ul>
+                      </li>
+                    ))}
+                  </ul>
+                </ScrollReveal>
               </div>
             )}
           </>

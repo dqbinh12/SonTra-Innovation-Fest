@@ -161,7 +161,7 @@ export default async function NewsPage({ params, searchParams }: Props) {
           </ScrollReveal>
 
           {/* Interactive Search & Category Filter */}
-          <ScrollReveal direction="right" delay={80} className="w-full">
+          <ScrollReveal direction="right" className="w-full">
             <NewsFilterBar
               query={q}
               category={categoryParam}
@@ -245,22 +245,19 @@ export default async function NewsPage({ params, searchParams }: Props) {
               )}
             </div>
           ) : (
+            <ScrollReveal direction="up-lg">
             <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 lg:gap-6">
-              {articles.map((article, i) => (
-                <ScrollReveal
+              {articles.map((article) => (
+                <NewsCard
                   key={article.documentId}
-                  direction="up-lg"
-                  delay={(i % 3) * 100}
-                >
-                  <NewsCard
-                    article={article}
-                    formatDate={formatDate}
-                    readMoreLabel={t('readMore')}
-                    readingTimeLabel={(minutes) => t('readingTime', { minutes })}
-                  />
-                </ScrollReveal>
+                  article={article}
+                  formatDate={formatDate}
+                  readMoreLabel={t('readMore')}
+                  readingTimeLabel={(minutes) => t('readingTime', { minutes })}
+                />
               ))}
             </div>
+            </ScrollReveal>
           )}
 
           {/* Pagination Navigation */}

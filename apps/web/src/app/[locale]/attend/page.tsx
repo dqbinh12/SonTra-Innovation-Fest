@@ -129,10 +129,10 @@ export default async function Attend({ params }: Props) {
             </p>
           </ScrollReveal>
 
-          <ul className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-            {segments.map((segment, i) => (
-              <li key={segment.key} id={`audience-${segment.key}`} className="scroll-mt-24">
-                <ScrollReveal direction="up" delay={i * 90} className="h-full">
+          <ScrollReveal direction="up">
+            <ul className="mt-8 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
+              {segments.map((segment) => (
+                <li key={segment.key} id={`audience-${segment.key}`} className="scroll-mt-24">
                   <AudienceCard
                     segmentKey={segment.key}
                     title={segment.title}
@@ -142,10 +142,10 @@ export default async function Attend({ params }: Props) {
                     ctaLabel={segment.ctaLabel}
                     ctaHref={segment.ctaHref}
                   />
-                </ScrollReveal>
-              </li>
-            ))}
-          </ul>
+                </li>
+              ))}
+            </ul>
+          </ScrollReveal>
 
           {/* Free-form note from the CMS, kept under the cards it qualifies. */}
           {page?.audience && (
@@ -161,10 +161,10 @@ export default async function Attend({ params }: Props) {
       {/* ─── Benefits ──────────────────────────────────────────────────── */}
       {page?.benefits && page.benefits.length > 0 && (
         <Section title={t('benefitsTitle')} className="py-8 sm:py-12">
-          <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-            {page.benefits.map((benefit, i) => (
-              <li key={benefit.title}>
-                <ScrollReveal direction="up" delay={(i % 3) * 80} className="h-full">
+          <ScrollReveal direction="up">
+            <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {page.benefits.map((benefit, i) => (
+                <li key={benefit.title}>
                   <div className="group glass lift h-full rounded-2xl p-6">
                     <span
                       aria-hidden="true"
@@ -181,10 +181,10 @@ export default async function Attend({ params }: Props) {
                       </p>
                     )}
                   </div>
-                </ScrollReveal>
-              </li>
-            ))}
-          </ul>
+                </li>
+              ))}
+            </ul>
+          </ScrollReveal>
         </Section>
       )}
 
