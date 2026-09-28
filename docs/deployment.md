@@ -17,15 +17,16 @@ Both containers bind to `127.0.0.1`, so only the reverse proxy can reach them.
 
 ## First deploy
 
-```bash
-git clone <repo-url> sif && cd sif
-```
+On the production server, only two files are needed (no source repo):
 
 ```bash
-cp infra/.env.example infra/.env
+mkdir -p sif && cd sif
+curl -O https://raw.githubusercontent.com/dqbinh12/SonTra-Innovation-Fest/main/infra/docker-compose.prod.yml
+curl -O https://raw.githubusercontent.com/dqbinh12/SonTra-Innovation-Fest/main/infra/.env.prod.example
+mv .env.prod.example .env
 ```
 
-Fill in `infra/.env`. Every secret should be freshly generated:
+Fill in `.env`. Every secret should be freshly generated:
 
 ```bash
 openssl rand -base64 32
@@ -34,10 +35,11 @@ openssl rand -base64 32
 `APP_KEYS` takes a comma-separated list — generate four and join them.
 
 ```bash
-docker compose -f infra/docker-compose.yml --env-file infra/.env up -d --build
+docker compose -f docker-compose.prod.yml --env-file .env pull
+docker compose -f docker-compose.prod.yml --env-file .env up -d
 ```
 
-The first build takes several minutes (Strapi compiles its admin panel).
+First pull is fast — the images are already built by CI/CD.
 
 ## After the first deploy
 
@@ -56,8 +58,25 @@ The first build takes several minutes (Strapi compiles its admin panel).
 
 ## Redeploying
 
+On the production server, only two files are needed (no source repo):
+- `docker-compose.prod.yml`
+- `.env` (filled from `infra/.env.prod.example`)
+
 ```bash
-git pull && docker compose -f infra/docker-compose.yml --env-file infra/.env up -d --build
+docker compose -f docker-compose.prod.yml --env-file .env pull
+docker compose -f docker-compose.prod.yml --env-file .env up -d
+```
+
+Pin a specific build or roll back:
+
+```bash
+IMAGE_TAG=sha-xxxx docker compose -f docker-compose.prod.yml --env-file .env up -d
+```
+
+(Manual build-from-source on local/staging still works with `infra/docker-compose.yml`:)
+
+```bash
+docker compose -f infra/docker-compose.yml --env-file infra/.env up -d --build
 ```
 
 Uploaded media lives in the `cms-uploads` volume and the database in `db-data`,
@@ -112,7 +131,8 @@ the connection — see below.
   ```
 
 - The `NEXT_PUBLIC_*` variables are baked in at image build time, so changing
-  the domain means rebuilding the `web` image, not just restarting it.
+  the domain means rebuilding the `web` image, not just restarting it. In CI/CD
+  they are set in `.github/workflows/ci-cd.yml`.
 - `NEXT_PUBLIC_STRAPI_URL` must be a URL a **browser** can reach, on a public
   address. Next 16 refuses to optimize images from hosts that resolve to a
   private IP, so pointing it at an internal hostname or LAN address makes every
