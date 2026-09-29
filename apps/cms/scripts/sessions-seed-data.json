@@ -1,0 +1,1712 @@
+[
+  {
+    "day": "2026-10-03",
+    "startTime": "07:45:00.000",
+    "endTime": "08:00:00.000",
+    "sectionOrder": 1,
+    "en": {
+      "title": " Welcoming delegates",
+      "day": "2026-10-03",
+      "startTime": "07:45:00.000",
+      "endTime": "08:00:00.000",
+      "sectionTitle": "WELCOME",
+      "sectionOrder": 1,
+      "speaker": null,
+      "people": null,
+      "track": null,
+      "location": null
+    },
+    "vi": {
+      "title": "Đón tiếp đại biểu",
+      "day": "2026-10-03",
+      "startTime": "07:45:00.000",
+      "endTime": "08:00:00.000",
+      "sectionTitle": "ĐÓN TIẾP",
+      "sectionOrder": 1,
+      "speaker": null,
+      "people": null,
+      "track": null,
+      "location": null
+    }
+  },
+  {
+    "day": "2026-10-03",
+    "startTime": "08:00:00.000",
+    "endTime": "08:20:00.000",
+    "sectionOrder": 2,
+    "en": {
+      "title": "Musical Performance",
+      "day": "2026-10-03",
+      "startTime": "08:00:00.000",
+      "endTime": "08:20:00.000",
+      "sectionTitle": "OPENING OF SON TRA INNOVATION FESTIVAL 2026",
+      "sectionOrder": 2,
+      "speaker": null,
+      "people": [
+        {
+          "role": "moderator",
+          "name": "MC"
+        }
+      ],
+      "track": null,
+      "location": null
+    },
+    "vi": {
+      "title": "Văn nghệ",
+      "day": "2026-10-03",
+      "startTime": "08:00:00.000",
+      "endTime": "08:20:00.000",
+      "sectionTitle": "KHAI MẠC LỄ HỘI ĐỔI MỚI SÁNG TẠO SƠN TRÀ 2026",
+      "sectionOrder": 2,
+      "speaker": null,
+      "people": [
+        {
+          "role": "moderator",
+          "name": "MC"
+        }
+      ],
+      "track": null,
+      "location": null
+    }
+  },
+  {
+    "day": "2026-10-03",
+    "startTime": "08:20:00.000",
+    "endTime": "08:30:00.000",
+    "sectionOrder": 2,
+    "en": {
+      "title": "Statement of Purpose and Introduction of Delegates",
+      "day": "2026-10-03",
+      "startTime": "08:20:00.000",
+      "endTime": "08:30:00.000",
+      "sectionTitle": "OPENING OF SON TRA INNOVATION FESTIVAL 2026",
+      "sectionOrder": 2,
+      "speaker": null,
+      "people": [
+        {
+          "role": "moderator",
+          "name": "MC"
+        }
+      ],
+      "track": null,
+      "location": null
+    },
+    "vi": {
+      "title": "Tuyên bố lý do, giới thiệu đại biểu",
+      "day": "2026-10-03",
+      "startTime": "08:20:00.000",
+      "endTime": "08:30:00.000",
+      "sectionTitle": "KHAI MẠC LỄ HỘI ĐỔI MỚI SÁNG TẠO SƠN TRÀ 2026",
+      "sectionOrder": 2,
+      "speaker": null,
+      "people": [
+        {
+          "role": "moderator",
+          "name": "MC"
+        }
+      ],
+      "track": null,
+      "location": null
+    }
+  },
+  {
+    "day": "2026-10-03",
+    "startTime": "08:30:00.000",
+    "endTime": "08:40:00.000",
+    "sectionOrder": 2,
+    "en": {
+      "title": "Opening Remarks of SIF 2026",
+      "day": "2026-10-03",
+      "startTime": "08:30:00.000",
+      "endTime": "08:40:00.000",
+      "sectionTitle": "OPENING OF SON TRA INNOVATION FESTIVAL 2026",
+      "sectionOrder": 2,
+      "speaker": "Nguyễn Huy Bình; Vice Chairman of the Ward People’s Committee; Head of the Festival Organizing Committee",
+      "people": [
+        {
+          "role": "speaker",
+          "name": "Nguyễn Huy Bình",
+          "title": "Vice Chairman of the Ward People’s Committee, Head of the Festival Organizing Committee"
+        }
+      ],
+      "track": null,
+      "location": null
+    },
+    "vi": {
+      "title": "Phát biểu khai mạc Lễ hội SIF 2026",
+      "day": "2026-10-03",
+      "startTime": "08:30:00.000",
+      "endTime": "08:40:00.000",
+      "sectionTitle": "KHAI MẠC LỄ HỘI ĐỔI MỚI SÁNG TẠO SƠN TRÀ 2026",
+      "sectionOrder": 2,
+      "speaker": "Nguyễn Huy Bình; PCT UBND phường; Trưởng ban Tổ chức Lễ hội",
+      "people": [
+        {
+          "role": "speaker",
+          "name": "Nguyễn Huy Bình",
+          "title": "PCT UBND phường, Trưởng ban Tổ chức Lễ hội"
+        }
+      ],
+      "track": null,
+      "location": null
+    }
+  },
+  {
+    "day": "2026-10-03",
+    "startTime": "08:40:00.000",
+    "endTime": "08:50:00.000",
+    "sectionOrder": 2,
+    "en": {
+      "title": "Button-Pressing Ceremony to Officially Open the Festival",
+      "day": "2026-10-03",
+      "startTime": "08:40:00.000",
+      "endTime": "08:50:00.000",
+      "sectionTitle": "OPENING OF SON TRA INNOVATION FESTIVAL 2026",
+      "sectionOrder": 2,
+      "speaker": null,
+      "people": [
+        {
+          "role": "ceremony_participant",
+          "name": "Leaders of the Da Nang City People’s Committee"
+        },
+        {
+          "role": "ceremony_participant",
+          "name": "Leaders of the Department of Science and Technology"
+        },
+        {
+          "role": "ceremony_participant",
+          "name": "Leaders of the Ward Party Committee"
+        },
+        {
+          "role": "ceremony_participant",
+          "name": "Leaders of the Ward People’s Committee"
+        },
+        {
+          "role": "ceremony_participant",
+          "name": "Head of the SIF 2026 Organizing Committee"
+        },
+        {
+          "role": "ceremony_participant",
+          "name": "DISSC - Da Nang 365"
+        }
+      ],
+      "track": null,
+      "location": null
+    },
+    "vi": {
+      "title": "Nghi thức bấm nút khai mạc Lễ hội",
+      "day": "2026-10-03",
+      "startTime": "08:40:00.000",
+      "endTime": "08:50:00.000",
+      "sectionTitle": "KHAI MẠC LỄ HỘI ĐỔI MỚI SÁNG TẠO SƠN TRÀ 2026",
+      "sectionOrder": 2,
+      "speaker": null,
+      "people": [
+        {
+          "role": "ceremony_participant",
+          "name": "Lãnh đạo UBND thành phố"
+        },
+        {
+          "role": "ceremony_participant",
+          "name": "Lãnh đạo Sở Khoa học và Công nghệ"
+        },
+        {
+          "role": "ceremony_participant",
+          "name": "Lãnh đạo Đảng ủy phường"
+        },
+        {
+          "role": "ceremony_participant",
+          "name": "Lãnh đạo UBND phường"
+        },
+        {
+          "role": "ceremony_participant",
+          "name": "Trưởng ban Tổ chức SIF 2026"
+        },
+        {
+          "role": "ceremony_participant",
+          "name": "DISSC"
+        },
+        {
+          "role": "ceremony_participant",
+          "name": "Đà Nẵng 365"
+        }
+      ],
+      "track": null,
+      "location": null
+    }
+  },
+  {
+    "day": "2026-10-03",
+    "startTime": "08:50:00.000",
+    "endTime": "09:00:00.000",
+    "sectionOrder": 2,
+    "en": {
+      "title": "Presentation of Flowers to Sponsors and Partners Supporting SIF 2026",
+      "day": "2026-10-03",
+      "startTime": "08:50:00.000",
+      "endTime": "09:00:00.000",
+      "sectionTitle": "OPENING OF SON TRA INNOVATION FESTIVAL 2026",
+      "sectionOrder": 2,
+      "speaker": null,
+      "people": [
+        {
+          "role": "participant",
+          "name": "Leaders of the Da Nang City People’s Committee"
+        },
+        {
+          "role": "participant",
+          "name": "Ward leaders"
+        }
+      ],
+      "track": null,
+      "location": null
+    },
+    "vi": {
+      "title": "Tặng hoa cho các đơn vị tài trợ, đồng hành sự kiện SIF 2026",
+      "day": "2026-10-03",
+      "startTime": "08:50:00.000",
+      "endTime": "09:00:00.000",
+      "sectionTitle": "KHAI MẠC LỄ HỘI ĐỔI MỚI SÁNG TẠO SƠN TRÀ 2026",
+      "sectionOrder": 2,
+      "speaker": null,
+      "people": [
+        {
+          "role": "participant",
+          "name": "Lãnh đạo UBND thành phố"
+        },
+        {
+          "role": "participant",
+          "name": "Lãnh đạo phường"
+        }
+      ],
+      "track": null,
+      "location": null
+    }
+  },
+  {
+    "day": "2026-10-03",
+    "startTime": "09:00:00.000",
+    "endTime": "09:20:00.000",
+    "sectionOrder": 2,
+    "en": {
+      "title": "Booth Visit and Break ",
+      "day": "2026-10-03",
+      "startTime": "09:00:00.000",
+      "endTime": "09:20:00.000",
+      "sectionTitle": "OPENING OF SON TRA INNOVATION FESTIVAL 2026",
+      "sectionOrder": 2,
+      "speaker": null,
+      "people": null,
+      "track": null,
+      "location": null
+    },
+    "vi": {
+      "title": "Tham quan gian hàng và Giải lao ",
+      "day": "2026-10-03",
+      "startTime": "09:00:00.000",
+      "endTime": "09:20:00.000",
+      "sectionTitle": "KHAI MẠC LỄ HỘI ĐỔI MỚI SÁNG TẠO SƠN TRÀ 2026",
+      "sectionOrder": 2,
+      "speaker": null,
+      "people": null,
+      "track": null,
+      "location": null
+    }
+  },
+  {
+    "day": "2026-10-03",
+    "startTime": "09:20:00.000",
+    "endTime": "09:25:00.000",
+    "sectionOrder": 3,
+    "en": {
+      "title": "Organization settling",
+      "day": "2026-10-03",
+      "startTime": "09:20:00.000",
+      "endTime": "09:25:00.000",
+      "sectionTitle": "SEMINAR ON THE PROJECT TO ESTABLISH THE SON TRA WARD INNOVATION AREA",
+      "sectionOrder": 3,
+      "speaker": null,
+      "people": null,
+      "track": null,
+      "location": null
+    },
+    "vi": {
+      "title": "Ổn định tổ chức",
+      "day": "2026-10-03",
+      "startTime": "09:20:00.000",
+      "endTime": "09:25:00.000",
+      "sectionTitle": "HỘI THẢO ĐỀ ÁN THÀNH LẬP KHU VỰC ĐỔI MỚI SÁNG TẠO PHƯỜNG SƠN TRÀ",
+      "sectionOrder": 3,
+      "speaker": null,
+      "people": null,
+      "track": null,
+      "location": null
+    }
+  },
+  {
+    "day": "2026-10-03",
+    "startTime": "09:25:00.000",
+    "endTime": "09:35:00.000",
+    "sectionOrder": 3,
+    "en": {
+      "title": "Statement of Purpose for the Workshop on the Proposal for Establishing the Son Tra Ward Innovation Area",
+      "day": "2026-10-03",
+      "startTime": "09:25:00.000",
+      "endTime": "09:35:00.000",
+      "sectionTitle": "SEMINAR ON THE PROJECT TO ESTABLISH THE SON TRA WARD INNOVATION AREA",
+      "sectionOrder": 3,
+      "speaker": null,
+      "people": [
+        {
+          "role": "moderator",
+          "name": "MC"
+        }
+      ],
+      "track": null,
+      "location": null
+    },
+    "vi": {
+      "title": "Tuyên bố lý do về Hội thảo Đề án Thành lập Khu vực đổi mới sáng tạo phường Sơn Trà",
+      "day": "2026-10-03",
+      "startTime": "09:25:00.000",
+      "endTime": "09:35:00.000",
+      "sectionTitle": "HỘI THẢO ĐỀ ÁN THÀNH LẬP KHU VỰC ĐỔI MỚI SÁNG TẠO PHƯỜNG SƠN TRÀ",
+      "sectionOrder": 3,
+      "speaker": null,
+      "people": [
+        {
+          "role": "moderator",
+          "name": "MC"
+        }
+      ],
+      "track": null,
+      "location": null
+    }
+  },
+  {
+    "day": "2026-10-03",
+    "startTime": "09:35:00.000",
+    "endTime": "09:45:00.000",
+    "sectionOrder": 3,
+    "en": {
+      "title": "Opening Remarks of the Workshop and Report on the Socio-Economic Development Orientation of Son Tra Ward",
+      "day": "2026-10-03",
+      "startTime": "09:35:00.000",
+      "endTime": "09:45:00.000",
+      "sectionTitle": "SEMINAR ON THE PROJECT TO ESTABLISH THE SON TRA WARD INNOVATION AREA",
+      "sectionOrder": 3,
+      "speaker": "Nguyễn Huy Bình - Vice Chairman of the Ward People’s Committee",
+      "people": [
+        {
+          "role": "speaker",
+          "name": "Nguyễn Huy Bình",
+          "title": "Vice Chairman of the Ward People’s Committee"
+        }
+      ],
+      "track": null,
+      "location": null
+    },
+    "vi": {
+      "title": "Phát biểu Khai mạc Hội Thảo và Báo cáo định hướng phát triển kinh tế - xã hội phường Sơn Trà",
+      "day": "2026-10-03",
+      "startTime": "09:35:00.000",
+      "endTime": "09:45:00.000",
+      "sectionTitle": "HỘI THẢO ĐỀ ÁN THÀNH LẬP KHU VỰC ĐỔI MỚI SÁNG TẠO PHƯỜNG SƠN TRÀ",
+      "sectionOrder": 3,
+      "speaker": "Nguyễn Huy Bình - PCT UBND phường",
+      "people": [
+        {
+          "role": "speaker",
+          "name": "Nguyễn Huy Bình",
+          "title": "PCT UBND phường"
+        }
+      ],
+      "track": null,
+      "location": null
+    }
+  },
+  {
+    "day": "2026-10-03",
+    "startTime": "09:45:00.000",
+    "endTime": "10:05:00.000",
+    "sectionOrder": 3,
+    "en": {
+      "title": "Overview of the Draft Proposal for the Son Tra Innovation Area (SIZ)",
+      "day": "2026-10-03",
+      "startTime": "09:45:00.000",
+      "endTime": "10:05:00.000",
+      "sectionTitle": "SEMINAR ON THE PROJECT TO ESTABLISH THE SON TRA WARD INNOVATION AREA",
+      "sectionOrder": 3,
+      "speaker": "Võ Đức Anh - Deputy Director of DISSC",
+      "people": [
+        {
+          "role": "speaker",
+          "name": "Võ Đức Anh",
+          "title": "Deputy Director of DISSC"
+        }
+      ],
+      "track": null,
+      "location": null
+    },
+    "vi": {
+      "title": "Tổng quan dự thảo Đề án Khu vực đổi mới sáng tạo Sơn Trà (SIZ)",
+      "day": "2026-10-03",
+      "startTime": "09:45:00.000",
+      "endTime": "10:05:00.000",
+      "sectionTitle": "HỘI THẢO ĐỀ ÁN THÀNH LẬP KHU VỰC ĐỔI MỚI SÁNG TẠO PHƯỜNG SƠN TRÀ",
+      "sectionOrder": 3,
+      "speaker": "Võ Đức Anh - Phó Giám đốc DISSC",
+      "people": [
+        {
+          "role": "speaker",
+          "name": "Võ Đức Anh",
+          "title": "Phó Giám đốc DISSC"
+        }
+      ],
+      "track": null,
+      "location": null
+    }
+  },
+  {
+    "day": "2026-10-03",
+    "startTime": "10:05:00.000",
+    "endTime": "10:20:00.000",
+    "sectionOrder": 3,
+    "en": {
+      "title": "Thematic Presentation: Sharing Experiences on the \"Organizational and Operational Models of Innovation Areas in South Korea\"",
+      "day": "2026-10-03",
+      "startTime": "10:05:00.000",
+      "endTime": "10:20:00.000",
+      "sectionTitle": "SEMINAR ON THE PROJECT TO ESTABLISH THE SON TRA WARD INNOVATION AREA",
+      "sectionOrder": 3,
+      "speaker": "Dr. Phạm Đình Lâm - Research Professor, Institute of Integrated Digital Content Software Development, Kyonggi University, South Korea",
+      "people": [
+        {
+          "role": "speaker",
+          "name": "Dr. Phạm Đình Lâm",
+          "title": "Research Professor, Institute of Integrated Digital Content Software Development, Kyonggi University, South Korea"
+        }
+      ],
+      "track": null,
+      "location": null
+    },
+    "vi": {
+      "title": "Báo cáo chuyên đề: Chia sẻ kinh nghiệm \"Mô hình tổ chức và vận hành các khu đổi mới sáng tạo tại Hàn Quốc\"",
+      "day": "2026-10-03",
+      "startTime": "10:05:00.000",
+      "endTime": "10:20:00.000",
+      "sectionTitle": "HỘI THẢO ĐỀ ÁN THÀNH LẬP KHU VỰC ĐỔI MỚI SÁNG TẠO PHƯỜNG SƠN TRÀ",
+      "sectionOrder": 3,
+      "speaker": "TS. Phạm Đình Lâm - Giáo sư nghiên cứu, Viện Nghiên cứu Phát triển Phần mềm Tích hợp Nội dung số, Trường Đại học Kyonggi, Hàn Quốc",
+      "people": [
+        {
+          "role": "speaker",
+          "name": "TS. Phạm Đình Lâm",
+          "title": "Giáo sư nghiên cứu, Viện Nghiên cứu Phát triển Phần mềm Tích hợp Nội dung số, Trường Đại học Kyonggi, Hàn Quốc"
+        }
+      ],
+      "track": null,
+      "location": null
+    }
+  },
+  {
+    "day": "2026-10-03",
+    "startTime": "10:20:00.000",
+    "endTime": "10:35:00.000",
+    "sectionOrder": 3,
+    "en": {
+      "title": "Thematic report: Digital infrastructure for the low-altitude space economy from idea to reality",
+      "day": "2026-10-03",
+      "startTime": "10:20:00.000",
+      "endTime": "10:35:00.000",
+      "sectionTitle": "SEMINAR ON THE PROJECT TO ESTABLISH THE SON TRA WARD INNOVATION AREA",
+      "sectionOrder": 3,
+      "speaker": "Nguyễn Xuân Nghĩa - Acting Director - Mobifone Da Nang",
+      "people": [
+        {
+          "role": "speaker",
+          "name": "Nguyễn Xuân Nghĩa",
+          "title": "Acting Director - Mobifone Da Nang"
+        }
+      ],
+      "track": null,
+      "location": null
+    },
+    "vi": {
+      "title": "Báo cáo chuyên đề: Hạ tầng số cho kinh tế không gian tầm thấp từ ý tưởng đến hiện thực",
+      "day": "2026-10-03",
+      "startTime": "10:20:00.000",
+      "endTime": "10:35:00.000",
+      "sectionTitle": "HỘI THẢO ĐỀ ÁN THÀNH LẬP KHU VỰC ĐỔI MỚI SÁNG TẠO PHƯỜNG SƠN TRÀ",
+      "sectionOrder": 3,
+      "speaker": "Nguyễn Xuân Nghĩa - Quyền Giám đốc - Mobifone Đà Nẵng",
+      "people": [
+        {
+          "role": "speaker",
+          "name": "Nguyễn Xuân Nghĩa",
+          "title": "Quyền Giám đốc - Mobifone Đà Nẵng"
+        }
+      ],
+      "track": null,
+      "location": null
+    }
+  },
+  {
+    "day": "2026-10-03",
+    "startTime": "10:35:00.000",
+    "endTime": "10:50:00.000",
+    "sectionOrder": 3,
+    "en": {
+      "title": "Thematic Presentation: Orientation for Developing the Innovation Complex at Da Nang Golden Bay",
+      "day": "2026-10-03",
+      "startTime": "10:35:00.000",
+      "endTime": "10:50:00.000",
+      "sectionTitle": "SEMINAR ON THE PROJECT TO ESTABLISH THE SON TRA WARD INNOVATION AREA",
+      "sectionOrder": 3,
+      "speaker": "Representative of Da Nang Golden Bay",
+      "people": [
+        {
+          "role": "speaker",
+          "name": "Representative of Da Nang Golden Bay"
+        }
+      ],
+      "track": null,
+      "location": null
+    },
+    "vi": {
+      "title": "Báo cáo chuyên đề: Định hướng phát triển tổ hợp đổi mới sáng tạo tại Đà Nẵng Golden Bay",
+      "day": "2026-10-03",
+      "startTime": "10:35:00.000",
+      "endTime": "10:50:00.000",
+      "sectionTitle": "HỘI THẢO ĐỀ ÁN THÀNH LẬP KHU VỰC ĐỔI MỚI SÁNG TẠO PHƯỜNG SƠN TRÀ",
+      "sectionOrder": 3,
+      "speaker": "Đại diện Đà Nẵng Golden Bay",
+      "people": [
+        {
+          "role": "speaker",
+          "name": "Đại diện Đà Nẵng Golden Bay"
+        }
+      ],
+      "track": null,
+      "location": null
+    }
+  },
+  {
+    "day": "2026-10-03",
+    "startTime": "10:45:00.000",
+    "endTime": "11:25:00.000",
+    "sectionOrder": 3,
+    "en": {
+      "title": "Discussion and Exchange",
+      "day": "2026-10-03",
+      "startTime": "10:45:00.000",
+      "endTime": "11:25:00.000",
+      "sectionTitle": "SEMINAR ON THE PROJECT TO ESTABLISH THE SON TRA WARD INNOVATION AREA",
+      "sectionOrder": 3,
+      "speaker": null,
+      "people": [
+        {
+          "role": "co_chair",
+          "name": "Nguyễn Huy Bình",
+          "title": "Vice Chairman of the Ward People’s Committee"
+        },
+        {
+          "role": "co_chair",
+          "name": "Võ Đức Anh",
+          "title": "Deputy Director of DISSC"
+        },
+        {
+          "role": "participant",
+          "name": "Seminar delegates"
+        }
+      ],
+      "track": null,
+      "location": null
+    },
+    "vi": {
+      "title": "Trao đổi, thảo luận",
+      "day": "2026-10-03",
+      "startTime": "10:45:00.000",
+      "endTime": "11:25:00.000",
+      "sectionTitle": "HỘI THẢO ĐỀ ÁN THÀNH LẬP KHU VỰC ĐỔI MỚI SÁNG TẠO PHƯỜNG SƠN TRÀ",
+      "sectionOrder": 3,
+      "speaker": null,
+      "people": [
+        {
+          "role": "co_chair",
+          "name": "Nguyễn Huy Bình",
+          "title": "PCT UBND phường"
+        },
+        {
+          "role": "co_chair",
+          "name": "Võ Đức Anh",
+          "title": "Phó Giám đốc DISSC"
+        },
+        {
+          "role": "participant",
+          "name": "Đại biểu tham dự Hội thảo"
+        }
+      ],
+      "track": null,
+      "location": null
+    }
+  },
+  {
+    "day": "2026-10-03",
+    "startTime": "11:25:00.000",
+    "endTime": "11:30:00.000",
+    "sectionOrder": 3,
+    "en": {
+      "title": "Remarks on Receiving Feedback and Closing of the Workshop",
+      "day": "2026-10-03",
+      "startTime": "11:25:00.000",
+      "endTime": "11:30:00.000",
+      "sectionTitle": "SEMINAR ON THE PROJECT TO ESTABLISH THE SON TRA WARD INNOVATION AREA",
+      "sectionOrder": 3,
+      "speaker": "Nguyễn Huy Bình - Vice Chairman of the Ward People’s Committee",
+      "people": [
+        {
+          "role": "speaker",
+          "name": "Nguyễn Huy Bình",
+          "title": "Vice Chairman of the Ward People’s Committee"
+        }
+      ],
+      "track": null,
+      "location": null
+    },
+    "vi": {
+      "title": "Phát biểu tiếp thu và kết thúc hội thảo",
+      "day": "2026-10-03",
+      "startTime": "11:25:00.000",
+      "endTime": "11:30:00.000",
+      "sectionTitle": "HỘI THẢO ĐỀ ÁN THÀNH LẬP KHU VỰC ĐỔI MỚI SÁNG TẠO PHƯỜNG SƠN TRÀ",
+      "sectionOrder": 3,
+      "speaker": "Nguyễn Huy Bình - PCT UBND phường ",
+      "people": [
+        {
+          "role": "speaker",
+          "name": "Nguyễn Huy Bình",
+          "title": "PCT UBND phường"
+        }
+      ],
+      "track": null,
+      "location": null
+    }
+  },
+  {
+    "day": "2026-10-03",
+    "startTime": "13:30:00.000",
+    "endTime": "13:40:00.000",
+    "sectionOrder": 4,
+    "en": {
+      "title": "Statement of Purpose and Introduction of Delegates",
+      "day": "2026-10-03",
+      "startTime": "13:30:00.000",
+      "endTime": "13:40:00.000",
+      "sectionTitle": "AI AND EDUCATION SEMINAR",
+      "sectionOrder": 4,
+      "speaker": null,
+      "people": [
+        {
+          "role": "moderator",
+          "name": "MC"
+        }
+      ],
+      "track": null,
+      "location": null
+    },
+    "vi": {
+      "title": "Tuyên bố lý do, giới thiệu đại biểu",
+      "day": "2026-10-03",
+      "startTime": "13:30:00.000",
+      "endTime": "13:40:00.000",
+      "sectionTitle": "HỘI THẢO AI VÀ GIÁO DỤC",
+      "sectionOrder": 4,
+      "speaker": null,
+      "people": [
+        {
+          "role": "moderator",
+          "name": "MC"
+        }
+      ],
+      "track": null,
+      "location": null
+    }
+  },
+  {
+    "day": "2026-10-03",
+    "startTime": "13:40:00.000",
+    "endTime": "13:50:00.000",
+    "sectionOrder": 4,
+    "en": {
+      "title": "Opening Remarks",
+      "day": "2026-10-03",
+      "startTime": "13:40:00.000",
+      "endTime": "13:50:00.000",
+      "sectionTitle": "AI AND EDUCATION SEMINAR",
+      "sectionOrder": 4,
+      "speaker": "Nguyễn Huy Bình - Vice Chairman of the Ward People’s Committee",
+      "people": [
+        {
+          "role": "speaker",
+          "name": "Nguyễn Huy Bình",
+          "title": "Vice Chairman of the Ward People’s Committee"
+        }
+      ],
+      "track": null,
+      "location": null
+    },
+    "vi": {
+      "title": "Phát biểu khai mạc",
+      "day": "2026-10-03",
+      "startTime": "13:40:00.000",
+      "endTime": "13:50:00.000",
+      "sectionTitle": "HỘI THẢO AI VÀ GIÁO DỤC",
+      "sectionOrder": 4,
+      "speaker": "Nguyễn Huy Bình - PCT UBND phường",
+      "people": [
+        {
+          "role": "speaker",
+          "name": "Nguyễn Huy Bình",
+          "title": "PCT UBND phường"
+        }
+      ],
+      "track": null,
+      "location": null
+    }
+  },
+  {
+    "day": "2026-10-03",
+    "startTime": "13:50:00.000",
+    "endTime": "14:10:00.000",
+    "sectionOrder": 4,
+    "en": {
+      "title": "Thematic Presentation: Understanding AI for Proper Use in Education. Children's Safety and Privacy in the AI Era",
+      "day": "2026-10-03",
+      "startTime": "13:50:00.000",
+      "endTime": "14:10:00.000",
+      "sectionTitle": "AI AND EDUCATION SEMINAR",
+      "sectionOrder": 4,
+      "speaker": "Dr. Ngô Thị Hoàng Vân - Director of the Center for Innovation and Startup Support, University of Education - The University of Da Nang",
+      "people": [
+        {
+          "role": "speaker",
+          "name": "Dr. Ngô Thị Hoàng Vân",
+          "title": "Director of the Center for Innovation and Startup Support, University of Education - The University of Da Nang"
+        }
+      ],
+      "track": null,
+      "location": null
+    },
+    "vi": {
+      "title": "Báo cáo chuyên đề: Hiểu AI để sử dụng đúng trong giáo dục. An toàn và quyền riêng tư của trẻ em trong thời đại AI",
+      "day": "2026-10-03",
+      "startTime": "13:50:00.000",
+      "endTime": "14:10:00.000",
+      "sectionTitle": "HỘI THẢO AI VÀ GIÁO DỤC",
+      "sectionOrder": 4,
+      "speaker": "TS. Ngô Thị Hoàng Vân - Giám đốc Trung tâm Đổi mới sáng tạo và Hỗ Trợ khởi nghiệp trường Đại học Sư phạm - Đại học Đà Nẵng",
+      "people": [
+        {
+          "role": "speaker",
+          "name": "TS. Ngô Thị Hoàng Vân",
+          "title": "Giám đốc Trung tâm Đổi mới sáng tạo và Hỗ Trợ khởi nghiệp trường Đại học Sư phạm - Đại học Đà Nẵng"
+        }
+      ],
+      "track": null,
+      "location": null
+    }
+  },
+  {
+    "day": "2026-10-03",
+    "startTime": "14:10:00.000",
+    "endTime": "14:20:00.000",
+    "sectionOrder": 4,
+    "en": {
+      "title": "Thematic Presentation: Parents Accompanying Their Children to Learn and Master AI",
+      "day": "2026-10-03",
+      "startTime": "14:10:00.000",
+      "endTime": "14:20:00.000",
+      "sectionTitle": "AI AND EDUCATION SEMINAR",
+      "sectionOrder": 4,
+      "speaker": "Dr. Ngô Thị Hoàng Vân - Director of the Center for Innovation and Startup Support, University of Education - The University of Da Nang",
+      "people": [
+        {
+          "role": "speaker",
+          "name": "Dr. Ngô Thị Hoàng Vân",
+          "title": "Director of the Center for Innovation and Startup Support, University of Education - The University of Da Nang"
+        }
+      ],
+      "track": null,
+      "location": null
+    },
+    "vi": {
+      "title": "Báo cáo chuyên đề: Cha mẹ đồng hành cùng con học và làm chủ AI",
+      "day": "2026-10-03",
+      "startTime": "14:10:00.000",
+      "endTime": "14:20:00.000",
+      "sectionTitle": "HỘI THẢO AI VÀ GIÁO DỤC",
+      "sectionOrder": 4,
+      "speaker": "TS. Ngô Thị Hoàng Vân - Giám đốc Trung tâm Đổi mới sáng tạo và Hỗ Trợ khởi nghiệp trường Đại học Sư phạm - Đại học Đà Nẵng",
+      "people": [
+        {
+          "role": "speaker",
+          "name": "TS. Ngô Thị Hoàng Vân",
+          "title": "Giám đốc Trung tâm Đổi mới sáng tạo và Hỗ Trợ khởi nghiệp trường Đại học Sư phạm - Đại học Đà Nẵng"
+        }
+      ],
+      "track": null,
+      "location": null
+    }
+  },
+  {
+    "day": "2026-10-03",
+    "startTime": "14:20:00.000",
+    "endTime": "15:05:00.000",
+    "sectionOrder": 4,
+    "en": {
+      "title": "Break",
+      "day": "2026-10-03",
+      "startTime": "14:20:00.000",
+      "endTime": "15:05:00.000",
+      "sectionTitle": "AI AND EDUCATION SEMINAR",
+      "sectionOrder": 4,
+      "speaker": null,
+      "people": null,
+      "track": null,
+      "location": null
+    },
+    "vi": {
+      "title": "Giải lao",
+      "day": "2026-10-03",
+      "startTime": "14:20:00.000",
+      "endTime": "15:05:00.000",
+      "sectionTitle": "HỘI THẢO AI VÀ GIÁO DỤC",
+      "sectionOrder": 4,
+      "speaker": null,
+      "people": null,
+      "track": null,
+      "location": null
+    }
+  },
+  {
+    "day": "2026-10-03",
+    "startTime": "15:05:00.000",
+    "endTime": "15:25:00.000",
+    "sectionOrder": 4,
+    "en": {
+      "title": "Thematic Presentation: Building a Safe and Responsible AI Use Environment in Schools",
+      "day": "2026-10-03",
+      "startTime": "15:05:00.000",
+      "endTime": "15:25:00.000",
+      "sectionTitle": "AI AND EDUCATION SEMINAR",
+      "sectionOrder": 4,
+      "speaker": "Assoc. Prof. Dr. Trần Văn Hưng - Head of Computer Science Education, Head of Educational Technology, University of Education - The University of Da Nang",
+      "people": [
+        {
+          "role": "speaker",
+          "name": "Assoc. Prof. Dr. Trần Văn Hưng",
+          "title": "Head of Computer Science Education, Head of Educational Technology, University of Education - The University of Da Nang"
+        }
+      ],
+      "track": null,
+      "location": null
+    },
+    "vi": {
+      "title": "Báo cáo chuyên đề: Xây dựng môi trường sử dụng AI an toàn và có trách nhiệm trong nhà trường",
+      "day": "2026-10-03",
+      "startTime": "15:05:00.000",
+      "endTime": "15:25:00.000",
+      "sectionTitle": "HỘI THẢO AI VÀ GIÁO DỤC",
+      "sectionOrder": 4,
+      "speaker": "PGS.TS. Trần Văn Hưng - Trưởng ngành sư phạm Tin học, Trưởng ngành Công nghệ giáo dục trường Đại học Sư phạm - Đại học Đà Nẵng",
+      "people": [
+        {
+          "role": "speaker",
+          "name": "PGS.TS. Trần Văn Hưng",
+          "title": "Trưởng ngành sư phạm Tin học, Trưởng ngành Công nghệ giáo dục trường Đại học Sư phạm - Đại học Đà Nẵng"
+        }
+      ],
+      "track": null,
+      "location": null
+    }
+  },
+  {
+    "day": "2026-10-03",
+    "startTime": "15:25:00.000",
+    "endTime": "15:45:00.000",
+    "sectionOrder": 4,
+    "en": {
+      "title": "Thematic Presentation: Children's Digital Health in the AI Era",
+      "day": "2026-10-03",
+      "startTime": "15:25:00.000",
+      "endTime": "15:45:00.000",
+      "sectionTitle": "AI AND EDUCATION SEMINAR",
+      "sectionOrder": 4,
+      "speaker": "Dr. Lê Thị Duyên - Lecturer, University of Education - The University of Da Nang",
+      "people": [
+        {
+          "role": "speaker",
+          "name": "Dr. Lê Thị Duyên",
+          "title": "Lecturer, University of Education - The University of Da Nang"
+        }
+      ],
+      "track": null,
+      "location": null
+    },
+    "vi": {
+      "title": "Báo cáo chuyên đề: Sức khỏe số của trẻ em trong thời đại AI",
+      "day": "2026-10-03",
+      "startTime": "15:25:00.000",
+      "endTime": "15:45:00.000",
+      "sectionTitle": "HỘI THẢO AI VÀ GIÁO DỤC",
+      "sectionOrder": 4,
+      "speaker": "TS. Lê Thị Duyên - Giảng viên trường Đại học Sư phạm - Đại học Đà Nẵng",
+      "people": [
+        {
+          "role": "speaker",
+          "name": "TS. Lê Thị Duyên",
+          "title": "Giảng viên trường Đại học Sư phạm - Đại học Đà Nẵng"
+        }
+      ],
+      "track": null,
+      "location": null
+    }
+  },
+  {
+    "day": "2026-10-03",
+    "startTime": "15:45:00.000",
+    "endTime": "16:25:00.000",
+    "sectionOrder": 4,
+    "en": {
+      "title": "Panel Discussion and Q&A",
+      "day": "2026-10-03",
+      "startTime": "15:45:00.000",
+      "endTime": "16:25:00.000",
+      "sectionTitle": "AI AND EDUCATION SEMINAR",
+      "sectionOrder": 4,
+      "speaker": "Moderator, experts, delegates",
+      "people": [
+        {
+          "role": "co_chair",
+          "name": "Session Moderator"
+        },
+        {
+          "role": "speaker",
+          "name": "AI & Education Experts"
+        },
+        {
+          "role": "participant",
+          "name": "Attending Delegates"
+        }
+      ],
+      "track": null,
+      "location": null
+    },
+    "vi": {
+      "title": "Tọa đàm và hỏi - đáp",
+      "day": "2026-10-03",
+      "startTime": "15:45:00.000",
+      "endTime": "16:25:00.000",
+      "sectionTitle": "HỘI THẢO AI VÀ GIÁO DỤC",
+      "sectionOrder": 4,
+      "speaker": "Chủ trì, chuyên gia, đại biểu",
+      "people": [
+        {
+          "role": "co_chair",
+          "name": "Chủ trì phiên tọa đàm"
+        },
+        {
+          "role": "speaker",
+          "name": "Các chuyên gia AI & Giáo dục"
+        },
+        {
+          "role": "participant",
+          "name": "Đại biểu tham dự"
+        }
+      ],
+      "track": null,
+      "location": null
+    }
+  },
+  {
+    "day": "2026-10-03",
+    "startTime": "16:25:00.000",
+    "endTime": "16:30:00.000",
+    "sectionOrder": 4,
+    "en": {
+      "title": "Closing Remarks",
+      "day": "2026-10-03",
+      "startTime": "16:25:00.000",
+      "endTime": "16:30:00.000",
+      "sectionTitle": "AI AND EDUCATION SEMINAR",
+      "sectionOrder": 4,
+      "speaker": "Nguyễn Huy Bình - Vice Chairman of the Ward People’s Committee",
+      "people": [
+        {
+          "role": "speaker",
+          "name": "Nguyễn Huy Bình",
+          "title": "Vice Chairman of the Ward People’s Committee"
+        }
+      ],
+      "track": null,
+      "location": null
+    },
+    "vi": {
+      "title": "Phát biểu kết luận, bế mạc",
+      "day": "2026-10-03",
+      "startTime": "16:25:00.000",
+      "endTime": "16:30:00.000",
+      "sectionTitle": "HỘI THẢO AI VÀ GIÁO DỤC",
+      "sectionOrder": 4,
+      "speaker": "Nguyễn Huy Bình - PCT UBND phường",
+      "people": [
+        {
+          "role": "speaker",
+          "name": "Nguyễn Huy Bình",
+          "title": "PCT UBND phường"
+        }
+      ],
+      "track": null,
+      "location": null
+    }
+  },
+  {
+    "day": "2026-10-03",
+    "startTime": "16:30:00.000",
+    "endTime": "17:30:00.000",
+    "sectionOrder": 4,
+    "en": {
+      "title": "Screening of Entries from the 02 Competitions: AI Animated Film Making; Son Tra Innovation Park Ideas",
+      "day": "2026-10-03",
+      "startTime": "16:30:00.000",
+      "endTime": "17:30:00.000",
+      "sectionTitle": "AI AND EDUCATION SEMINAR",
+      "sectionOrder": 4,
+      "speaker": null,
+      "people": null,
+      "track": null,
+      "location": null
+    },
+    "vi": {
+      "title": "Trình chiếu các tác phẩm 02 Hội thi: Dựng phim hoạt hình bằng AI; Ý tưởng công viên đổi mới sáng tạo Sơn Trà",
+      "day": "2026-10-03",
+      "startTime": "16:30:00.000",
+      "endTime": "17:30:00.000",
+      "sectionTitle": "HỘI THẢO AI VÀ GIÁO DỤC",
+      "sectionOrder": 4,
+      "speaker": null,
+      "people": null,
+      "track": null,
+      "location": null
+    }
+  },
+  {
+    "day": "2026-10-03",
+    "startTime": "18:30:00.000",
+    "endTime": "22:00:00.000",
+    "sectionOrder": 5,
+    "en": {
+      "title": "Music Band Exchange Program",
+      "day": "2026-10-03",
+      "startTime": "18:30:00.000",
+      "endTime": "22:00:00.000",
+      "sectionTitle": "ARTISTIC EXCHANGE PROGRAM",
+      "sectionOrder": 5,
+      "speaker": null,
+      "people": [
+        {
+          "role": "participant",
+          "name": "Universities signing cooperation agreements; CUDVSNC Center; Da Nang 365"
+        }
+      ],
+      "track": null,
+      "location": null
+    },
+    "vi": {
+      "title": "Chương trình giao lưu các ban nhóm nhạc",
+      "day": "2026-10-03",
+      "startTime": "18:30:00.000",
+      "endTime": "22:00:00.000",
+      "sectionTitle": "HƯƠNG TRÌNH GIAO LƯU NGHỆ THUẬT",
+      "sectionOrder": 5,
+      "speaker": null,
+      "people": [
+        {
+          "role": "participant",
+          "name": "Các trường Đại học ký kết hợp tác, Trung tâm CUDVSNC, Danang 365"
+        }
+      ],
+      "track": null,
+      "location": null
+    }
+  },
+  {
+    "day": "2026-10-04",
+    "startTime": "07:30:00.000",
+    "endTime": "08:00:00.000",
+    "sectionOrder": 6,
+    "en": {
+      "title": "Welcoming delegates, organization settling",
+      "day": "2026-10-04",
+      "startTime": "07:30:00.000",
+      "endTime": "08:00:00.000",
+      "sectionTitle": "SEMINAR ON THE PROJECT “DIGITAL TRANSFORMATION CONTRIBUTING TO PROMOTING AND CREATING MOMENTUM FOR SOCIO-ECONOMIC DEVELOPMENT OF SON TRA WARD IN THE 2026 - 2030 PERIOD, WITH ORIENTATION TO 2035”",
+      "sectionOrder": 6,
+      "speaker": null,
+      "people": null,
+      "track": null,
+      "location": null
+    },
+    "vi": {
+      "title": "Đón tiếp đại biểu, ổn định tổ chức",
+      "day": "2026-10-04",
+      "startTime": "07:30:00.000",
+      "endTime": "08:00:00.000",
+      "sectionTitle": "HỘI THẢO ĐỀ ÁN “CHUYỂN ĐỔI SỐ GÓP PHẦN THÚC ĐẨY, TẠO ĐỘNG LỰC PHÁT TRIỂN KINH TẾ, XÃ HỘI PHƯỜNG SƠN TRÀ GIAI ĐOẠN 2026 - 2030, ĐỊNH HƯỚNG ĐẾN NĂM 2035”",
+      "sectionOrder": 6,
+      "speaker": null,
+      "people": null,
+      "track": null,
+      "location": null
+    }
+  },
+  {
+    "day": "2026-10-04",
+    "startTime": "08:00:00.000",
+    "endTime": "08:10:00.000",
+    "sectionOrder": 6,
+    "en": {
+      "title": "Statement of Purpose and Introduction of Delegates",
+      "day": "2026-10-04",
+      "startTime": "08:00:00.000",
+      "endTime": "08:10:00.000",
+      "sectionTitle": "SEMINAR ON THE PROJECT “DIGITAL TRANSFORMATION CONTRIBUTING TO PROMOTING AND CREATING MOMENTUM FOR SOCIO-ECONOMIC DEVELOPMENT OF SON TRA WARD IN THE 2026 - 2030 PERIOD, WITH ORIENTATION TO 2035”",
+      "sectionOrder": 6,
+      "speaker": null,
+      "people": [
+        {
+          "role": "moderator",
+          "name": "MC"
+        }
+      ],
+      "track": null,
+      "location": null
+    },
+    "vi": {
+      "title": "Tuyên bố lý do, giới thiệu đại biểu",
+      "day": "2026-10-04",
+      "startTime": "08:00:00.000",
+      "endTime": "08:10:00.000",
+      "sectionTitle": "HỘI THẢO ĐỀ ÁN “CHUYỂN ĐỔI SỐ GÓP PHẦN THÚC ĐẨY, TẠO ĐỘNG LỰC PHÁT TRIỂN KINH TẾ, XÃ HỘI PHƯỜNG SƠN TRÀ GIAI ĐOẠN 2026 - 2030, ĐỊNH HƯỚNG ĐẾN NĂM 2035”",
+      "sectionOrder": 6,
+      "speaker": null,
+      "people": [
+        {
+          "role": "moderator",
+          "name": "MC"
+        }
+      ],
+      "track": null,
+      "location": null
+    }
+  },
+  {
+    "day": "2026-10-04",
+    "startTime": "08:10:00.000",
+    "endTime": "08:20:00.000",
+    "sectionOrder": 6,
+    "en": {
+      "title": "Opening Remarks of the Workshop",
+      "day": "2026-10-04",
+      "startTime": "08:10:00.000",
+      "endTime": "08:20:00.000",
+      "sectionTitle": "SEMINAR ON THE PROJECT “DIGITAL TRANSFORMATION CONTRIBUTING TO PROMOTING AND CREATING MOMENTUM FOR SOCIO-ECONOMIC DEVELOPMENT OF SON TRA WARD IN THE 2026 - 2030 PERIOD, WITH ORIENTATION TO 2035”",
+      "sectionOrder": 6,
+      "speaker": "Nguyễn Huy Bình - Vice Chairman of the Ward People’s Committee",
+      "people": [
+        {
+          "role": "speaker",
+          "name": "Nguyễn Huy Bình",
+          "title": "Vice Chairman of the Ward People’s Committee"
+        }
+      ],
+      "track": null,
+      "location": null
+    },
+    "vi": {
+      "title": "Phát biểu khai mạc Hội thảo",
+      "day": "2026-10-04",
+      "startTime": "08:10:00.000",
+      "endTime": "08:20:00.000",
+      "sectionTitle": "HỘI THẢO ĐỀ ÁN “CHUYỂN ĐỔI SỐ GÓP PHẦN THÚC ĐẨY, TẠO ĐỘNG LỰC PHÁT TRIỂN KINH TẾ, XÃ HỘI PHƯỜNG SƠN TRÀ GIAI ĐOẠN 2026 - 2030, ĐỊNH HƯỚNG ĐẾN NĂM 2035”",
+      "sectionOrder": 6,
+      "speaker": "Nguyễn Huy Bình - PCT UBND phường",
+      "people": [
+        {
+          "role": "speaker",
+          "name": "Nguyễn Huy Bình",
+          "title": "PCT UBND phường"
+        }
+      ],
+      "track": null,
+      "location": null
+    }
+  },
+  {
+    "day": "2026-10-04",
+    "startTime": "08:20:00.000",
+    "endTime": "08:50:00.000",
+    "sectionOrder": 6,
+    "en": {
+      "title": "General Introduction to the Proposal and Key Issues for Consultation",
+      "day": "2026-10-04",
+      "startTime": "08:20:00.000",
+      "endTime": "08:50:00.000",
+      "sectionTitle": "SEMINAR ON THE PROJECT “DIGITAL TRANSFORMATION CONTRIBUTING TO PROMOTING AND CREATING MOMENTUM FOR SOCIO-ECONOMIC DEVELOPMENT OF SON TRA WARD IN THE 2026 - 2030 PERIOD, WITH ORIENTATION TO 2035”",
+      "sectionOrder": 6,
+      "speaker": "Dr. Lê Văn Chung - Vice Rector, School of Artificial Intelligence and Information, Duy Tan University",
+      "people": [
+        {
+          "role": "speaker",
+          "name": "Dr. Lê Văn Chung",
+          "title": "Vice Rector, School of Artificial Intelligence and Information, Duy Tan University"
+        }
+      ],
+      "track": null,
+      "location": null
+    },
+    "vi": {
+      "title": "Giới thiệu khái quát Đề án và những vấn đề trọng tâm cần xin ý kiến",
+      "day": "2026-10-04",
+      "startTime": "08:20:00.000",
+      "endTime": "08:50:00.000",
+      "sectionTitle": "HỘI THẢO ĐỀ ÁN “CHUYỂN ĐỔI SỐ GÓP PHẦN THÚC ĐẨY, TẠO ĐỘNG LỰC PHÁT TRIỂN KINH TẾ, XÃ HỘI PHƯỜNG SƠN TRÀ GIAI ĐOẠN 2026 - 2030, ĐỊNH HƯỚNG ĐẾN NĂM 2035”",
+      "sectionOrder": 6,
+      "speaker": "TS. Lê Văn Chung - Phó Hiệu trưởng trường Trí tuệ nhân tạo và Thông tin, Đại học Duy Tân ",
+      "people": [
+        {
+          "role": "speaker",
+          "name": "TS. Lê Văn Chung",
+          "title": "Phó Hiệu trưởng trường Trí tuệ nhân tạo và Thông tin, Đại học Duy Tân"
+        }
+      ],
+      "track": null,
+      "location": null
+    }
+  },
+  {
+    "day": "2026-10-04",
+    "startTime": "08:50:00.000",
+    "endTime": "09:10:00.000",
+    "sectionOrder": 6,
+    "en": {
+      "title": "Thematic Presentation: Orientation for Digital Transformation and Socio-Economic Development at the Grassroots Level",
+      "day": "2026-10-04",
+      "startTime": "08:50:00.000",
+      "endTime": "09:10:00.000",
+      "sectionTitle": "SEMINAR ON THE PROJECT “DIGITAL TRANSFORMATION CONTRIBUTING TO PROMOTING AND CREATING MOMENTUM FOR SOCIO-ECONOMIC DEVELOPMENT OF SON TRA WARD IN THE 2026 - 2030 PERIOD, WITH ORIENTATION TO 2035”",
+      "sectionOrder": 6,
+      "speaker": "Dr. Nguyễn Võ Quang Đông - CTO of Sparktech Innovax Co., Ltd.",
+      "people": [
+        {
+          "role": "speaker",
+          "name": "Dr. Nguyễn Võ Quang Đông",
+          "title": "CTO of Sparktech Innovax Co., Ltd."
+        }
+      ],
+      "track": null,
+      "location": null
+    },
+    "vi": {
+      "title": "Báo cáo chuyên đề: Định hướng chuyển đổi số và phát triển kinh tế - xã hội ở cấp cơ sở",
+      "day": "2026-10-04",
+      "startTime": "08:50:00.000",
+      "endTime": "09:10:00.000",
+      "sectionTitle": "HỘI THẢO ĐỀ ÁN “CHUYỂN ĐỔI SỐ GÓP PHẦN THÚC ĐẨY, TẠO ĐỘNG LỰC PHÁT TRIỂN KINH TẾ, XÃ HỘI PHƯỜNG SƠN TRÀ GIAI ĐOẠN 2026 - 2030, ĐỊNH HƯỚNG ĐẾN NĂM 2035”",
+      "sectionOrder": 6,
+      "speaker": "TS. Nguyễn Võ Quang Đông - CTO của Công Ty TNHH Sparktech Innovax",
+      "people": [
+        {
+          "role": "speaker",
+          "name": "TS. Nguyễn Võ Quang Đông",
+          "title": "CTO của Công Ty TNHH Sparktech Innovax"
+        }
+      ],
+      "track": null,
+      "location": null
+    }
+  },
+  {
+    "day": "2026-10-04",
+    "startTime": "09:10:00.000",
+    "endTime": "09:30:00.000",
+    "sectionOrder": 6,
+    "en": {
+      "title": "Thematic Presentation: Digital Data - The Foundation for Governance and Development",
+      "day": "2026-10-04",
+      "startTime": "09:10:00.000",
+      "endTime": "09:30:00.000",
+      "sectionTitle": "SEMINAR ON THE PROJECT “DIGITAL TRANSFORMATION CONTRIBUTING TO PROMOTING AND CREATING MOMENTUM FOR SOCIO-ECONOMIC DEVELOPMENT OF SON TRA WARD IN THE 2026 - 2030 PERIOD, WITH ORIENTATION TO 2035”",
+      "sectionOrder": 6,
+      "speaker": "PhD candidate, Nguyễn Sơn Tùng - General Director, Digital X-Solution Technology",
+      "people": [
+        {
+          "role": "speaker",
+          "name": "PhD candidate, Nguyễn Sơn Tùng",
+          "title": "General Director, Digital X-Solution Technology"
+        }
+      ],
+      "track": null,
+      "location": null
+    },
+    "vi": {
+      "title": "Báo cáo chuyên đề: Dữ liệu số - nền tảng cho quản trị và phát triển",
+      "day": "2026-10-04",
+      "startTime": "09:10:00.000",
+      "endTime": "09:30:00.000",
+      "sectionTitle": "HỘI THẢO ĐỀ ÁN “CHUYỂN ĐỔI SỐ GÓP PHẦN THÚC ĐẨY, TẠO ĐỘNG LỰC PHÁT TRIỂN KINH TẾ, XÃ HỘI PHƯỜNG SƠN TRÀ GIAI ĐOẠN 2026 - 2030, ĐỊNH HƯỚNG ĐẾN NĂM 2035”",
+      "sectionOrder": 6,
+      "speaker": "Nghiên cứu sinh, Nguyễn Sơn Tùng - Tổng Giám đốc Digital X-Solution Technology",
+      "people": [
+        {
+          "role": "speaker",
+          "name": "Nghiên cứu sinh, Nguyễn Sơn Tùng",
+          "title": "Tổng Giám đốc Digital X-Solution Technology"
+        }
+      ],
+      "track": null,
+      "location": null
+    }
+  },
+  {
+    "day": "2026-10-04",
+    "startTime": "09:30:00.000",
+    "endTime": "09:50:00.000",
+    "sectionOrder": 6,
+    "en": {
+      "title": "Break",
+      "day": "2026-10-04",
+      "startTime": "09:30:00.000",
+      "endTime": "09:50:00.000",
+      "sectionTitle": "SEMINAR ON THE PROJECT “DIGITAL TRANSFORMATION CONTRIBUTING TO PROMOTING AND CREATING MOMENTUM FOR SOCIO-ECONOMIC DEVELOPMENT OF SON TRA WARD IN THE 2026 - 2030 PERIOD, WITH ORIENTATION TO 2035”",
+      "sectionOrder": 6,
+      "speaker": null,
+      "people": null,
+      "track": null,
+      "location": null
+    },
+    "vi": {
+      "title": "Giải lao",
+      "day": "2026-10-04",
+      "startTime": "09:30:00.000",
+      "endTime": "09:50:00.000",
+      "sectionTitle": "HỘI THẢO ĐỀ ÁN “CHUYỂN ĐỔI SỐ GÓP PHẦN THÚC ĐẨY, TẠO ĐỘNG LỰC PHÁT TRIỂN KINH TẾ, XÃ HỘI PHƯỜNG SƠN TRÀ GIAI ĐOẠN 2026 - 2030, ĐỊNH HƯỚNG ĐẾN NĂM 2035”",
+      "sectionOrder": 6,
+      "speaker": null,
+      "people": null,
+      "track": null,
+      "location": null
+    }
+  },
+  {
+    "day": "2026-10-04",
+    "startTime": "09:50:00.000",
+    "endTime": "10:10:00.000",
+    "sectionOrder": 6,
+    "en": {
+      "title": "Thematic Presentation: Sharing Experiences in Innovation and AI Applications for Digital Transformation, Supporting Son Tra Ward’s Socio-Economic Development for 2026–2030, with an Orientation Toward 2035",
+      "day": "2026-10-04",
+      "startTime": "09:50:00.000",
+      "endTime": "10:10:00.000",
+      "sectionTitle": "SEMINAR ON THE PROJECT “DIGITAL TRANSFORMATION CONTRIBUTING TO PROMOTING AND CREATING MOMENTUM FOR SOCIO-ECONOMIC DEVELOPMENT OF SON TRA WARD IN THE 2026 - 2030 PERIOD, WITH ORIENTATION TO 2035”",
+      "sectionOrder": 6,
+      "speaker": "Dr. Phạm Đình Lâm - Research Professor, Institute for Integrated Digital Content Software Development, Kyonggi University",
+      "people": [
+        {
+          "role": "speaker",
+          "name": "Dr. Phạm Đình Lâm",
+          "title": "Research Professor, Institute for Integrated Digital Content Software Development, Kyonggi University"
+        }
+      ],
+      "track": null,
+      "location": null
+    },
+    "vi": {
+      "title": "Báo cáo chuyên đề: Chia sẻ kinh nghiệm liên quan đến đổi mới sáng tạo, ứng dụng AI trong chuyển đổi số, góp phần thúc đẩy, tạo động lực phát triển kinh tế, xã hội phường Sơn Trà giai đoạn 2026 - 2030, định hướng đến năm 2035.",
+      "day": "2026-10-04",
+      "startTime": "09:50:00.000",
+      "endTime": "10:10:00.000",
+      "sectionTitle": "HỘI THẢO ĐỀ ÁN “CHUYỂN ĐỔI SỐ GÓP PHẦN THÚC ĐẨY, TẠO ĐỘNG LỰC PHÁT TRIỂN KINH TẾ, XÃ HỘI PHƯỜNG SƠN TRÀ GIAI ĐOẠN 2026 - 2030, ĐỊNH HƯỚNG ĐẾN NĂM 2035”",
+      "sectionOrder": 6,
+      "speaker": "TS. Phạm Đình Lâm - Giáo sư nghiên cứu, Viện nghiên cứu phát triển phần mềm tích hợp nội dung số, trường Đại học Kyonggi",
+      "people": [
+        {
+          "role": "speaker",
+          "name": "TS. Phạm Đình Lâm",
+          "title": "Giáo sư nghiên cứu, Viện nghiên cứu phát triển phần mềm tích hợp nội dung số, trường Đại học Kyonggi"
+        }
+      ],
+      "track": null,
+      "location": null
+    }
+  },
+  {
+    "day": "2026-10-04",
+    "startTime": "10:10:00.000",
+    "endTime": "10:30:00.000",
+    "sectionOrder": 6,
+    "en": {
+      "title": "Thematic Presentation: Application of AI and New Technologies in Local Governance",
+      "day": "2026-10-04",
+      "startTime": "10:10:00.000",
+      "endTime": "10:30:00.000",
+      "sectionTitle": "SEMINAR ON THE PROJECT “DIGITAL TRANSFORMATION CONTRIBUTING TO PROMOTING AND CREATING MOMENTUM FOR SOCIO-ECONOMIC DEVELOPMENT OF SON TRA WARD IN THE 2026 - 2030 PERIOD, WITH ORIENTATION TO 2035”",
+      "sectionOrder": 6,
+      "speaker": "Dr. Nguyễn Quang Mừng - Deputy Head of the Planning - Finance Division, Department of Science and Technology of Da Nang City",
+      "people": [
+        {
+          "role": "speaker",
+          "name": "Dr. Nguyễn Quang Mừng",
+          "title": "Deputy Head of the Planning - Finance Division, Department of Science and Technology of Da Nang City"
+        }
+      ],
+      "track": null,
+      "location": null
+    },
+    "vi": {
+      "title": "Báo cáo chuyên đề: Ứng dụng AI và công nghệ mới trong quản trị địa phương",
+      "day": "2026-10-04",
+      "startTime": "10:10:00.000",
+      "endTime": "10:30:00.000",
+      "sectionTitle": "HỘI THẢO ĐỀ ÁN “CHUYỂN ĐỔI SỐ GÓP PHẦN THÚC ĐẨY, TẠO ĐỘNG LỰC PHÁT TRIỂN KINH TẾ, XÃ HỘI PHƯỜNG SƠN TRÀ GIAI ĐOẠN 2026 - 2030, ĐỊNH HƯỚNG ĐẾN NĂM 2035”",
+      "sectionOrder": 6,
+      "speaker": "TS. Nguyễn Quang Mừng - Phó Trưởng phòng Kế hoạch - Tài chính, Sở Khoa học Công nghệ thành phố Đà Nẵng",
+      "people": [
+        {
+          "role": "speaker",
+          "name": "TS. Nguyễn Quang Mừng",
+          "title": "Phó Trưởng phòng Kế hoạch - Tài chính, Sở Khoa học Công nghệ thành phố Đà Nẵng"
+        }
+      ],
+      "track": null,
+      "location": null
+    }
+  },
+  {
+    "day": "2026-10-04",
+    "startTime": "10:30:00.000",
+    "endTime": "11:10:00.000",
+    "sectionOrder": 6,
+    "en": {
+      "title": "Discussion Moderation",
+      "day": "2026-10-04",
+      "startTime": "10:30:00.000",
+      "endTime": "11:10:00.000",
+      "sectionTitle": "SEMINAR ON THE PROJECT “DIGITAL TRANSFORMATION CONTRIBUTING TO PROMOTING AND CREATING MOMENTUM FOR SOCIO-ECONOMIC DEVELOPMENT OF SON TRA WARD IN THE 2026 - 2030 PERIOD, WITH ORIENTATION TO 2035”",
+      "sectionOrder": 6,
+      "speaker": null,
+      "people": [
+        {
+          "role": "co_chair",
+          "name": "Nguyễn Huy Bình",
+          "title": "Vice Chairman of the Ward People’s Committee"
+        },
+        {
+          "role": "co_chair",
+          "name": "Assoc. Prof. Dr. Nguyễn Gia Như",
+          "title": "Vice Rector of Duy Tan University"
+        }
+      ],
+      "track": null,
+      "location": null
+    },
+    "vi": {
+      "title": "Chủ trì điều hành thảo luận",
+      "day": "2026-10-04",
+      "startTime": "10:30:00.000",
+      "endTime": "11:10:00.000",
+      "sectionTitle": "HỘI THẢO ĐỀ ÁN “CHUYỂN ĐỔI SỐ GÓP PHẦN THÚC ĐẨY, TẠO ĐỘNG LỰC PHÁT TRIỂN KINH TẾ, XÃ HỘI PHƯỜNG SƠN TRÀ GIAI ĐOẠN 2026 - 2030, ĐỊNH HƯỚNG ĐẾN NĂM 2035”",
+      "sectionOrder": 6,
+      "speaker": null,
+      "people": [
+        {
+          "role": "co_chair",
+          "name": "Nguyễn Huy Bình",
+          "title": "PCT UBND phường"
+        },
+        {
+          "role": "co_chair",
+          "name": "PGS.TS Nguyễn Gia Như",
+          "title": "Phó Giám Đốc Đại học Duy Tân"
+        }
+      ],
+      "track": null,
+      "location": null
+    }
+  },
+  {
+    "day": "2026-10-04",
+    "startTime": "11:10:00.000",
+    "endTime": "11:20:00.000",
+    "sectionOrder": 6,
+    "en": {
+      "title": "Exchange and Reception of Feedback on the Proposal",
+      "day": "2026-10-04",
+      "startTime": "11:10:00.000",
+      "endTime": "11:20:00.000",
+      "sectionTitle": "SEMINAR ON THE PROJECT “DIGITAL TRANSFORMATION CONTRIBUTING TO PROMOTING AND CREATING MOMENTUM FOR SOCIO-ECONOMIC DEVELOPMENT OF SON TRA WARD IN THE 2026 - 2030 PERIOD, WITH ORIENTATION TO 2035”",
+      "sectionOrder": 6,
+      "speaker": "Assoc. Prof. Dr. Nguyễn Gia Như - Vice Rector of Duy Tan University",
+      "people": [
+        {
+          "role": "speaker",
+          "name": "Assoc. Prof. Dr. Nguyễn Gia Như",
+          "title": "Vice Rector of Duy Tan University"
+        }
+      ],
+      "track": null,
+      "location": null
+    },
+    "vi": {
+      "title": "Trao đổi, tiếp thu ý kiến góp ý Đề án",
+      "day": "2026-10-04",
+      "startTime": "11:10:00.000",
+      "endTime": "11:20:00.000",
+      "sectionTitle": "HỘI THẢO ĐỀ ÁN “CHUYỂN ĐỔI SỐ GÓP PHẦN THÚC ĐẨY, TẠO ĐỘNG LỰC PHÁT TRIỂN KINH TẾ, XÃ HỘI PHƯỜNG SƠN TRÀ GIAI ĐOẠN 2026 - 2030, ĐỊNH HƯỚNG ĐẾN NĂM 2035”",
+      "sectionOrder": 6,
+      "speaker": "PGS.TS Nguyễn Gia Như - Phó Giám Đốc Đại học Duy Tân",
+      "people": [
+        {
+          "role": "speaker",
+          "name": "PGS.TS Nguyễn Gia Như",
+          "title": "Phó Giám Đốc Đại học Duy Tân"
+        }
+      ],
+      "track": null,
+      "location": null
+    }
+  },
+  {
+    "day": "2026-10-04",
+    "startTime": "11:20:00.000",
+    "endTime": "11:30:00.000",
+    "sectionOrder": 6,
+    "en": {
+      "title": "Concluding remarks and closing of the Seminar",
+      "day": "2026-10-04",
+      "startTime": "11:20:00.000",
+      "endTime": "11:30:00.000",
+      "sectionTitle": "SEMINAR ON THE PROJECT “DIGITAL TRANSFORMATION CONTRIBUTING TO PROMOTING AND CREATING MOMENTUM FOR SOCIO-ECONOMIC DEVELOPMENT OF SON TRA WARD IN THE 2026 - 2030 PERIOD, WITH ORIENTATION TO 2035”",
+      "sectionOrder": 6,
+      "speaker": "Nguyễn Huy Bình - Vice Chairman of the Ward People’s Committee",
+      "people": [
+        {
+          "role": "speaker",
+          "name": "Nguyễn Huy Bình",
+          "title": "Vice Chairman of the Ward People’s Committee"
+        }
+      ],
+      "track": null,
+      "location": null
+    },
+    "vi": {
+      "title": "Phát biểu kết luận, bế mạc Hội thảo",
+      "day": "2026-10-04",
+      "startTime": "11:20:00.000",
+      "endTime": "11:30:00.000",
+      "sectionTitle": "HỘI THẢO ĐỀ ÁN “CHUYỂN ĐỔI SỐ GÓP PHẦN THÚC ĐẨY, TẠO ĐỘNG LỰC PHÁT TRIỂN KINH TẾ, XÃ HỘI PHƯỜNG SƠN TRÀ GIAI ĐOẠN 2026 - 2030, ĐỊNH HƯỚNG ĐẾN NĂM 2035”",
+      "sectionOrder": 6,
+      "speaker": "Nguyễn Huy Bình - PCT UBND phường",
+      "people": [
+        {
+          "role": "speaker",
+          "name": "Nguyễn Huy Bình",
+          "title": "PCT UBND phường"
+        }
+      ],
+      "track": null,
+      "location": null
+    }
+  },
+  {
+    "day": "2026-10-04",
+    "startTime": "14:00:00.000",
+    "endTime": "15:00:00.000",
+    "sectionOrder": 7,
+    "en": {
+      "title": "Businesses Sharing about S&T, Innovation and Digital Transformation Products",
+      "day": "2026-10-04",
+      "startTime": "14:00:00.000",
+      "endTime": "15:00:00.000",
+      "sectionTitle": "BUSINESSES SHARE ABOUT PRODUCTS IN SCIENCE AND TECHNOLOGY, INNOVATION, AND DIGITAL TRANSFORMATION",
+      "sectionOrder": 7,
+      "speaker": "Businesses sharing about products in science and technology, innovation, and digital transformation",
+      "people": [
+        {
+          "role": "speaker",
+          "name": "Representatives of S&T, Innovation & Digital Transformation Businesses"
+        }
+      ],
+      "track": null,
+      "location": null
+    },
+    "vi": {
+      "title": "Các doanh nghiệp chia sẻ về sản phẩm KHCN, ĐMST, CĐS",
+      "day": "2026-10-04",
+      "startTime": "14:00:00.000",
+      "endTime": "15:00:00.000",
+      "sectionTitle": "CÁC DOANH NGHIỆP CHIA SẺ VỀ SẢN PHẨM KHCN, ĐMST, CĐS",
+      "sectionOrder": 7,
+      "speaker": "Các doanh nghiệp chia sẻ về sản phẩm KHCN, ĐMST, CĐS ",
+      "people": [
+        {
+          "role": "speaker",
+          "name": "Đại diện các doanh nghiệp KHCN, ĐMST & CĐS"
+        }
+      ],
+      "track": null,
+      "location": null
+    }
+  },
+  {
+    "day": "2026-10-04",
+    "startTime": "15:00:00.000",
+    "endTime": "17:00:00.000",
+    "sectionOrder": 8,
+    "en": {
+      "title": "Final Program of the 02 Competitions; Competition Award Ceremony and Festival Closing Ceremony",
+      "day": "2026-10-04",
+      "startTime": "15:00:00.000",
+      "endTime": "17:00:00.000",
+      "sectionTitle": "FINAL PROGRAM OF THE 02 COMPETITIONS; COMPETITION AWARDS CEREMONY AND CLOSING OF THE FESTIVAL",
+      "sectionOrder": 8,
+      "speaker": null,
+      "people": [
+        {
+          "role": "participant",
+          "name": "Contestants, Jury Panel, and Attending Delegates"
+        }
+      ],
+      "track": null,
+      "location": null
+    },
+    "vi": {
+      "title": "Chương trình chung kết 02 cuộc thi; Tổng kết trao giải Hội thi, bế mạc Lễ hội",
+      "day": "2026-10-04",
+      "startTime": "15:00:00.000",
+      "endTime": "17:00:00.000",
+      "sectionTitle": "CHƯƠNG TRÌNH CHUNG KẾT 02 CUỘC THI; TỔNG KẾT TRAO GIẢI HỘI THI VÀ BẾ MẠC LỄ HỘI",
+      "sectionOrder": 8,
+      "speaker": null,
+      "people": [
+        {
+          "role": "participant",
+          "name": "Thí sinh dự thi, Ban giám khảo và Đại biểu tham dự"
+        }
+      ],
+      "track": null,
+      "location": null
+    }
+  }
+]

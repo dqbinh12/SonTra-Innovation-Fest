@@ -337,6 +337,20 @@ export interface MediaPage extends StrapiEntry {
 
 // ----------------------------------------------------------- collection types
 
+export type AgendaPersonRole =
+  | 'speaker'
+  | 'moderator'
+  | 'co_chair'
+  | 'participant'
+  | 'ceremony_participant';
+
+export interface AgendaPerson {
+  role: AgendaPersonRole;
+  name: string;
+  title?: string;
+  organization?: string;
+}
+
 export interface Session extends StrapiEntry {
   title: string;
   /** ISO date, e.g. "2026-10-02". */
@@ -349,6 +363,8 @@ export interface Session extends StrapiEntry {
   /** Display order for section grouping (e.g. 1, 2, 3). */
   sectionOrder?: number | null;
   speaker: string | null;
+  /** Structured participants and roles (speaker, moderator, co_chair, participant, ceremony_participant) */
+  people?: AgendaPerson[] | null;
   track: string | null;
   location: string | null;
   description: string | null;

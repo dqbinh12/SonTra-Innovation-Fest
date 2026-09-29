@@ -75,6 +75,14 @@
         }
       }
     },
+    "people": {
+      "type": "json",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
     "track": {
       "type": "string",
       "pluginOptions": {

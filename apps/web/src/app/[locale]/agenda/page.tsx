@@ -1,11 +1,12 @@
 import type { Metadata } from 'next';
-import { Calendar, Clock, Download, MapPin, Mic, Tag } from 'lucide-react';
+import { Calendar, Clock, Download, Tag } from 'lucide-react';
 import { getFormatter, getTranslations, setRequestLocale } from 'next-intl/server';
-import type { AgendaPage, Locale, Session } from '@sif/shared';
+import type { AgendaPage, AgendaPersonRole, Locale, Session } from '@sif/shared';
 import { strapiFetch, strapiFetchOptional } from '@/lib/strapi';
 import { seoMetadata } from '@/lib/metadata';
 import { mediaUrl } from '@/lib/media';
 import { formatTime } from '@/lib/format';
+import { groupAgendaPeople } from '@/lib/agenda-people';
 import { Container } from '@/components/layout/container';
 import { FestivalBackdrop } from '@/components/layout/festival-backdrop';
 import { ImmersivePageHero } from '@/components/layout/immersive-page-hero';
@@ -13,6 +14,23 @@ import { ScrollReveal } from '@/components/home/scroll-reveal';
 import { EventCountdown } from '@/components/countdown/event-countdown';
 
 type Props = { params: Promise<{ locale: string }> };
+
+const ROLE_LABELS: Record<Locale, Record<AgendaPersonRole, string>> = {
+  vi: {
+    speaker: 'Diễn giả',
+    moderator: 'Điều phối / MC',
+    co_chair: 'Đồng chủ trì',
+    participant: 'Người tham gia',
+    ceremony_participant: 'Thành phần nghi thức',
+  },
+  en: {
+    speaker: 'Speaker',
+    moderator: 'Moderator / MC',
+    co_chair: 'Co-chair',
+    participant: 'Participants',
+    ceremony_participant: 'Ceremony participants',
+  },
+};
 
 interface AgendaSectionGroup {
   id: string;
@@ -149,20 +167,15 @@ export default async function Agenda({ params }: Props) {
             </div>
           ) : (
             <div className="space-y-10">
-              {[...days].map(([day, daySessions], dayIdx) => (
+              {[...days].map(([day, daySessions]) => (
                 <div key={day} className="relative">
                   {/* Day Header Banner — no scroll reveal: the agenda is a long
                       list and a transition on every row makes scrolling to the
                       session you want feel slow. Rows appear immediately. */}
                   <div className="mb-6 flex flex-wrap items-center justify-between gap-4 border-b border-white/10 pb-3">
-                    <div className="flex items-center gap-2.5">
-                      <span className="flex size-8 items-center justify-center rounded-lg border border-brand-cyan/30 bg-brand-cyan/10 font-mono text-xs font-bold text-brand-cyan">
-                        0{dayIdx + 1}
-                      </span>
-                      <h2 className="text-base font-bold tracking-tight text-white sm:text-xl">
-                        {format.dateTime(new Date(day), { dateStyle: 'full' })}
-                      </h2>
-                    </div>
+                    <h2 className="text-base font-bold tracking-tight text-white sm:text-xl">
+                      {format.dateTime(new Date(day), { dateStyle: 'full' })}
+                    </h2>
 
                     <span className="rounded-full border border-white/10 bg-white/5 px-2.5 py-0.5 font-mono text-xs text-white/70">
                       {t('sessionCount', { count: daySessions.length })}
@@ -171,7 +184,7 @@ export default async function Agenda({ params }: Props) {
 
                   {/* Sections List — rendered as-is, no reveal wrapper. */}
                   <div className="space-y-4 sm:space-y-5">
-                    {groupSessionsIntoSections(daySessions).map((section) => (
+                    {groupSessionsIntoSections(daySessions).map((section, sectionIdx) => (
                       <div
                         key={section.id}
                         className="glass relative overflow-hidden rounded-2xl border border-white/10 backdrop-blur-xl transition-all duration-300 hover:border-brand-cyan/30 hover:shadow-xl hover:shadow-brand-cyan/5"
@@ -180,25 +193,15 @@ export default async function Agenda({ params }: Props) {
                         <div className="absolute top-0 bottom-0 left-0 w-1 bg-gradient-to-b from-brand-cyan via-brand-blue to-transparent opacity-80" />
 
                         {/* Section Header */}
-                        <div className="flex flex-wrap items-center justify-between gap-3 border-b border-white/10 bg-gradient-to-r from-brand-blue/15 via-white/[0.02] to-transparent px-4 py-3 sm:px-6 sm:py-3.5">
-                          <div className="flex items-center gap-3">
-                            <span className="flex size-8 sm:size-9 items-center justify-center rounded-lg border border-brand-cyan/40 bg-brand-cyan/15 font-mono text-xs sm:text-sm font-extrabold text-brand-cyan shadow-[0_0_12px_rgba(78,226,255,0.2)]">
-                              {String(section.order).padStart(2, '0')}
-                            </span>
-                            <div>
-                              <h3 className="text-sm font-bold tracking-tight text-white sm:text-lg">
-                                {section.title || t('title')}
-                              </h3>
-                              {section.location && (
-                                <p className="mt-0.5 flex items-center gap-1.5 text-xs text-muted-foreground">
-                                  <MapPin className="size-3 text-brand-cyan" />
-                                  <span>{section.location}</span>
-                                </p>
-                              )}
-                            </div>
-                          </div>
+                        <div className="grid grid-cols-[2rem_minmax(0,1fr)] items-start gap-x-3 gap-y-3 border-b border-white/10 bg-gradient-to-r from-brand-blue/15 via-white/[0.02] to-transparent px-4 py-3 sm:grid-cols-[2.25rem_minmax(0,1fr)_auto] sm:gap-y-0 sm:px-6 sm:py-3.5">
+                          <span className="flex size-8 shrink-0 items-center justify-center rounded-lg border border-brand-cyan/40 bg-brand-cyan/15 font-mono text-xs font-extrabold text-brand-cyan shadow-[0_0_12px_rgba(78,226,255,0.2)] sm:size-9 sm:text-sm">
+                            {String(sectionIdx + 1).padStart(2, '0')}
+                          </span>
+                          <h3 className="col-start-2 row-start-1 w-[calc(100vw-7rem)] max-w-full min-w-0 whitespace-normal break-words pt-1 text-sm font-bold tracking-tight text-white sm:w-auto sm:pt-1.5 sm:text-lg">
+                            {section.title || t('title')}
+                          </h3>
 
-                          <div className="flex items-center gap-2">
+                          <div className="col-start-2 flex min-w-0 items-center sm:col-start-3 sm:row-start-1 sm:pt-1.5">
                             <span className="inline-flex items-center gap-1.5 rounded-full border border-brand-cyan/30 bg-brand-navy/80 px-3 py-0.5 font-mono text-xs font-semibold text-brand-cyan">
                               <Clock className="size-3" />
                               <span>{formatTime(section.startTime)}</span>
@@ -219,69 +222,75 @@ export default async function Agenda({ params }: Props) {
                                   key={session.documentId}
                                   className="group relative rounded-xl px-2.5 py-2 transition-all duration-200 hover:bg-white/[0.04]"
                                 >
-                                  <div className="flex flex-col gap-1.5 sm:flex-row sm:items-center sm:justify-between">
-                                    <div className="flex items-start sm:items-center gap-2 sm:gap-3 min-w-0 flex-1">
-                                      {/* Time Column */}
-                                      <div className="shrink-0 sm:w-32">
-                                        <span className="inline-flex items-center gap-1 rounded-md border border-brand-cyan/20 bg-brand-navy/60 px-2 py-0.5 font-mono text-xs font-semibold whitespace-nowrap text-brand-cyan sm:border-0 sm:bg-transparent sm:p-0 sm:text-white/80">
-                                          <Clock className="size-3 sm:hidden text-brand-cyan" />
-                                          <span>{formatTime(session.startTime)}</span>
-                                          {session.endTime && (
-                                            <span> – {formatTime(session.endTime)}</span>
-                                          )}
-                                        </span>
-                                      </div>
-
-                                      {/* Dot on Timeline */}
-                                      <div className="hidden sm:flex items-center justify-center shrink-0 w-4">
-                                        <div className="size-2 rounded-full border-2 border-brand-cyan bg-brand-navy shadow-[0_0_6px_rgba(78,226,255,0.7)] transition-transform duration-200 group-hover:scale-125 group-hover:border-brand-mint group-hover:bg-brand-mint" />
-                                      </div>
-
-                                      {/* Session Content */}
-                                      <div className="min-w-0 flex-1 pr-2">
-                                        <h4 className="text-sm font-semibold text-white transition-colors group-hover:text-brand-cyan leading-snug">
-                                          {session.title}
-                                        </h4>
-
-                                        {session.description && (
-                                          <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground line-clamp-2">
-                                            {session.description}
-                                          </p>
+                                  <div className="grid gap-x-3 gap-y-2 sm:grid-cols-[8rem_1rem_minmax(0,1fr)] sm:items-start">
+                                    {/* Time Column */}
+                                    <div>
+                                      <span className="inline-flex items-center gap-1 rounded-md border border-brand-cyan/20 bg-brand-navy/60 px-2 py-0.5 font-mono text-xs font-semibold whitespace-nowrap text-brand-cyan sm:border-0 sm:bg-transparent sm:p-0 sm:leading-snug sm:text-white/80">
+                                        <Clock className="size-3 sm:hidden text-brand-cyan" />
+                                        <span>{formatTime(session.startTime)}</span>
+                                        {session.endTime && (
+                                          <span> – {formatTime(session.endTime)}</span>
                                         )}
-                                      </div>
+                                      </span>
                                     </div>
 
-                                    {/* Metadata Badges (aligned to the right on desktop) */}
-                                    {(session.speaker ||
-                                      session.track ||
-                                      (session.location &&
-                                        (!section.location ||
-                                          session.location !== section.location))) && (
-                                      <div className="flex shrink-0 flex-wrap items-center gap-2 text-xs sm:justify-end pl-28 sm:pl-0">
-                                        {session.speaker && (
-                                          <span className="inline-flex items-center gap-1 rounded-full border border-brand-mint/30 bg-brand-mint/10 px-2 py-0.5 text-xs font-medium text-brand-mint">
-                                            <Mic className="size-2.5" />
-                                            <span>{session.speaker}</span>
-                                          </span>
-                                        )}
+                                    {/* Dot on Timeline */}
+                                    <div className="hidden sm:flex items-center justify-center pt-1.5">
+                                      <div className="size-2 rounded-full border-2 border-brand-cyan bg-brand-navy shadow-[0_0_6px_rgba(78,226,255,0.7)] transition-transform duration-200 group-hover:scale-125 group-hover:border-brand-mint group-hover:bg-brand-mint" />
+                                    </div>
 
-                                        {session.track && (
-                                          <span className="inline-flex items-center gap-1 rounded-full border border-brand-violet/20 bg-brand-violet/10 px-2 py-0.5 text-xs font-medium text-brand-violet">
-                                            <Tag className="size-2.5" />
-                                            <span>{session.track}</span>
-                                          </span>
-                                        )}
+                                    <div className="min-w-0">
+                                      <h4 className="text-sm font-semibold leading-snug text-white transition-colors group-hover:text-brand-cyan">
+                                        {session.title}
+                                      </h4>
 
-                                        {session.location &&
-                                          (!section.location ||
-                                            session.location !== section.location) && (
-                                            <span className="inline-flex items-center gap-1 rounded-full border border-white/10 bg-white/5 px-2 py-0.5 text-xs font-medium text-muted-foreground">
-                                              <MapPin className="size-2.5 text-brand-cyan" />
-                                              <span>{session.location}</span>
-                                            </span>
-                                          )}
-                                      </div>
-                                    )}
+                                      {session.description && (
+                                        <p className="mt-0.5 text-xs leading-relaxed text-muted-foreground line-clamp-2">
+                                          {session.description}
+                                        </p>
+                                      )}
+
+                                      {(() => {
+                                        const peopleGroups = groupAgendaPeople(session.people);
+
+                                        return (
+                                          <>
+                                            {peopleGroups.length > 0 && (
+                                              <div className="mt-2.5 space-y-2 border-l border-white/10 pl-3 text-xs leading-relaxed">
+                                                {peopleGroups.map((group) => (
+                                                  <div key={group.role} className="grid gap-x-2 sm:grid-cols-[7.75rem_minmax(0,1fr)]">
+                                                    <span className="font-medium text-white/50">
+                                                      {ROLE_LABELS[locale as Locale][group.role]}
+                                                    </span>
+                                                    <ul className="min-w-0 space-y-0.5 text-white/75">
+                                                      {group.people.map((person, index) => (
+                                                        <li key={`${person.role}-${person.name}-${index}`}>
+                                                          <span className={group.role === 'speaker' ? 'font-medium text-brand-mint' : ''}>
+                                                            {person.name}
+                                                          </span>
+                                                          {person.title && <span className="text-white/50"> · {person.title}</span>}
+                                                          {person.organization && (
+                                                            <span className="text-white/50"> · {person.organization}</span>
+                                                          )}
+                                                        </li>
+                                                      ))}
+                                                    </ul>
+                                                  </div>
+                                                ))}
+                                              </div>
+                                            )}
+                                            {session.track && (
+                                              <div className="mt-2 flex flex-wrap gap-1.5 text-xs">
+                                                <span className="inline-flex items-center gap-1 rounded-full border border-brand-violet/20 bg-brand-violet/10 px-2 py-0.5 font-medium text-brand-violet">
+                                                  <Tag className="size-2.5" />
+                                                  <span>{session.track}</span>
+                                                </span>
+                                              </div>
+                                            )}
+                                          </>
+                                        );
+                                      })()}
+                                    </div>
                                   </div>
                                 </li>
                               ))}

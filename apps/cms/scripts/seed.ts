@@ -8,7 +8,15 @@
  * Idempotent: it skips any content type that already has an entry, so running
  * it twice is safe and it will never overwrite real content.
  */
+import { readFileSync } from 'node:fs';
+import path from 'node:path';
 import { compileStrapi, createStrapi, type Core } from '@strapi/strapi';
+
+const seedDataPath = path.resolve(__dirname, 'sessions-seed-data.json');
+const agendaSessions = JSON.parse(readFileSync(seedDataPath, 'utf8')) as {
+  en: Record<string, unknown>;
+  vi: Record<string, unknown>;
+}[];
 
 /** Strapi `blocks` value for a run of plain paragraphs. */
 const paragraphs = (...texts: string[]) =>
@@ -52,11 +60,20 @@ async function seedCollection(
   strapi: Core.Strapi,
   uid: Uid,
   entries: { en: Record<string, unknown>; vi: Record<string, unknown> }[],
+  { overwrite = false } = {},
 ) {
   const count = await strapi.documents(uid).count({ locale: 'en' });
-  if (count > 0) {
+  if (count > 0 && !overwrite) {
     strapi.log.info(`[seed] ${uid} already has ${count} entries, skipping`);
     return;
+  }
+
+  if (count > 0 && overwrite) {
+    strapi.log.info(`[seed] clearing ${count} existing entries for ${uid}`);
+    const existing = await strapi.documents(uid).findMany({ locale: 'en' });
+    for (const item of existing) {
+      await strapi.documents(uid).delete({ documentId: item.documentId });
+    }
   }
 
   for (const entry of entries) {
@@ -326,80 +343,7 @@ async function seed(strapi: Core.Strapi) {
     },
   );
 
-  await seedCollection(strapi, 'api::session.session', [
-    {
-      en: {
-        title: 'Opening keynote',
-        day: '2026-10-02',
-        startTime: '09:00:00.000',
-        endTime: '09:45:00.000',
-        speaker: 'TBC',
-        track: 'Main stage',
-        location: 'Hall A',
-      },
-      vi: { title: 'Phát biểu khai mạc', track: 'Sân khấu chính', location: 'Hội trường A' },
-    },
-    {
-      en: {
-        title: 'Building for the Vietnamese market',
-        day: '2026-10-02',
-        startTime: '10:00:00.000',
-        endTime: '10:45:00.000',
-        speaker: 'TBC',
-        track: 'Product',
-        location: 'Hall B',
-      },
-      vi: {
-        title: 'Xây dựng sản phẩm cho thị trường Việt Nam',
-        track: 'Sản phẩm',
-        location: 'Hội trường B',
-      },
-    },
-    {
-      en: {
-        title: 'FinTech and the Da Nang International Financial Center',
-        day: '2026-10-03',
-        startTime: '14:00:00.000',
-        endTime: '15:00:00.000',
-        speaker: 'TBC',
-        track: 'FinTech',
-        location: 'Hall A',
-      },
-      vi: {
-        title: 'FinTech và Trung tâm Tài chính Quốc tế Đà Nẵng',
-        track: 'Công nghệ tài chính',
-        location: 'Hội trường A',
-      },
-    },
-    {
-      en: {
-        title: 'Sustainable living showcase',
-        day: '2026-10-04',
-        startTime: '10:00:00.000',
-        endTime: '11:30:00.000',
-        speaker: 'TBC',
-        track: 'Sustainability',
-        location: 'Hall B',
-      },
-      vi: {
-        title: 'Không gian lối sống bền vững',
-        track: 'Phát triển bền vững',
-        location: 'Hội trường B',
-      },
-    },
-    {
-      en: {
-        title: 'Closing panel',
-        day: '2026-10-04',
-        startTime: '20:00:00.000',
-        endTime: '21:30:00.000',
-        speaker: 'TBC',
-        track: 'Main stage',
-        location: 'Hall A',
-      },
-      vi: { title: 'Toạ đàm bế mạc', track: 'Sân khấu chính', location: 'Hội trường A' },
-    },
-  ]);
+  await seedCollection(strapi, 'api::session.session', agendaSessions, { overwrite: true });
 
   await seedCollection(strapi, 'api::exhibitor.exhibitor', [
     {
