@@ -1,13 +1,15 @@
-# Production / staging stack for the client's own server.
-# Run from the monorepo root:
-#   docker compose -f infra/docker-compose.yml --env-file infra/.env up -d --build
+# Standalone production stack — pulls prebuilt images from GHCR, no source
+# checkout required. Deploy with only this file plus a filled .env:
+#
+#   docker compose -f docker-compose.prod.yml --env-file .env pull
+#   docker compose -f docker-compose.prod.yml --env-file .env up -d
+#
+# Pin a specific build instead of :latest:
+#   IMAGE_TAG=sha-xxxx docker compose -f docker-compose.prod.yml --env-file .env up -d
 
 services:
   fis-cms:
     image: ghcr.io/dqbinh12/sontra-innovation-fest-cms:${IMAGE_TAG:-latest}
-    build:
-      context: ..
-      dockerfile: apps/cms/Dockerfile
     restart: unless-stopped
 
     environment:
@@ -33,32 +35,22 @@ services:
       REVALIDATE_SECRET: ${REVALIDATE_SECRET}
 
     volumes:
-      # SQLite database — bind mount so the .db file is visible on the host
-      # (backup / swap it directly). Must exist and be owned by uid 1001
-      # before `up`; a bind mount does not inherit ownership from the image.
-      - ../apps/cms/.tmp:/app/apps/cms/.tmp
+      # SQLite database — named volume so ownership (uid 1001) is inherited
+      # from the image on first use. Back up with `docker run --rm -v sif_cms-data:/data ...`.
+      - cms-data:/app/apps/cms/.tmp
 
-      # Uploaded media — persists across container rebuilds/restarts.
-      # Must mount the entire `public` folder, not just `public/uploads`, 
+      # Uploaded media — persists across rebuilds/restarts.
+      # Mount the entire `public` folder, not just `public/uploads`,
       # so Strapi data transfer can rename it to `.backup` without mount boundary errors.
       - cms-uploads:/app/apps/cms/public
 
+    # Bind to localhost and put a reverse proxy (nginx/caddy) in front for TLS.
+    # Change to 0.0.0.0 only if the proxy runs in another host/container.
     ports:
       - '127.0.0.1:1337:1337'
-    
-    networks:
-      - gateway
-
 
   fis-web:
     image: ghcr.io/dqbinh12/sontra-innovation-fest-web:${IMAGE_TAG:-latest}
-    build:
-      context: ..
-      dockerfile: apps/web/Dockerfile
-      args:
-        NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL}
-        NEXT_PUBLIC_STRAPI_URL: ${NEXT_PUBLIC_STRAPI_URL}
-
     restart: unless-stopped
 
     depends_on:
@@ -68,6 +60,8 @@ services:
       NODE_ENV: production
       PORT: 7000
 
+      # NEXT_PUBLIC_* are already baked into the image at build time; re-declaring
+      # here is harmless and keeps runtime env self-documenting.
       NEXT_PUBLIC_SITE_URL: ${NEXT_PUBLIC_SITE_URL}
       NEXT_PUBLIC_STRAPI_URL: ${NEXT_PUBLIC_STRAPI_URL}
 
@@ -78,13 +72,7 @@ services:
 
     ports:
       - '127.0.0.1:7000:7000'
-    
-    networks:
-      - gateway
 
 volumes:
+  cms-data:
   cms-uploads:
-    
-networks:
-  gateway:
-    external: true

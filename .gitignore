@@ -11,6 +11,8 @@ build/
 
 # strapi
 apps/cms/.tmp/
+apps/cms/.tmp*/
+apps/cms/.gitkeep
 apps/cms/.cache/
 apps/cms/.strapi/
 apps/cms/public/uploads/*
@@ -43,3 +45,6 @@ Thumbs.db
 # misc
 coverage/
 *.tsbuildinfo
+
+# git worktrees
+.worktrees/

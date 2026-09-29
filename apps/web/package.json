@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "sh -c 'if [ -f ./.env ]; then set -a; . ./.env; set +a; fi; exec next start'",
     "lint": "eslint",
-    "typecheck": "tsc --noEmit",
+    "typecheck": "next typegen && tsc --noEmit",
     "clean": "rm -rf .next .turbo node_modules"
   },
   "dependencies": {
