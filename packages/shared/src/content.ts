@@ -213,6 +213,8 @@ export interface HomePage extends StrapiEntry {
   heroMediaMobile: StrapiMedia | null;
   eventDays: EventDay[];
   admission: string | null;
+  /** Hero metrics, such as exhibitors, talks, attendees and entry access. */
+  stats: Stat[];
   aboutTeaser: string | null;
   introBadge: string | null;
   introTitle: string | null;

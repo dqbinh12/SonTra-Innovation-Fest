@@ -133,6 +133,12 @@ async function seed(strapi: Core.Strapi) {
         { date: '4 October 2026', startTime: '08:00:00', endTime: '17:00:00' },
       ],
       admission: 'Free',
+      stats: [
+        { value: '30+', label: 'Booths & Tech Demos' },
+        { value: '15+', label: 'Panels & Keynotes' },
+        { value: '5,000+', label: 'Attendees & Guests' },
+        { value: '100%', label: 'Free Public Access' },
+      ],
       aboutTeaser:
         'A flagship celebration of technology, innovation and global lifestyle in Son Tra Ward.',
       introBadge: 'Official Teaser',
@@ -165,6 +171,12 @@ async function seed(strapi: Core.Strapi) {
         { date: 'Ngày 4 tháng 10, 2026', startTime: '08:00:00', endTime: '17:00:00' },
       ],
       admission: 'Miễn phí',
+      stats: [
+        { value: '30+', label: 'Gian hàng & Trình diễn' },
+        { value: '15+', label: 'Phiên thảo luận & Talks' },
+        { value: '5,000+', label: 'Khách tham quan' },
+        { value: '100%', label: 'Vào cửa tự do' },
+      ],
       aboutTeaser:
         'Lễ hội thường niên tôn vinh công nghệ, đổi mới sáng tạo và lối sống toàn cầu tại phường Sơn Trà.',
       introBadge: 'Teaser chính thức',

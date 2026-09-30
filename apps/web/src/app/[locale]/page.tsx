@@ -37,6 +37,7 @@ function getHomePage(locale: string) {
       'populate[heroMedia]': 'true',
       'populate[heroMediaMobile]': 'true',
       'populate[eventDays]': 'true',
+      'populate[stats]': 'true',
       'populate[seo][populate]': 'ogImage',
     },
     tags: ['home-page'],
@@ -142,6 +143,15 @@ export default async function Home({ params }: Props) {
           { date: t('defaultEventDay4'), startTime: '08:00:00', endTime: '17:00:00' },
         ];
   const admission = home?.admission || t('defaultAdmission');
+  const stats =
+    home?.stats && home.stats.length > 0
+      ? home.stats
+      : [
+          { value: t('statExhibitors'), label: t('statExhibitorsLabel') },
+          { value: t('statKeynotes'), label: t('statKeynotesLabel') },
+          { value: t('statAttendees'), label: t('statAttendeesLabel') },
+          { value: t('statAccess'), label: t('statAccessLabel') },
+        ];
   const introVideoUrl = home?.introYoutubeUrl ?? 'https://www.youtube.com/watch?v=EB2RaO8jnck';
   const introVideoEmbedUrl = getYouTubeEmbedUrl(introVideoUrl);
 
@@ -222,38 +232,17 @@ export default async function Home({ params }: Props) {
 
             {/* Quick Metrics Bar at hero base */}
             <div className="mt-12 grid w-full max-w-3xl grid-cols-2 gap-2.5 sm:mt-14 sm:grid-cols-4 sm:gap-3.5">
-              <div className="glass-invert rounded-xl p-3 text-center transition-transform hover:-translate-y-0.5 sm:rounded-2xl sm:p-3.5">
-                <span className="gradient-text-aurora block font-mono text-lg font-extrabold tracking-tight sm:text-2xl">
-                  {t('statExhibitors')}
-                </span>
-                <span className="mt-0.5 block text-xs font-medium text-white/80">
-                  {t('statExhibitorsLabel')}
-                </span>
-              </div>
-              <div className="glass-invert rounded-xl p-3 text-center transition-transform hover:-translate-y-0.5 sm:rounded-2xl sm:p-3.5">
-                <span className="gradient-text-aurora block font-mono text-lg font-extrabold tracking-tight sm:text-2xl">
-                  {t('statKeynotes')}
-                </span>
-                <span className="mt-0.5 block text-xs font-medium text-white/80">
-                  {t('statKeynotesLabel')}
-                </span>
-              </div>
-              <div className="glass-invert rounded-xl p-3 text-center transition-transform hover:-translate-y-0.5 sm:rounded-2xl sm:p-3.5">
-                <span className="gradient-text-aurora block font-mono text-lg font-extrabold tracking-tight sm:text-2xl">
-                  {t('statAttendees')}
-                </span>
-                <span className="mt-0.5 block text-xs font-medium text-white/80">
-                  {t('statAttendeesLabel')}
-                </span>
-              </div>
-              <div className="glass-invert rounded-xl p-3 text-center transition-transform hover:-translate-y-0.5 sm:rounded-2xl sm:p-3.5">
-                <span className="gradient-text-aurora block font-mono text-lg font-extrabold tracking-tight sm:text-2xl">
-                  {t('statAccess')}
-                </span>
-                <span className="mt-0.5 block text-xs font-medium text-white/80">
-                  {t('statAccessLabel')}
-                </span>
-              </div>
+              {stats.map((stat) => (
+                <div
+                  key={`${stat.value}-${stat.label}`}
+                  className="glass-invert rounded-xl p-3 text-center transition-transform hover:-translate-y-0.5 sm:rounded-2xl sm:p-3.5"
+                >
+                  <span className="gradient-text-aurora block font-mono text-lg font-extrabold tracking-tight sm:text-2xl">
+                    {stat.value}
+                  </span>
+                  <span className="mt-0.5 block text-xs font-medium text-white/80">{stat.label}</span>
+                </div>
+              ))}
             </div>
           </div>
         </Container>

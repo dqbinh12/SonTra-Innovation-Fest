@@ -103,6 +103,16 @@
         }
       }
     },
+    "stats": {
+      "type": "component",
+      "repeatable": true,
+      "component": "home.stat",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
     "aboutTeaser": {
       "type": "text",
       "pluginOptions": {
