@@ -244,6 +244,7 @@
     "tabs": {
       "pressConference": "Press conference",
       "pressReleases": "Press release KIT",
+      "workshopDocuments": "Conference Materials",
       "mediaKit": "Media Kit",
       "photos": "Event photos"
     },
@@ -269,6 +270,17 @@
       "scanQr": "Scan to open on mobile",
       "note": "All official press releases and announcements are hosted and updated online.",
       "empty": "No press releases have been published yet."
+    },
+    "workshopDocuments": {
+      "title": "Conference Materials",
+      "lead": "Papers, presentation decks and specialist resources from Son Tra Innovation Fest conference sessions.",
+      "badge": "Conference",
+      "download": "Download document",
+      "open": "View online",
+      "openArchive": "Open conference materials archive",
+      "scanQr": "Scan to open on mobile",
+      "note": "All conference papers and presentation materials are stored and updated online.",
+      "empty": "Conference materials will be published after the sessions take place."
     },
     "mediaKit": {
       "title": "Media Kit",

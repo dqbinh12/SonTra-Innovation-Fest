@@ -64,7 +64,7 @@
     "ctaPrimary": "Lên kế hoạch tham dự",
     "ctaSecondary": "Liên hệ với chúng tôi",
     "statExhibitors": "30+",
-    "statExhibitorsLabel": "Gian hàng & Trình diễn",
+    "statExhibitorsLabel": "Trạm công nghệ & Trình diễn",
     "statKeynotes": "15+",
     "statKeynotesLabel": "Phiên thảo luận & Talks",
     "statAttendees": "5,000+",
@@ -147,7 +147,7 @@
     "showcaseEyebrow": "Gặp gỡ nhà đổi mới",
     "exhibitorsTitle": "Đơn vị triển lãm",
     "exhibitorCount": "{count} đơn vị",
-    "booth": "Gian hàng",
+    "booth": "Trạm công nghệ",
     "category": "Lĩnh vực",
     "empty": "Danh sách đơn vị triển lãm sẽ được công bố sớm.",
     "emptyLead": "Các doanh nghiệp và dự án trưng bày mới đang được cập nhật."
@@ -244,6 +244,7 @@
     "tabs": {
       "pressConference": "Họp báo",
       "pressReleases": "Bộ thông cáo báo chí",
+      "workshopDocuments": "Tài liệu hội thảo",
       "mediaKit": "Bộ tài liệu truyền thông",
       "photos": "Ảnh sự kiện"
     },
@@ -269,6 +270,17 @@
       "scanQr": "Quét mã để mở trên điện thoại",
       "note": "Toàn bộ thông cáo báo chí chính thức được lưu trữ và cập nhật trực tuyến.",
       "empty": "Chưa có thông cáo báo chí nào được công bố."
+    },
+    "workshopDocuments": {
+      "title": "Tài liệu hội thảo",
+      "lead": "Bài tham luận, tài liệu trình bày và tư liệu chuyên đề từ các phiên hội thảo của Son Tra Innovation Fest.",
+      "badge": "Hội thảo",
+      "download": "Tải tài liệu",
+      "open": "Xem trực tuyến",
+      "openArchive": "Mở kho tài liệu hội thảo",
+      "scanQr": "Quét mã để mở trên điện thoại",
+      "note": "Toàn bộ bài tham luận và tài liệu trình bày được lưu trữ, cập nhật trực tuyến.",
+      "empty": "Tài liệu hội thảo sẽ được đăng tải sau khi các phiên diễn ra."
     },
     "mediaKit": {
       "title": "Bộ tài liệu truyền thông",
@@ -321,7 +333,7 @@
       "attendanceLabel": "Quy mô khách",
       "attendanceValue": "2.000+ Lượt khách tham dự",
       "exhibitionLabel": "Triển lãm",
-      "exhibitionValue": "24 Gian hàng công nghệ",
+      "exhibitionValue": "24 Trạm công nghệ",
       "competitionsLabel": "Cuộc thi",
       "competitionsValue": "02 Cuộc thi sáng tạo"
     },

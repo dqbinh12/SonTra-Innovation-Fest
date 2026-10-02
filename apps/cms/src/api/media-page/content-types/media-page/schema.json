@@ -164,6 +164,33 @@
         }
       }
     },
+    "workshopDocumentsIntro": {
+      "type": "text",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "workshopDocumentsUrl": {
+      "type": "string",
+      "description": "Link to the workshop documents repository, drive folder, or cloud archive.",
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
+    },
+    "workshopDocuments": {
+      "type": "component",
+      "repeatable": true,
+      "component": "media.workshop-document",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
     "photoAlbums": {
       "type": "component",
       "repeatable": true,

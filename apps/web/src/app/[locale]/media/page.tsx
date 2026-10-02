@@ -12,6 +12,7 @@ import { MediaTabs, type MediaTab } from '@/components/media/media-tabs';
 import { PressConferencePanel } from '@/components/media/press-conference-panel';
 import { PressReleasesPanel } from '@/components/media/press-releases-panel';
 import { MediaKitPanel } from '@/components/media/media-kit-panel';
+import { WorkshopDocumentsPanel } from '@/components/media/workshop-documents-panel';
 import { EventPhotosPanel } from '@/components/media/event-photos-panel';
 
 type Props = { params: Promise<{ locale: string }> };
@@ -25,6 +26,7 @@ function getMediaPage(locale: string) {
       // come back missing.
       'populate[pressConference][populate]': 'schedule',
       'populate[pressReleases][populate]': 'file',
+      'populate[workshopDocuments][populate]': 'file',
       'populate[mediaKitItems][populate]': 'file',
       'populate[photoAlbums][populate]': 'coverImage',
       'populate[seo][populate]': 'ogImage',
@@ -94,13 +96,22 @@ export default async function Media({ params }: Props) {
       ),
     },
     {
+      key: 'workshop-documents',
+      label: t('tabs.workshopDocuments'),
+      panel: (
+        <WorkshopDocumentsPanel
+          documents={page?.workshopDocuments ?? []}
+          intro={page?.workshopDocumentsIntro}
+          url={page?.workshopDocumentsUrl ?? null}
+        />
+      ),
+    },
+    {
       key: 'media-kit',
       label: t('tabs.mediaKit'),
       panel: (
         <MediaKitPanel
-          items={page?.mediaKitItems ?? []}
           intro={page?.mediaKitIntro}
-          usage={page?.mediaKitUsage}
           url={page?.mediaKitUrl ?? null}
         />
       ),

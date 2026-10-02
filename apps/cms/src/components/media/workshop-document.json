@@ -1,0 +1,40 @@
+{
+  "collectionName": "components_media_workshop_documents",
+  "info": {
+    "displayName": "Workshop Document",
+    "description": "One conference or workshop document, with a file upload or external link.",
+    "icon": "file"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "required": true
+    },
+    "speaker": {
+      "type": "string",
+      "description": "Speaker, author, or presenting organization."
+    },
+    "category": {
+      "type": "string",
+      "description": "Track or document category shown as a label."
+    },
+    "summary": {
+      "type": "text",
+      "description": "Optional short description of the document."
+    },
+    "file": {
+      "type": "media",
+      "multiple": false,
+      "allowedTypes": ["files", "images"]
+    },
+    "externalUrl": {
+      "type": "string",
+      "description": "Use when the document is hosted externally, such as Google Drive."
+    },
+    "fileLabel": {
+      "type": "string",
+      "description": "Optional format/size hint, e.g. PDF · 5.2 MB."
+    }
+  }
+}

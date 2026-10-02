@@ -174,6 +174,18 @@ export interface MediaKitItem {
   fileLabel: string | null;
 }
 
+/** One conference or workshop document shown in the Media Center. */
+export interface WorkshopDocument {
+  title: string;
+  speaker: string | null;
+  category: string | null;
+  summary: string | null;
+  file: StrapiMedia | null;
+  externalUrl: string | null;
+  /** Optional format/size hint, e.g. "PDF - 5.2 MB". */
+  fileLabel: string | null;
+}
+
 /**
  * An album of event photography. The files themselves live on Google Drive,
  * not in Strapi — a festival shoot is thousands of full-resolution frames, and
@@ -329,6 +341,9 @@ export interface MediaPage extends StrapiEntry {
   mediaKitUrl?: string | null;
   mediaKitItems: MediaKitItem[];
   mediaKitUsage: RichText | null;
+  workshopDocumentsIntro?: string | null;
+  workshopDocumentsUrl?: string | null;
+  workshopDocuments?: WorkshopDocument[];
   photosIntro: string | null;
   photoCredit: string | null;
   /** The main Drive folder holding everything. */
